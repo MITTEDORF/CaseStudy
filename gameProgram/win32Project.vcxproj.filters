@@ -29,6 +29,9 @@
     <Filter Include="object\character">
       <UniqueIdentifier>{dea42c2b-8d53-4d78-9668-c5bbe592cb29}</UniqueIdentifier>
     </Filter>
+    <Filter Include="import">
+      <UniqueIdentifier>{bde76769-a7af-42a1-b536-7d455392063d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debugproc.cpp">
@@ -70,9 +73,6 @@
     <ClCompile Include="sceneX.cpp">
       <Filter>object\scene</Filter>
     </ClCompile>
-    <ClCompile Include="import.cpp">
-      <Filter>object</Filter>
-    </ClCompile>
     <ClCompile Include="listObject.cpp">
       <Filter>object</Filter>
     </ClCompile>
@@ -108,6 +108,9 @@
     </ClCompile>
     <ClCompile Include="game.cpp">
       <Filter>phase</Filter>
+    </ClCompile>
+    <ClCompile Include="import.cpp">
+      <Filter>import</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -150,9 +153,6 @@
     <ClInclude Include="sceneBillboard.h">
       <Filter>object\scene</Filter>
     </ClInclude>
-    <ClInclude Include="import.h">
-      <Filter>object</Filter>
-    </ClInclude>
     <ClInclude Include="listObject.h">
       <Filter>object</Filter>
     </ClInclude>
@@ -188,6 +188,9 @@
     </ClInclude>
     <ClInclude Include="game.h">
       <Filter>phase</Filter>
+    </ClInclude>
+    <ClInclude Include="import.h">
+      <Filter>import</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

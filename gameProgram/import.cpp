@@ -18,24 +18,12 @@ const char* TEX_PATH[] =
 {
 	NULL,
 	"./data/TEXTURE/fade.jpg",
-	"./data/TEXTURE/sky000.jpg",
-	"./data/TEXTURE/concrete.jpg",
-	"./data/TEXTURE/dirt.png",
-	"./data/TEXTURE/mist.jpg",
-	"./data/TEXTURE/title.jpg",
-	"./data/TEXTURE/result.jpg",
 };
 
 // Xƒtƒ@ƒCƒ‹
 const char* X_PATH[] =
 {
 	NULL,
-	"./data/MODEL/yogore_souzi.x",
-	"./data/MODEL/wall.x",
-	"./data/MODEL/dust.x",
-	"./data/MODEL/Bill.x",
-	"./data/MODEL/Three_Bill.x",
-	"./data/MODEL/L_Bill.x"
 };
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
