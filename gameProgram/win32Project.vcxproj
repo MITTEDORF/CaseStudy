@@ -75,7 +75,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="camera.cpp" />
     <ClCompile Include="debugproc.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="game.cpp" />
@@ -83,26 +82,17 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="inputKeyboard.cpp" />
     <ClCompile Include="inputPadX.cpp" />
-    <ClCompile Include="light.cpp" />
     <ClCompile Include="listObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="manager.cpp" />
-    <ClCompile Include="meshCylinder.cpp" />
-    <ClCompile Include="meshDome.cpp" />
-    <ClCompile Include="meshField.cpp" />
-    <ClCompile Include="meshWall.cpp" />
     <ClCompile Include="phase.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="result.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="scene2D.cpp" />
-    <ClCompile Include="scene3D.cpp" />
-    <ClCompile Include="sceneBillboard.cpp" />
-    <ClCompile Include="sceneX.cpp" />
     <ClCompile Include="title.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="camera.h" />
     <ClInclude Include="debugproc.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="game.h" />
@@ -110,22 +100,14 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="inputKeyboard.h" />
     <ClInclude Include="inputPadX.h" />
-    <ClInclude Include="light.h" />
     <ClInclude Include="listObject.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="manager.h" />
-    <ClInclude Include="meshCylinder.h" />
-    <ClInclude Include="meshDome.h" />
-    <ClInclude Include="meshField.h" />
-    <ClInclude Include="meshWall.h" />
     <ClInclude Include="phase.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="result.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="scene2D.h" />
-    <ClInclude Include="scene3D.h" />
-    <ClInclude Include="sceneBillboard.h" />
-    <ClInclude Include="sceneX.h" />
     <ClInclude Include="title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -17,12 +17,6 @@
     <Filter Include="object\scene">
       <UniqueIdentifier>{5207884a-4e7a-4258-915f-e4aec648b88c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="object\mesh">
-      <UniqueIdentifier>{49b91999-f57f-4c76-83f0-ecb5c3d6587f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="view">
-      <UniqueIdentifier>{2421077c-becb-4b75-a95c-81f38b26622d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="phase">
       <UniqueIdentifier>{1fa324ed-f41a-417b-abb7-0b6f9d9acf19}</UniqueIdentifier>
     </Filter>
@@ -61,35 +55,8 @@
     <ClCompile Include="scene2D.cpp">
       <Filter>object\scene</Filter>
     </ClCompile>
-    <ClCompile Include="scene3D.cpp">
-      <Filter>object\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="sceneBillboard.cpp">
-      <Filter>object\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="sceneX.cpp">
-      <Filter>object\scene</Filter>
-    </ClCompile>
     <ClCompile Include="listObject.cpp">
       <Filter>object</Filter>
-    </ClCompile>
-    <ClCompile Include="meshCylinder.cpp">
-      <Filter>object\mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="meshDome.cpp">
-      <Filter>object\mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="meshField.cpp">
-      <Filter>object\mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="meshWall.cpp">
-      <Filter>object\mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="camera.cpp">
-      <Filter>view</Filter>
-    </ClCompile>
-    <ClCompile Include="light.cpp">
-      <Filter>view</Filter>
     </ClCompile>
     <ClCompile Include="fade.cpp">
       <Filter>phase</Filter>
@@ -132,41 +99,14 @@
     <ClInclude Include="inputPadX.h">
       <Filter>input</Filter>
     </ClInclude>
-    <ClInclude Include="sceneX.h">
-      <Filter>object\scene</Filter>
-    </ClInclude>
     <ClInclude Include="scene.h">
       <Filter>object\scene</Filter>
     </ClInclude>
     <ClInclude Include="scene2D.h">
       <Filter>object\scene</Filter>
     </ClInclude>
-    <ClInclude Include="scene3D.h">
-      <Filter>object\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="sceneBillboard.h">
-      <Filter>object\scene</Filter>
-    </ClInclude>
     <ClInclude Include="listObject.h">
       <Filter>object</Filter>
-    </ClInclude>
-    <ClInclude Include="meshCylinder.h">
-      <Filter>object\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="meshDome.h">
-      <Filter>object\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="meshField.h">
-      <Filter>object\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="meshWall.h">
-      <Filter>object\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>view</Filter>
-    </ClInclude>
-    <ClInclude Include="light.h">
-      <Filter>view</Filter>
     </ClInclude>
     <ClInclude Include="fade.h">
       <Filter>phase</Filter>
