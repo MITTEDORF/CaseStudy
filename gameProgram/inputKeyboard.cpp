@@ -16,6 +16,14 @@
 #define REPEAT_MIN		(30)	// リピート開始カウント数
 #define REPEAT_BETWEEN	(3)		// リピート間隔カウント数
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// 静的変数
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+BYTE CInputKeyboard::m_state[KEYBOARD_MAX];
+BYTE CInputKeyboard::m_trigger[KEYBOARD_MAX];
+BYTE CInputKeyboard::m_release[KEYBOARD_MAX];
+BYTE CInputKeyboard::m_repeat[KEYBOARD_MAX];
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -54,7 +62,7 @@ HRESULT CInputKeyboard::Init(HINSTANCE instance, HWND wnd)
 	HRESULT_FUNC(CInput::Init(instance, wnd))
 
 	// デバイスの生成
-	if(FAILED(m_dInput->CreateDevice(GUID_SysKeyboard, &m_dIDevice, NULL)))
+	if(FAILED(m_input->CreateDevice(GUID_SysKeyboard, &m_inputDevice, NULL)))
 	{
 		MessageBox(NULL, "デバイスが生成できませんでした", "エラー", (MB_OK | MB_ICONERROR));
 		return E_FAIL;
@@ -64,14 +72,14 @@ HRESULT CInputKeyboard::Init(HINSTANCE instance, HWND wnd)
 	// 設定
 	//----------------------------
 	// データフォーマット
-	if(FAILED(m_dIDevice->SetDataFormat(&c_dfDIKeyboard)))
+	if(FAILED(m_inputDevice->SetDataFormat(&c_dfDIKeyboard)))
 	{
 		MessageBox(NULL, "データフォーマットを設定できませんでした", "エラー", (MB_OK | MB_ICONERROR));
 		return E_FAIL;
 	}
 
 	// 協調モード
-	if(FAILED(m_dIDevice->SetCooperativeLevel(wnd, (DISCL_FOREGROUND | DISCL_NONEXCLUSIVE))))
+	if(FAILED(m_inputDevice->SetCooperativeLevel(wnd, (DISCL_FOREGROUND | DISCL_NONEXCLUSIVE))))
 	{
 		MessageBox(NULL, "協調モードを設定できませんでした", "エラー", (MB_OK | MB_ICONERROR));
 		return E_FAIL;
@@ -80,7 +88,7 @@ HRESULT CInputKeyboard::Init(HINSTANCE instance, HWND wnd)
 	//----------------------------
 	// アクセス権取得
 	//----------------------------
-	m_dIDevice->Acquire();
+	m_inputDevice->Acquire();
 
 	return S_OK;
 }
@@ -94,11 +102,11 @@ void CInputKeyboard::Uninit(void)
 	CInput::Uninit();
 
 	// アクセス権開放
-	if(m_dIDevice != NULL)
+	if(m_inputDevice != NULL)
 	{
-		m_dIDevice->Unacquire();
-		m_dIDevice->Release();
-		m_dIDevice = NULL;
+		m_inputDevice->Unacquire();
+		m_inputDevice->Release();
+		m_inputDevice = NULL;
 	}
 }
 
@@ -109,7 +117,7 @@ void CInputKeyboard::Update(void)
 {
 	BYTE aKeyState[KEYBOARD_MAX];
 
-	if(SUCCEEDED(m_dIDevice->GetDeviceState(sizeof(aKeyState), &aKeyState[0])))
+	if(SUCCEEDED(m_inputDevice->GetDeviceState(sizeof(aKeyState), &aKeyState[0])))
 	{
 		for(int cnt = 0; cnt < KEYBOARD_MAX; ++cnt)
 		{
@@ -151,6 +159,6 @@ void CInputKeyboard::Update(void)
 	else
 	{
 		// アクセス権取り直し
-		m_dIDevice->Acquire();
+		m_inputDevice->Acquire();
 	}
 }

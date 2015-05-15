@@ -33,8 +33,8 @@ public:
 	virtual void	Update(void) = 0;
 
 protected:
-	static LPDIRECTINPUT8	m_dInput;	// DirectInputオブジェへのポインタ
-	LPDIRECTINPUTDEVICE8	m_dIDevice;	// 入力処理のデバイスへのポインタ
+	static LPDIRECTINPUT8	m_input;	// DirectInputオブジェへのポインタ
+	LPDIRECTINPUTDEVICE8	m_inputDevice;	// 入力処理のデバイスへのポインタ
 
 	static bool m_padFlg[PAD_NUM];	// パッド使用有無
 };

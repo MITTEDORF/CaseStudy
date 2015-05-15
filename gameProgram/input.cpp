@@ -13,7 +13,7 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 静的変数
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-LPDIRECTINPUT8	CInput::m_dInput		  = nullptr;
+LPDIRECTINPUT8	CInput::m_input		  = nullptr;
 bool			CInput::m_padFlg[PAD_NUM] = {false};
 
 //=============================================================================
@@ -24,9 +24,9 @@ HRESULT CInput::Init(HINSTANCE instance, HWND wnd)
 	//----------------------------
 	// DirectInputオブジェクト生成
 	//----------------------------
-	if(m_dInput == NULL)
+	if(m_input == NULL)
 	{
-		if(FAILED(DirectInput8Create(instance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&m_dInput, NULL)))
+		if(FAILED(DirectInput8Create(instance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&m_input, NULL)))
 		{
 			MessageBox(NULL, "オブジェクトが生成できませんでした", "エラー", (MB_OK | MB_ICONERROR));
 			return E_FAIL;
@@ -42,5 +42,5 @@ HRESULT CInput::Init(HINSTANCE instance, HWND wnd)
 void CInput::Uninit(void)
 {
 	// オブジェ開放
-	SAFE_RELEASE(m_dInput);
+	SAFE_RELEASE(m_input);
 }

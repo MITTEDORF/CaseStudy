@@ -34,16 +34,16 @@ public:
 	void	Uninit(void);
 	void	Update(void);
 
-	bool GetPress(int key){return (m_state[key] & 0x80) ? true : false;}
-	bool GetTrigger(int key){return (m_trigger[key] & 0x80) ? true : false;}
-	bool GetSetDelete(int key){return (m_release[key] & 0x80) ? true : false;}
-	bool GetRepeat(int key){return (m_repeat[key] & 0x80) ? true : false;}
+	static bool GetPress(int key){return (m_state[key] & 0x80) ? true : false;}
+	static bool GetTrigger(int key){return (m_trigger[key] & 0x80) ? true : false;}
+	static bool GetSetDelete(int key){return (m_release[key] & 0x80) ? true : false;}
+	static bool GetRepeat(int key){return (m_repeat[key] & 0x80) ? true : false;}
 
 private:
-	BYTE m_state[KEYBOARD_MAX];
-	BYTE m_trigger[KEYBOARD_MAX];
-	BYTE m_release[KEYBOARD_MAX];
-	BYTE m_repeat[KEYBOARD_MAX];
+	static BYTE m_state[KEYBOARD_MAX];
+	static BYTE m_trigger[KEYBOARD_MAX];
+	static BYTE m_release[KEYBOARD_MAX];
+	static BYTE m_repeat[KEYBOARD_MAX];
 
 	unsigned int m_cntRepeat[KEYBOARD_MAX];
 };

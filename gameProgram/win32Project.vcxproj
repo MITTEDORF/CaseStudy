@@ -82,7 +82,6 @@
     <ClCompile Include="import.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="inputKeyboard.cpp" />
-    <ClCompile Include="inputMouse.cpp" />
     <ClCompile Include="inputPadX.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="listObject.cpp" />
@@ -110,7 +109,6 @@
     <ClInclude Include="import.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="inputKeyboard.h" />
-    <ClInclude Include="inputMouse.h" />
     <ClInclude Include="inputPadX.h" />
     <ClInclude Include="light.h" />
     <ClInclude Include="listObject.h" />

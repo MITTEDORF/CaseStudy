@@ -52,9 +52,6 @@
     <ClCompile Include="inputKeyboard.cpp">
       <Filter>input</Filter>
     </ClCompile>
-    <ClCompile Include="inputMouse.cpp">
-      <Filter>input</Filter>
-    </ClCompile>
     <ClCompile Include="inputPadX.cpp">
       <Filter>input</Filter>
     </ClCompile>
@@ -130,9 +127,6 @@
       <Filter>input</Filter>
     </ClInclude>
     <ClInclude Include="inputKeyboard.h">
-      <Filter>input</Filter>
-    </ClInclude>
-    <ClInclude Include="inputMouse.h">
       <Filter>input</Filter>
     </ClInclude>
     <ClInclude Include="inputPadX.h">
