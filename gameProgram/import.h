@@ -24,6 +24,13 @@ public:
 	{
 		TEX_NONE = 0,
 		TEX_FADE,
+
+		TEX_TITLELOGO,
+
+		TEX_ASPHALT,
+		TEX_BLOCKWALL,
+		TEX_POLE0,
+
 		TEX_MAX
 	} TEXTURES;
 

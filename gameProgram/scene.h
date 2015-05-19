@@ -38,12 +38,6 @@ public:
 		OBJTYPE_FADE,
 	} OBJTYPE;
 
-	typedef enum
-	{
-		MESHTEX_FULL,
-		MESHTEX_PATCH
-	} MESHTEX_TYPE;
-
 	CScene(int priority = PRIORITY_MAX - 1, OBJTYPE objType = OBJTYPE_NONE);
 	virtual ~CScene(){};
 
@@ -57,15 +51,14 @@ public:
 	void	UnLinkScene(void);
 	void	Delete(void){m_delete = true;}
 
-	virtual void		SetPos(D3DXVECTOR3 pos) = 0;
-	virtual void		SetPos(float x, float y, float z) = 0;
-	virtual D3DXVECTOR3	GetPos(void) = 0;
-	virtual void		SetRot(D3DXVECTOR3 rot) = 0;
-	virtual void		SetRot(float x, float y, float z) = 0;
-	virtual D3DXVECTOR3	GetRot(void) = 0;
-	virtual void		SetSize(D3DXVECTOR3 size) = 0;
-	virtual void		SetSize(float x, float y, float z) = 0;
-	virtual D3DXVECTOR3	GetSize(void) = 0;
+	virtual void		SetPos(D3DXVECTOR2 pos) = 0;
+	virtual void		SetPos(float x, float y) = 0;
+	virtual D3DXVECTOR2	GetPos(void) = 0;
+	virtual void		SetRot(float rot) = 0;
+	virtual float		GetRot(void) = 0;
+	virtual void		SetSize(D3DXVECTOR2 size) = 0;
+	virtual void		SetSize(float x, float y) = 0;
+	virtual D3DXVECTOR2	GetSize(void) = 0;
 	virtual void		SetColor(D3DXCOLOR color) = 0;
 	virtual void		SetColor(float r, float g, float b, float a) = 0;
 	virtual D3DXCOLOR	GetColor(void) = 0;
@@ -90,23 +83,20 @@ public:
 	void	SetDrawNext(CScene* obj){m_drawNext = obj;}
 	CScene* GetDrawNext(void){return m_drawNext;}
 
-	virtual D3DXVECTOR3 GetVtxMin(void){return D3DXVECTOR3(0.0f, 0.0f, 0.0f);}
-	virtual D3DXVECTOR3 GetVtxMax(void){return D3DXVECTOR3(0.0f, 0.0f, 0.0f);};
-
 protected:
 	LPDIRECT3DDEVICE9 m_device;
 
-	D3DXVECTOR3 m_pos;
-	D3DXVECTOR3 m_rot;
-	D3DXVECTOR3 m_scl;
-	D3DXVECTOR3 m_size;
+	D3DXVECTOR2 m_pos;
+	float		m_rot;
+	D3DXVECTOR2 m_scl;
+	D3DXVECTOR2 m_size;
 	D3DXCOLOR	m_color;
 
-	D3DXVECTOR3 m_posOld;
-	D3DXVECTOR3 m_rotOld;
+	D3DXVECTOR2 m_posOld;
+	D3DXVECTOR2 m_rotOld;
 
-	D3DXVECTOR3 m_posDest;
-	D3DXVECTOR3 m_rotDest;
+	D3DXVECTOR2 m_posDest;
+	D3DXVECTOR2 m_rotDest;
 
 private:
 	int		m_priority;
