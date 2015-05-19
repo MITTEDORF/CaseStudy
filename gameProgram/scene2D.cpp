@@ -13,7 +13,7 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ定義
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#define POLIGON_SIZE (1.0f)
+#define POLIGON_SIZE (512.0f)
 
 //=============================================================================
 // コンストラクタ
@@ -23,9 +23,9 @@ CScene2D::CScene2D(int priority, OBJTYPE objType) : CScene(priority, objType)
 	m_texture	= NULL;
 	m_vtxBuff	= NULL;
 
-	m_rot	= D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_pos	= D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_size	= D3DXVECTOR3(POLIGON_SIZE, POLIGON_SIZE, 0.0f);
+	m_rot	= 0.0f;
+	m_pos	= D3DXVECTOR2(0.0f, 0.0f);
+	m_size	= D3DXVECTOR2(POLIGON_SIZE, POLIGON_SIZE);
 	m_color	= D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
 	D3DXVECTOR2 half = D3DXVECTOR2(m_size.x / 2.0f, m_size.y / 2.0f);
@@ -165,7 +165,7 @@ void CScene2D::Draw(void)
 void CScene2D::SetVertexPolygon(void)
 {
 	VERTEX_2D* vtx;
-	D3DXVECTOR3	work[4];
+	D3DXVECTOR2	work[4];
 
 	// 座標設定
 	switch(m_pointType)
@@ -192,14 +192,14 @@ void CScene2D::SetVertexPolygon(void)
 			m_angle	 = atan2f(half.x, half.y);
 
 			// 各頂点の座標計算
-			work[0].x = m_pos.x - sinf(m_angle - m_rot.z) * m_length;
-			work[0].y = m_pos.y - cosf(m_angle - m_rot.z) * m_length;
-			work[1].x = m_pos.x + sinf(m_angle + m_rot.z) * m_length;
-			work[1].y = m_pos.y - cosf(m_angle + m_rot.z) * m_length;
-			work[2].x = m_pos.x - sinf(m_angle + m_rot.z) * m_length;
-			work[2].y = m_pos.y + cosf(m_angle + m_rot.z) * m_length;
-			work[3].x = m_pos.x + sinf(m_angle - m_rot.z) * m_length;
-			work[3].y = m_pos.y + cosf(m_angle - m_rot.z) * m_length;
+			work[0].x = m_pos.x - sinf(m_angle - m_rot) * m_length;
+			work[0].y = m_pos.y - cosf(m_angle - m_rot) * m_length;
+			work[1].x = m_pos.x + sinf(m_angle + m_rot) * m_length;
+			work[1].y = m_pos.y - cosf(m_angle + m_rot) * m_length;
+			work[2].x = m_pos.x - sinf(m_angle + m_rot) * m_length;
+			work[2].y = m_pos.y + cosf(m_angle + m_rot) * m_length;
+			work[3].x = m_pos.x + sinf(m_angle - m_rot) * m_length;
+			work[3].y = m_pos.y + cosf(m_angle - m_rot) * m_length;
 			break;
 		}
 	}

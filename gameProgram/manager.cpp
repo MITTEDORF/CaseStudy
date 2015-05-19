@@ -53,9 +53,6 @@ HRESULT CManager::Init(HINSTANCE instance, HWND wnd, bool window)
 {
 	LPDIRECT3DDEVICE9 device;
 
-	// —”
-	srand((unsigned int)time(NULL));
-
 	//----------------------------
 	// ‹¤’Ê•”
 	//----------------------------
@@ -73,9 +70,9 @@ HRESULT CManager::Init(HINSTANCE instance, HWND wnd, bool window)
 	//----------------------------
 	// ‰Šú‹N“®‰æ–Ê
 	//----------------------------
-	CScene2D* setup = CScene2D::Create(device, "", CScene2D::POINT_CENTER);
-	setup->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f);
-	setup->SetPos(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f, 0.0f);
+	CScene2D* setup = CScene2D::Create(device, "./data/TEXTURE/fade.jpg", CScene2D::POINT_CENTER);
+	setup->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	setup->SetPos(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
 	m_renderer->Draw();
 
 	//----------------------------

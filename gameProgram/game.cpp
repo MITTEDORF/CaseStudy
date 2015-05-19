@@ -14,6 +14,7 @@
 
 #include "result.h"
 
+#include "scene2D.h"
 #include "inputKeyboard.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -94,7 +95,6 @@ void CGame::Update(void)
 //=============================================================================
 void CGame::Draw(void)
 {
-	// カメラ設定
 }
 
 //=============================================================================
@@ -119,6 +119,11 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	// フィールド
 	//----------------------------
+	CScene2D::Create(device, CImport::TEX_BLOCKWALL, CScene2D::POINT_LEFTTOP);
+	CScene2D::Create(device, CImport::TEX_POLE0, CScene2D::POINT_LEFTTOP);
+
+	CScene2D* asphalt = CScene2D::Create(device, CImport::TEX_ASPHALT, CScene2D::POINT_LEFTTOP);
+	asphalt->SetPos(0.0f, 512.0f);
 
 	//----------------------------
 	// キャラクター

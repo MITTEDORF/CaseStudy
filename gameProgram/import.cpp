@@ -18,6 +18,12 @@ const char* TEX_PATH[] =
 {
 	NULL,
 	"./data/TEXTURE/fade.jpg",
+
+	"./data/TEXTURE/titleLogo.png",
+
+	"./data/TEXTURE/asphalt.png",
+	"./data/TEXTURE/blockWall.png",
+	"./data/TEXTURE/pole0.png",
 };
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
