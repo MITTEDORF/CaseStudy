@@ -26,6 +26,9 @@
     <Filter Include="import">
       <UniqueIdentifier>{bde76769-a7af-42a1-b536-7d455392063d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="object\bavk">
+      <UniqueIdentifier>{1aaec6db-a137-4919-bd63-686988bf7e74}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debugproc.cpp">
