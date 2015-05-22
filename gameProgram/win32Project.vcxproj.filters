@@ -29,6 +29,9 @@
     <Filter Include="object\bavk">
       <UniqueIdentifier>{1aaec6db-a137-4919-bd63-686988bf7e74}</UniqueIdentifier>
     </Filter>
+    <Filter Include="object\character\player">
+      <UniqueIdentifier>{3bdffeca-7f8a-4747-840a-baba7da01d88}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debugproc.cpp">
@@ -79,6 +82,9 @@
     <ClCompile Include="import.cpp">
       <Filter>import</Filter>
     </ClCompile>
+    <ClCompile Include="character_player.cpp">
+      <Filter>object\character\player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debugproc.h">
@@ -128,6 +134,9 @@
     </ClInclude>
     <ClInclude Include="import.h">
       <Filter>import</Filter>
+    </ClInclude>
+    <ClInclude Include="character_player.h">
+      <Filter>object\character\player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
