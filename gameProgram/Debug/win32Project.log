@@ -1,0 +1,102 @@
+﻿2015/05/15 14:21:58 にビルドを開始しました。
+     1>ノード 2 上のプロジェクト "C:\Users\ths25012\Documents\GitProject\CaseStudy\gameProgram\win32Project.vcxproj" (build ターゲット)。
+     1>InitializeBuildStatus:
+         "AlwaysCreate" が指定されたため "Debug\directX.unsuccessfulbuild" を作成しています。
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt camera.cpp debugproc.cpp fade.cpp game.cpp import.cpp input.cpp inputKeyboard.cpp inputPadX.cpp light.cpp listObject.cpp main.cpp manager.cpp meshCylinder.cpp meshDome.cpp meshField.cpp meshWall.cpp phase.cpp renderer.cpp result.cpp scene.cpp scene2D.cpp scene3D.cpp sceneBillboard.cpp sceneX.cpp title.cpp
+         title.cpp
+         sceneX.cpp
+         sceneBillboard.cpp
+         scene3D.cpp
+         scene2D.cpp
+         scene.cpp
+         result.cpp
+         renderer.cpp
+         phase.cpp
+         meshWall.cpp
+         meshField.cpp
+         meshDome.cpp
+         meshCylinder.cpp
+         manager.cpp
+         main.cpp
+         listObject.cpp
+         light.cpp
+         inputPadX.cpp
+         inputKeyboard.cpp
+         input.cpp
+         コードを生成中...
+         コンパイル中...
+         import.cpp
+         game.cpp
+         fade.cpp
+         debugproc.cpp
+         camera.cpp
+         コードを生成中...
+       ManifestResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\directX.exe.embed.manifest.res" Debug\directX_manifest.rc 
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\ths25012\Documents\GitProject\CaseStudy\gameProgram\Debug\directX.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\directX.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\ths25012\Documents\GitProject\CaseStudy\gameProgram\Debug\directX.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\ths25012\Documents\GitProject\CaseStudy\gameProgram\Debug\directX.lib" /MACHINE:X86 Debug\directX.exe.embed.manifest.res
+         Debug\camera.obj
+         Debug\debugproc.obj
+         Debug\fade.obj
+         Debug\game.obj
+         Debug\import.obj
+         Debug\input.obj
+         Debug\inputKeyboard.obj
+         Debug\inputPadX.obj
+         Debug\light.obj
+         Debug\listObject.obj
+         Debug\main.obj
+         Debug\manager.obj
+         Debug\meshCylinder.obj
+         Debug\meshDome.obj
+         Debug\meshField.obj
+         Debug\meshWall.obj
+         Debug\phase.obj
+         Debug\renderer.obj
+         Debug\result.obj
+         Debug\scene.obj
+         Debug\scene2D.obj
+         Debug\scene3D.obj
+         Debug\sceneBillboard.obj
+         Debug\sceneX.obj
+         Debug\title.obj
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\directX.exe.embed.manifest" /manifest Debug\directX.exe.intermediate.manifest
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\directX.exe.embed.manifest.res" Debug\directX_manifest.rc 
+       LinkEmbedManifest:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\ths25012\Documents\GitProject\CaseStudy\gameProgram\Debug\directX.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\directX.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\ths25012\Documents\GitProject\CaseStudy\gameProgram\Debug\directX.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\ths25012\Documents\GitProject\CaseStudy\gameProgram\Debug\directX.lib" /MACHINE:X86 Debug\directX.exe.embed.manifest.res
+         Debug\camera.obj
+         Debug\debugproc.obj
+         Debug\fade.obj
+         Debug\game.obj
+         Debug\import.obj
+         Debug\input.obj
+         Debug\inputKeyboard.obj
+         Debug\inputPadX.obj
+         Debug\light.obj
+         Debug\listObject.obj
+         Debug\main.obj
+         Debug\manager.obj
+         Debug\meshCylinder.obj
+         Debug\meshDome.obj
+         Debug\meshField.obj
+         Debug\meshWall.obj
+         Debug\phase.obj
+         Debug\renderer.obj
+         Debug\result.obj
+         Debug\scene.obj
+         Debug\scene2D.obj
+         Debug\scene3D.obj
+         Debug\sceneBillboard.obj
+         Debug\sceneX.obj
+         Debug\title.obj
+         win32Project.vcxproj -> C:\Users\ths25012\Documents\GitProject\CaseStudy\gameProgram\Debug\directX.exe
+       FinalizeBuildStatus:
+         ファイル "Debug\directX.unsuccessfulbuild" を削除しています。
+         "Debug\directX.lastbuildstate" のタッチ タスクを実行しています。
+     1>プロジェクト "C:\Users\ths25012\Documents\GitProject\CaseStudy\gameProgram\win32Project.vcxproj" (build ターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+
+経過時間 00:00:39.30
