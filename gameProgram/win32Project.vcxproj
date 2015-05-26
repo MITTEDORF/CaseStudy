@@ -84,6 +84,7 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="inputKeyboard.cpp" />
     <ClCompile Include="inputPadX.cpp" />
+    <ClCompile Include="math_animation.cpp" />
     <ClCompile Include="sky.cpp" />
     <ClCompile Include="listObject.cpp" />
     <ClCompile Include="main.cpp" />
@@ -106,6 +107,8 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="inputKeyboard.h" />
     <ClInclude Include="inputPadX.h" />
+    <ClInclude Include="math_animation.h" />
+    <ClInclude Include="player_config.h" />
     <ClInclude Include="sky.h" />
     <ClInclude Include="listObject.h" />
     <ClInclude Include="main.h" />
