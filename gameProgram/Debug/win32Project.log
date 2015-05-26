@@ -1,4 +1,4 @@
-﻿2015/05/22 17:06:53 にビルドを開始しました。
+﻿2015/05/26 12:09:10 にビルドを開始しました。
      1>ノード 2 上のプロジェクト "C:\Users\ths25012\Documents\GitProject\CaseStudy\gameProgram\win32Project.vcxproj" (build ターゲット)。
      1>InitializeBuildStatus:
          "AlwaysCreate" が指定されたため "Debug\directX.unsuccessfulbuild" を作成しています。
@@ -17,4 +17,4 @@
 
 ビルドに成功しました。
 
-経過時間 00:00:00.10
+経過時間 00:00:00.07

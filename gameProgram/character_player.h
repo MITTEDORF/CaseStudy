@@ -59,7 +59,7 @@ public:
 	void SetKeyboard(CInputKeyboard* keyboard){m_keyboard = keyboard;}
 
 	//移動速度の取得処理
-	float move_spd_()
+	D3DXVECTOR2 move_spd_()
 	{
 		return (m_move_spd);
 	}
@@ -68,28 +68,47 @@ private:
 	//キーボード情報格納変数
 	CInputKeyboard*	m_keyboard;
 	//プレイヤーの移動速度
-	float m_move_spd;
+	D3DXVECTOR2 m_move_spd;
 	//ジャンプ中かどうか
 	bool isJump;
 	//ジャンプ可能かどうか
 	bool canJump;
-	//ジャンプスピード
-	float jump_spd;
+	//攻撃中かどうか
+	bool isAttack;
+	//現在のアニメーション番号
+	int nowAnim;
+	//アニメーションのカウント用
+	int cntAnim;
+
+	CScene2D* Assy;
 
 
 	//変数のNULL埋め処理
 	void NullSetVariable(void)
 	{
 		m_keyboard=NULL;
-		m_move_spd=0.0f;
+		Assy=NULL;
+		cntAnim=0;
+		nowAnim=1;
+		m_move_spd=D3DXVECTOR2(0.0f,0.0f);
 		isJump=false;
+		isAttack=false;
 		canJump=true;
-		jump_spd=0.0f;
 	}
+	//移動処理
+	void Move();
+	//攻撃処理
+	void Attack();
 	//ジャンプ処理
 	void moveJump();
 	//重力をかける
 	void AddGravity();
+	//様々な当たり判定
+	void Collider();
+	//アニメーション処理
+	void Anim(int maxTex,int nowTex);
+
+
 
 };
 
