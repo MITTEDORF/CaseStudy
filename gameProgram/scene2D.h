@@ -40,6 +40,8 @@ public:
 
 	void		SetPos(D3DXVECTOR2 pos){m_pos = pos; SetVertexPolygon();}
 	void		SetPos(float x, float y){m_pos = D3DXVECTOR2(x, y); SetVertexPolygon();}
+	void		SetPosX(float x){m_pos.x = x; SetVertexPolygon();}
+	void		SetPosY(float y){m_pos.y = y; SetVertexPolygon();}
 	D3DXVECTOR2	GetPos(void){return m_pos;}
 	void		SetRot(float rot){m_rot = rot; SetVertexPolygon();}
 	float		GetRot(void){return m_rot;}

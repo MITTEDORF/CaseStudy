@@ -28,8 +28,9 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/sky05.png",
 
 	"./data/TEXTURE/asphalt.png",
-	"./data/TEXTURE/blockWall.png",
-	"./data/TEXTURE/pole0.png",
+	//"./data/TEXTURE/blockWall.png",
+	//"./data/TEXTURE/pole0.png",
+
 	"./data/TEXTURE/player_wait.png",
 	"./data/TEXTURE/Assy_one.png",
 	"./data/TEXTURE/player_attack.png",
