@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// CImportクラス [import.cpp]
+// CSkyクラス [sky.h]
 // Author :MAI TANABE
 //
 //*****************************************************************************
@@ -8,53 +8,34 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // インクルードファイル
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#include "sky.h"
+
+#include "scene2D.h"
 #include "import.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// マクロ定義
+// マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// テクスチャ
-const char* TEX_PATH[] =
-{
-	NULL,
-	"./data/TEXTURE/fade.jpg",
-
-	"./data/TEXTURE/titleLogo.png",
-
-	"./data/TEXTURE/sky01.png",
-	"./data/TEXTURE/sky02.png",
-	"./data/TEXTURE/sky03.png",
-	"./data/TEXTURE/sky04.png",
-	"./data/TEXTURE/sky05.png",
-
-	"./data/TEXTURE/asphalt.png",
-	"./data/TEXTURE/blockWall.png",
-	"./data/TEXTURE/pole0.png",
-};
+#define SKY_LEFT	(-SCREEN_WIDTH)
+#define SKY_RIGHT	(SCREEN_WIDTH * (SKY_MAX - 2))
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 静的変数
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-LPDIRECT3DTEXTURE9	CImport::m_tex[TEX_MAX];
 
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CImport::CImport(void)
+CSky::CSky(void)
 {
-	// テクスチャ
-	for(int cnt = 0; cnt < TEX_MAX; ++cnt)
-	{
-		m_tex[cnt] = nullptr;
-	}
 }
 
 //=============================================================================
 // 生成
 //=============================================================================
-CImport* CImport::Create(LPDIRECT3DDEVICE9 device)
+CSky* CSky::Create(LPDIRECT3DDEVICE9 device)
 {
-	CImport* pointer = new CImport;
+	CSky* pointer = new CSky;
 	pointer->Init(device);
 	return pointer;
 }
@@ -62,14 +43,13 @@ CImport* CImport::Create(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 // 初期化
 //=============================================================================
-HRESULT CImport::Init(LPDIRECT3DDEVICE9 device)
+HRESULT CSky::Init(LPDIRECT3DDEVICE9 device)
 {
-	//----------------------------
-	// テクスチャ
-	//----------------------------
-	for(int cnt = 1; cnt < TEX_MAX; ++cnt)
+	for(int cnt = 0; cnt < SKY_MAX; ++cnt)
 	{
-		D3DXCreateTextureFromFile(device, TEX_PATH[cnt], &m_tex[cnt]);
+		m_sky[cnt] = CScene2D::Create(device, (CImport::TEXTURES)(CImport::TEX_SKY1 + cnt), CScene2D::POINT_LEFTTOP);
+		m_sky[cnt]->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		m_sky[cnt]->SetPos(SCREEN_WIDTH * cnt, 0.0f);
 	}
 
 	return S_OK;
@@ -78,14 +58,28 @@ HRESULT CImport::Init(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 // 終了
 //=============================================================================
-void CImport::Uninit(void)
+void CSky::Uninit(void)
 {
-	//----------------------------
-	// テクスチャ
-	//----------------------------
-	for(int cnt = 1; cnt < TEX_MAX; cnt++)
+}
+
+//=============================================================================
+// スクロール
+//=============================================================================
+void CSky::Scroll(float scroll)
+{
+	for(int cnt = 0; cnt < SKY_MAX; ++cnt)
 	{
-		// テクスチャの開放
-		SAFE_RELEASE(m_tex[cnt]);
+		float skyScroll = m_sky[cnt]->GetPos().x - scroll;
+
+		if(skyScroll <= SKY_LEFT)
+		{
+			skyScroll = SKY_RIGHT - scroll;
+		}
+		else if(skyScroll >= SKY_RIGHT)
+		{
+			skyScroll = SKY_LEFT;
+		}
+
+		m_sky[cnt]->SetPos(skyScroll, 0.0f);
 	}
 }

@@ -17,6 +17,8 @@
 #include "scene2D.h"
 #include "inputKeyboard.h"
 
+#include "sky.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // ƒ}ƒNƒ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -106,6 +108,18 @@ void CGame::Draw(void)
 void CGame::Debug(void)
 {
 	//----------------------------
+	// ‹óƒXƒNƒ[ƒ‹
+	//----------------------------
+	if(m_keyboard->GetPress(DIK_LEFT))
+	{
+		m_sky->Scroll(-10.0f);
+	}
+	if(m_keyboard->GetPress(DIK_RIGHT))
+	{
+		m_sky->Scroll(10.0f);
+	}
+
+	//----------------------------
 	// ‰æ–Ê‘JˆÚ
 	//----------------------------
 	if(m_keyboard->GetTrigger(DIK_RETURN))
@@ -122,8 +136,11 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	// ”wŒi
 	//----------------------------
-	CScene2D::Create(device, CImport::TEX_BLOCKWALL, CScene2D::POINT_LEFTTOP);
-	CScene2D::Create(device, CImport::TEX_POLE0, CScene2D::POINT_LEFTTOP);
+	// ‹ó
+	m_sky = CSky::Create(device);
+
+	//CScene2D::Create(device, CImport::TEX_BLOCKWALL, CScene2D::POINT_LEFTTOP);
+	//CScene2D::Create(device, CImport::TEX_POLE0, CScene2D::POINT_LEFTTOP);
 
 	//----------------------------
 	// “¹

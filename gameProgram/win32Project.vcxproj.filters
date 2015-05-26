@@ -26,8 +26,11 @@
     <Filter Include="import">
       <UniqueIdentifier>{bde76769-a7af-42a1-b536-7d455392063d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="object\bavk">
+    <Filter Include="object\background">
       <UniqueIdentifier>{1aaec6db-a137-4919-bd63-686988bf7e74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object\background\sky">
+      <UniqueIdentifier>{04228886-7ee5-4cc2-a79a-9001cdde358b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +82,12 @@
     <ClCompile Include="import.cpp">
       <Filter>import</Filter>
     </ClCompile>
+    <ClCompile Include="background.cpp">
+      <Filter>object\background</Filter>
+    </ClCompile>
+    <ClCompile Include="sky.cpp">
+      <Filter>object\background\sky</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debugproc.h">
@@ -128,6 +137,12 @@
     </ClInclude>
     <ClInclude Include="import.h">
       <Filter>import</Filter>
+    </ClInclude>
+    <ClInclude Include="background.h">
+      <Filter>object\background</Filter>
+    </ClInclude>
+    <ClInclude Include="sky.h">
+      <Filter>object\background\sky</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

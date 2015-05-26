@@ -1,57 +1,51 @@
 //*****************************************************************************
 //
-// CImportクラス [import.h]
+// CBackgroundクラス [background.h]
 // Author :MAI TANABE
 //
 //*****************************************************************************
 
-#ifndef _MY_IMPORT_H
-#define _MY_IMPORT_H
+#ifndef _MY_BACKGROUND_H
+#define _MY_BACKGROUND_H
 //=============================================================================
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // インクルードファイル
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "main.h"
+/*
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// マクロ定義
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // クラス定義
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class CImport
+class CBackground
 {
 public:
 	typedef enum
 	{
-		TEX_NONE = 0,
-		TEX_FADE,
+		BG_CTY,
+		BG_JUNGLE,
+		BG_MAX
+	} BGTYPE;
 
-		TEX_TITLELOGO,
+	CBackground(void);
+	~CBackground(){};
 
-		TEX_SKY1,
-		TEX_SKY2,
-		TEX_SKY3,
-		TEX_SKY4,
-		TEX_SKY5,
-
-		TEX_ASPHALT,
-		TEX_BLOCKWALL,
-		TEX_POLE0,
-
-		TEX_MAX
-	} TEXTURES;
-
-	CImport();
-	~CImport(){};
-
-	static	CImport* Create(LPDIRECT3DDEVICE9 device);
-	HRESULT	Init(LPDIRECT3DDEVICE9 device);
+	static CBackground* Create(LPDIRECT3DDEVICE9 device, BGTYPE type);
+	HRESULT	Init(LPDIRECT3DDEVICE9 device, BGTYPE type);
 	void	Uninit(void);
-
-	static LPDIRECT3DTEXTURE9 GetTexture(TEXTURES tex){return m_tex[tex];}
+	void	Update(void);
 
 private:
-	static LPDIRECT3DTEXTURE9 m_tex[TEX_MAX];;
-};
+	float m_scroll;
 
+	CScene2D** m_sky;	// 空
+	CScene2D** m_obj;	// 背景物
+	CScene2D** m_wall;	// 背景遮蔽物
+};
+*/
 //=============================================================================
 #endif
