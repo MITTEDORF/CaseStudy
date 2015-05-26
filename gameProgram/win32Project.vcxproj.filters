@@ -26,6 +26,9 @@
     <Filter Include="import">
       <UniqueIdentifier>{bde76769-a7af-42a1-b536-7d455392063d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="object\character\Goal">
+      <UniqueIdentifier>{60002f6c-e811-4b56-8bea-dbcc0b2e168a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debugproc.cpp">
@@ -76,6 +79,9 @@
     <ClCompile Include="import.cpp">
       <Filter>import</Filter>
     </ClCompile>
+    <ClCompile Include="goal.cpp">
+      <Filter>object\character\Goal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debugproc.h">
@@ -125,6 +131,9 @@
     </ClInclude>
     <ClInclude Include="import.h">
       <Filter>import</Filter>
+    </ClInclude>
+    <ClInclude Include="goal.h">
+      <Filter>object\character\Goal</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
