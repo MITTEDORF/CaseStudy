@@ -13,13 +13,14 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ定義
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#define POLIGON_SIZE (512.0f)
+#define POLIGON_SIZE (128.0f)
 
 //=============================================================================
 // コンストラクタ
 //=============================================================================
 CScene2D::CScene2D(int priority, OBJTYPE objType) : CScene(priority, objType)
 {
+	m_loacalTex=false;
 	m_texture	= NULL;
 	m_vtxBuff	= NULL;
 
@@ -31,6 +32,11 @@ CScene2D::CScene2D(int priority, OBJTYPE objType) : CScene(priority, objType)
 	D3DXVECTOR2 half = D3DXVECTOR2(m_size.x / 2.0f, m_size.y / 2.0f);
 	m_length = DISTANCE_2D(half.x, half.y);
 	m_angle	 = atan2f(half.x, half.y);
+
+	m_coord[0] = D3DXVECTOR2(0.0f, 0.0f);
+	m_coord[1] = D3DXVECTOR2(1.0f, 0.0f);
+	m_coord[2] = D3DXVECTOR2(0.0f, 1.0f);
+	m_coord[3] = D3DXVECTOR2(1.0f, 1.0f);
 }
 
 //=============================================================================
@@ -81,6 +87,7 @@ HRESULT CScene2D::Init(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POIN
 
 	// テクスチャ取得
 	m_texture = CImport::GetTexture(texture);
+	m_loacalTex=false;
 
 	return S_OK;
 }
@@ -113,6 +120,7 @@ HRESULT CScene2D::Init(LPDIRECT3DDEVICE9 device, const char* texture, POINT_TYPE
 
 	// テクスチャ取得
 	D3DXCreateTextureFromFile(device, texture, &m_texture);
+	m_loacalTex=true;
 	
 	//----------------------------
 	// 初期化成功
@@ -125,6 +133,10 @@ HRESULT CScene2D::Init(LPDIRECT3DDEVICE9 device, const char* texture, POINT_TYPE
 //=============================================================================
 void CScene2D::Uninit(void)
 {
+	if(m_loacalTex)
+	{
+		SAFE_RELEASE(m_texture);
+	}
 	// 頂点バッファの開放
 	SAFE_RELEASE(m_vtxBuff);
 
@@ -137,6 +149,7 @@ void CScene2D::Uninit(void)
 //=============================================================================
 void CScene2D::Update(void)
 {
+
 }
 
 //=============================================================================
@@ -226,10 +239,10 @@ void CScene2D::SetVertexPolygon(void)
 	vtx[3].diffuse = m_color;
 
 	// テクスチャ座標
-	vtx[0].tex = D3DXVECTOR2(0.0f, 0.0f);
-	vtx[1].tex = D3DXVECTOR2(1.0f, 0.0f);
-	vtx[2].tex = D3DXVECTOR2(0.0f, 1.0f);
-	vtx[3].tex = D3DXVECTOR2(1.0f, 1.0f);
+	vtx[0].tex = D3DXVECTOR2(m_coord[0].x, m_coord[0].y);
+	vtx[1].tex = D3DXVECTOR2(m_coord[1].x, m_coord[1].y);
+	vtx[2].tex = D3DXVECTOR2(m_coord[2].x, m_coord[2].y);
+	vtx[3].tex = D3DXVECTOR2(m_coord[3].x, m_coord[3].y);
 
 	// 終了
 	m_vtxBuff->Unlock();

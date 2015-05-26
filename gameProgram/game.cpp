@@ -17,9 +17,15 @@
 #include "scene2D.h"
 #include "inputKeyboard.h"
 
+//プレイヤー制御処理
+#include "character_player.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#define ROAD_SIZE	(32.0f)
+#define ROAD_NUM	(40.0f)		// 1280 / 32
+#define ROAD_POS	(688)		// 720 - 32
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 静的変数
@@ -79,6 +85,7 @@ void CGame::Update(void)
 		//----------------------------
 		// 更新内容
 		//----------------------------
+
 	}
 
 	//----------------------------
@@ -117,15 +124,27 @@ void CGame::Debug(void)
 void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 {
 	//----------------------------
-	// フィールド
+	// 背景
 	//----------------------------
 	CScene2D::Create(device, CImport::TEX_BLOCKWALL, CScene2D::POINT_LEFTTOP);
 	CScene2D::Create(device, CImport::TEX_POLE0, CScene2D::POINT_LEFTTOP);
 
-	CScene2D* asphalt = CScene2D::Create(device, CImport::TEX_ASPHALT, CScene2D::POINT_LEFTTOP);
-	asphalt->SetPos(0.0f, 512.0f);
+	//----------------------------
+	// 道
+	//----------------------------
+	CScene2D* asphalt;
+	for(int cnt = 0; cnt < ROAD_NUM; ++cnt)
+	{
+		asphalt = CScene2D::Create(device, CImport::TEX_ASPHALT, CScene2D::POINT_LEFTTOP);
+		asphalt->SetSize(ROAD_SIZE, ROAD_SIZE);
+		asphalt->SetPos(ROAD_SIZE * cnt, ROAD_POS);
+	}
 
 	//----------------------------
 	// キャラクター
 	//----------------------------
+	//プレイヤーの生成
+	m_player=CPlayer::Create(device);
+	m_player->SetPos(120.0f,300.0f);
+	m_player->SetKeyboard(m_keyboard);
 }
