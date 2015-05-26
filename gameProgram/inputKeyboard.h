@@ -40,6 +40,8 @@ public:
 	static bool GetRepeat(int key){return (m_repeat[key] & 0x80) ? true : false;}
 
 private:
+	LPDIRECTINPUTDEVICE8	m_inputDevice;	// 入力処理のデバイスへのポインタ
+
 	static BYTE m_state[KEYBOARD_MAX];
 	static BYTE m_trigger[KEYBOARD_MAX];
 	static BYTE m_release[KEYBOARD_MAX];
