@@ -21,9 +21,18 @@ const char* TEX_PATH[] =
 
 	"./data/TEXTURE/titleLogo.png",
 
+	"./data/TEXTURE/sky01.png",
+	"./data/TEXTURE/sky02.png",
+	"./data/TEXTURE/sky03.png",
+	"./data/TEXTURE/sky04.png",
+	"./data/TEXTURE/sky05.png",
+
 	"./data/TEXTURE/asphalt.png",
 	"./data/TEXTURE/blockWall.png",
 	"./data/TEXTURE/pole0.png",
+	"./data/TEXTURE/player_wait.png",
+	"./data/TEXTURE/Assy_one.png",
+	"./data/TEXTURE/player_attack.png",
 };
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

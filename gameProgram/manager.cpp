@@ -21,6 +21,7 @@
 
 #include "inputKeyboard.h"
 
+#include "listObject.h"
 #include "scene2D.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -98,7 +99,8 @@ HRESULT CManager::Init(HINSTANCE instance, HWND wnd, bool window)
 	// ‰Šú‰»¬Œ÷
 	//----------------------------
 	// ‹N“®‰æ–Ê”jŠü
-	setup->Uninit();
+	setup->UnLinkScene();
+	SAFE_END(setup);
 
 	return S_OK;
 }

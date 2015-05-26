@@ -22,8 +22,8 @@ class CGoal : public CScene2D
 public:
 	CGoal( int priority , OBJTYPE objtype );
 	~CGoal(){};
-	static	CGoal* Create( LPDIRECT3DDEVICE9 device , CImport::TEXTURES testure , POINT_TYPE pintType );
-	static	CGoal* Create(LPDIRECT3DDEVICE9 device, const char* texture, POINT_TYPE pointType);
+	static	CGoal* Create( LPDIRECT3DDEVICE9 device , CImport::TEXTURES texture , POINT_TYPE pointType , int priority , D3DXVECTOR2 pos );
+	static	CGoal* Create(LPDIRECT3DDEVICE9 device, const char* texture, POINT_TYPE pointType , int priority , D3DXVECTOR2 pos );
 	HRESULT	Init(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType);
 	HRESULT	Init(LPDIRECT3DDEVICE9 device, const char* texture, POINT_TYPE pointType);
 	void	Uninit(void);
@@ -42,7 +42,7 @@ public:
 	void		SetColor(float r, float g, float b, float a){m_color = D3DXCOLOR(r, g, b, a); SetVertexPolygon();}
 	D3DXCOLOR	GetColor(void){return m_color;}
 
-	void Scroll( float scroll ){m_pos.x -= scroll;}
+	void Scroll( float scroll ){m_pos.x -= scroll; CScene2D::SetVertexPolygon();}
 private:
 };
 #endif

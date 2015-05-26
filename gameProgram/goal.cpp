@@ -24,6 +24,24 @@ CGoal::CGoal( int priority , OBJTYPE objtype ) : CScene2D( priority , objtype )
 {
 }
 //=============================================================================
+// ê∂ê¨
+//=============================================================================
+CGoal* CGoal::Create( LPDIRECT3DDEVICE9 device , CImport::TEXTURES texture , POINT_TYPE pointType , int priority , D3DXVECTOR2 pos )
+{
+	CGoal* pointer = new CGoal( priority , OBJTYPE_2D );
+	pointer->Init(device, texture, pointType);
+	pointer->SetPos( pos );
+	return pointer;
+}
+
+CGoal* CGoal::Create(LPDIRECT3DDEVICE9 device, const char* texture , POINT_TYPE pointType , int priority , D3DXVECTOR2 pos )
+{
+	CGoal* pointer = new CGoal( priority , OBJTYPE_2D );
+	pointer->Init(device, texture, pointType);
+	pointer->SetPos( pos );
+	return pointer;
+}
+//=============================================================================
 // èâä˙âª
 //=============================================================================
 HRESULT CGoal::Init( LPDIRECT3DDEVICE9 device , CImport::TEXTURES texture , POINT_TYPE pointType )
@@ -50,6 +68,7 @@ void CGoal::Uninit( void )
 //=============================================================================
 void CGoal::Update( void )
 {
+	
 	CScene2D::Update();
 }
 //=============================================================================

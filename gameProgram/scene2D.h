@@ -30,7 +30,7 @@ public:
 	CScene2D(int priority = PRIORITY_MAX - 1, OBJTYPE objType = OBJTYPE_2D);
 	~CScene2D(){};
 
-	static	CScene2D* Create(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType);
+	static	CScene2D* Create(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType, int priority = PRIORITY_MAX - 1);
 	static	CScene2D* Create(LPDIRECT3DDEVICE9 device, const char* texture, POINT_TYPE pointType);
 	HRESULT	Init(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType);
 	HRESULT	Init(LPDIRECT3DDEVICE9 device, const char* texture, POINT_TYPE pointType);
@@ -50,15 +50,20 @@ public:
 	void		SetColor(float r, float g, float b, float a){m_color = D3DXCOLOR(r, g, b, a); SetVertexPolygon();}
 	D3DXCOLOR	GetColor(void){return m_color;}
 
+	void		SetCord(int n, D3DXVECTOR2 cord){m_coord[n] = cord; SetVertexPolygon();}
+	D3DXVECTOR2	GetCord(int n){return m_coord[n];}
+	void SetTex(CImport::TEXTURES texture){m_texture = CImport::GetTexture(texture);};
 protected:
 	void SetVertexPolygon(void);
 
+	bool m_localTex;
 	LPDIRECT3DTEXTURE9		m_texture;
 	LPDIRECT3DVERTEXBUFFER9	m_vtxBuff;
 
 	float		m_length;		// 対角線の長さ
 	float		m_angle;		// 対角線の角度
 	POINT_TYPE	m_pointType;	// ポイントの位置
+	D3DXVECTOR2	m_coord[4];		// テクスチャコード
 };
 
 //=============================================================================
