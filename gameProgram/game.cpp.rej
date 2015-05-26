@@ -1,0 +1,9 @@
+diff a/gameProgram/game.cpp b/gameProgram/game.cpp	(rejected hunks)
+@@ -17,6 +17,7 @@
+ #include "scene2D.h"
+ #include "inputKeyboard.h"
+ 
++<<<<<<< HEAD
+ //プレイヤー制御処理
+ #include "character_player.h"
+ =======

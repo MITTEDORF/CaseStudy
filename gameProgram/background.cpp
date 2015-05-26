@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// CImportクラス [import.cpp]
+// CBackgroundクラス [background.h]
 // Author :MAI TANABE
 //
 //*****************************************************************************
@@ -8,56 +8,30 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // インクルードファイル
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#include "import.h"
+#include "background.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// マクロ定義
+// マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// テクスチャ
-const char* TEX_PATH[] =
-{
-	NULL,
-	"./data/TEXTURE/fade.jpg",
 
-	"./data/TEXTURE/titleLogo.png",
-
-	"./data/TEXTURE/sky01.png",
-	"./data/TEXTURE/sky02.png",
-	"./data/TEXTURE/sky03.png",
-	"./data/TEXTURE/sky04.png",
-	"./data/TEXTURE/sky05.png",
-
-	"./data/TEXTURE/asphalt.png",
-	"./data/TEXTURE/blockWall.png",
-	"./data/TEXTURE/pole0.png",
-	"./data/TEXTURE/player_wait.png",
-	"./data/TEXTURE/Assy_one.png",
-	"./data/TEXTURE/player_attack.png",
-};
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 静的変数
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-LPDIRECT3DTEXTURE9	CImport::m_tex[TEX_MAX];
-
+/*
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CImport::CImport(void)
+CBackground::CBackground(void)
 {
-	// テクスチャ
-	for(int cnt = 0; cnt < TEX_MAX; ++cnt)
-	{
-		m_tex[cnt] = nullptr;
-	}
 }
 
 //=============================================================================
 // 生成
 //=============================================================================
-CImport* CImport::Create(LPDIRECT3DDEVICE9 device)
+CBackground* CBackground::Create(LPDIRECT3DDEVICE9 device, BGTYPE type)
 {
-	CImport* pointer = new CImport;
+	CBackground* pointer = new CBackground;
 	pointer->Init(device);
 	return pointer;
 }
@@ -65,15 +39,8 @@ CImport* CImport::Create(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 // 初期化
 //=============================================================================
-HRESULT CImport::Init(LPDIRECT3DDEVICE9 device)
+HRESULT CBackground::Init(LPDIRECT3DDEVICE9 device, BGTYPE type)
 {
-	//----------------------------
-	// テクスチャ
-	//----------------------------
-	for(int cnt = 1; cnt < TEX_MAX; ++cnt)
-	{
-		D3DXCreateTextureFromFile(device, TEX_PATH[cnt], &m_tex[cnt]);
-	}
 
 	return S_OK;
 }
@@ -81,14 +48,14 @@ HRESULT CImport::Init(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 // 終了
 //=============================================================================
-void CImport::Uninit(void)
+void CBackground::Uninit(void)
 {
-	//----------------------------
-	// テクスチャ
-	//----------------------------
-	for(int cnt = 1; cnt < TEX_MAX; cnt++)
-	{
-		// テクスチャの開放
-		SAFE_RELEASE(m_tex[cnt]);
-	}
 }
+
+//=============================================================================
+// 更新
+//=============================================================================
+void CBackground::Update(void)
+{
+}
+*/

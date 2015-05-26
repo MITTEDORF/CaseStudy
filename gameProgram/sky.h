@@ -1,12 +1,12 @@
 //*****************************************************************************
 //
-// CImportクラス [import.h]
+// CCSkyクラス [sky.h]
 // Author :MAI TANABE
 //
 //*****************************************************************************
 
-#ifndef _MY_IMPORT_H
-#define _MY_IMPORT_H
+#ifndef _MY_SKY_H
+#define _MY_SKY_H
 //=============================================================================
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -15,45 +15,30 @@
 #include "main.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// マクロ定義
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#define SKY_MAX	(5)
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // クラス定義
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class CImport
+class CScene2D;
+
+class CSky
 {
 public:
-	typedef enum
-	{
-		TEX_NONE = 0,
-		TEX_FADE,
+	CSky(void);
+	~CSky(){};
 
-		TEX_TITLELOGO,
-
-		TEX_SKY1,
-		TEX_SKY2,
-		TEX_SKY3,
-		TEX_SKY4,
-		TEX_SKY5,
-
-		TEX_ASPHALT,
-		TEX_BLOCKWALL,
-		TEX_POLE0,
-		TEX_PLAYER_WAIT,
-		TEX_ASSY_ONE,
-		TEX_PLAY_ATTACK,
-
-		TEX_MAX
-	} TEXTURES;
-
-	CImport();
-	~CImport(){};
-
-	static	CImport* Create(LPDIRECT3DDEVICE9 device);
+	static CSky* Create(LPDIRECT3DDEVICE9 device);
 	HRESULT	Init(LPDIRECT3DDEVICE9 device);
 	void	Uninit(void);
 
-	static LPDIRECT3DTEXTURE9 GetTexture(TEXTURES tex){return m_tex[tex];}
+	void Scroll(float scroll);
 
 private:
-	static LPDIRECT3DTEXTURE9 m_tex[TEX_MAX];;
+
+	CScene2D* m_sky[SKY_MAX];
 };
 
 //=============================================================================

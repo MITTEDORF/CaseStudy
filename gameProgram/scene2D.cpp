@@ -20,7 +20,7 @@
 //=============================================================================
 CScene2D::CScene2D(int priority, OBJTYPE objType) : CScene(priority, objType)
 {
-	m_loacalTex=false;
+	m_localTex	= false;
 	m_texture	= NULL;
 	m_vtxBuff	= NULL;
 
@@ -87,7 +87,7 @@ HRESULT CScene2D::Init(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POIN
 
 	// テクスチャ取得
 	m_texture = CImport::GetTexture(texture);
-	m_loacalTex=false;
+	m_localTex = false;
 
 	return S_OK;
 }
@@ -120,7 +120,7 @@ HRESULT CScene2D::Init(LPDIRECT3DDEVICE9 device, const char* texture, POINT_TYPE
 
 	// テクスチャ取得
 	D3DXCreateTextureFromFile(device, texture, &m_texture);
-	m_loacalTex=true;
+	m_localTex = true;
 	
 	//----------------------------
 	// 初期化成功
@@ -133,10 +133,11 @@ HRESULT CScene2D::Init(LPDIRECT3DDEVICE9 device, const char* texture, POINT_TYPE
 //=============================================================================
 void CScene2D::Uninit(void)
 {
-	if(m_loacalTex)
+	if(m_localTex)
 	{
 		SAFE_RELEASE(m_texture);
 	}
+
 	// 頂点バッファの開放
 	SAFE_RELEASE(m_vtxBuff);
 

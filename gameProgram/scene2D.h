@@ -56,7 +56,7 @@ public:
 protected:
 	void SetVertexPolygon(void);
 
-	bool m_loacalTex;
+	bool m_localTex;
 	LPDIRECT3DTEXTURE9		m_texture;
 	LPDIRECT3DVERTEXBUFFER9	m_vtxBuff;
 

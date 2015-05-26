@@ -20,6 +20,8 @@
 //プレイヤー制御処理
 #include "character_player.h"
 
+#include "sky.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -110,6 +112,18 @@ void CGame::Draw(void)
 void CGame::Debug(void)
 {
 	//----------------------------
+	// 空スクロール
+	//----------------------------
+	if(m_keyboard->GetPress(DIK_LEFT))
+	{
+		m_sky->Scroll(-10.0f);
+	}
+	if(m_keyboard->GetPress(DIK_RIGHT))
+	{
+		m_sky->Scroll(10.0f);
+	}
+
+	//----------------------------
 	// 画面遷移
 	//----------------------------
 	if(m_keyboard->GetTrigger(DIK_RETURN))
@@ -126,8 +140,11 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	// 背景
 	//----------------------------
-	CScene2D::Create(device, CImport::TEX_BLOCKWALL, CScene2D::POINT_LEFTTOP);
-	CScene2D::Create(device, CImport::TEX_POLE0, CScene2D::POINT_LEFTTOP);
+	// 空
+	m_sky = CSky::Create(device);
+
+	//CScene2D::Create(device, CImport::TEX_BLOCKWALL, CScene2D::POINT_LEFTTOP);
+	//CScene2D::Create(device, CImport::TEX_POLE0, CScene2D::POINT_LEFTTOP);
 
 	//----------------------------
 	// 道
