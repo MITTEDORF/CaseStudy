@@ -53,6 +53,8 @@ public:
 
 	virtual void		SetPos(D3DXVECTOR2 pos) = 0;
 	virtual void		SetPos(float x, float y) = 0;
+	virtual void		SetPosX(float x) = 0;
+	virtual void		SetPosY(float y) = 0;
 	virtual D3DXVECTOR2	GetPos(void) = 0;
 	virtual void		SetRot(float rot) = 0;
 	virtual float		GetRot(void) = 0;

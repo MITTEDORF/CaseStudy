@@ -17,7 +17,7 @@
 // ƒ}ƒNƒ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #define SKY_LEFT	(-SCREEN_WIDTH)
-#define SKY_RIGHT	(SCREEN_WIDTH * (SKY_MAX - 2))
+#define SKY_RIGHT	(SCREEN_WIDTH * (SKY_MAX - 1))
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Ã“I•Ï”
@@ -49,7 +49,7 @@ HRESULT CSky::Init(LPDIRECT3DDEVICE9 device)
 	{
 		m_sky[cnt] = CScene2D::Create(device, (CImport::TEXTURES)(CImport::TEX_SKY1 + cnt), CScene2D::POINT_LEFTTOP, 0);
 		m_sky[cnt]->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-		m_sky[cnt]->SetPos(SCREEN_WIDTH * cnt, 0.0f);
+		m_sky[cnt]->SetPos((float)SCREEN_WIDTH * cnt, 0.0f);
 	}
 
 	return S_OK;
@@ -71,15 +71,15 @@ void CSky::Scroll(float scroll)
 	{
 		float skyScroll = m_sky[cnt]->GetPos().x - scroll;
 
-		if(skyScroll <= SKY_LEFT)
+		if(skyScroll < SKY_LEFT)
 		{
 			skyScroll = SKY_RIGHT - scroll;
 		}
-		else if(skyScroll >= SKY_RIGHT)
+		else if(skyScroll > SKY_RIGHT)
 		{
 			skyScroll = SKY_LEFT - scroll;
 		}
 
-		m_sky[cnt]->SetPos(skyScroll, 0.0f);
+		m_sky[cnt]->SetPosX(skyScroll);
 	}
 }
