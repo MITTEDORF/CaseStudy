@@ -120,7 +120,7 @@ void CDebugproc::Draw(void)
 {
 	if(m_drawFlg)
 	{
-		RECT rect = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+		RECT rect = { 0, 0, static_cast<LONG>(SCREEN_WIDTH), static_cast<LONG>(SCREEN_HEIGHT) };
 
 		m_font->DrawText(NULL, m_strDebug, -1, &rect,
 						 DT_LEFT, D3DCOLOR_ARGB(0xff, 0xff, 0xff, 0xff));

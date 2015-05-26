@@ -28,6 +28,7 @@
 // 静的変数
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 CPhase* CManager::m_phaseNext = NULL;
+HWND	CManager::m_window_handle = NULL;
 
 //=============================================================================
 // コンストラクタ
@@ -57,6 +58,8 @@ HRESULT CManager::Init(HINSTANCE instance, HWND wnd, bool window)
 	//----------------------------
 	// 共通部
 	//----------------------------
+	// ウィンドウハンドル
+	m_window_handle = wnd;
 	// レンダラー
 	m_renderer	= CRenderer::Create(wnd, window);
 	device		= m_renderer->GetDevice();

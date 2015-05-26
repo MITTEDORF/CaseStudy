@@ -26,7 +26,7 @@
 #include <time.h>
 #include "d3dx9.h"
 #define DIRECTINPUT_VERSION (0x0800) // 警告対策用
-#include "dinput.h"
+#include <dinput.h>
 #include "XInput.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -55,8 +55,8 @@
 //----------------------------
 // 画面サイズ
 //----------------------------
-#define SCREEN_WIDTH	(1280)	// ウインドウの幅
-#define SCREEN_HEIGHT	(720)	// ウインドウの高さ
+#define SCREEN_WIDTH	(1280.0f)	// ウインドウの幅
+#define SCREEN_HEIGHT	(720.0f)	// ウインドウの高さ
 
 //----------------------------
 // 分岐マクロ
@@ -69,6 +69,7 @@
 #define SAFE_DELETE_ARRAY(p) if(p!=NULL){delete[] p; p=NULL;}				// 配列破棄保護
 #define SAFE_UNINIT(p)		 if(p!=NULL){p->Uninit(); p=NULL;}				// 終了保護
 #define SAFE_END(p)			 if(p!=NULL){p->Uninit(); delete p; p=NULL;}	// 最終保護
+
 
 //----------------------------
 // その他共通マクロ

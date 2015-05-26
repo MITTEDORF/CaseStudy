@@ -53,15 +53,15 @@ HRESULT CRenderer::Init(HWND wnd, bool window)
 	//----------------------------
 	// デバイスのプレゼンテーションパラメータの設定
 	//----------------------------
-	ZeroMemory(&pp, sizeof(pp));						// ワークをゼロクリア
-	pp.BackBufferCount		  = 1;						// バックバッファの数
-	pp.BackBufferWidth		  = SCREEN_WIDTH;			// ゲーム画面サイズ(幅)
-	pp.BackBufferHeight		  = SCREEN_HEIGHT;			// ゲーム画面サイズ(高さ)
-	pp.BackBufferFormat		  = dm.Format;				// バックバッファフォーマットはディスプレイモードに合わせて使う
-	pp.SwapEffect			  = D3DSWAPEFFECT_DISCARD;	// 映像信号に同期してフリップする
-	pp.Windowed				  = window;					// ウィンドウモード
-	pp.EnableAutoDepthStencil = TRUE;					// デプスバッファ（Ｚバッファ）とステンシルバッファを作成
-	pp.AutoDepthStencilFormat = D3DFMT_D16;				// デプスバッファとして16bitを使う(高品質はD24S8)
+	ZeroMemory(&pp, sizeof(pp));									// ワークをゼロクリア
+	pp.BackBufferCount		  = 1;									// バックバッファの数
+	pp.BackBufferWidth		  = static_cast<UINT>(SCREEN_WIDTH);	// ゲーム画面サイズ(幅)
+	pp.BackBufferHeight		  = static_cast<UINT>(SCREEN_HEIGHT);	// ゲーム画面サイズ(高さ)
+	pp.BackBufferFormat		  = dm.Format;							// バックバッファフォーマットはディスプレイモードに合わせて使う
+	pp.SwapEffect			  = D3DSWAPEFFECT_DISCARD;				// 映像信号に同期してフリップする
+	pp.Windowed				  = window;								// ウィンドウモード
+	pp.EnableAutoDepthStencil = TRUE;								// デプスバッファ（Ｚバッファ）とステンシルバッファを作成
+	pp.AutoDepthStencilFormat = D3DFMT_D16;							// デプスバッファとして16bitを使う(高品質はD24S8)
 
 	//----------------------------
 	// ウィンドウ分岐
