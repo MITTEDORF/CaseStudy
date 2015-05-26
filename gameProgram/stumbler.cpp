@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// CSkyクラス [sky.h]
+// stumblerクラス [stumbler.cpp]
 // Author :MAI TANABE
 //
 //*****************************************************************************
@@ -8,48 +8,39 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // インクルードファイル
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#include "sky.h"
-
-#include "scene2D.h"
-#include "import.h"
-
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// マクロ
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#define SKY_LEFT	(-SCREEN_WIDTH)
-#define SKY_RIGHT	(SCREEN_WIDTH * (SKY_MAX - 2))
-
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// 静的変数
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#include "stumbler.h"
 
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CSky::CSky(void)
+CStumbler::CStumbler(int priority, OBJTYPE objType) : CScene2D(priority, objType)
 {
+
 }
 
 //=============================================================================
 // 生成
 //=============================================================================
-CSky* CSky::Create(LPDIRECT3DDEVICE9 device)
+CStumbler* CStumbler::Create(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType)
 {
-	CSky* pointer = new CSky;
-	pointer->Init(device);
+	CStumbler* pointer = new CStumbler;
+	pointer->Init(device, texture, pointType);
 	return pointer;
 }
 
 //=============================================================================
 // 初期化
 //=============================================================================
-HRESULT CSky::Init(LPDIRECT3DDEVICE9 device)
+HRESULT CStumbler::Init(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType)
 {
-	for(int cnt = 0; cnt < SKY_MAX; ++cnt)
+	HRESULT hr;
+
+	// 継承元の初期化呼び出し
+	hr = CScene2D::Init(device, texture, pointType);
+	// 継承元の初期化に失敗したら
+	if(hr == E_FAIL)
 	{
-		m_sky[cnt] = CScene2D::Create(device, (CImport::TEXTURES)(CImport::TEX_SKY1 + cnt), CScene2D::POINT_LEFTTOP, 0);
-		m_sky[cnt]->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-		m_sky[cnt]->SetPos(SCREEN_WIDTH * cnt, 0.0f);
+		return E_FAIL;
 	}
 
 	return S_OK;
@@ -58,28 +49,26 @@ HRESULT CSky::Init(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 // 終了
 //=============================================================================
-void CSky::Uninit(void)
+void CStumbler::Uninit(void)
 {
+	// 継承元の終了処理呼び出し
+	CScene2D::Uninit();
 }
 
 //=============================================================================
-// スクロール
+// 更新
 //=============================================================================
-void CSky::Scroll(float scroll)
+void CStumbler::Update(void)
 {
-	for(int cnt = 0; cnt < SKY_MAX; ++cnt)
-	{
-		float skyScroll = m_sky[cnt]->GetPos().x - scroll;
+	// 継承元の更新処理呼び出し
+	CScene2D::Update();
+}
 
-		if(skyScroll <= SKY_LEFT)
-		{
-			skyScroll = SKY_RIGHT - scroll;
-		}
-		else if(skyScroll >= SKY_RIGHT)
-		{
-			skyScroll = SKY_LEFT - scroll;
-		}
-
-		m_sky[cnt]->SetPos(skyScroll, 0.0f);
-	}
+//=============================================================================
+// 描画
+//=============================================================================
+void CStumbler::Draw(void)
+{
+	// 継承元の描画処理呼び出し
+	CScene2D::Draw();
 }

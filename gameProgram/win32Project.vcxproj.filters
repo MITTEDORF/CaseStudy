@@ -35,6 +35,9 @@
     <Filter Include="object\background\sky">
       <UniqueIdentifier>{04228886-7ee5-4cc2-a79a-9001cdde358b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="object\stumbler">
+      <UniqueIdentifier>{d08ffa58-4e0d-47ee-8658-d6a224a3ebc9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debugproc.cpp">
@@ -94,6 +97,9 @@
     <ClCompile Include="sky.cpp">
       <Filter>object\background\sky</Filter>
     </ClCompile>
+    <ClCompile Include="stumbler.cpp">
+      <Filter>object\stumbler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debugproc.h">
@@ -152,6 +158,9 @@
     </ClInclude>
     <ClInclude Include="sky.h">
       <Filter>object\background\sky</Filter>
+    </ClInclude>
+    <ClInclude Include="stumbler.h">
+      <Filter>object\stumbler</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -38,7 +38,7 @@ public:
 		OBJTYPE_FADE,
 	} OBJTYPE;
 
-	CScene(int priority = PRIORITY_MAX - 1, OBJTYPE objType = OBJTYPE_NONE);
+	CScene(int priority = 0, OBJTYPE objType = OBJTYPE_NONE);
 	virtual ~CScene(){};
 
 	virtual HRESULT	Init(void){return S_OK;}

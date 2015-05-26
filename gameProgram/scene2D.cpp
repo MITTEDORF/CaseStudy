@@ -42,9 +42,9 @@ CScene2D::CScene2D(int priority, OBJTYPE objType) : CScene(priority, objType)
 //=============================================================================
 // ¶¬
 //=============================================================================
-CScene2D* CScene2D::Create(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType)
+CScene2D* CScene2D::Create(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType, int priority)
 {
-	CScene2D* pointer = new CScene2D;
+	CScene2D* pointer = new CScene2D(priority);
 	pointer->Init(device, texture, pointType);
 	return pointer;
 }

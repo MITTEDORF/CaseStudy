@@ -30,7 +30,7 @@ public:
 	CScene2D(int priority = PRIORITY_MAX - 1, OBJTYPE objType = OBJTYPE_2D);
 	~CScene2D(){};
 
-	static	CScene2D* Create(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType);
+	static	CScene2D* Create(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType, int priority = PRIORITY_MAX - 1);
 	static	CScene2D* Create(LPDIRECT3DDEVICE9 device, const char* texture, POINT_TYPE pointType);
 	HRESULT	Init(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType);
 	HRESULT	Init(LPDIRECT3DDEVICE9 device, const char* texture, POINT_TYPE pointType);
