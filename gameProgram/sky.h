@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// CCSkyクラス [sky.h]
+// CSkyクラス [sky.h]
 // Author :MAI TANABE
 //
 //*****************************************************************************
@@ -33,6 +33,7 @@ public:
 	static CSky* Create(LPDIRECT3DDEVICE9 device);
 	HRESULT	Init(LPDIRECT3DDEVICE9 device);
 	void	Uninit(void);
+	void	Update(void);
 
 	void Scroll(float scroll);
 

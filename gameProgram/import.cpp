@@ -17,20 +17,25 @@
 const char* TEX_PATH[] =
 {
 	NULL,
+
+	// システム
 	"./data/TEXTURE/fade.jpg",
 
+	// ロゴ
 	"./data/TEXTURE/titleLogo.png",
 
+	// 空
 	"./data/TEXTURE/sky01.png",
 	"./data/TEXTURE/sky02.png",
 	"./data/TEXTURE/sky03.png",
 	"./data/TEXTURE/sky04.png",
 	"./data/TEXTURE/sky05.png",
 
-	"./data/TEXTURE/asphalt.png",
-	//"./data/TEXTURE/blockWall.png",
-	//"./data/TEXTURE/pole0.png",
+	// 森
+	"./data/TEXTURE/dirt.png",
+	"./data/TEXTURE/forest_01.png",
 
+	// プレイヤー
 	"./data/TEXTURE/player_wait.png",
 	"./data/TEXTURE/Assy_one.png",
 	"./data/TEXTURE/player_attack.png",
@@ -68,12 +73,18 @@ CImport* CImport::Create(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 HRESULT CImport::Init(LPDIRECT3DDEVICE9 device)
 {
+	HRESULT hr;
+
 	//----------------------------
 	// テクスチャ
 	//----------------------------
 	for(int cnt = 1; cnt < TEX_MAX; ++cnt)
 	{
-		D3DXCreateTextureFromFile(device, TEX_PATH[cnt], &m_tex[cnt]);
+		hr = D3DXCreateTextureFromFile(device, TEX_PATH[cnt], &m_tex[cnt]);
+		if(FAILED(hr))
+		{
+			MessageBox(NULL, "テクスチャ無し", "D3DXCreateTextureFromFile", MB_OK);
+		}
 	}
 
 	return S_OK;
