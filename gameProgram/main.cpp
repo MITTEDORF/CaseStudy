@@ -72,8 +72,8 @@ int APIENTRY WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdLine, 
 	// ウィンドウの作成
 	//----------------------------
 	HWND wnd;	// ウインドウハンドル
-	int width  = SCREEN_WIDTH + GetSystemMetrics(SM_CXDLGFRAME) * 2;
-	int height = SCREEN_HEIGHT + GetSystemMetrics(SM_CXDLGFRAME) * 2 + GetSystemMetrics(SM_CYCAPTION);
+	int width  = static_cast<int>(SCREEN_WIDTH) + GetSystemMetrics(SM_CXDLGFRAME) * 2;
+	int height = static_cast<int>(SCREEN_HEIGHT) + GetSystemMetrics(SM_CXDLGFRAME) * 2 + GetSystemMetrics(SM_CYCAPTION);
 
 	wnd = CreateWindowEx(0,
 						CLASS_NAME,				// クラスの名前

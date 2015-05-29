@@ -40,6 +40,8 @@ public:
 
 	void		SetPos(D3DXVECTOR2 pos){m_pos = pos; SetVertexPolygon();}
 	void		SetPos(float x, float y){m_pos = D3DXVECTOR2(x, y); SetVertexPolygon();}
+	void		SetPosX(float x){m_pos.x = x; SetVertexPolygon();}
+	void		SetPosY(float y){m_pos.y = y; SetVertexPolygon();}
 	D3DXVECTOR2	GetPos(void){return m_pos;}
 	void		SetRot(float rot){m_rot = rot; SetVertexPolygon();}
 	float		GetRot(void){return m_rot;}
@@ -49,6 +51,7 @@ public:
 	void		SetColor(D3DXCOLOR color){m_color = color; SetVertexPolygon();}
 	void		SetColor(float r, float g, float b, float a){m_color = D3DXCOLOR(r, g, b, a); SetVertexPolygon();}
 	D3DXCOLOR	GetColor(void){return m_color;}
+	POINT_TYPE	GetPointType(void){return m_pointType;}
 
 	void		SetCord(int n, D3DXVECTOR2 cord){m_coord[n] = cord; SetVertexPolygon();}
 	D3DXVECTOR2	GetCord(int n){return m_coord[n];}

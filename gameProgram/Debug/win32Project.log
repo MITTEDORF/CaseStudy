@@ -1,33 +1,12 @@
-﻿2015/05/26 13:02:46 にビルドを開始しました。
+﻿2015/05/29 15:56:25 にビルドを開始しました。
      1>ノード 2 上のプロジェクト "C:\Users\THS_20735\Documents\HAL_TOKYO\4_grade\CaseStudy\gameProgram\win32Project.vcxproj" (build ターゲット)。
      1>InitializeBuildStatus:
          "AlwaysCreate" が指定されたため "Debug\directX.unsuccessfulbuild" を作成しています。
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt character_player.cpp background.cpp debugproc.cpp fade.cpp game.cpp import.cpp input.cpp inputKeyboard.cpp inputPadX.cpp sky.cpp listObject.cpp main.cpp manager.cpp phase.cpp renderer.cpp result.cpp scene.cpp scene2D.cpp stumbler.cpp title.cpp
-         title.cpp
-         stumbler.cpp
-         scene2D.cpp
-         scene.cpp
-         result.cpp
-         renderer.cpp
-         phase.cpp
-         manager.cpp
-         main.cpp
-         listObject.cpp
-         sky.cpp
-     1>c:\users\ths_20735\documents\hal_tokyo\4_grade\casestudy\gameprogram\sky.cpp(52): warning C4244: '引数' : 'int' から 'float' への変換です。データが失われる可能性があります。
-         inputPadX.cpp
-         inputKeyboard.cpp
-         input.cpp
-         import.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt game.cpp
          game.cpp
-         fade.cpp
-         debugproc.cpp
-         background.cpp
-         character_player.cpp
-         コードを生成中...
        ManifestResourceCompile:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\directX.exe.embed.manifest.res" Debug\directX_manifest.rc 
+         すべての出力が最新のものです。
        Link:
          c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\THS_20735\Documents\HAL_TOKYO\4_grade\CaseStudy\gameProgram\Debug\directX.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\directX.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\THS_20735\Documents\HAL_TOKYO\4_grade\CaseStudy\gameProgram\Debug\directX.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\THS_20735\Documents\HAL_TOKYO\4_grade\CaseStudy\gameProgram\Debug\directX.lib" /MACHINE:X86 Debug\directX.exe.embed.manifest.res
          Debug\character_player.obj
@@ -38,7 +17,9 @@
          Debug\import.obj
          Debug\input.obj
          Debug\inputKeyboard.obj
+         Debug\inputPadDirect.obj
          Debug\inputPadX.obj
+         Debug\math_animation.obj
          Debug\sky.obj
          Debug\listObject.obj
          Debug\main.obj
@@ -63,4 +44,4 @@
 
 ビルドに成功しました。
 
-経過時間 00:00:09.03
+経過時間 00:00:01.27

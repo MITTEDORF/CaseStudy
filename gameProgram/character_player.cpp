@@ -10,6 +10,8 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "character_player.h"
 #include "inputKeyboard.h"
+#include "math_animation.h"
+#include "player_config.h"
 
 #include "game.h"
 #include "debugproc.h"
@@ -18,11 +20,11 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-const float JUMP_SPD    = -40.0f;
-const float MOVE_SPD    = 3.0f;
-const float GRAVITY_SPD = 2.0f;
 
-float MapValues(float x,float inMin,float inMax,float outMin,float outMax);
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// プロトタイプ宣言
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //=============================================================================
 // コンストラクタ
@@ -45,7 +47,7 @@ HRESULT CPlayer::Init(LPDIRECT3DDEVICE9 device)
 	//親の初期化
 	CScene2D::Init(device,CImport::TEX_PLAYER_WAIT,POINT_CENTER);
 
-	Anim(1,1);
+	SetAnim(1,1,this);
 
 
 	//成功を返す
@@ -131,7 +133,7 @@ void CPlayer::Move()
 	}
 
 	//慣性
-	m_move_spd.x*=0.8f;
+	m_move_spd.x*=MOVE_FRICTIONAL_FORCE;
 
 	//ジャンプ処理
 	moveJump();
@@ -174,30 +176,18 @@ void CPlayer::Collider()
 		isJump=false;
 		m_pos.y=625.0f;
 	}
-}
-//=============================================================================
-// アニメーション処理
-//=============================================================================
-void CPlayer::Anim(int maxTex,int nowTex)
-{
-	
-	float uvOffset;
-	uvOffset=MapValues(1.0f,0,(float)maxTex,0,1.0f);
 
-	D3DXVECTOR2 cord=D3DXVECTOR2(uvOffset*(float)(nowTex-1),0);
-	this->SetCord(0,cord);
+	if(m_pos.x<=0.0f)
+	{
+		m_pos.x=0.0f;
+	}
 
-	cord=D3DXVECTOR2(uvOffset*(float)(nowTex),0);
-	this->SetCord(1,cord);
-
-	cord=D3DXVECTOR2(uvOffset*(float)(nowTex-1),1.0f);
-	this->SetCord(2,cord);
-
-	cord=D3DXVECTOR2(uvOffset*(float)(nowTex),1.0f);
-	this->SetCord(3,cord);
+	if(m_pos.x>=((SCREEN_WIDTH>>1)+(SCREEN_WIDTH>>2)))
+	{
+		m_pos.x=((SCREEN_WIDTH>>1)+(SCREEN_WIDTH>>2));
+	}
 
 }
-
 //=============================================================================
 // 攻撃処理
 //=============================================================================
@@ -211,47 +201,39 @@ void CPlayer::Attack()
 		nowAnim=1;
 		isAttack=true;
 		this->SetTex(CImport::TEX_PLAY_ATTACK);
-		Anim(5,1);
+		SetAnim(5,1,this);
 	}
 
 	if(isAttack)
 	{
 		switch (cntAnim)
 		{
-			case 10:
-				Anim(5,2);
+			case ATTACK_ANIM_SPD:
+				SetAnim(5,2,this);
 				break;
 
-			case 10*2:
-				Anim(5,3);
+			case ATTACK_ANIM_SPD*2:
+				SetAnim(5,3,this);
 				break;
 
-			case 10*3:
-				Anim(5,4);
+			case ATTACK_ANIM_SPD*3:
+				SetAnim(5,4,this);
 				break;
 
-			case 10*4:
-				Anim(5,5);
+			case ATTACK_ANIM_SPD*4:
+				SetAnim(5,5,this);
 				break;
 
-			case 10*5:
+			case ATTACK_ANIM_SPD*5:
 				cntAnim=0;
 				nowAnim=1;
 				isAttack=false;
 				this->SetTex(CImport::TEX_PLAYER_WAIT);
-				Anim(1,1);
+				SetAnim(1,1,this);
 				return;
 				break;
 		}
 
 		cntAnim++;
 	}
-}
-
-//=============================================================================
-// 最大値、最小値を考慮した現在値の算出
-//=============================================================================
-float MapValues(float x,float inMin,float inMax,float outMin,float outMax)
-{
-	return ((x-inMin)*(outMax-outMin)/(inMax-inMin)+outMin);
 }

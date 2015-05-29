@@ -34,8 +34,7 @@ public:
 
 protected:
 	static LPDIRECTINPUT8	m_input;	// DirectInputオブジェへのポインタ
-	LPDIRECTINPUTDEVICE8	m_inputDevice;	// 入力処理のデバイスへのポインタ
-
+	
 	static bool m_padFlg[PAD_NUM];	// パッド使用有無
 };
 

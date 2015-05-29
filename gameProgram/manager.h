@@ -39,8 +39,10 @@ public:
 	void	CalculateFPS(DWORD frameCnt, DWORD curTime, DWORD FPSLastTime);
 
 	static void SetNextPhase(CPhase* phase){m_phaseNext = phase;}
+	static HWND GetWindowHandle(){ return m_window_handle; }
 
 private:
+	static HWND m_window_handle;
 	CRenderer*	m_renderer;
 	CDebugproc*	m_debugproc;
 	CImport*	m_import;

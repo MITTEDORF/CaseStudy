@@ -100,6 +100,12 @@
     <ClCompile Include="stumbler.cpp">
       <Filter>object\stumbler</Filter>
     </ClCompile>
+    <ClCompile Include="inputPadDirect.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="math_animation.cpp">
+      <Filter>object\character\player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debugproc.h">
@@ -161,6 +167,15 @@
     </ClInclude>
     <ClInclude Include="stumbler.h">
       <Filter>object\stumbler</Filter>
+    </ClInclude>
+    <ClInclude Include="inputPadDirect.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="math_animation.h">
+      <Filter>object\character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="player_config.h">
+      <Filter>object\character\player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
