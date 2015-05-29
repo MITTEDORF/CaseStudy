@@ -81,11 +81,11 @@ void CSky::Scroll(float scroll)
 
 		if(skyScroll < SKY_LEFT)
 		{
-			skyScroll = SKY_RIGHT - scroll;
+			skyScroll = SKY_RIGHT - (SKY_LEFT - skyScroll);
 		}
 		else if(skyScroll > SKY_RIGHT)
 		{
-			skyScroll = SKY_LEFT - scroll;
+			skyScroll = SKY_LEFT - (skyScroll - SKY_RIGHT);
 		}
 
 		m_sky[cnt]->SetPosX(skyScroll);
