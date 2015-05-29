@@ -95,6 +95,7 @@ private:
 		isAttack=false;
 		canJump=true;
 	}
+
 	//移動処理
 	void Move();
 	//攻撃処理
@@ -105,11 +106,6 @@ private:
 	void AddGravity();
 	//様々な当たり判定
 	void Collider();
-	//アニメーション処理
-	void Anim(int maxTex,int nowTex);
-
-
-
 };
 
 #endif

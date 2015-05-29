@@ -110,6 +110,12 @@
       <Filter>object\stumbler</Filter>
 >>>>>>> c7dd7732ef558d9f277198b89273338d35c77785
     </ClCompile>
+    <ClCompile Include="inputPadDirect.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="math_animation.cpp">
+      <Filter>object\character\player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debugproc.h">
@@ -176,6 +182,15 @@
     <ClInclude Include="stumbler.h">
       <Filter>object\stumbler</Filter>
 >>>>>>> c7dd7732ef558d9f277198b89273338d35c77785
+    </ClInclude>
+    <ClInclude Include="inputPadDirect.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="math_animation.h">
+      <Filter>object\character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="player_config.h">
+      <Filter>object\character\player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

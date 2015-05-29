@@ -41,8 +41,9 @@ public:
 	void		SetColor(D3DXCOLOR color){m_color = color; SetVertexPolygon();}
 	void		SetColor(float r, float g, float b, float a){m_color = D3DXCOLOR(r, g, b, a); SetVertexPolygon();}
 	D3DXCOLOR	GetColor(void){return m_color;}
-
+	BOOL GetGoal( void ){ return m_Goal ;}
 	void Scroll( float scroll ){m_pos.x -= scroll; CScene2D::SetVertexPolygon();}
 private:
+	BOOL m_Goal;
 };
 #endif

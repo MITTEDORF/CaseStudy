@@ -22,12 +22,16 @@
 
 #include "sky.h"
 
+#include "goal.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #define ROAD_SIZE	(32.0f)
 #define ROAD_NUM	(40.0f)		// 1280 / 32
 #define ROAD_POS	(688)		// 720 - 32
+
+#define SCREEN_HALF	(640)	// 1280 / 2
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 静的変数
@@ -90,7 +94,30 @@ void CGame::Update(void)
 		//----------------------------
 		// 更新内容
 		//----------------------------
+		// プレイヤーの座標取得
+		D3DXVECTOR2 playerPos = m_player->GetPos();
 
+		// スクロール処理(プレイヤーが画面半分を越えた時)
+		if(playerPos.x >= SCREEN_HALF)
+		{
+			float scroll = playerPos.x - SCREEN_HALF;
+
+			// プレイヤーは画面真ん中に
+			m_player->SetPosX(SCREEN_HALF);
+
+			// 空のスクロール
+			m_sky->Scroll(scroll);
+		}
+		else if(playerPos.x < 0)
+		{
+			float scroll = 0 - playerPos.x;
+
+			// プレイヤーは画面左端に
+			m_player->SetPosX(0);
+
+			// 空のスクロール
+			m_sky->Scroll(-scroll);
+		}
 	}
 
 	//----------------------------
@@ -167,4 +194,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_player=CPlayer::Create(device);
 	m_player->SetPos(120.0f,300.0f);
 	m_player->SetKeyboard(m_keyboard);
+
+	//goal
+	CGoal::Create( device , "data/TEXTURE/blockWall.png" , CScene2D::POINT_CENTER , 0 , D3DXVECTOR2( 120.0f , 300.0f ) );
 }
