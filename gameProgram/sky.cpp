@@ -49,7 +49,7 @@ HRESULT CSky::Init(LPDIRECT3DDEVICE9 device)
 	{
 		m_sky[cnt] = CScene2D::Create(device, (CImport::TEXTURES)(CImport::TEX_SKY1 + cnt), CScene2D::POINT_LEFTTOP, 0);
 		m_sky[cnt]->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-		m_sky[cnt]->SetPos((float)SCREEN_WIDTH * cnt, 0.0f);
+		m_sky[cnt]->SetPos(((float)SCREEN_WIDTH - 0.01f) * cnt, 0.0f);
 	}
 
 	return S_OK;
@@ -67,7 +67,7 @@ void CSky::Uninit(void)
 //=============================================================================
 void CSky::Update(void)
 {
-	Scroll(0.1f);
+	Scroll(0.2f);
 }
 
 //=============================================================================
