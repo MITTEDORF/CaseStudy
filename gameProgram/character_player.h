@@ -21,7 +21,8 @@
 //=============================================================================
 //キーボード入力制御クラス
 class CInputKeyboard;
-
+//乗り物制御クラス
+class CVehicle;
 //=============================================================================
 // クラス定義
 //=============================================================================
@@ -64,7 +65,14 @@ public:
 		return (m_move_spd);
 	}
 
+	int HP_()
+	{
+		return (HP);
+	}
+
 private:
+	int HP;
+
 	//キーボード情報格納変数
 	CInputKeyboard*	m_keyboard;
 	//プレイヤーの移動速度
@@ -75,17 +83,31 @@ private:
 	bool canJump;
 	//攻撃中かどうか
 	bool isAttack;
+
+	//現在のアニメーションモード
+	int AnimMode;
+	//アニメーションのループフラグ
+	bool isRupeAnim;
+	//アニメーションの1順終了フラグ
+	bool isAnimEnd;
+
 	//現在のアニメーション番号
 	int nowAnim;
 	//アニメーションのカウント用
 	int cntAnim;
+	//アニメーションの最大コマ数
+	int maxAnim;
 
-	CScene2D* Assy;
-
+	CVehicle* Assy;
 
 	//変数のNULL埋め処理
 	void NullSetVariable(void)
 	{
+		HP=3;
+		maxAnim=1;
+		isAnimEnd=false;
+		isRupeAnim=true;
+		AnimMode=-1;
 		m_keyboard=NULL;
 		Assy=NULL;
 		cntAnim=0;
@@ -106,6 +128,12 @@ private:
 	void AddGravity();
 	//様々な当たり判定
 	void Collider();
+	//アニメーションの更新処理
+	void UpdateAnim();
+	//アニメーションのセット処理
+	void SetAnimMode(int animID,bool Rupe);
+
+
 };
 
 #endif
