@@ -16,10 +16,22 @@ const float JUMP_SPD              = -40.0f;
 const float MOVE_SPD              = 3.0f;
 //重力
 const float GRAVITY_SPD           = 2.0f;
-//攻撃アニメーションスピード
-const int   ATTACK_ANIM_SPD       = 10;
+
+//アニメーションスピード
+const int   PLAYER_ANIMSPD_WAIT       = 10;
+const int   PLAYER_ANIMSPD_MOVE       = 10;
+const int   PLAYER_ANIMSPD_ATACK      = 10;
+const int   PLAYER_ANIMSPD_DAMAGE     = 10;
+
+
 //移動時の摩擦力
 const float MOVE_FRICTIONAL_FORCE = 0.8f;
+
+const int   PLAYER_ANIM_WAIT      = 0;
+const int   PLAYER_ANIM_MOVE      = 1;
+const int   PLAYER_ANIM_ATACK     = 2;
+const int   PLAYER_ANIM_DAMAGE    = 3;
+
 
 #endif
 
