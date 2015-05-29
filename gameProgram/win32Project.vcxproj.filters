@@ -26,10 +26,6 @@
     <Filter Include="import">
       <UniqueIdentifier>{bde76769-a7af-42a1-b536-7d455392063d}</UniqueIdentifier>
     </Filter>
-<<<<<<< HEAD
-    <Filter Include="object\character\Goal">
-      <UniqueIdentifier>{60002f6c-e811-4b56-8bea-dbcc0b2e168a}</UniqueIdentifier>
-=======
     <Filter Include="object\background">
       <UniqueIdentifier>{1aaec6db-a137-4919-bd63-686988bf7e74}</UniqueIdentifier>
     </Filter>
@@ -38,7 +34,9 @@
     </Filter>
     <Filter Include="object\stumbler">
       <UniqueIdentifier>{d08ffa58-4e0d-47ee-8658-d6a224a3ebc9}</UniqueIdentifier>
->>>>>>> c7dd7732ef558d9f277198b89273338d35c77785
+    </Filter>
+    <Filter Include="object\goal">
+      <UniqueIdentifier>{888eba1b-8066-4f82-a09c-cfc27376d83b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -90,16 +88,11 @@
     <ClCompile Include="import.cpp">
       <Filter>import</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="goal.cpp">
-      <Filter>object\character\Goal</Filter>
-=======
     <ClCompile Include="character_player.cpp">
       <Filter>object\character\player</Filter>
     </ClCompile>
     <ClCompile Include="stumbler.cpp">
       <Filter>object\stumbler</Filter>
->>>>>>> c7dd7732ef558d9f277198b89273338d35c77785
     </ClCompile>
     <ClCompile Include="inputPadDirect.cpp">
       <Filter>input</Filter>
@@ -112,6 +105,9 @@
     </ClCompile>
     <ClCompile Include="sky.cpp">
       <Filter>object\background</Filter>
+    </ClCompile>
+    <ClCompile Include="goal.cpp">
+      <Filter>object\goal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -163,16 +159,11 @@
     <ClInclude Include="import.h">
       <Filter>import</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="goal.h">
-      <Filter>object\character\Goal</Filter>
-=======
     <ClInclude Include="character_player.h">
       <Filter>object\character\player</Filter>
     </ClInclude>
     <ClInclude Include="stumbler.h">
       <Filter>object\stumbler</Filter>
->>>>>>> c7dd7732ef558d9f277198b89273338d35c77785
     </ClInclude>
     <ClInclude Include="inputPadDirect.h">
       <Filter>input</Filter>
@@ -188,6 +179,9 @@
     </ClInclude>
     <ClInclude Include="sky.h">
       <Filter>object\background</Filter>
+    </ClInclude>
+    <ClInclude Include="goal.h">
+      <Filter>object\goal</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
