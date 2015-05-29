@@ -43,6 +43,7 @@ public:
 	D3DXCOLOR	GetColor(void){return m_color;}
 	BOOL GetGoal( void ){ return m_Goal ;}
 	void Scroll( float scroll ){m_pos.x -= scroll; CScene2D::SetVertexPolygon();}
+	BOOL CheckCollisionAABB(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE pointType);
 private:
 	BOOL m_Goal;
 };
