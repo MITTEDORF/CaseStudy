@@ -23,6 +23,8 @@
 #include "sky.h"
 #include "background.h"
 
+#include "goal.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // ƒ}ƒNƒ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -192,4 +194,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_player=CPlayer::Create(device);
 	m_player->SetPos(120.0f,300.0f);
 	m_player->SetKeyboard(m_keyboard);
+
+	//goal
+	CGoal::Create( device , "data/TEXTURE/blockWall.png" , CScene2D::POINT_CENTER , 0 , D3DXVECTOR2( 120.0f , 300.0f ) );
 }
