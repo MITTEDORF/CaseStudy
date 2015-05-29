@@ -172,17 +172,17 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_sky = CSky::Create(device);
 
 	// îwåi
-	m_bg = CBackground::Create(device, CBackground::FOREST);
+	m_bg = CBackground::Create(device, CBackground::TWON);
 
 	//----------------------------
 	// ìπ
 	//----------------------------
-	CScene2D* dirt;
+	CScene2D* road;
 	for(int cnt = 0; cnt < ROAD_NUM; ++cnt)
 	{
-		dirt = CScene2D::Create(device, CImport::TEX_DIRT, CScene2D::POINT_LEFTTOP);
-		dirt->SetSize(ROAD_SIZE, ROAD_SIZE);
-		dirt->SetPos(ROAD_SIZE * cnt, ROAD_POS);
+		road = CScene2D::Create(device, CImport::TEX_ASPHALT, CScene2D::POINT_LEFTTOP);
+		road->SetSize(ROAD_SIZE, ROAD_SIZE);
+		road->SetPos(ROAD_SIZE * cnt, ROAD_POS);
 	}
 
 	//----------------------------

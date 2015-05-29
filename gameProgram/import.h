@@ -41,6 +41,10 @@ public:
 		TEX_DIRT,
 		TEX_FOREST_01,
 
+		// í¨
+		TEX_ASPHALT,
+		TEX_TOWN_01,
+
 		// ÉvÉåÉCÉÑÅ[
 		TEX_PLAYER_WAIT,
 		TEX_ASSY_ONE,

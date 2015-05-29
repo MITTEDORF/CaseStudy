@@ -22,6 +22,7 @@
 const CImport::TEXTURES _type_bg[CBackground::TYPE_MAX] =
 {
 	CImport::TEX_FOREST_01,
+	CImport::TEX_TOWN_01,
 };
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -78,11 +79,11 @@ void CBackground::Scroll(float scroll)
 
 		if(backgroundScroll < BG_LEFT)
 		{
-			backgroundScroll = BG_RIGHT - scroll;
+			backgroundScroll = BG_RIGHT - (BG_LEFT - backgroundScroll);
 		}
 		else if(backgroundScroll > BG_RIGHT)
 		{
-			backgroundScroll = BG_LEFT - scroll;
+			backgroundScroll = BG_LEFT - (backgroundScroll - BG_RIGHT);
 		}
 
 		m_background[cnt]->SetPosX(backgroundScroll);
