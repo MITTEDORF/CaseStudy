@@ -24,6 +24,7 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 class CPlayer;
 class CSky;
+class CBackground;
 
 class CGame : CPhase
 {
@@ -43,7 +44,9 @@ private:
 	//ÉvÉåÉCÉÑÅ[êßå‰
 	CPlayer *m_player;
 
-	CSky* m_sky;
+	// îwåi
+	CSky*		 m_sky;
+	CBackground* m_bg;
 };
 
 //=============================================================================

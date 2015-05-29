@@ -23,20 +23,25 @@ public:
 	typedef enum
 	{
 		TEX_NONE = 0,
+
+		// システム
 		TEX_FADE,
 
+		// ロゴ
 		TEX_TITLELOGO,
 
+		// 空
 		TEX_SKY1,
 		TEX_SKY2,
 		TEX_SKY3,
 		TEX_SKY4,
 		TEX_SKY5,
 
-		TEX_ASPHALT,
-		//TEX_BLOCKWALL,
-		//TEX_POLE0,
+		// 森
+		TEX_DIRT,
+		TEX_FOREST_01,
 
+		// プレイヤー
 		TEX_PLAYER_WAIT,
 		TEX_ASSY_ONE,
 		TEX_PLAY_ATTACK,

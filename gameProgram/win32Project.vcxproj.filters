@@ -32,9 +32,6 @@
     <Filter Include="object\character\player">
       <UniqueIdentifier>{3bdffeca-7f8a-4747-840a-baba7da01d88}</UniqueIdentifier>
     </Filter>
-    <Filter Include="object\background\sky">
-      <UniqueIdentifier>{04228886-7ee5-4cc2-a79a-9001cdde358b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="object\stumbler">
       <UniqueIdentifier>{d08ffa58-4e0d-47ee-8658-d6a224a3ebc9}</UniqueIdentifier>
     </Filter>
@@ -91,12 +88,6 @@
     <ClCompile Include="character_player.cpp">
       <Filter>object\character\player</Filter>
     </ClCompile>
-    <ClCompile Include="background.cpp">
-      <Filter>object\background</Filter>
-    </ClCompile>
-    <ClCompile Include="sky.cpp">
-      <Filter>object\background\sky</Filter>
-    </ClCompile>
     <ClCompile Include="stumbler.cpp">
       <Filter>object\stumbler</Filter>
     </ClCompile>
@@ -105,6 +96,12 @@
     </ClCompile>
     <ClCompile Include="math_animation.cpp">
       <Filter>object\character\player</Filter>
+    </ClCompile>
+    <ClCompile Include="background.cpp">
+      <Filter>object\background</Filter>
+    </ClCompile>
+    <ClCompile Include="sky.cpp">
+      <Filter>object\background</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -159,12 +156,6 @@
     <ClInclude Include="character_player.h">
       <Filter>object\character\player</Filter>
     </ClInclude>
-    <ClInclude Include="background.h">
-      <Filter>object\background</Filter>
-    </ClInclude>
-    <ClInclude Include="sky.h">
-      <Filter>object\background\sky</Filter>
-    </ClInclude>
     <ClInclude Include="stumbler.h">
       <Filter>object\stumbler</Filter>
     </ClInclude>
@@ -176,6 +167,12 @@
     </ClInclude>
     <ClInclude Include="player_config.h">
       <Filter>object\character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="background.h">
+      <Filter>object\background</Filter>
+    </ClInclude>
+    <ClInclude Include="sky.h">
+      <Filter>object\background</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
