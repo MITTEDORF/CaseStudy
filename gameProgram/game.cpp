@@ -110,7 +110,7 @@ void CGame::Update(void)
 			m_player->SetPosX(SCREEN_HALF);
 
 			// 空のスクロール
-			m_sky->Scroll(scroll * 0.1f);
+			m_sky->Scroll(scroll * 0.01f);
 
 			// 背景のスクロール
 			m_bg->Scroll(scroll);
@@ -123,7 +123,7 @@ void CGame::Update(void)
 			m_player->SetPosX(0);
 
 			// 空のスクロール
-			m_sky->Scroll(scroll * 0.1f);
+			m_sky->Scroll(scroll * 0.01f);
 
 			// 背景のスクロール
 			m_bg->Scroll(scroll);
