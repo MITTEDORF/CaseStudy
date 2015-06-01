@@ -43,7 +43,9 @@ CPlayer::CPlayer(int priority, OBJTYPE objType) : CScene2D(priority, objType)
 HRESULT CPlayer::Init(LPDIRECT3DDEVICE9 device)
 {
 	
-	Assy=CVehicle::Create(device,CImport::TEX_ASSY_ONE);
+	Assy=CVehicle::Create(device,CImport::TEX_ASSY_TRAM);
+	Offset.x=-20.0f;
+	Offset.y=0;
 
 	//親の初期化
 	CScene2D::Init(device,CImport::TEX_PLAYER_WAIT,POINT_CENTER);
@@ -82,6 +84,20 @@ void CPlayer::Update(void)
 		Attack();
 	}
 
+
+	//乗り物破壊
+	if(m_keyboard->GetTrigger(DIK_T))
+	{
+		Assy->addRateOfDestruction(1);
+	}
+
+	//乗り物修復
+	if(m_keyboard->GetTrigger(DIK_U))
+	{
+		Assy->addRateOfDestruction(-1);
+	}
+
+
 	//重力加算
 	AddGravity();
 
@@ -92,7 +108,7 @@ void CPlayer::Update(void)
 	Collider();
 
 	//アッシーのポジションをセット
-	Assy->SetPos(m_pos.x,m_pos.y);
+	Assy->SetPos(m_pos.x+(int)Offset.x,m_pos.y+(int)Offset.y);
 	
 	//座標の再計算
 	SetVertexPolygon();
@@ -126,16 +142,23 @@ void CPlayer::Move()
 	if(m_keyboard->GetPress(DIK_A))
 	{
 		m_move_spd.x-=MOVE_SPD;
+		Assy->SetAnimMode(1,true);
 	}
 
 	//左移動
 	if(m_keyboard->GetPress(DIK_D))
 	{
 		m_move_spd.x+=MOVE_SPD;
+		Assy->SetAnimMode(1,true);
 	}
 
 	//慣性
 	m_move_spd.x*=MOVE_FRICTIONAL_FORCE;
+
+	if(m_keyboard->GetSetDelete(DIK_A)||m_keyboard->GetSetDelete(DIK_D))
+	{
+		Assy->SetAnimMode(0,true);
+	}
 
 	//ジャンプ処理
 	moveJump();
@@ -172,11 +195,11 @@ void CPlayer::AddGravity()
 void CPlayer::Collider()
 {
 	//地面とプレイヤの当たり判定
-	if(m_pos.y>=625.0f)
+	if(m_pos.y>=625.0f-Offset.y)
 	{
 		canJump=true;
 		isJump=false;
-		m_pos.y=625.0f;
+		m_pos.y=625.0f-Offset.y;
 	}
 
 	if(m_pos.x<=0.0f)
@@ -184,9 +207,9 @@ void CPlayer::Collider()
 		m_pos.x=0.0f;
 	}
 
-	if(m_pos.x>=((SCREEN_WIDTH>>1)+(SCREEN_WIDTH>>2)))
+	if(m_pos.x>=((SCREEN_WIDTH>>1)+(SCREEN_WIDTH>>2)*2.f))
 	{
-		m_pos.x=((SCREEN_WIDTH>>1)+(SCREEN_WIDTH>>2));
+		m_pos.x=((SCREEN_WIDTH>>1)+(SCREEN_WIDTH>>2)*2.f);
 	}
 
 }
@@ -218,7 +241,7 @@ void CPlayer::UpdateAnim()
 			else
 			{
 				nowAnim++;
-				SetAnim(maxAnim,nowAnim,this);
+				SetAnim(maxAnim,nowAnim,1,1,this);
 			}
 		}
 		cntAnim++;
@@ -235,7 +258,7 @@ void CPlayer::UpdateAnim()
 			else
 			{
 				nowAnim++;
-				SetAnim(maxAnim,nowAnim,this);
+				SetAnim(maxAnim,nowAnim,1,1,this);
 			}
 		}
 		cntAnim++;
@@ -252,7 +275,7 @@ void CPlayer::UpdateAnim()
 			else
 			{
 				nowAnim++;
-				SetAnim(maxAnim,nowAnim,this);
+				SetAnim(maxAnim,nowAnim,1,1,this);
 			}
 		}
 		cntAnim++;
@@ -269,7 +292,7 @@ void CPlayer::UpdateAnim()
 			else
 			{
 				nowAnim++;
-				SetAnim(maxAnim,nowAnim,this);
+				SetAnim(maxAnim,nowAnim,1,1,this);
 			}
 		}
 		cntAnim++;
@@ -282,7 +305,7 @@ void CPlayer::UpdateAnim()
 		{
 			cntAnim=0;
 			nowAnim=1;
-			SetAnim(maxAnim,1,this);
+			SetAnim(maxAnim,1,1,1,this);
 		}
 
 		else
@@ -309,9 +332,9 @@ void CPlayer::SetAnimMode(int AnimID,bool Rupe)
 	case PLAYER_ANIM_WAIT:
 		cntAnim=0;
 		nowAnim=1;
-		maxAnim=1;
+		maxAnim=PLAYER_MAXANIM_WAIT;
 		this->SetTex(CImport::TEX_PLAYER_WAIT);
-		SetAnim(maxAnim,1,this);
+		SetAnim(maxAnim,1,1,1,this);
 		break;
 
 	case PLAYER_ANIM_MOVE:
@@ -321,17 +344,17 @@ void CPlayer::SetAnimMode(int AnimID,bool Rupe)
 	case PLAYER_ANIM_ATACK:
 		cntAnim=0;
 		nowAnim=1;
-		maxAnim=5;
+		maxAnim=PLAYER_MAXANIM_ATACK;
 		isAttack=true;
 		this->SetTex(CImport::TEX_PLAY_ATTACK);
-		SetAnim(maxAnim,1,this);
+		SetAnim(maxAnim,1,1,1,this);
 		break;
 
 	case PLAYER_ANIM_DAMAGE:
 
 		break;
 	}
-
+	
 	AnimMode=AnimID;
 
 	isRupeAnim=Rupe;

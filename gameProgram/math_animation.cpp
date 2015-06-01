@@ -23,22 +23,23 @@ static float MapValues(float x,float inMin,float inMax,float outMin,float outMax
 //=============================================================================
 // ƒ|ƒŠƒSƒ“‚ÉŽw’è‚µ‚½ƒRƒ}‚ð“\‚è•t‚¯‚éˆ—(c•ªŠ„‚³‚ê‚½‚à‚Ì‚É‚Í”ñ‘Î‰ž)
 //=============================================================================
-void SetAnim(int maxTex,int nowTex,CScene2D* pol)
+void SetAnim(int maxTex_X,int nowTex_X,int maxTex_Y,int nowTex_Y,CScene2D* pol)
 {
 	
-	float uvOffset;
-	uvOffset=MapValues(1.0f,0,(float)maxTex,0,1.0f);
+	D3DXVECTOR2 uvOffset;
+	uvOffset.x=MapValues(1.0f,0,(float)maxTex_X,0,1.0f);
+	uvOffset.y=MapValues(1.0f,0,(float)maxTex_Y,0,1.0f);
 
-	D3DXVECTOR2 cord=D3DXVECTOR2(uvOffset*(float)(nowTex-1),0);
+	D3DXVECTOR2 cord=D3DXVECTOR2(uvOffset.x*(float)(nowTex_X-1),uvOffset.y*(float)(nowTex_Y-1));
 	pol->SetCord(0,cord);
 
-	cord=D3DXVECTOR2(uvOffset*(float)(nowTex),0);
+	cord=D3DXVECTOR2(uvOffset.x*(float)(nowTex_X),uvOffset.y*(float)(nowTex_Y-1));
 	pol->SetCord(1,cord);
 
-	cord=D3DXVECTOR2(uvOffset*(float)(nowTex-1),1.0f);
+	cord=D3DXVECTOR2(uvOffset.x*(float)(nowTex_X-1),uvOffset.y*(float)(nowTex_Y));
 	pol->SetCord(2,cord);
 
-	cord=D3DXVECTOR2(uvOffset*(float)(nowTex),1.0f);
+	cord=D3DXVECTOR2(uvOffset.x*(float)(nowTex_X),uvOffset.y*(float)(nowTex_Y));
 	pol->SetCord(3,cord);
 
 }

@@ -55,6 +55,21 @@ public:
 	//描画処理
 	void	Draw(void);
 
+	//乗り物の壊れ具合取得(大きくなるにつれて壊れていく)
+	//戻り値:乗り物の破壊率
+	int RateOfDestruction_()
+	{
+		return (RateOfDestruction);
+	}
+	
+	//乗り物の破壊率加算
+	//第一引数:加算したい値(減算したい場合は-の値を入れてください)
+	void addRateOfDestruction(int value);
+
+	
+	//アニメーションのセット処理
+	void SetAnimMode(int animID,bool Rupe);
+
 private:
 	//現在のアニメーションモード
 	int AnimMode;
@@ -68,23 +83,25 @@ private:
 	//アニメーションのカウント用
 	int cntAnim;
 	//アニメーションの最大コマ数
-	int maxAnim;
+	D3DXVECTOR2 maxAnim;
+	//破壊率
+	int RateOfDestruction;
 
 	//変数のNULL埋め処理
 	void NullSetVariable(void)
 	{
-		maxAnim=0;
+		RateOfDestruction=1;
 		isAnimEnd=false;
 		isRupeAnim=true;
-		AnimMode=0;
+		AnimMode=99;
 		cntAnim=0;
 		nowAnim=1;
+		maxAnim.x=1;
+		maxAnim.y=1;
 	}
 
 	//アニメーションの更新処理
 	void UpdateAnim();
-	//アニメーションのセット処理
-	void SetAnimMode(int animID,bool Rupe);
 };
 
 #endif

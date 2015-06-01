@@ -47,7 +47,7 @@ public:
 
 		// ÉvÉåÉCÉÑÅ[
 		TEX_PLAYER_WAIT,
-		TEX_ASSY_ONE,
+		TEX_ASSY_TRAM,
 		TEX_PLAY_ATTACK,
 
 		TEX_MAX

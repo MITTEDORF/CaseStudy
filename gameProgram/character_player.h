@@ -60,23 +60,44 @@ public:
 	void SetKeyboard(CInputKeyboard* keyboard){m_keyboard = keyboard;}
 
 	//移動速度の取得処理
+	//戻り値:プレイヤーの移動量
 	D3DXVECTOR2 move_spd_()
 	{
 		return (m_move_spd);
 	}
 
+	//HPの取得処理
+	//戻り値:プレイヤーのHP
 	int HP_()
 	{
 		return (HP);
 	}
 
+	//HPの加算処理
+	//第一引数:加算する値(減算したい場合は-の値を入れてください)
+	void AddHP(int value)
+	{
+		HP+=value;
+		//HPが0いかにならないように処理
+		if(HP<=0)
+		{
+			HP=0;
+		}
+	}
+
 private:
+
+	//Y値オフセット
+	D3DXVECTOR2 Offset;
+
+	//プレイヤーのHP
 	int HP;
 
 	//キーボード情報格納変数
 	CInputKeyboard*	m_keyboard;
 	//プレイヤーの移動速度
 	D3DXVECTOR2 m_move_spd;
+
 	//ジャンプ中かどうか
 	bool isJump;
 	//ジャンプ可能かどうか
@@ -103,6 +124,8 @@ private:
 	//変数のNULL埋め処理
 	void NullSetVariable(void)
 	{
+		Offset.x=0;
+		Offset.y=0;
 		HP=3;
 		maxAnim=1;
 		isAnimEnd=false;

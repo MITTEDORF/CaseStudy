@@ -61,6 +61,7 @@ void CVehicle::Uninit(void)
 //=============================================================================
 void CVehicle::Update(void)
 {
+	//アニメーションの更新
 	UpdateAnim();
 
 	//座標の再計算
@@ -95,18 +96,24 @@ void CVehicle::UpdateAnim()
 	switch(AnimMode)
 	{
 	case VEHICLE_ANIM_WAIT:
-
+	
 		break;
 
 	case VEHICLE_ANIM_MOVE:
+	if(cntAnim==VEHICLE_ANIMSPD_MOVE*nowAnim)
+	{
+		if(nowAnim==maxAnim.x)
+		{
+			isAnimEnd=true;
+		}
 
-		break;
-
-	case VEHICLE_ANIM_ATACK:
-		
-		break;
-
-	case VEHICLE_ANIM_DAMAGE:
+		else
+		{
+			nowAnim++;
+			SetAnim((int)maxAnim.x,nowAnim,(int)maxAnim.y,RateOfDestruction,this);
+		}
+	}
+	cntAnim++;
 		break;
 	}
 
@@ -116,7 +123,7 @@ void CVehicle::UpdateAnim()
 		{
 			cntAnim=0;
 			nowAnim=1;
-			SetAnim(maxAnim,1,this);
+			SetAnim((int)maxAnim.x,1,(int)maxAnim.y,RateOfDestruction,this);
 		}
 
 		else
@@ -142,30 +149,40 @@ void CVehicle::SetAnimMode(int AnimID,bool Rupe)
 	case VEHICLE_ANIM_WAIT:
 		cntAnim=0;
 		nowAnim=1;
-		maxAnim=1;
-		this->SetTex(CImport::TEX_ASSY_ONE);
-		SetAnim(maxAnim,1,this);
+		maxAnim.x=VEHICLE_MAXANIM_X_WAIT;
+		maxAnim.y=VEHICLE_MAXANIM_Y_WAIT;
+		SetAnim((int)maxAnim.x,1,(int)maxAnim.y,RateOfDestruction,this);
 		break;
 
 	case VEHICLE_ANIM_MOVE:
-
-		break;
-
-	case VEHICLE_ANIM_ATACK:
 		cntAnim=0;
 		nowAnim=1;
-		maxAnim=5;
-		this->SetTex(CImport::TEX_PLAY_ATTACK);
-		SetAnim(maxAnim,1,this);
-		break;
-
-	case VEHICLE_ANIM_DAMAGE:
-
+		maxAnim.x=VEHICLE_MAXANIM_X_MOVE;
+		maxAnim.y=VEHICLE_MAXANIM_Y_MOVE;
+		SetAnim((int)maxAnim.x,1,(int)maxAnim.y,RateOfDestruction,this);
 		break;
 	}
 
 	AnimMode=AnimID;
 	isRupeAnim=Rupe;
-
 }
 
+//=============================================================================
+//乗り物の破壊率加算
+//=============================================================================
+void CVehicle::addRateOfDestruction(int value)
+{
+	RateOfDestruction+=value;
+	//1以下になるのを防ぐ
+	if(RateOfDestruction<=1)
+	{
+		RateOfDestruction=1;
+	}
+	//コマ最大数以上になるのを防ぐ
+	if(RateOfDestruction>=maxAnim.y)
+	{
+		RateOfDestruction=(int)maxAnim.y;
+	}
+
+	SetAnim((int)maxAnim.x,1,(int)maxAnim.y,RateOfDestruction,this);
+}
