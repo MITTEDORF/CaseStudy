@@ -32,9 +32,6 @@
     <Filter Include="object\character\player">
       <UniqueIdentifier>{3bdffeca-7f8a-4747-840a-baba7da01d88}</UniqueIdentifier>
     </Filter>
-    <Filter Include="object\background\sky">
-      <UniqueIdentifier>{04228886-7ee5-4cc2-a79a-9001cdde358b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="object\stumbler">
       <UniqueIdentifier>{d08ffa58-4e0d-47ee-8658-d6a224a3ebc9}</UniqueIdentifier>
     </Filter>
@@ -49,6 +46,9 @@
     </Filter>
     <Filter Include="object\character\player\character_player">
       <UniqueIdentifier>{3bdffeca-7f8a-4747-840a-baba7da01d88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object\sky">
+      <UniqueIdentifier>{04228886-7ee5-4cc2-a79a-9001cdde358b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -118,11 +118,11 @@
     <ClCompile Include="background.cpp">
       <Filter>object\background</Filter>
     </ClCompile>
-    <ClCompile Include="sky.cpp">
-      <Filter>object\background</Filter>
-    </ClCompile>
     <ClCompile Include="goal.cpp">
       <Filter>object\goal</Filter>
+    </ClCompile>
+    <ClCompile Include="sky.cpp">
+      <Filter>object\sky</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -198,11 +198,11 @@
     <ClInclude Include="background.h">
       <Filter>object\background</Filter>
     </ClInclude>
-    <ClInclude Include="sky.h">
-      <Filter>object\background</Filter>
-    </ClInclude>
     <ClInclude Include="goal.h">
       <Filter>object\goal</Filter>
+    </ClInclude>
+    <ClInclude Include="sky.h">
+      <Filter>object\sky</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -25,11 +25,12 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/titleLogo.png",
 
 	// ãÛ
-	"./data/TEXTURE/sky01.png",
-	"./data/TEXTURE/sky02.png",
-	"./data/TEXTURE/sky03.png",
-	"./data/TEXTURE/sky04.png",
-	"./data/TEXTURE/sky05.png",
+	"./data/TEXTURE/sky_back.png",
+	"./data/TEXTURE/sky_01.png",
+	"./data/TEXTURE/sky_02.png",
+	"./data/TEXTURE/sky_03.png",
+	"./data/TEXTURE/sky_04.png",
+	"./data/TEXTURE/sky_05.png",
 
 	// êX
 	"./data/TEXTURE/dirt.png",

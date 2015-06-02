@@ -31,6 +31,7 @@ public:
 		TEX_TITLELOGO,
 
 		// ‹ó
+		TEX_SKY_BG,
 		TEX_SKY1,
 		TEX_SKY2,
 		TEX_SKY3,

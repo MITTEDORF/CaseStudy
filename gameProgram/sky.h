@@ -38,8 +38,8 @@ public:
 	void Scroll(float scroll);
 
 private:
-
 	CScene2D* m_sky[SKY_MAX];
+	CScene2D* m_bgcolor;
 };
 
 //=============================================================================
