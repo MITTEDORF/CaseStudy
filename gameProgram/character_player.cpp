@@ -195,11 +195,11 @@ void CPlayer::AddGravity()
 void CPlayer::Collider()
 {
 	//’n–Ê‚ÆƒvƒŒƒCƒ„‚Ì“–‚½‚è”»’è
-	if(m_pos.y>=625.0f-Offset.y)
+	if(m_pos.y>=593.0f-Offset.y)
 	{
 		canJump=true;
 		isJump=false;
-		m_pos.y=625.0f-Offset.y;
+		m_pos.y=593.0f-Offset.y;
 	}
 
 	if(m_pos.x<=0.0f)

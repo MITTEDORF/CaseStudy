@@ -28,9 +28,9 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // É}ÉNÉç
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#define ROAD_SIZE	(32.0f)
-#define ROAD_NUM	(40.0f)		// 1280 / 32
-#define ROAD_POS	(688)		// 720 - 32
+#define ROAD_SIZE	(64.0f)
+#define ROAD_NUM	(SCREEN_WIDTH / ROAD_SIZE)
+#define ROAD_POS	(SCREEN_HEIGHT - ROAD_SIZE)
 
 #define SCREEN_HALF	(640)	// 1280 / 2
 
@@ -174,7 +174,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_sky = CSky::Create(device);
 
 	// îwåi
-	m_bg = CBackground::Create(device, CBackground::FOREST);
+	m_bg = CBackground::Create(device, CBackground::TWON);
 
 	//----------------------------
 	// ìπ
@@ -182,7 +182,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	CScene2D* road;
 	for(int cnt = 0; cnt < ROAD_NUM; ++cnt)
 	{
-		road = CScene2D::Create(device, CImport::DIRT, CScene2D::POINT_LEFTTOP);
+		road = CScene2D::Create(device, CImport::ASPHALT, CScene2D::POINT_LEFTTOP);
 		road->SetSize(ROAD_SIZE, ROAD_SIZE);
 		road->SetPos(ROAD_SIZE * cnt, ROAD_POS);
 	}
