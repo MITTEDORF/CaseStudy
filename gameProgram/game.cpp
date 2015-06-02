@@ -14,13 +14,14 @@
 
 #include "result.h"
 
-#include "scene2D.h"
 #include "inputKeyboard.h"
 
 //プレイヤー制御処理
 #include "character_player.h"
 
+// 背景
 #include "sky.h"
+#include "background.h"
 
 #include "goal.h"
 
@@ -75,6 +76,8 @@ void CGame::Uninit(void)
 	// 空
 	SAFE_END(m_sky);
 
+	SAFE_END(m_bg);
+
 	// シーン
 	CScene::ReleaseAll();
 }
@@ -94,6 +97,9 @@ void CGame::Update(void)
 		//----------------------------
 		// 更新内容
 		//----------------------------
+		// 空の更新（スクロール）
+		m_sky->Update();
+
 		// プレイヤーの座標取得
 		D3DXVECTOR2 playerPos = m_player->GetPos();
 
@@ -106,7 +112,13 @@ void CGame::Update(void)
 			m_player->SetPosX(SCREEN_HALF);
 
 			// 空のスクロール
-			m_sky->Scroll(scroll);
+			m_sky->Scroll(scroll * 0.01f);
+
+			// 背景のスクロール
+			m_bg->Scroll(scroll);
+
+			//ゴールのスクロール(大井川 6/2_12時頃追加)
+			m_Goal->Scroll( scroll );
 		}
 		else if(playerPos.x < 0)
 		{
@@ -116,7 +128,10 @@ void CGame::Update(void)
 			m_player->SetPosX(0);
 
 			// 空のスクロール
-			m_sky->Scroll(-scroll);
+			m_sky->Scroll(scroll * 0.01f);
+
+			// 背景のスクロール
+			m_bg->Scroll(scroll);
 		}
 	}
 
@@ -142,18 +157,6 @@ void CGame::Draw(void)
 void CGame::Debug(void)
 {
 	//----------------------------
-	// 空スクロール
-	//----------------------------
-	if(m_keyboard->GetPress(DIK_LEFT))
-	{
-		m_sky->Scroll(-10.0f);
-	}
-	if(m_keyboard->GetPress(DIK_RIGHT))
-	{
-		m_sky->Scroll(10.0f);
-	}
-
-	//----------------------------
 	// 画面遷移
 	//----------------------------
 	if(m_keyboard->GetTrigger(DIK_RETURN))
@@ -173,18 +176,18 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	// 空
 	m_sky = CSky::Create(device);
 
-	//CScene2D::Create(device, CImport::TEX_BLOCKWALL, CScene2D::POINT_LEFTTOP);
-	//CScene2D::Create(device, CImport::TEX_POLE0, CScene2D::POINT_LEFTTOP);
+	// 背景
+	m_bg = CBackground::Create(device, CBackground::FOREST);
 
 	//----------------------------
 	// 道
 	//----------------------------
-	CScene2D* asphalt;
+	CScene2D* road;
 	for(int cnt = 0; cnt < ROAD_NUM; ++cnt)
 	{
-		asphalt = CScene2D::Create(device, CImport::TEX_ASPHALT, CScene2D::POINT_LEFTTOP);
-		asphalt->SetSize(ROAD_SIZE, ROAD_SIZE);
-		asphalt->SetPos(ROAD_SIZE * cnt, ROAD_POS);
+		road = CScene2D::Create(device, CImport::TEX_DIRT, CScene2D::POINT_LEFTTOP);
+		road->SetSize(ROAD_SIZE, ROAD_SIZE);
+		road->SetPos(ROAD_SIZE * cnt, ROAD_POS);
 	}
 
 	//----------------------------
@@ -195,6 +198,6 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_player->SetPos(120.0f,300.0f);
 	m_player->SetKeyboard(m_keyboard);
 
-	//goal
-	CGoal::Create( device , "data/TEXTURE/blockWall.png" , CScene2D::POINT_CENTER , 0 , D3DXVECTOR2( 120.0f , 300.0f ) );
+	//goal(大井川 6/2_2時頃変更)
+	m_Goal = m_Goal->Create( device , "data/TEXTURE/blockWall.png" , CScene2D::POINT_CENTER , 0 , D3DXVECTOR2( 120.0f , 300.0f ) );
 }

@@ -5,47 +5,48 @@
 //
 //*****************************************************************************
 
-#ifndef _MY_BACKGROUND_H
-#define _MY_BACKGROUND_H
+#ifndef _MY_BACK_H
+#define _MY_BACK_H
 //=============================================================================
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // インクルードファイル
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "main.h"
-/*
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ定義
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#define BG_MAX	(3)
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // クラス定義
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+class CScene2D;
+
 class CBackground
 {
 public:
 	typedef enum
 	{
-		BG_CTY,
-		BG_JUNGLE,
-		BG_MAX
-	} BGTYPE;
+		FOREST = 0,
+		TWON,
+		TYPE_MAX
+	} TYPE;
 
 	CBackground(void);
 	~CBackground(){};
 
-	static CBackground* Create(LPDIRECT3DDEVICE9 device, BGTYPE type);
-	HRESULT	Init(LPDIRECT3DDEVICE9 device, BGTYPE type);
+	static CBackground* Create(LPDIRECT3DDEVICE9 device, TYPE type);
+	HRESULT	Init(LPDIRECT3DDEVICE9 device, TYPE type);
 	void	Uninit(void);
-	void	Update(void);
+
+	void Scroll(float scroll);
 
 private:
-	float m_scroll;
 
-	CScene2D** m_sky;	// 空
-	CScene2D** m_obj;	// 背景物
-	CScene2D** m_wall;	// 背景遮蔽物
+	CScene2D* m_background[BG_MAX];
 };
-*/
+
 //=============================================================================
 #endif
