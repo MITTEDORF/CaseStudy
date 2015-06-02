@@ -51,6 +51,7 @@ public:
 	void		SetColor(D3DXCOLOR color){m_color = color; SetVertexPolygon();}
 	void		SetColor(float r, float g, float b, float a){m_color = D3DXCOLOR(r, g, b, a); SetVertexPolygon();}
 	D3DXCOLOR	GetColor(void){return m_color;}
+	POINT_TYPE	GetPointType(void){return m_pointType;}
 
 	void		SetCord(int n, D3DXVECTOR2 cord){m_coord[n] = cord; SetVertexPolygon();}
 	D3DXVECTOR2	GetCord(int n){return m_coord[n];}

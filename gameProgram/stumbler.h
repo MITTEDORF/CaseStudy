@@ -1,7 +1,7 @@
 //*****************************************************************************
 //
 // stumblerクラス [stumbler.h]
-// Author :MAI TANABE
+// Author : KEN MATSUURA
 //
 //*****************************************************************************
 
@@ -23,7 +23,7 @@ public:
 	CStumbler(int priority = PRIORITY_MAX - 1, OBJTYPE objType = OBJTYPE_2D);
 	~CStumbler(){};
 
-	static CStumbler* Create(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType);
+	static	CStumbler* Create(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType);
 
 	HRESULT	Init(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType);
 	HRESULT	Init(LPDIRECT3DDEVICE9 device, const char* texture, POINT_TYPE pointType);
@@ -31,8 +31,21 @@ public:
 	void	Update(void);
 	void	Draw(void);
 
+	// スクロール処理
+	void	Scroll(float scroll){m_pos.x -= scroll; CScene2D::SetVertexPolygon();}
+	// HPセット処理
+	void	SetHP(int life){m_life = life;}
+	// HPゲット処理
+	int		GetHP(void){return m_life;}
+	// 攻撃を受けた場合のHP減算処理
+	void	Attack(int damage){m_life -= damage;}
+	// 生存チェック
+	bool	LivingCheck(void);
+	// 衝突判定
+	bool	CheckCollisionAABB(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE pType);
+
 protected:
-	void SetVertexPolygon(void);
+	int		m_life;							// 障害物耐久度
 };
 
 //=============================================================================
