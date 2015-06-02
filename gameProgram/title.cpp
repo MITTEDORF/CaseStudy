@@ -104,6 +104,6 @@ void CTitle::InitObject(LPDIRECT3DDEVICE9 device)
 	// ƒ^ƒCƒgƒ‹ƒƒS
 	//----------------------------
 	CScene2D* titleLogo = CScene2D::Create(device, CImport::TITLELOGO, CScene2D::POINT_CENTER);
-	titleLogo->SetSize(1052.4f, 744.0f);
+	titleLogo->SetSize(876.0f, 563.0f);
 	titleLogo->SetPos(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 }
