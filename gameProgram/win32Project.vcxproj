@@ -75,11 +75,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="character_player.cpp" />
     <ClCompile Include="background.cpp" />
+    <ClCompile Include="character_player.cpp" />
+    <ClCompile Include="character_vehicle.cpp" />
     <ClCompile Include="debugproc.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="goal.cpp" />
     <ClCompile Include="import.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="inputKeyboard.cpp" />
@@ -99,11 +101,13 @@
     <ClCompile Include="title.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="character_player.h" />
     <ClInclude Include="background.h" />
+    <ClInclude Include="character_player.h" />
+    <ClInclude Include="character_vehicle.h" />
     <ClInclude Include="debugproc.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="goal.h" />
     <ClInclude Include="import.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="inputKeyboard.h" />
@@ -122,6 +126,7 @@
     <ClInclude Include="scene2D.h" />
     <ClInclude Include="stumbler.h" />
     <ClInclude Include="title.h" />
+    <ClInclude Include="vehicle_config.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

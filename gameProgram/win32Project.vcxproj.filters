@@ -32,11 +32,23 @@
     <Filter Include="object\character\player">
       <UniqueIdentifier>{3bdffeca-7f8a-4747-840a-baba7da01d88}</UniqueIdentifier>
     </Filter>
-    <Filter Include="object\background\sky">
-      <UniqueIdentifier>{04228886-7ee5-4cc2-a79a-9001cdde358b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="object\stumbler">
       <UniqueIdentifier>{d08ffa58-4e0d-47ee-8658-d6a224a3ebc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object\goal">
+      <UniqueIdentifier>{888eba1b-8066-4f82-a09c-cfc27376d83b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object\character\player">
+      <UniqueIdentifier>{91a77246-88e4-4028-a96a-f6b13ab23745}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object\character\player\character_vehicle">
+      <UniqueIdentifier>{93159aa8-7507-46d3-a40d-6ccec6ea447a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object\character\player\character_player">
+      <UniqueIdentifier>{3bdffeca-7f8a-4747-840a-baba7da01d88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object\sky">
+      <UniqueIdentifier>{04228886-7ee5-4cc2-a79a-9001cdde358b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -89,13 +101,7 @@
       <Filter>import</Filter>
     </ClCompile>
     <ClCompile Include="character_player.cpp">
-      <Filter>object\character\player</Filter>
-    </ClCompile>
-    <ClCompile Include="background.cpp">
-      <Filter>object\background</Filter>
-    </ClCompile>
-    <ClCompile Include="sky.cpp">
-      <Filter>object\background\sky</Filter>
+      <Filter>object\character\player\character_player</Filter>
     </ClCompile>
     <ClCompile Include="stumbler.cpp">
       <Filter>object\stumbler</Filter>
@@ -103,8 +109,20 @@
     <ClCompile Include="inputPadDirect.cpp">
       <Filter>input</Filter>
     </ClCompile>
+    <ClCompile Include="character_vehicle.cpp">
+      <Filter>object\character\player\character_vehicle</Filter>
+    </ClCompile>
     <ClCompile Include="math_animation.cpp">
-      <Filter>object\character\player</Filter>
+      <Filter>object\character</Filter>
+    </ClCompile>
+    <ClCompile Include="background.cpp">
+      <Filter>object\background</Filter>
+    </ClCompile>
+    <ClCompile Include="goal.cpp">
+      <Filter>object\goal</Filter>
+    </ClCompile>
+    <ClCompile Include="sky.cpp">
+      <Filter>object\sky</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,13 +175,7 @@
       <Filter>import</Filter>
     </ClInclude>
     <ClInclude Include="character_player.h">
-      <Filter>object\character\player</Filter>
-    </ClInclude>
-    <ClInclude Include="background.h">
-      <Filter>object\background</Filter>
-    </ClInclude>
-    <ClInclude Include="sky.h">
-      <Filter>object\background\sky</Filter>
+      <Filter>object\character\player\character_player</Filter>
     </ClInclude>
     <ClInclude Include="stumbler.h">
       <Filter>object\stumbler</Filter>
@@ -171,11 +183,26 @@
     <ClInclude Include="inputPadDirect.h">
       <Filter>input</Filter>
     </ClInclude>
-    <ClInclude Include="math_animation.h">
-      <Filter>object\character\player</Filter>
-    </ClInclude>
     <ClInclude Include="player_config.h">
-      <Filter>object\character\player</Filter>
+      <Filter>object\character\player\character_player</Filter>
+    </ClInclude>
+    <ClInclude Include="character_vehicle.h">
+      <Filter>object\character\player\character_vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="math_animation.h">
+      <Filter>object\character</Filter>
+    </ClInclude>
+    <ClInclude Include="vehicle_config.h">
+      <Filter>object\character\player\character_vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="background.h">
+      <Filter>object\background</Filter>
+    </ClInclude>
+    <ClInclude Include="goal.h">
+      <Filter>object\goal</Filter>
+    </ClInclude>
+    <ClInclude Include="sky.h">
+      <Filter>object\sky</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

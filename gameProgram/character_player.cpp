@@ -9,6 +9,8 @@
 // インクルードファイル
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "character_player.h"
+#include "character_vehicle.h"
+
 #include "inputKeyboard.h"
 #include "math_animation.h"
 #include "player_config.h"
@@ -41,14 +43,12 @@ CPlayer::CPlayer(int priority, OBJTYPE objType) : CScene2D(priority, objType)
 HRESULT CPlayer::Init(LPDIRECT3DDEVICE9 device)
 {
 	
-	Assy=CScene2D::Create(device,CImport::TEX_ASSY_ONE,POINT_CENTER);
-	Assy->Init(device,CImport::TEX_ASSY_ONE,POINT_CENTER);
+	Assy=CVehicle::Create(device,CImport::TEX_ASSY_ONE);
 
 	//親の初期化
 	CScene2D::Init(device,CImport::TEX_PLAYER_WAIT,POINT_CENTER);
 
-	SetAnim(1,1,this);
-
+	SetAnimMode(PLAYER_ANIM_WAIT,true);
 
 	//成功を返す
 	return S_OK;
@@ -66,10 +66,13 @@ void CPlayer::Uninit(void)
 //=============================================================================
 void CPlayer::Update(void)
 {
+	
+	//アニメーションのアップデート
+	UpdateAnim();
+
 	//フェード中ではないとき
 	if(CPhase::GetFade()->GetState() == CFade::FADESTATE_NONE)
 	{
-
 		m_posOld = m_pos;
 		
 		//移動処理
@@ -77,7 +80,6 @@ void CPlayer::Update(void)
 
 		//攻撃処理
 		Attack();
-
 	}
 
 	//重力加算
@@ -90,7 +92,7 @@ void CPlayer::Update(void)
 	Collider();
 
 	//アッシーのポジションをセット
-	Assy->SetPos(m_pos);
+	Assy->SetPos(m_pos.x,m_pos.y);
 	
 	//座標の再計算
 	SetVertexPolygon();
@@ -193,47 +195,145 @@ void CPlayer::Collider()
 //=============================================================================
 void CPlayer::Attack()
 {
-	
-
 	if(m_keyboard->GetTrigger(DIK_K)&&!isAttack)
 	{
-		cntAnim=0;
-		nowAnim=1;
-		isAttack=true;
-		this->SetTex(CImport::TEX_PLAY_ATTACK);
-		SetAnim(5,1,this);
+		SetAnimMode(PLAYER_ANIM_ATACK,false);
+	}
+}
+//=============================================================================
+//アニメーションの更新処理
+//=============================================================================
+void CPlayer::UpdateAnim()
+{
+	switch(AnimMode)
+	{
+	case PLAYER_ANIM_WAIT:
+		if(cntAnim==PLAYER_ANIMSPD_WAIT*nowAnim)
+		{
+			if(nowAnim==maxAnim)
+			{
+				isAnimEnd=true;
+			}
+
+			else
+			{
+				nowAnim++;
+				SetAnim(maxAnim,nowAnim,this);
+			}
+		}
+		cntAnim++;
+		break;
+
+	case PLAYER_ANIM_MOVE:
+		if(cntAnim==PLAYER_ANIMSPD_MOVE*nowAnim)
+		{
+			if(nowAnim==maxAnim)
+			{
+				isAnimEnd=true;
+			}
+
+			else
+			{
+				nowAnim++;
+				SetAnim(maxAnim,nowAnim,this);
+			}
+		}
+		cntAnim++;
+		break;
+
+	case PLAYER_ANIM_ATACK:
+		if(cntAnim==PLAYER_ANIMSPD_ATACK*nowAnim)
+		{
+			if(nowAnim==maxAnim)
+			{
+				isAnimEnd=true;
+			}
+
+			else
+			{
+				nowAnim++;
+				SetAnim(maxAnim,nowAnim,this);
+			}
+		}
+		cntAnim++;
+		break;
+
+	case PLAYER_ANIM_DAMAGE:
+		if(cntAnim==PLAYER_ANIMSPD_DAMAGE*nowAnim)
+		{
+			if(nowAnim==maxAnim)
+			{
+				isAnimEnd=true;
+			}
+
+			else
+			{
+				nowAnim++;
+				SetAnim(maxAnim,nowAnim,this);
+			}
+		}
+		cntAnim++;
+		break;
 	}
 
-	if(isAttack)
+	if(isAnimEnd)
 	{
-		switch (cntAnim)
+		if(isRupeAnim)
 		{
-			case ATTACK_ANIM_SPD:
-				SetAnim(5,2,this);
-				break;
-
-			case ATTACK_ANIM_SPD*2:
-				SetAnim(5,3,this);
-				break;
-
-			case ATTACK_ANIM_SPD*3:
-				SetAnim(5,4,this);
-				break;
-
-			case ATTACK_ANIM_SPD*4:
-				SetAnim(5,5,this);
-				break;
-
-			case ATTACK_ANIM_SPD*5:
-				cntAnim=0;
-				nowAnim=1;
-				isAttack=false;
-				this->SetTex(CImport::TEX_PLAYER_WAIT);
-				SetAnim(1,1,this);
-				return;
-				break;
+			cntAnim=0;
+			nowAnim=1;
+			SetAnim(maxAnim,1,this);
 		}
 
-		cntAnim++;
+		else
+		{
+			isAttack=false;
+			SetAnimMode(PLAYER_ANIM_WAIT,true);
+		}
+
+		isAnimEnd=false;
 	}
+}
+//=============================================================================
+//アニメーションのセット処理
+//=============================================================================
+void CPlayer::SetAnimMode(int AnimID,bool Rupe)
+{
+	if(AnimMode==AnimID)
+	{
+		return;
+	}
+
+	switch (AnimID)
+	{
+	case PLAYER_ANIM_WAIT:
+		cntAnim=0;
+		nowAnim=1;
+		maxAnim=1;
+		this->SetTex(CImport::TEX_PLAYER_WAIT);
+		SetAnim(maxAnim,1,this);
+		break;
+
+	case PLAYER_ANIM_MOVE:
+
+		break;
+
+	case PLAYER_ANIM_ATACK:
+		cntAnim=0;
+		nowAnim=1;
+		maxAnim=5;
+		isAttack=true;
+		this->SetTex(CImport::TEX_PLAY_ATTACK);
+		SetAnim(maxAnim,1,this);
+		break;
+
+	case PLAYER_ANIM_DAMAGE:
+
+		break;
+	}
+
+	AnimMode=AnimID;
+
+	isRupeAnim=Rupe;
+
 }

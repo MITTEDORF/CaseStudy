@@ -56,6 +56,7 @@ public:
 	void		SetCord(int n, D3DXVECTOR2 cord){m_coord[n] = cord; SetVertexPolygon();}
 	D3DXVECTOR2	GetCord(int n){return m_coord[n];}
 	void SetTex(CImport::TEXTURES texture){m_texture = CImport::GetTexture(texture);};
+
 protected:
 	void SetVertexPolygon(void);
 
