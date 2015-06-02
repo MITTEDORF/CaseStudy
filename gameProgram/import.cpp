@@ -53,7 +53,7 @@ const char* TEX_PATH[] =
 
 	// ÉvÉåÉCÉÑÅ[
 	"./data/TEXTURE/player_wait.png",
-	"./data/TEXTURE/Assy_one.png",
+	"./data/TEXTURE/tram.png",
 	"./data/TEXTURE/player_attack.png",
 };
 

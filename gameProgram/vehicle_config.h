@@ -10,13 +10,19 @@
 // 設定情報
 //=============================================================================
 
-//攻撃アニメーションスピード
-const int   VEHICLE_ANIMSPD_MOVE_  = 10;
+//アニメーションコマ数
+const int   VEHICLE_MAXANIM_X_WAIT  = 4;
+const int   VEHICLE_MAXANIM_X_MOVE  = 4;
+const int   VEHICLE_MAXANIM_Y_WAIT  = 3;
+const int   VEHICLE_MAXANIM_Y_MOVE  = 3;
 
-const int   VEHICLE_ANIM_WAIT      = 0;
-const int   VEHICLE_ANIM_MOVE      = 1;
-const int   VEHICLE_ANIM_ATACK     = 2;
-const int   VEHICLE_ANIM_DAMAGE    = 3;
+//アニメーションスピード
+const int   VEHICLE_ANIMSPD_WAIT  = 10;
+const int   VEHICLE_ANIMSPD_MOVE  = 10;
+
+//アニメーションモード
+const int   VEHICLE_ANIM_WAIT     = 0;
+const int   VEHICLE_ANIM_MOVE     = 1;
 
 
 #endif
