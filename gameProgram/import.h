@@ -58,9 +58,11 @@ public:
 		BARRICADE,
 
 		// ÉvÉåÉCÉÑÅ[
-		TEX_PLAYER_WAIT,
-		TEX_ASSY_TRAM,
-		TEX_PLAY_ATTACK,
+		PLAYER_WAIT,
+		PLAYER_ATTACK,
+
+		// èÊÇËï®
+		ASSY_TRAM,
 
 		TEX_MAX
 	} TEXTURES;

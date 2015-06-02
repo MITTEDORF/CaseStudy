@@ -43,12 +43,12 @@ CPlayer::CPlayer(int priority, OBJTYPE objType) : CScene2D(priority, objType)
 HRESULT CPlayer::Init(LPDIRECT3DDEVICE9 device)
 {
 	
-	Assy=CVehicle::Create(device,CImport::TEX_ASSY_TRAM);
+	Assy=CVehicle::Create(device,CImport::ASSY_TRAM);
 	Offset.x=-20.0f;
 	Offset.y=0;
 
 	//e‚Ì‰Šú‰»
-	CScene2D::Init(device,CImport::TEX_PLAYER_WAIT,POINT_CENTER);
+	CScene2D::Init(device,CImport::PLAYER_WAIT,POINT_CENTER);
 
 	SetAnimMode(PLAYER_ANIM_WAIT,true);
 
@@ -333,7 +333,7 @@ void CPlayer::SetAnimMode(int AnimID,bool Rupe)
 		cntAnim=0;
 		nowAnim=1;
 		maxAnim=PLAYER_MAXANIM_WAIT;
-		this->SetTex(CImport::TEX_PLAYER_WAIT);
+		this->SetTex(CImport::PLAYER_WAIT);
 		SetAnim(maxAnim,1,1,1,this);
 		break;
 
@@ -346,7 +346,7 @@ void CPlayer::SetAnimMode(int AnimID,bool Rupe)
 		nowAnim=1;
 		maxAnim=PLAYER_MAXANIM_ATACK;
 		isAttack=true;
-		this->SetTex(CImport::TEX_PLAY_ATTACK);
+		this->SetTex(CImport::PLAYER_ATTACK);
 		SetAnim(maxAnim,1,1,1,this);
 		break;
 

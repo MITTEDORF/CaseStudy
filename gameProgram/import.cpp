@@ -52,9 +52,11 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/stumbler/barricade.png",
 
 	// ƒvƒŒƒCƒ„[
-	"./data/TEXTURE/player_wait.png",
-	"./data/TEXTURE/tram.png",
-	"./data/TEXTURE/player_attack.png",
+	"./data/TEXTURE/player/player_wait.png",
+	"./data/TEXTURE/player/player_attack.png",
+
+	// æ‚è•¨
+	"./data/TEXTURE/assy/tram.png",
 };
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
