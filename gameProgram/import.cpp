@@ -25,20 +25,31 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/titleLogo.png",
 
 	// ãÛ
-	"./data/TEXTURE/sky_back.png",
-	"./data/TEXTURE/sky_01.png",
-	"./data/TEXTURE/sky_02.png",
-	"./data/TEXTURE/sky_03.png",
-	"./data/TEXTURE/sky_04.png",
-	"./data/TEXTURE/sky_05.png",
+	"./data/TEXTURE/sky/sky_back.png",
+	"./data/TEXTURE/sky/sky_01.png",
+	"./data/TEXTURE/sky/sky_02.png",
+	"./data/TEXTURE/sky/sky_03.png",
+	"./data/TEXTURE/sky/sky_04.png",
+	"./data/TEXTURE/sky/sky_05.png",
 
 	// êX
-	"./data/TEXTURE/dirt.png",
-	"./data/TEXTURE/forest_01.png",
+	"./data/TEXTURE/forest/dirt.png",
+	"./data/TEXTURE/forest/forest_01.png",
 
 	// í¨
-	"./data/TEXTURE/asphalt.png",
-	"./data/TEXTURE/town_01.png",
+	"./data/TEXTURE/town/asphalt.png",
+	"./data/TEXTURE/town/town_01.png",
+
+	// è·äQï®
+	"./data/TEXTURE/stumbler/signboard.png",
+	"./data/TEXTURE/stumbler/lion.png",
+	"./data/TEXTURE/stumbler/rock.png",
+	"./data/TEXTURE/stumbler/log_left.png",
+	"./data/TEXTURE/stumbler/log_center.png",
+	"./data/TEXTURE/stumbler/log_right.png",
+	"./data/TEXTURE/stumbler/bird.png",
+	"./data/TEXTURE/stumbler/dustbox.png",
+	"./data/TEXTURE/stumbler/barricade.png",
 
 	// ÉvÉåÉCÉÑÅ[
 	"./data/TEXTURE/player_wait.png",

@@ -67,7 +67,7 @@ HRESULT CFade::Init(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	// êeÉNÉâÉXèâä˙âª
 	//----------------------------
-	HRESULT_FUNC(CScene2D::Init(device, CImport::TEX_FADE, CScene2D::POINT_CENTER))
+	HRESULT_FUNC(CScene2D::Init(device, CImport::FADE, CScene2D::POINT_CENTER))
 	SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	SetPos(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 

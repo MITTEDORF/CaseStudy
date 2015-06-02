@@ -182,7 +182,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	CScene2D* road;
 	for(int cnt = 0; cnt < ROAD_NUM; ++cnt)
 	{
-		road = CScene2D::Create(device, CImport::TEX_DIRT, CScene2D::POINT_LEFTTOP);
+		road = CScene2D::Create(device, CImport::DIRT, CScene2D::POINT_LEFTTOP);
 		road->SetSize(ROAD_SIZE, ROAD_SIZE);
 		road->SetPos(ROAD_SIZE * cnt, ROAD_POS);
 	}
