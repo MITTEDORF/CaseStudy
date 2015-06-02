@@ -21,8 +21,8 @@
 
 const CImport::TEXTURES _type_bg[CBackground::TYPE_MAX] =
 {
-	CImport::TEX_FOREST_01,
-	CImport::TEX_TOWN_01,
+	CImport::FOREST_01,
+	CImport::TOWN_01,
 };
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

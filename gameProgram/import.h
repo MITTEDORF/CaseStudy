@@ -22,13 +22,13 @@ class CImport
 public:
 	typedef enum
 	{
-		TEX_NONE = 0,
+		NONE = 0,
 
 		// システム
-		TEX_FADE,
+		FADE,
 
 		// ロゴ
-		TEX_TITLELOGO,
+		TITLELOGO,
 
 		// 空
 		TEX_SKY_BG,
@@ -39,12 +39,23 @@ public:
 		TEX_SKY5,
 
 		// 森
-		TEX_DIRT,
-		TEX_FOREST_01,
+		DIRT,
+		FOREST_01,
 
 		// 町
-		TEX_ASPHALT,
-		TEX_TOWN_01,
+		ASPHALT,
+		TOWN_01,
+
+		// 障害物
+		SIGNBOARD,
+		LION,
+		ROCK,
+		LOG_LEFT,
+		LOG_CENTER,
+		LOG_RIGHT,
+		BIRD,
+		DUSTBOX,
+		BARRICADE,
 
 		// プレイヤー
 		TEX_PLAYER_WAIT,
