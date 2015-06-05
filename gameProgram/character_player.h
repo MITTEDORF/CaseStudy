@@ -14,7 +14,9 @@
 
 //=============================================================================
 // マクロ
-//=============================================================================
+//============================================================================
+//プレイヤのHPの最大値(3の倍数が好ましい)
+const int PLAYER_HP_MAX                 = 3;
 
 //=============================================================================
 // 前方宣言
@@ -73,17 +75,14 @@ public:
 		return (HP);
 	}
 
+	bool isDeth_()
+	{
+		return (isDeth);
+	}
+
 	//HPの加算処理
 	//第一引数:加算する値(減算したい場合は-の値を入れてください)
-	void AddHP(int value)
-	{
-		HP+=value;
-		//HPが0いかにならないように処理
-		if(HP<=0)
-		{
-			HP=0;
-		}
-	}
+	void AddHP(int value);
 
 private:
 
@@ -92,6 +91,10 @@ private:
 
 	//プレイヤーのHP
 	int HP;
+	//ビークルダメージ値
+	int AssyDamage;
+	//ビークルの耐久(1～3)
+	int AssyHP;
 
 	//キーボード情報格納変数
 	CInputKeyboard*	m_keyboard;
@@ -108,6 +111,8 @@ private:
 	bool isLighting;
 	//光アクションを継続するかどうか
 	bool isHoldLighting;
+
+	bool isDeth;
 
 	//現在のアニメーションモード
 	int AnimMode;
@@ -130,7 +135,11 @@ private:
 	{
 		Offset.x=0;
 		Offset.y=0;
-		HP=3;
+
+		HP=PLAYER_HP_MAX;
+		AssyDamage=HP/3;
+		AssyHP=3;
+		isDeth=false;
 		maxAnim=1;
 		isAnimEnd=false;
 		isRupeAnim=true;
@@ -163,7 +172,8 @@ private:
 	void UpdateAnim();
 	//アニメーションのセット処理
 	void SetAnimMode(int animID,bool Rupe);
-
+	//HPの更新
+	void HPUpdate();
 
 };
 
