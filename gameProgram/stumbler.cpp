@@ -21,10 +21,12 @@ CStumbler::CStumbler(int priority, OBJTYPE objType) : CScene2D(priority, objType
 //=============================================================================
 // 生成
 //=============================================================================
-CStumbler* CStumbler::Create(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType)
+CStumbler* CStumbler::Create(LPDIRECT3DDEVICE9 device, STUM_DATA data, POINT_TYPE pointType)
 {
 	CStumbler* pointer = new CStumbler;
-	pointer->Init(device, texture, pointType);
+	pointer->Init(device, (CImport::TEXTURES)(CImport::SIGNBOARD + data.type), pointType);
+	// データを元に座標の変更
+	pointer->SetPos(data.Index.x * 64, SCREEN_HEIGHT - ((data.Index.y * 64) + 128));
 	return pointer;
 }
 

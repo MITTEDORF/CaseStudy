@@ -15,6 +15,29 @@
 #include "scene2D.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// 構造体
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// 画像データ識別
+typedef enum{
+	TYPE_SIGNBOARD = 0,
+	TYPE_LION,
+	TYPE_ROCK,
+	TYPE_LOG_LEFT,
+	TYPE_LOG_CENTER,
+	TYPE_LOG_RIGHT,
+	TYPE_BIRD,
+	TYPE_DUSTBOX,
+	TYPE_BARRICADE,
+	TYPE_MAX
+}STUM_TYPE;
+
+// 障害物情報
+typedef struct{
+	STUM_TYPE type;
+	D3DXVECTOR2 Index;
+}STUM_DATA;
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // クラス定義
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 class CStumbler : public CScene2D
@@ -23,7 +46,7 @@ public:
 	CStumbler(int priority = PRIORITY_MAX - 1, OBJTYPE objType = OBJTYPE_2D);
 	~CStumbler(){};
 
-	static	CStumbler* Create(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType);
+	static	CStumbler* Create(LPDIRECT3DDEVICE9 device, STUM_DATA data, POINT_TYPE pointType);
 
 	HRESULT	Init(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType);
 	HRESULT	Init(LPDIRECT3DDEVICE9 device, const char* texture, POINT_TYPE pointType);
