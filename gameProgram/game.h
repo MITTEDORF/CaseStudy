@@ -25,6 +25,7 @@
 class CPlayer;
 class CSky;
 class CBackground;
+class CScene2D;
 
 class CGame : CPhase
 {
@@ -47,6 +48,8 @@ private:
 	// îwåi
 	CSky*		 m_sky;
 	CBackground* m_bg;
+
+	CScene2D* m_version;
 };
 
 //=============================================================================

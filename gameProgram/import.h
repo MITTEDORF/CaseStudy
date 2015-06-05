@@ -26,6 +26,7 @@ public:
 
 		// ƒVƒXƒeƒ€
 		FADE,
+		VERSION,
 
 		// ƒƒS
 		TITLELOGO,

@@ -20,6 +20,7 @@ const char* TEX_PATH[] =
 
 	// ÉVÉXÉeÉÄ
 	"./data/TEXTURE/fade.jpg",
+	"./data/TEXTURE/version/alpha.png",
 
 	// ÉçÉS
 	"./data/TEXTURE/titleLogo.png",

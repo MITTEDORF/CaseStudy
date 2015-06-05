@@ -72,11 +72,12 @@ HRESULT CManager::Init(HINSTANCE instance, HWND wnd, bool window)
 	m_renderer->SetDebugproc(m_debugproc);
 
 	//----------------------------
-	// ‰Šú‹N“®‰æ–Ê
+	// ‰Šú‹N“®•\Ž¦
 	//----------------------------
 	CScene2D* setup = CScene2D::Create(device, "./data/TEXTURE/fade.jpg", CScene2D::POINT_CENTER);
 	setup->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	setup->SetPos(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
+
 	m_renderer->Draw();
 
 	//----------------------------
