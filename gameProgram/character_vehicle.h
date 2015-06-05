@@ -65,10 +65,14 @@ public:
 	//乗り物の破壊率加算
 	//第一引数:加算したい値(減算したい場合は-の値を入れてください)
 	void addRateOfDestruction(int value);
-
-	
 	//アニメーションのセット処理
 	void SetAnimMode(int animID,bool Rupe);
+	//描画のON,OFF切り替え
+	//第一引数:描画するかしないか
+	void SetisDraw(bool value)
+	{
+		isDraw=value;
+	}
 
 private:
 	//現在のアニメーションモード
@@ -77,6 +81,8 @@ private:
 	bool isRupeAnim;
 	//アニメーションの1順終了フラグ
 	bool isAnimEnd;
+	//描画フラグ
+	bool isDraw;
 
 	//現在のアニメーション番号
 	int nowAnim;
@@ -91,6 +97,7 @@ private:
 	void NullSetVariable(void)
 	{
 		RateOfDestruction=1;
+		isDraw=true;
 		isAnimEnd=false;
 		isRupeAnim=true;
 		AnimMode=99;

@@ -61,6 +61,7 @@ public:
 		// ƒvƒŒƒCƒ„[
 		PLAYER_WAIT,
 		PLAYER_ATTACK,
+		PLAYER_LIGHT,
 
 		// æ‚è•¨
 		ASSY_TRAM,

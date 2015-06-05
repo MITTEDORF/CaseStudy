@@ -55,6 +55,8 @@ const char* TEX_PATH[] =
 	// ƒvƒŒƒCƒ„[
 	"./data/TEXTURE/player/player_wait.png",
 	"./data/TEXTURE/player/player_attack.png",
+	"./data/TEXTURE/player/player_light.png",
+
 
 	// æ‚è•¨
 	"./data/TEXTURE/assy/tram.png",
