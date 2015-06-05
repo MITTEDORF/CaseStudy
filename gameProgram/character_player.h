@@ -104,6 +104,10 @@ private:
 	bool canJump;
 	//攻撃中かどうか
 	bool isAttack;
+	//光アクション中かどうか
+	bool isLighting;
+	//光アクションを継続するかどうか
+	bool isHoldLighting;
 
 	//現在のアニメーションモード
 	int AnimMode;
@@ -138,6 +142,8 @@ private:
 		m_move_spd=D3DXVECTOR2(0.0f,0.0f);
 		isJump=false;
 		isAttack=false;
+		isLighting=false;
+		isHoldLighting=false;
 		canJump=true;
 	}
 
@@ -147,6 +153,8 @@ private:
 	void Attack();
 	//ジャンプ処理
 	void moveJump();
+	//光アクション処理
+	void LightAction();
 	//重力をかける
 	void AddGravity();
 	//様々な当たり判定

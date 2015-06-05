@@ -82,6 +82,9 @@ void CPlayer::Update(void)
 
 		//攻撃処理
 		Attack();
+
+		//光アクション処理
+		LightAction();
 	}
 
 
@@ -96,7 +99,6 @@ void CPlayer::Update(void)
 	{
 		Assy->addRateOfDestruction(-1);
 	}
-
 
 	//重力加算
 	AddGravity();
@@ -138,18 +140,21 @@ CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 void CPlayer::Move()
 {
-	//右移動
-	if(m_keyboard->GetPress(DIK_A))
+	if(!isLighting)
 	{
-		m_move_spd.x-=MOVE_SPD;
-		Assy->SetAnimMode(1,true);
-	}
+		//右移動
+		if(m_keyboard->GetPress(DIK_A))
+		{
+			m_move_spd.x-=MOVE_SPD;
+			Assy->SetAnimMode(1,true);
+		}
 
-	//左移動
-	if(m_keyboard->GetPress(DIK_D))
-	{
-		m_move_spd.x+=MOVE_SPD;
-		Assy->SetAnimMode(1,true);
+		//左移動
+		if(m_keyboard->GetPress(DIK_D))
+		{
+			m_move_spd.x+=MOVE_SPD;
+			Assy->SetAnimMode(1,true);
+		}
 	}
 
 	//慣性
@@ -169,7 +174,7 @@ void CPlayer::Move()
 void CPlayer::moveJump()
 {
 	//スペースキーを押したとき
-	if(m_keyboard->GetTrigger(DIK_SPACE)&&canJump)
+	if(m_keyboard->GetTrigger(DIK_SPACE)&&canJump&&!isLighting)
 	{
 		if(!isJump)
 		{
@@ -185,8 +190,10 @@ void CPlayer::moveJump()
 //=============================================================================
 void CPlayer::AddGravity()
 {
-
-	m_move_spd.y+=GRAVITY_SPD;
+	if(!isLighting)
+	{
+		m_move_spd.y+=GRAVITY_SPD;
+	}
 
 }
 //=============================================================================
@@ -218,9 +225,29 @@ void CPlayer::Collider()
 //=============================================================================
 void CPlayer::Attack()
 {
-	if(m_keyboard->GetTrigger(DIK_K)&&!isAttack)
+	if(m_keyboard->GetTrigger(DIK_K)&&!isAttack&&!isLighting)
 	{
 		SetAnimMode(PLAYER_ANIM_ATACK,false);
+	}
+}
+//=============================================================================
+// 光アクション処理
+//=============================================================================
+void CPlayer::LightAction()
+{
+	if(m_keyboard->GetTrigger(DIK_L)&&!isAttack&&!isLighting)
+	{
+		
+		m_move_spd.y=0.0f;
+		SetAnimMode(PLAYER_ANIM_LIGHT,false);
+	}
+
+	if(isHoldLighting)
+	{
+		if(m_keyboard->GetSetDelete(DIK_L))
+		{
+			isHoldLighting=false;
+		}
 	}
 }
 //=============================================================================
@@ -297,9 +324,28 @@ void CPlayer::UpdateAnim()
 		}
 		cntAnim++;
 		break;
+
+	case PLAYER_ANIM_LIGHT:
+		if(cntAnim==PLAYER_ANIMSPD_LIGHT*nowAnim)
+		{
+			if(nowAnim==maxAnim)
+			{
+				
+				isAnimEnd=true;
+				
+			}
+
+			else
+			{
+				nowAnim++;
+				SetAnim(maxAnim,nowAnim,1,1,this);
+			}
+		}
+		cntAnim++;
+		break;
 	}
 
-	if(isAnimEnd)
+	if(isAnimEnd&&!isHoldLighting)
 	{
 		if(isRupeAnim)
 		{
@@ -311,6 +357,7 @@ void CPlayer::UpdateAnim()
 		else
 		{
 			isAttack=false;
+			isLighting=false;
 			SetAnimMode(PLAYER_ANIM_WAIT,true);
 		}
 
@@ -352,6 +399,16 @@ void CPlayer::SetAnimMode(int AnimID,bool Rupe)
 
 	case PLAYER_ANIM_DAMAGE:
 
+		break;
+
+	case PLAYER_ANIM_LIGHT:
+		cntAnim=0;
+		nowAnim=1;
+		maxAnim=PLAYER_MAXANIM_LIGHT;
+		isHoldLighting=true;
+		isLighting=true;
+		this->SetTex(CImport::PLAYER_LIGHT);
+		SetAnim(maxAnim,1,1,1,this);
 		break;
 	}
 	
