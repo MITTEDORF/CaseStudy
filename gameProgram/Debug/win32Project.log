@@ -1,4 +1,4 @@
-﻿2015/06/02 14:22:55 にビルドを開始しました。
+﻿2015/06/05 16:27:46 にビルドを開始しました。
      1>ノード 2 上のプロジェクト "C:\Users\AT11-大井川和真\Desktop\授業\4年\ケーススタディ\gameProgram\win32Project.vcxproj" (build ターゲット)。
      1>InitializeBuildStatus:
          "AlwaysCreate" が指定されたため "Debug\directX.unsuccessfulbuild" を作成しています。
@@ -46,4 +46,4 @@
 
 ビルドに成功しました。
 
-経過時間 00:00:08.73
+経過時間 00:00:04.74

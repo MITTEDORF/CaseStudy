@@ -133,6 +133,11 @@ void CGame::Update(void)
 			// 背景のスクロール
 			m_bg->Scroll(scroll);
 		}
+		//α仮置き
+		if( m_Goal->CheckCollisionAABB( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
+		{
+			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+		}
 	}
 
 	//----------------------------
@@ -199,5 +204,5 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_player->SetKeyboard(m_keyboard);
 
 	//goal(大井川 6/2_2時頃変更)
-	m_Goal = m_Goal->Create( device , "data/TEXTURE/blockWall.png" , CScene2D::POINT_CENTER , 0 , D3DXVECTOR2( 120.0f , 300.0f ) );
+	m_Goal = m_Goal->Create( device , "data/TEXTURE/blockWall.png" , CScene2D::POINT_CENTER , 2 , D3DXVECTOR2( 1000.0f , 500.0f ) );
 }
