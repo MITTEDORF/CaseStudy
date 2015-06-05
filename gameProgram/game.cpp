@@ -25,6 +25,8 @@
 
 #include "goal.h"
 
+#include "stumbler.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -37,6 +39,10 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 静的変数
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//----------------------------------------
+// 障害物関連（後で消してね
+CStumbler* g_stumbler[10];
 
 //=============================================================================
 // 初期化
@@ -123,6 +129,13 @@ void CGame::Update(void)
 
 			// 背景のスクロール
 			m_bg->Scroll(scroll);
+
+			//----------------------------------------
+			// 障害物関連（後で消してね
+			for(int loop = 0; loop < 10; loop++)
+			{
+				g_stumbler[loop]->Scroll(scroll);
+			}
 		}
 		else if(playerPos.x < 0)
 		{
@@ -136,6 +149,13 @@ void CGame::Update(void)
 
 			// 背景のスクロール
 			m_bg->Scroll(scroll);
+
+			//----------------------------------------
+			// 障害物関連（後で消してね
+			for(int loop = 0; loop < 10; loop++)
+			{
+				g_stumbler[loop]->Scroll(scroll);
+			}
 		}
 	}
 
@@ -204,4 +224,34 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 
 	//goal
 	CGoal::Create( device , "data/TEXTURE/blockWall.png" , CScene2D::POINT_CENTER , 0 , D3DXVECTOR2( 120.0f , 300.0f ) );
+
+	//----------------------------------------
+	// 障害物関連（後で消してね
+	STUM_DATA data[] = {
+		{TYPE_BARRICADE,
+		D3DXVECTOR2(13,2)},
+		{TYPE_ROCK,
+		D3DXVECTOR2(27,5)},
+		{TYPE_DUSTBOX,
+		D3DXVECTOR2(40,4)},
+		{TYPE_LION,
+		D3DXVECTOR2(55,7)},
+		{TYPE_BIRD,
+		D3DXVECTOR2(67,1)},
+		{TYPE_DUSTBOX,
+		D3DXVECTOR2(74,3)},
+		{TYPE_SIGNBOARD,
+		D3DXVECTOR2(89,2)},
+		{TYPE_DUSTBOX,
+		D3DXVECTOR2(99,4)},
+		{TYPE_DUSTBOX,
+		D3DXVECTOR2(124,6)},
+		{TYPE_DUSTBOX,
+		D3DXVECTOR2(40,4)},
+	};
+
+	for(int loop = 0; loop < 10; loop++)
+	{
+		g_stumbler[loop] = CStumbler::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
+	}
 }
