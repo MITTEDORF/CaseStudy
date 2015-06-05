@@ -18,7 +18,7 @@
 // ウィンドウ設定
 //----------------------------
 #define CLASS_NAME		"WindowClass"		// ウインドウのクラス名
-#define WINDOW_NAME		"WindowCaption"		// ウインドウのキャプション名
+#define WINDOW_NAME		"ハバヒロDRIVE"		// ウインドウのキャプション名
 
 //----------------------------
 // 分岐マクロ

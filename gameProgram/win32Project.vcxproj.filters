@@ -50,18 +50,30 @@
     <Filter Include="object\sky">
       <UniqueIdentifier>{04228886-7ee5-4cc2-a79a-9001cdde358b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="debug">
+      <UniqueIdentifier>{34021d3f-8823-4562-8376-24555a4e57d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="manager">
+      <UniqueIdentifier>{0deb8010-d8f6-40b0-ad9c-1d7ec924744c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer">
+      <UniqueIdentifier>{c06ec4af-a36a-4cd4-94d7-62357f0ad206}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="phase\title">
+      <UniqueIdentifier>{5e3cd453-2316-47f9-9aeb-76894786af4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="phase\game">
+      <UniqueIdentifier>{680737bd-da8b-40b5-9d93-f804936e2705}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="phase\result">
+      <UniqueIdentifier>{bdd2949b-a2d5-4f1f-ae41-d9aad6dd0b07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="phase\fade">
+      <UniqueIdentifier>{1c035479-3a31-42ca-b7e7-9e290b48fe0d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="debugproc.cpp">
-      <Filter>main</Filter>
-    </ClCompile>
-    <ClCompile Include="renderer.cpp">
-      <Filter>main</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>main</Filter>
-    </ClCompile>
-    <ClCompile Include="manager.cpp">
       <Filter>main</Filter>
     </ClCompile>
     <ClCompile Include="input.cpp">
@@ -83,18 +95,6 @@
       <Filter>object</Filter>
     </ClCompile>
     <ClCompile Include="fade.cpp">
-      <Filter>phase</Filter>
-    </ClCompile>
-    <ClCompile Include="phase.cpp">
-      <Filter>phase</Filter>
-    </ClCompile>
-    <ClCompile Include="result.cpp">
-      <Filter>phase</Filter>
-    </ClCompile>
-    <ClCompile Include="title.cpp">
-      <Filter>phase</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
       <Filter>phase</Filter>
     </ClCompile>
     <ClCompile Include="import.cpp">
@@ -124,18 +124,30 @@
     <ClCompile Include="sky.cpp">
       <Filter>object\sky</Filter>
     </ClCompile>
+    <ClCompile Include="debugproc.cpp">
+      <Filter>debug</Filter>
+    </ClCompile>
+    <ClCompile Include="manager.cpp">
+      <Filter>manager</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="title.cpp">
+      <Filter>phase\title</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>phase\game</Filter>
+    </ClCompile>
+    <ClCompile Include="result.cpp">
+      <Filter>phase\result</Filter>
+    </ClCompile>
+    <ClCompile Include="phase.cpp">
+      <Filter>phase\fade</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="debugproc.h">
-      <Filter>main</Filter>
-    </ClInclude>
-    <ClInclude Include="renderer.h">
-      <Filter>main</Filter>
-    </ClInclude>
     <ClInclude Include="main.h">
-      <Filter>main</Filter>
-    </ClInclude>
-    <ClInclude Include="manager.h">
       <Filter>main</Filter>
     </ClInclude>
     <ClInclude Include="input.h">
@@ -157,18 +169,6 @@
       <Filter>object</Filter>
     </ClInclude>
     <ClInclude Include="fade.h">
-      <Filter>phase</Filter>
-    </ClInclude>
-    <ClInclude Include="phase.h">
-      <Filter>phase</Filter>
-    </ClInclude>
-    <ClInclude Include="result.h">
-      <Filter>phase</Filter>
-    </ClInclude>
-    <ClInclude Include="title.h">
-      <Filter>phase</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
       <Filter>phase</Filter>
     </ClInclude>
     <ClInclude Include="import.h">
@@ -203,6 +203,27 @@
     </ClInclude>
     <ClInclude Include="sky.h">
       <Filter>object\sky</Filter>
+    </ClInclude>
+    <ClInclude Include="debugproc.h">
+      <Filter>debug</Filter>
+    </ClInclude>
+    <ClInclude Include="manager.h">
+      <Filter>manager</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="title.h">
+      <Filter>phase\title</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>phase\game</Filter>
+    </ClInclude>
+    <ClInclude Include="result.h">
+      <Filter>phase\result</Filter>
+    </ClInclude>
+    <ClInclude Include="phase.h">
+      <Filter>phase\fade</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
