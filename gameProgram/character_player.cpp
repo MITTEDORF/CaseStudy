@@ -91,13 +91,13 @@ void CPlayer::Update(void)
 	//乗り物破壊
 	if(m_keyboard->GetTrigger(DIK_T))
 	{
-		Assy->addRateOfDestruction(1);
+		AddHP(1);
 	}
 
 	//乗り物修復
 	if(m_keyboard->GetTrigger(DIK_U))
 	{
-		Assy->addRateOfDestruction(-1);
+		AddHP(-1);
 	}
 
 	//重力加算
@@ -168,6 +168,45 @@ void CPlayer::Move()
 	//ジャンプ処理
 	moveJump();
 }
+
+//=============================================================================
+// HP更新処理
+//=============================================================================
+void CPlayer::AddHP(int value)
+{
+	HP+=value;
+	//HPが0いかにならないように処理
+	if(HP<=0)
+	{
+		HP=0;
+		isDeth=true;
+	}
+
+	//HPが0いかにならないように処理
+	if(HP>=PLAYER_HP_MAX)
+	{
+		HP=PLAYER_HP_MAX;
+	}
+
+	if(value<0)
+	{
+		if(HP<AssyDamage*AssyHP)
+		{
+			AssyHP--;
+			Assy->addRateOfDestruction(1);
+		}
+	}
+
+	if(value>0)
+	{
+		if(HP>AssyDamage*AssyHP)
+		{
+			AssyHP++;
+			Assy->addRateOfDestruction(-1);
+		}
+	}
+}
+
 //=============================================================================
 // ジャンプ処理
 //=============================================================================
