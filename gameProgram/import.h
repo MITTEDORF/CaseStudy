@@ -47,6 +47,11 @@ public:
 		ASPHALT,
 		TOWN_01,
 
+		// ÉSÅ[Éã
+		GOAL_OFF,
+		GOAL_ON,
+		GOAL_CLEAR,
+
 		// è·äQï®
 		SIGNBOARD,
 		LION,
