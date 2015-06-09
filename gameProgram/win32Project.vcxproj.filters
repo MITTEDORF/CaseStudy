@@ -97,9 +97,6 @@
     <ClCompile Include="listObject.cpp">
       <Filter>object</Filter>
     </ClCompile>
-    <ClCompile Include="fade.cpp">
-      <Filter>phase</Filter>
-    </ClCompile>
     <ClCompile Include="import.cpp">
       <Filter>import</Filter>
     </ClCompile>
@@ -146,6 +143,9 @@
       <Filter>phase\result</Filter>
     </ClCompile>
     <ClCompile Include="phase.cpp">
+      <Filter>phase</Filter>
+    </ClCompile>
+    <ClCompile Include="fade.cpp">
       <Filter>phase\fade</Filter>
     </ClCompile>
   </ItemGroup>
@@ -170,9 +170,6 @@
     </ClInclude>
     <ClInclude Include="listObject.h">
       <Filter>object</Filter>
-    </ClInclude>
-    <ClInclude Include="fade.h">
-      <Filter>phase</Filter>
     </ClInclude>
     <ClInclude Include="import.h">
       <Filter>import</Filter>
@@ -226,6 +223,9 @@
       <Filter>phase\result</Filter>
     </ClInclude>
     <ClInclude Include="phase.h">
+      <Filter>phase</Filter>
+    </ClInclude>
+    <ClInclude Include="fade.h">
       <Filter>phase\fade</Filter>
     </ClInclude>
   </ItemGroup>
