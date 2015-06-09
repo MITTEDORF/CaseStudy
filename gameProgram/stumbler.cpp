@@ -16,6 +16,8 @@
 CStumbler::CStumbler(int priority, OBJTYPE objType) : CScene2D(priority, objType)
 {
 	m_life = 1;
+	m_next = NULL;
+	m_prev = NULL;
 }
 
 //=============================================================================

@@ -66,9 +66,19 @@ public:
 	bool	LivingCheck(void);
 	// 衝突判定
 	bool	CheckCollisionAABB(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE pType);
+	// 次障害物ポインタセット処理
+	void		SetNext(CStumbler* next){m_next = next;}
+	// 次障害物ポインタゲット処理
+	CStumbler*	GetNext(void){return m_next;}
+	// 前障害物ポインタセット処理
+	void		SetPrev(CStumbler* prev){m_prev = prev;}
+	// 前障害物ポインタゲット処理
+	CStumbler*	GetPrev(void){return m_prev;}
 
 protected:
 	int		m_life;							// 障害物耐久度
+	CStumbler* m_next;						// 次障害物へのポインタ
+	CStumbler* m_prev;						// 前障害物へのポインタ
 };
 
 //=============================================================================

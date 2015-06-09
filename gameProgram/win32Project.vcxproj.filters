@@ -145,6 +145,9 @@
     <ClCompile Include="phase.cpp">
       <Filter>phase\fade</Filter>
     </ClCompile>
+    <ClCompile Include="stum_manager.cpp">
+      <Filter>object\stumbler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -224,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="phase.h">
       <Filter>phase\fade</Filter>
+    </ClInclude>
+    <ClInclude Include="stum_manager.h">
+      <Filter>object\stumbler</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
