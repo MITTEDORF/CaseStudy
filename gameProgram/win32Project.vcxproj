@@ -105,6 +105,7 @@
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="scene2D.cpp" />
     <ClCompile Include="stumbler.cpp" />
+    <ClCompile Include="stum_manager.cpp" />
     <ClCompile Include="title.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +137,7 @@
     <ClInclude Include="scene.h" />
     <ClInclude Include="scene2D.h" />
     <ClInclude Include="stumbler.h" />
+    <ClInclude Include="stum_manager.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="vehicle_config.h" />
   </ItemGroup>
