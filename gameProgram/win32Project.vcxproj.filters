@@ -163,6 +163,12 @@
     <ClCompile Include="stum_manager.cpp">
       <Filter>object\stumbler</Filter>
     </ClCompile>
+    <ClCompile Include="particle_manager.cpp">
+      <Filter>object\particle</Filter>
+    </ClCompile>
+    <ClCompile Include="particle_object.cpp">
+      <Filter>object\particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -251,6 +257,12 @@
     </ClInclude>
     <ClInclude Include="stum_manager.h">
       <Filter>object\stumbler</Filter>
+    </ClInclude>
+    <ClInclude Include="particle_manager.h">
+      <Filter>object\particle</Filter>
+    </ClInclude>
+    <ClInclude Include="particle_object.h">
+      <Filter>object\particle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

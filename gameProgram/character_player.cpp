@@ -204,6 +204,8 @@ void CPlayer::AddHP(int value)
 	{
 		HP=0;
 		isDeth=true;
+		m_move_spd.x=0.0f;
+		m_move_spd.y=JUMP_SPD/1.5f;
 	}
 
 	//HP‚ª0‚¢‚©‚É‚È‚ç‚È‚¢‚æ‚¤‚Éˆ—
@@ -265,7 +267,7 @@ void CPlayer::AddGravity()
 void CPlayer::Collider()
 {
 	//’n–Ê‚ÆƒvƒŒƒCƒ„‚Ì“–‚½‚è”»’è
-	if(m_pos.y>=593.0f-Offset.y)
+	if((m_pos.y>=593.0f-Offset.y)&&!isDeth)
 	{
 		canJump=true;
 		canLighting=true;
