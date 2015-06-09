@@ -107,4 +107,22 @@ void CResult::Draw(void)
 //=============================================================================
 void CResult::InitObject(LPDIRECT3DDEVICE9 device)
 {
+
+	//ロゴ
+
+	//クリア画面
+	if(isWin)
+	{
+		CScene2D* resultLogo = CScene2D::Create(device, CImport::PLAYER_GOODMOOD, CScene2D::POINT_CENTER);
+		resultLogo->SetSize(1204.0f/2, 1329.0f/2);
+		resultLogo->SetPos(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
+	}
+
+	//ゲームオーバー画面
+	else
+	{
+		CScene2D* resultLogo = CScene2D::Create(device, CImport::PLAYER_BADMOOD, CScene2D::POINT_CENTER);
+		resultLogo->SetSize(743.0f, 1274.0f);
+		resultLogo->SetPos(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
+	}
 }

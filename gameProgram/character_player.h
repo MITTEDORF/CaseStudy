@@ -111,6 +111,8 @@ private:
 	bool isLighting;
 	//光アクションを継続するかどうか
 	bool isHoldLighting;
+	//光アクションが可能かどうか
+	bool canLighting;
 
 	bool isDeth;
 
@@ -154,6 +156,7 @@ private:
 		isLighting=false;
 		isHoldLighting=false;
 		canJump=true;
+		canLighting=true;
 	}
 
 	//移動処理
