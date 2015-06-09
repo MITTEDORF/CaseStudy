@@ -70,6 +70,10 @@ void CGoal::Uninit( void )
 //=============================================================================
 void CGoal::Update( void )
 {
+	if( m_Flag == TRUE )
+	{
+		this->SetTex( CImport::GOAL_ON );
+	}
 	//“–‚½‚è”»’è
 	CScene2D::Update();
 }
