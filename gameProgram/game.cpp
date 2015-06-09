@@ -231,8 +231,6 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_player->SetPos(120.0f,300.0f);
 	m_player->SetKeyboard(m_keyboard);
 
-	//goal
-	CGoal::Create( device , "data/TEXTURE/blockWall.png" , CScene2D::POINT_CENTER , 0 , D3DXVECTOR2( 120.0f , 300.0f ) );
 
 	//----------------------------------------
 	// 障害物関連（後で消してね
@@ -264,6 +262,6 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 		g_stumbler[loop] = CStumbler::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
 	}
 
-	//goal(大井川 6/2_2時頃変更)
-	m_Goal = m_Goal->Create( device , "data/TEXTURE/blockWall.png" , CScene2D::POINT_CENTER , 2 , D3DXVECTOR2( 1000.0f , 500.0f ) );
+	//goal(大井川 6/9_AM_10時頃変更)
+	m_Goal = m_Goal->Create( device , CImport::GOAL_ON , CScene2D::POINT_CENTER , 2 , D3DXVECTOR2( 1000.0f , 500.0f ) );
 }
