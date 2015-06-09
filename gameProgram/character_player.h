@@ -80,11 +80,18 @@ public:
 		return (isDeth);
 	}
 
+	bool isinvincible_()
+	{
+		return (isinvincible);
+	}
+
 	//HPの加算処理
 	//第一引数:加算する値(減算したい場合は-の値を入れてください)
 	void AddHP(int value);
 
 private:
+
+	bool isDraw;
 
 	//Y値オフセット
 	D3DXVECTOR2 Offset;
@@ -113,8 +120,14 @@ private:
 	bool isHoldLighting;
 	//光アクションが可能かどうか
 	bool canLighting;
-
+	//志望フラグ
 	bool isDeth;
+	//無敵フラグ
+	bool isinvincible;
+	//無敵カウンター
+	int isinvincibleCnt;
+	//無敵の見た目カウンター
+	int isinvincibleDrawCnt;
 
 	//現在のアニメーションモード
 	int AnimMode;
@@ -141,7 +154,10 @@ private:
 		HP=PLAYER_HP_MAX;
 		AssyDamage=HP/3;
 		AssyHP=3;
+		isinvincible=false;
+		isDraw=true;
 		isDeth=false;
+		isinvincibleDrawCnt=0;
 		maxAnim=1;
 		isAnimEnd=false;
 		isRupeAnim=true;
@@ -157,6 +173,7 @@ private:
 		isHoldLighting=false;
 		canJump=true;
 		canLighting=true;
+		isinvincibleCnt=0;
 	}
 
 	//移動処理
@@ -177,6 +194,8 @@ private:
 	void SetAnimMode(int animID,bool Rupe);
 	//HPの更新
 	void HPUpdate();
+	//無敵処理
+	void InvincibleUpdate();
 
 };
 

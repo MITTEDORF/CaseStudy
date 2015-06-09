@@ -74,6 +74,12 @@
     <Filter Include="object\particle">
       <UniqueIdentifier>{b5d34b13-69e6-49ff-9a06-ed2fa9da34bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="phase\result\gameover">
+      <UniqueIdentifier>{c532af50-f412-4e5b-ba3b-caf227d5ac14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="phase\result\gameclear">
+      <UniqueIdentifier>{b184bb7a-3855-45e5-980b-6a63cd871d06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -147,6 +153,12 @@
     </ClCompile>
     <ClCompile Include="fade.cpp">
       <Filter>phase\fade</Filter>
+    </ClCompile>
+    <ClCompile Include="gameclear.cpp">
+      <Filter>phase\result\gameclear</Filter>
+    </ClCompile>
+    <ClCompile Include="gameover.cpp">
+      <Filter>phase\result\gameover</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +239,12 @@
     </ClInclude>
     <ClInclude Include="fade.h">
       <Filter>phase\fade</Filter>
+    </ClInclude>
+    <ClInclude Include="gameclear.h">
+      <Filter>phase\result\gameclear</Filter>
+    </ClInclude>
+    <ClInclude Include="gameover.h">
+      <Filter>phase\result\gameover</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

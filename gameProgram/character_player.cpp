@@ -19,6 +19,8 @@
 #include "debugproc.h"
 #include "fade.h"
 
+#include "listObject.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -103,11 +105,17 @@ void CPlayer::Update(void)
 	//重力加算
 	AddGravity();
 
+	//無敵処理の更新
+	InvincibleUpdate();
+
 	//スピードを考慮した座標の算出
 	m_pos+=m_move_spd;
 
 	//様々な当たり判定
 	Collider();
+
+	//無敵処理の更新
+	InvincibleUpdate();
 
 	//アッシーのポジションをセット
 	Assy->SetPos(m_pos.x+(int)Offset.x,m_pos.y+(int)Offset.y);
@@ -122,8 +130,11 @@ void CPlayer::Update(void)
 //=============================================================================
 void CPlayer::Draw(void)
 {
-	//親の描画
-	CScene2D::Draw();
+	if(isDraw)
+	{
+		//親の描画
+		CScene2D::Draw();
+	}
 }
 //=============================================================================
 // 生成
@@ -174,6 +185,19 @@ void CPlayer::Move()
 //=============================================================================
 void CPlayer::AddHP(int value)
 {
+
+	if(value<0&&!isinvincible)
+	{
+		isinvincible=true;
+		isinvincibleCnt=0;
+		isinvincibleDrawCnt=0;
+	}
+
+	else
+	{
+		return;
+	}
+
 	HP+=value;
 	//HPが0いかにならないように処理
 	if(HP<=0)
@@ -457,4 +481,28 @@ void CPlayer::SetAnimMode(int AnimID,bool Rupe)
 
 	isRupeAnim=Rupe;
 
+}
+//=============================================================================
+// 無敵処理の更新
+//=============================================================================
+void CPlayer::InvincibleUpdate()
+{
+	if(isinvincible)
+	{
+		isinvincibleCnt++;
+		isinvincibleDrawCnt++;
+
+		if(isinvincibleDrawCnt>=INVISIBLE_DRAW_TIME)
+		{
+			isDraw=!isDraw;
+			isinvincibleDrawCnt=0;
+		}
+		
+
+		if(isinvincibleCnt>=INVISIBLE_TIME)
+		{
+			isinvincible=false;
+			isDraw=true;
+		}
+	}
 }

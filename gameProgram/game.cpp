@@ -13,6 +13,8 @@
 #include "fade.h"
 
 #include "result.h"
+#include "gameclear.h"
+#include "gameover.h"
 
 #include "inputKeyboard.h"
 
@@ -161,6 +163,9 @@ void CGame::Update(void)
 			}
 		}
 
+		//全当たり判定
+		ColAll();
+
 		//α仮置き
 		if( m_Goal->CheckCollisionAABB( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
 		{
@@ -173,7 +178,15 @@ void CGame::Update(void)
 	//----------------------------
 	if(m_fade->GetState() == CFade::FADESTATE_OUTEND)
 	{
-		CManager::SetNextPhase((CPhase*)new CResult);
+		if(m_player->isDeth_())
+		{
+			CManager::SetNextPhase((CPhase*)new CGameOver);
+		}
+
+		else
+		{
+			CManager::SetNextPhase((CPhase*)new CGameClear);
+		}
 	}
 }
 
@@ -265,3 +278,25 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	//goal(大井川 6/9_AM_10時頃変更)
 	m_Goal = m_Goal->Create( device , CImport::GOAL_ON , CScene2D::POINT_CENTER , 2 , D3DXVECTOR2( 1000.0f , 500.0f ) );
 }
+
+//=============================================================================
+// 全当たり判定
+//=============================================================================
+void CGame::ColAll()
+{
+	//プレイヤと障害物の当たり判定
+	for(int loop = 0; loop < 10; loop++)
+	{
+		if(g_stumbler[loop]->CheckCollisionAABB( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ))
+		{
+			m_player->AddHP(-1);
+		}
+	}
+
+	//プレイヤが死んでる場合フェード開始
+	if(m_player->isDeth_())
+	{
+		m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+	}
+}
+

@@ -1,12 +1,12 @@
 //*****************************************************************************
 //
-// CGameクラス [game.h]
-// Author :MAI TANABE
+// ゲームクリア画面制御クラス [gameclear.h]
+// Author :YUKI SAKAMOTO
 //
 //*****************************************************************************
 
-#ifndef _MY_GAME_H
-#define _MY_GAME_H
+#ifndef _MY_GAMECLEAR_H
+#define _MY_GAMECLEAR_H
 //=============================================================================
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -16,23 +16,15 @@
 #include "phase.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// マクロ定義
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // クラス定義
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class CPlayer;
-class CSky;
-class CBackground;
 class CScene2D;
-class CGoal;
 
-class CGame : CPhase
+class CGameClear : CPhase
 {
 public:
-	CGame(void){};
-	~CGame(){};
+	CGameClear(void){};
+	~CGameClear(){};
 
 	HRESULT	Init(LPDIRECT3DDEVICE9 device);
 	void	Uninit(void);
@@ -41,22 +33,8 @@ public:
 
 private:
 	void InitObject(LPDIRECT3DDEVICE9 device);
-	void Debug(void);
-
-	//全当たり判定
-	void ColAll();
-
-	//プレイヤー制御
-	CPlayer *m_player;
-
-	// 背景
-	CSky*		 m_sky;
-	CBackground* m_bg;
 
 	CScene2D* m_version;
-
-	// ゴール(大井川 6/2_12時頃追加)
-	CGoal *m_Goal;
 };
 
 //=============================================================================

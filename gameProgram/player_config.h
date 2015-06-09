@@ -19,6 +19,11 @@ const float MOVE_SPD                    = 3.0f;
 //èdóÕ
 const float GRAVITY_SPD                 = 2.0f;
 
+//ñ≥ìGéûä‘
+const int  INVISIBLE_TIME               = 120;
+//ñ≥ìGéûÇÃï`âÊä¥äo
+const int  INVISIBLE_DRAW_TIME          = 5;
+
 const int PLAYER_MAXANIM_WAIT           = 4;
 const int PLAYER_MAXANIM_MOVE           = 1;
 const int PLAYER_MAXANIM_ATACK          = 5;
