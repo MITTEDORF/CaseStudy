@@ -136,6 +136,9 @@ void CGame::Update(void)
 			{
 				g_stumbler[loop]->Scroll(scroll);
 			}
+
+			//ゴールのスクロール(大井川 6/2_12時頃追加)
+			m_Goal->Scroll( scroll );
 		}
 		else if(playerPos.x < 0)
 		{
@@ -156,6 +159,12 @@ void CGame::Update(void)
 			{
 				g_stumbler[loop]->Scroll(scroll);
 			}
+		}
+
+		//α仮置き
+		if( m_Goal->CheckCollisionAABB( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
+		{
+			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 		}
 	}
 
@@ -254,4 +263,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	{
 		g_stumbler[loop] = CStumbler::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
 	}
+
+	//goal(大井川 6/2_2時頃変更)
+	m_Goal = m_Goal->Create( device , "data/TEXTURE/blockWall.png" , CScene2D::POINT_CENTER , 2 , D3DXVECTOR2( 1000.0f , 500.0f ) );
 }

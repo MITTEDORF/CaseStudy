@@ -41,10 +41,13 @@ public:
 	void		SetColor(D3DXCOLOR color){m_color = color; SetVertexPolygon();}
 	void		SetColor(float r, float g, float b, float a){m_color = D3DXCOLOR(r, g, b, a); SetVertexPolygon();}
 	D3DXCOLOR	GetColor(void){return m_color;}
-	BOOL GetGoal( void ){ return m_Goal ;}
-	void Scroll( float scroll ){m_pos.x -= scroll; CScene2D::SetVertexPolygon();}
+	BOOL GetFlag( void ){ return m_Flag ;}
+	void Scroll( float scroll );
 	BOOL CheckCollisionAABB(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE pointType);
+	CGoal *GetGoal( void ){ return m_Goal; }
+	void SetGoal( CGoal *goalpointer ){ m_Goal = goalpointer; }
 private:
-	BOOL m_Goal;
+	CGoal *m_Goal;
+	BOOL m_Flag;
 };
 #endif

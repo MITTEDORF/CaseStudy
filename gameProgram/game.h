@@ -26,6 +26,7 @@ class CPlayer;
 class CSky;
 class CBackground;
 class CScene2D;
+class CGoal;
 
 class CGame : CPhase
 {
@@ -50,6 +51,9 @@ private:
 	CBackground* m_bg;
 
 	CScene2D* m_version;
+
+	// ÉSÅ[Éã(ëÂà‰êÏ 6/2_12éûç†í«â¡)
+	CGoal *m_Goal;
 };
 
 //=============================================================================

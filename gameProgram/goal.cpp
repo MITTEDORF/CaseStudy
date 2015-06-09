@@ -31,6 +31,7 @@ CGoal* CGoal::Create( LPDIRECT3DDEVICE9 device , CImport::TEXTURES texture , POI
 	CGoal* pointer = new CGoal( priority , OBJTYPE_2D );
 	pointer->Init(device, texture, pointType);
 	pointer->SetPos( pos );
+	pointer->SetGoal( pointer );
 	return pointer;
 }
 
@@ -39,6 +40,7 @@ CGoal* CGoal::Create(LPDIRECT3DDEVICE9 device, const char* texture , POINT_TYPE 
 	CGoal* pointer = new CGoal( priority , OBJTYPE_2D );
 	pointer->Init(device, texture, pointType);
 	pointer->SetPos( pos );
+	pointer->SetGoal( pointer );
 	return pointer;
 }
 //=============================================================================
@@ -130,4 +132,12 @@ BOOL CGoal::CheckCollisionAABB(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE poi
 	{
 		return FALSE;
 	}
+}
+//=============================================================================
+// ÉXÉNÉçÅ[Éãèàóù
+//=============================================================================
+void CGoal::Scroll( float scroll )
+{
+	m_pos.x -=scroll;
+	CScene2D::SetVertexPolygon();
 }
