@@ -244,6 +244,7 @@ void CPlayer::Collider()
 	if(m_pos.y>=593.0f-Offset.y)
 	{
 		canJump=true;
+		canLighting=true;
 		isJump=false;
 		m_pos.y=593.0f-Offset.y;
 	}
@@ -274,9 +275,10 @@ void CPlayer::Attack()
 //=============================================================================
 void CPlayer::LightAction()
 {
-	if(m_keyboard->GetTrigger(DIK_L)&&!isAttack&&!isLighting)
+	if(m_keyboard->GetTrigger(DIK_L)&&!isAttack&&!isLighting&&canLighting)
 	{
 		
+		canLighting=false;
 		m_move_spd.y=0.0f;
 		SetAnimMode(PLAYER_ANIM_LIGHT,false);
 	}

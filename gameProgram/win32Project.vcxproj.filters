@@ -71,6 +71,9 @@
     <Filter Include="phase\fade">
       <UniqueIdentifier>{1c035479-3a31-42ca-b7e7-9e290b48fe0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="object\particle">
+      <UniqueIdentifier>{b5d34b13-69e6-49ff-9a06-ed2fa9da34bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

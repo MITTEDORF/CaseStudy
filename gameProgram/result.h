@@ -23,7 +23,7 @@ class CScene2D;
 class CResult : CPhase
 {
 public:
-	CResult(void){};
+	CResult(void){isWin=true;};
 	~CResult(){};
 
 	HRESULT	Init(LPDIRECT3DDEVICE9 device);
@@ -31,10 +31,19 @@ public:
 	void	Update(void);
 	void	Draw(void);
 
+	//リザルトがクリアかどうかの判定(リザルト生成時に必ずやることやらないとクリアになる)
+	//第一引数:勝利フラグ(trueならクリア画面falseならゲームオーバー画面)
+	void	SetisWin(bool value)
+	{
+		isWin=value;
+	}
+
 private:
 	void InitObject(LPDIRECT3DDEVICE9 device);
 
 	CScene2D* m_version;
+
+	bool isWin;
 };
 
 //=============================================================================
