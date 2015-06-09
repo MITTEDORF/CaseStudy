@@ -13,6 +13,7 @@
 // インクルード
 //=============================================================================
 #include "main.h"
+#include "scene2D.h"
 class CStumbler;
 
 //=============================================================================
@@ -26,6 +27,7 @@ public:
 	HRESULT	Init(LPDIRECT3DDEVICE9 device);
 	void	Update(void);
 	void	Scroll(float f);
+	bool	CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
 	static	CStumManager* Create(LPDIRECT3DDEVICE9 device);
 private:
 	CStumbler* m_list_top;		// 障害物リスト先頭

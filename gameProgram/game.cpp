@@ -27,7 +27,7 @@
 
 #include "goal.h"
 
-#include "stumbler.h"
+#include "stum_manager.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
@@ -44,7 +44,7 @@
 
 //----------------------------------------
 // 障害物関連（後で消してね
-CStumbler* g_stumbler[10];
+CStumManager* g_stumbler;
 
 //=============================================================================
 // 初期化
@@ -134,10 +134,7 @@ void CGame::Update(void)
 
 			//----------------------------------------
 			// 障害物関連（後で消してね
-			for(int loop = 0; loop < 10; loop++)
-			{
-				g_stumbler[loop]->Scroll(scroll);
-			}
+			g_stumbler->Scroll(scroll);
 
 			//ゴールのスクロール(大井川 6/2_12時頃追加)
 			m_Goal->Scroll( scroll );
@@ -157,10 +154,7 @@ void CGame::Update(void)
 
 			//----------------------------------------
 			// 障害物関連（後で消してね
-			for(int loop = 0; loop < 10; loop++)
-			{
-				g_stumbler[loop]->Scroll(scroll);
-			}
+			g_stumbler->Scroll(scroll);
 		}
 
 		//全当たり判定
@@ -244,36 +238,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_player->SetPos(120.0f,300.0f);
 	m_player->SetKeyboard(m_keyboard);
 
-
-	//----------------------------------------
-	// 障害物関連（後で消してね
-	STUM_DATA data[] = {
-		{TYPE_BARRICADE,
-		D3DXVECTOR2(13,2)},
-		{TYPE_ROCK,
-		D3DXVECTOR2(27,5)},
-		{TYPE_DUSTBOX,
-		D3DXVECTOR2(40,4)},
-		{TYPE_LION,
-		D3DXVECTOR2(55,7)},
-		{TYPE_BIRD,
-		D3DXVECTOR2(67,1)},
-		{TYPE_DUSTBOX,
-		D3DXVECTOR2(74,3)},
-		{TYPE_SIGNBOARD,
-		D3DXVECTOR2(89,2)},
-		{TYPE_DUSTBOX,
-		D3DXVECTOR2(99,4)},
-		{TYPE_DUSTBOX,
-		D3DXVECTOR2(124,6)},
-		{TYPE_DUSTBOX,
-		D3DXVECTOR2(40,4)},
-	};
-
-	for(int loop = 0; loop < 10; loop++)
-	{
-		g_stumbler[loop] = CStumbler::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
-	}
+	g_stumbler = CStumManager::Create(device);
 
 	//goal(大井川 6/9_AM_10時頃変更)
 	m_Goal = m_Goal->Create( device , CImport::GOAL_ON , CScene2D::POINT_CENTER , 2 , D3DXVECTOR2( 1000.0f , 500.0f ) );
@@ -287,7 +252,7 @@ void CGame::ColAll()
 	//プレイヤと障害物の当たり判定
 	for(int loop = 0; loop < 10; loop++)
 	{
-		if(g_stumbler[loop]->CheckCollisionAABB( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ))
+		if(g_stumbler->CheckHit( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ))
 		{
 			m_player->AddHP(-1);
 		}

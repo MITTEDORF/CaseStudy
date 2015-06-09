@@ -17,7 +17,8 @@
 //=============================================================================
 CStumManager::CStumManager()
 {
-	
+	m_list_top = NULL;
+	m_list_cur = NULL;
 }
 
 //=============================================================================
@@ -73,6 +74,8 @@ HRESULT CStumManager::Init(LPDIRECT3DDEVICE9 device)
 		D3DXVECTOR2(40,4)},
 	};
 
+	int a = (int)(sizeof(data)/sizeof(STUM_DATA));
+
 	// データの個数分生成処理
 	for(int loop = 0; loop < (int)(sizeof(data)/sizeof(STUM_DATA)); loop++)
 	{
@@ -89,9 +92,9 @@ HRESULT CStumManager::Init(LPDIRECT3DDEVICE9 device)
 			// 障害物生成
 			CStumbler* p = CStumbler::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
 			// 障害物リスト末尾のnextに生成した障害物をセット
-			m_list_cur->SetDrawNext(p);
+			m_list_cur->SetStumNext(p);
 			// 生成した障害物のprevに障害物リスト末尾をセット
-			p->SetPrev(m_list_cur);
+			p->SetStumPrev(m_list_cur);
 			// 障害物リスト末尾を生成した障害物に
 			m_list_cur = p;
 		}
@@ -111,7 +114,7 @@ void CStumManager::Update(void)
 	{
 		cur->Update();
 
-		next = cur->GetNext();
+		next = cur->GetStumNext();
 
 		cur = next;
 	}
@@ -129,10 +132,30 @@ void CStumManager::Scroll(float f)
 	{
 		cur->Scroll(f);
 
-		next = cur->GetNext();
+		next = cur->GetStumNext();
 
 		cur = next;
 	}
+}
+
+//=============================================================================
+// 衝突判定
+//=============================================================================
+bool CStumManager::CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType)
+{
+	CStumbler* cur = m_list_top;
+	CStumbler* next;
+
+	while(cur)
+	{
+		if(cur->CheckCollisionAABB(pos, size, pointType) == true)
+			return true;
+
+		next = cur->GetStumNext();
+
+		cur = next;
+	}
+	return false;
 }
 
 // End of File
