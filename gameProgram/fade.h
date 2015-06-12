@@ -1,7 +1,7 @@
 //*****************************************************************************
 //
 // CFadeクラス [fade.cpp]
-// Author :MAI TANABE
+// Author :MAI TANABE |KAZUMA OOIGAWA
 //
 //*****************************************************************************
 
@@ -12,6 +12,7 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // インクルードファイル
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#include <process.h>//(大井川)
 #include "main.h"
 #include "scene2D.h"
 
@@ -51,6 +52,9 @@ public:
 	void	  SetColor(D3DXCOLOR color){m_color = color;}
 	D3DXCOLOR GetColor(void){return m_color;}
 
+	static bool GetEndThread( void ){ return m_EndThread;}//(大井川)
+	static void SetEndThread( bool endthread ){ m_EndThread = endthread;}//(大井川)
+
 private:
 	FADESTATE	m_state;
 	int			m_time;
@@ -58,6 +62,10 @@ private:
 	D3DXCOLOR	m_color;
 	float		m_cngAlpha;
 	bool		m_flg;
+
+	static volatile bool		m_EndThread;//スレッド終了用フラグ(大井川)
+	HANDLE		m_ThrHandle;//スレッド終了待ち用ハンドル(大井川)
+
 };
 
 //=============================================================================
