@@ -207,7 +207,7 @@ void CRenderer::ScreenShot(
 	struct tm *pnow = localtime(&now);
 	char buff[128] = "";
 
-	sprintf(buff, "../%d_%d_%d_%d_%d_%d.png",
+	sprintf(buff, "../Screenshot/%d_%d_%d_%d_%d_%d.png",
 		pnow->tm_year + 1900,
 		pnow->tm_mon + 1,
 		pnow->tm_mday,
