@@ -10,6 +10,7 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "main.h"
 #include "manager.h"
+#include "renderer.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // É}ÉNÉçíËã`
@@ -210,6 +211,12 @@ LRESULT CALLBACK WndProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		// ESCÇ™âüÇ≥ÇÍÇΩÇ∆Ç´
 		case VK_ESCAPE:
 			DestroyWindow(wnd);
+			break;
+
+		case VK_F1:
+			RECT rect;
+			GetClientRect(wnd, &rect);
+			CRenderer::ScreenShot(D3DXIFF_PNG, rect);
 			break;
 		}
 		break;
