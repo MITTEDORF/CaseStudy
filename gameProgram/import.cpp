@@ -64,6 +64,9 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/player/player_goodmood.png",
 	"./data/TEXTURE/player/player_badmood.png",
 
+	//パーティクル
+	"./data/TEXTURE/particle/particle_yellow_small.png",
+
 
 	// 乗り物
 	"./data/TEXTURE/assy/tram.png",

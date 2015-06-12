@@ -11,3 +11,101 @@
 #include "particle_manager.h"
 #include "particle_object.h"
 
+//=============================================================================
+// コンストラクタ
+//=============================================================================
+CParticleObject::CParticleObject(int priority, OBJTYPE objType) : CScene2D(priority, objType)
+{
+	//変数のNULL埋め
+	NullSetVariable();
+
+}
+//=============================================================================
+// 初期化処理
+//=============================================================================
+HRESULT CParticleObject::Init(LPDIRECT3DDEVICE9 device)
+{
+	//親の初期化
+	CScene2D::Init(device,CImport::PARTICLE_YELLOW_SMALL,POINT_CENTER);
+
+	//成功を返す
+	return S_OK;
+}
+//=============================================================================
+// 終了
+//=============================================================================
+void CParticleObject::Uninit(void)
+{
+	//親の終了
+	CScene2D::Uninit();
+}
+//=============================================================================
+// 更新
+//=============================================================================
+void CParticleObject::Update(void)
+{
+	if(!isDeth)
+	{
+
+		LiveCnt++;
+
+		if(LiveCnt>=LiveTime)
+		{
+			Destroy();
+			return;
+		}
+
+		//座標の更新
+		m_pos+=m_spd;
+
+		//座標の再計算
+		SetVertexPolygon();
+
+		//親の更新
+		CScene2D::Update();
+	}
+}
+//=============================================================================
+// 描画
+//=============================================================================
+void CParticleObject::Draw(void)
+{
+	if(!isDeth)
+	{
+		//親の描画
+		CScene2D::Draw();
+	}
+}
+//=============================================================================
+// 生成
+//=============================================================================
+CParticleObject* CParticleObject::Create(LPDIRECT3DDEVICE9 device)
+{
+	CParticleObject* scene = new CParticleObject;
+	scene->Init(device);
+
+	return scene;
+}
+
+//=============================================================================
+// パーティクル開始処理
+//=============================================================================
+void CParticleObject::Start(D3DXVECTOR2 pos,D3DXVECTOR2 spd,int LiveTime)
+{
+	if(isDeth)
+	{
+		m_spd=spd;
+		m_pos=pos;
+		LiveCnt=0;
+		LiveTime=LiveTime;
+		isDeth=false;
+	}
+}
+
+//=============================================================================
+// パーティクル破壊処理
+//=============================================================================
+void CParticleObject::Destroy()
+{
+	isDeth=true;
+}

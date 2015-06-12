@@ -70,6 +70,9 @@ public:
 		PLAYER_GOODMOOD,
 		PLAYER_BADMOOD,
 
+		//パーティクル
+		PARTICLE_YELLOW_SMALL,
+
 		// 乗り物
 		ASSY_TRAM,
 
