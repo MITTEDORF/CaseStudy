@@ -12,12 +12,18 @@
 #include "debugproc.h"
 #include "listObject.h"
 
+
+//=============================================================================
+// static 変数
+//=============================================================================
+LPDIRECT3DSURFACE9 CRenderer::m_screenshot_surface = NULL;
+
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
 CRenderer::CRenderer(void)
 {
-
 }
 
 //=============================================================================
@@ -132,6 +138,13 @@ HRESULT CRenderer::Init(HWND wnd, bool window)
 	m_device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);	// 最初のアルファ引数
 	m_device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_CURRENT);	// ２番目のアルファ引数
 
+	// スクリーン用サーフェイス初期化
+	m_device->GetBackBuffer(
+		0,
+		0,
+		D3DBACKBUFFER_TYPE_MONO,
+		&m_screenshot_surface);
+
 	//----------------------------
 	// FPS初期化
 	//----------------------------
@@ -181,3 +194,30 @@ void CRenderer::Draw(void)
 	// バックバッファとフロントバッファの入れ替え
 	m_device->Present(NULL, NULL, NULL, NULL);
 }
+
+//=============================================================================
+// 描画
+//=============================================================================
+void CRenderer::ScreenShot(
+	D3DXIMAGE_FILEFORMAT format,
+	RECT rect)
+{
+	
+	time_t now = time(NULL);
+	struct tm *pnow = localtime(&now);
+	char buff[128] = "";
+
+	sprintf(buff, "../%d_%d_%d_%d_%d_%d.png",
+		pnow->tm_year + 1900,
+		pnow->tm_mon + 1,
+		pnow->tm_mday,
+		pnow->tm_hour,
+		pnow->tm_min,
+		pnow->tm_sec);
+
+	D3DXSaveSurfaceToFile(buff, format, m_screenshot_surface, NULL, &rect);
+}
+
+
+
+// end of file

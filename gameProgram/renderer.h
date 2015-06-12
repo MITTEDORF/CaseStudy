@@ -37,9 +37,15 @@ public:
 	void SetFPS(int fps){m_countFPS = fps;}
 	int  GetFPS(void){return m_countFPS;}
 
+	static void ScreenShot(
+		D3DXIMAGE_FILEFORMAT format,
+		RECT rect);
+
 private:
 	LPDIRECT3DDEVICE9	m_device;
 	CDebugproc*			m_debugproc;
+
+	static LPDIRECT3DSURFACE9 m_screenshot_surface;
 
 	int	 m_countFPS;
 };
