@@ -1,1 +1,13 @@
+#その他
+Screenshot/
+外部データ/
+
+#ゲーム内部
 gameProgram/directX.opensdf
+gameProgram/Debug/
+gameProgram/Release/
+gameProgram/ipch/
+gameProgram/*.pdb
+gameProgram/*.sdf
+gameProgram/*.suo
+gameProgram/*.vcxproj.user
