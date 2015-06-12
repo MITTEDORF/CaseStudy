@@ -40,17 +40,14 @@ public:
 		SKY5,
 
 		// 森
-		DIRT,
 		FOREST_01,
 
 		// 町
-		ASPHALT,
 		TOWN_01,
 
-		// ゴール
-		GOAL_OFF,
-		GOAL_ON,
-		GOAL_CLEAR,
+		// 道
+		DIRT,
+		ASPHALT,
 
 		// 障害物
 		SIGNBOARD,
@@ -62,6 +59,11 @@ public:
 		BIRD,
 		DUSTBOX,
 		BARRICADE,
+
+		// ターゲット
+		GOAL_OFF,
+		GOAL_ON,
+		GOAL_CLEAR,
 
 		// プレイヤー
 		PLAYER_WAIT,

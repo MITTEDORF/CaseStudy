@@ -34,17 +34,14 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/sky/sky_05.png",
 
 	// 森
-	"./data/TEXTURE/forest/dirt.png",
 	"./data/TEXTURE/forest/forest_01.png",
 
 	// 町
-	"./data/TEXTURE/town/asphalt.png",
 	"./data/TEXTURE/town/town_01.png",
 
-	// ゴール
-	"./data/TEXTURE/goal/tv_on.png",
-	"./data/TEXTURE/goal/tv_off.png",
-	"./data/TEXTURE/goal/tv_clear.png",
+	// 道
+	"./data/TEXTURE/forest/dirt.png",
+	"./data/TEXTURE/town/asphalt.png",
 
 	// 障害物
 	"./data/TEXTURE/stumbler/signboard.png",
@@ -57,6 +54,11 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/stumbler/dustbox.png",
 	"./data/TEXTURE/stumbler/barricade.png",
 
+	// ターゲット
+	"./data/TEXTURE/goal/tv_on.png",
+	"./data/TEXTURE/goal/tv_off.png",
+	"./data/TEXTURE/goal/tv_clear.png",
+
 	// プレイヤー
 	"./data/TEXTURE/player/player_wait.png",
 	"./data/TEXTURE/player/player_attack.png",
@@ -66,7 +68,6 @@ const char* TEX_PATH[] =
 
 	//パーティクル
 	"./data/TEXTURE/particle/particle_yellow_small.png",
-
 
 	// 乗り物
 	"./data/TEXTURE/assy/tram.png",
