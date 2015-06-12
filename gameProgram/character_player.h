@@ -25,6 +25,7 @@ const int PLAYER_HP_MAX                 = 3;
 class CInputKeyboard;
 //乗り物制御クラス
 class CVehicle;
+class CParticleObject;
 //=============================================================================
 // クラス定義
 //=============================================================================
@@ -90,6 +91,9 @@ public:
 	void AddHP(int value);
 
 private:
+
+	CParticleObject* object[30];
+	int cnt;
 
 	bool isDraw;
 
