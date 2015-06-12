@@ -94,7 +94,7 @@ void CDebugproc::Update(void)
 	memset(&m_strDebug, 0, STR_MAX);
 
 	// デバッグ表示切替
-	if(m_keyboard->GetTrigger(DIK_F1) == true)
+	if(m_keyboard->GetTrigger(DIK_F12) == true)
 	{
 		if(m_drawFlg)
 		{
@@ -109,7 +109,7 @@ void CDebugproc::Update(void)
 	// 切り替えアナウンス
 	if(m_drawFlg)
 	{
-		CDebugproc::PrintDebugProc("デバッグON/OFF：[F1]\n");
+		CDebugproc::PrintDebugProc("スクリーンショット：[F1]\nデバッグON/OFF：[F12]\n");
 	}
 }
 
