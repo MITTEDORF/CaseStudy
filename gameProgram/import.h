@@ -32,12 +32,12 @@ public:
 		TITLELOGO,
 
 		// ãÛ
-		TEX_SKY_BG,
-		TEX_SKY1,
-		TEX_SKY2,
-		TEX_SKY3,
-		TEX_SKY4,
-		TEX_SKY5,
+		SKY_BG,
+		SKY1,
+		SKY2,
+		SKY3,
+		SKY4,
+		SKY5,
 
 		// êX
 		DIRT,
