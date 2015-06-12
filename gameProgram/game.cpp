@@ -93,6 +93,10 @@ void CGame::Uninit(void)
 
 	SAFE_END(m_bg);
 
+	//----------------------------------------
+	// 障害物関連（後で消してね
+	SAFE_DELETE(g_stumbler);
+
 	// シーン
 	CScene::ReleaseAll();
 }
