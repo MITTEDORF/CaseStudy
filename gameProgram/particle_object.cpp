@@ -76,15 +76,31 @@ void CParticleObject::Update(void)
 		h10 = (1.0f-t)*(1.0f-t)*t;
 		h11 = t*t*(t-1.0f);
 
-		m_pos.x = h00 *m_Laser.Position.x +
-			h01 *objtarget->GetPos().x +
-			h10 * m_Laser.ControlVector0.x +
-			h11 * m_Laser.ControlVector1.x;
+		if(objtarget==this)
+		{
+			m_pos.x = h00 *m_Laser.Position.x +
+				h01 *objtarget->GetPos().x +
+				h10 * m_Laser.ControlVector0.x +
+				h11 * m_Laser.ControlVector1.x;
 
-		m_pos.y = h00 * m_Laser.Position.y +
-			h01 * objtarget->GetPos().y +
-			h10 * m_Laser.ControlVector0.y +
-			h11 * m_Laser.ControlVector1.y;
+			m_pos.y = h00 * m_Laser.Position.y +
+				h01 * objtarget->GetPos().y +
+				h10 * m_Laser.ControlVector0.y +
+				h11 * m_Laser.ControlVector1.y;
+		}
+
+		else
+		{
+			m_pos.x = h00 *m_Laser.Position.x+
+				h01 *objtarget->GetPos().x+(objtarget->GetSize().x/2) +
+				h10 * m_Laser.ControlVector0.x +
+				h11 * m_Laser.ControlVector1.x;
+
+			m_pos.y = h00 * m_Laser.Position.y +
+				h01 * objtarget->GetPos().y+(objtarget->GetSize().y/2) +
+				h10 * m_Laser.ControlVector0.y +
+				h11 * m_Laser.ControlVector1.y;
+		}
 	}
 		SetRot(Angle);
 		//À•W‚ÌÄŒvŽZ
@@ -124,17 +140,22 @@ void CParticleObject::Start(D3DXVECTOR2 pos,CScene *target)
 	{
 		m_Laser.Time = 0.0f;
 
+		m_pos.x=m_Laser.Position.x= pos.x;
+		m_pos.y=m_Laser.Position.y= pos.y;
+
+
 		if(target)
 		{
 			objtarget=target;
+			m_Laser.Position.x = pos.x-(objtarget->GetSize().x/2);
+			m_Laser.Position.y = pos.y-(objtarget->GetSize().y/2);
+
 		}
 
 		else
 		{
 			objtarget=this;
 		}
-		m_pos.x=m_Laser.Position.x = pos.x;
-		m_pos.y=m_Laser.Position.y = pos.y;
 
 		m_Laser.ControlVector0.x = (float)(rand() % 6000 - 3000);
 		m_Laser.ControlVector0.y = (float)(rand() % 6000 - 3000);

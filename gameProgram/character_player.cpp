@@ -443,7 +443,7 @@ void CPlayer::UpdateAnim()
 
 	else if(isAnimEnd&&isHoldLighting)
 	{
-		particle->StartBurst(NULL);
+		//particle->StartBurst(NULL);
 	}
 }
 //=============================================================================

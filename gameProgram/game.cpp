@@ -260,6 +260,21 @@ void CGame::ColAll()
 		m_player->AddHP(-1);
 	}
 
+
+	//ライトニング判定
+	if(m_player->isLitninng())
+	{
+		if((m_Goal->CheckCollisionAABB(m_player->GetPos() , m_player->GetSize()*3.0f , CScene2D::POINT_CENTER )))
+		{
+			m_player->PaticleStart(m_Goal);
+		}
+
+		else
+		{
+			m_player->PaticleStart(NULL);
+		}
+	}
+
 	//プレイヤが死んでる場合フェード開始
 	if(m_player->isDeth_())
 	{
