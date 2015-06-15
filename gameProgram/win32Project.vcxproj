@@ -14,7 +14,7 @@
     <ProjectGuid>{1A25E96D-7B82-4EBA-8A86-E2E1EA834B07}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>win32Project</RootNamespace>
-    <ProjectName>directX</ProjectName>
+    <ProjectName>habahiroDRIVE</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
