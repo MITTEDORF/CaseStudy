@@ -15,7 +15,17 @@
 //=============================================================================
 // マクロ
 //============================================================================
+struct LASER
+{
+	float Time;
 
+	D3DXVECTOR2 Position;
+
+	D3DXVECTOR2 ControlVector0;
+	D3DXVECTOR2 ControlVector1;
+
+	bool Use;
+};
 //=============================================================================
 // 前方宣言
 //=============================================================================
@@ -68,6 +78,11 @@ private:
 	//存在した時間
 	int LiveCnt;
 
+	//レーザーの動きに必要な変数群
+	LASER m_Laser;
+
+	D3DXVECTOR2 targetPos;
+
 
 	//変数のNULL埋め処理
 	void NullSetVariable(void)
@@ -76,6 +91,12 @@ private:
 		m_spd=D3DXVECTOR2(0.0f,0.0f);
 		LiveTime=100;
 		isDeth=true;
+		m_Laser.ControlVector0=D3DXVECTOR2(0.0f,0.0f);
+		m_Laser.ControlVector1=D3DXVECTOR2(0.0f,0.0f);
+		m_Laser.Position=D3DXVECTOR2(0.0f,0.0f);
+		m_Laser.Time=0.0f;
+		m_Laser.Use=false;
+		targetPos=D3DXVECTOR2(0.0f,0.f);
 	}
 };
 

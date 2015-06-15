@@ -11,6 +11,8 @@
 #include "particle_manager.h"
 #include "particle_object.h"
 
+#include <math.h>
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -20,6 +22,7 @@ CParticleObject::CParticleObject(int priority, OBJTYPE objType) : CScene2D(prior
 	NullSetVariable();
 
 }
+
 //=============================================================================
 // 初期化処理
 //=============================================================================
@@ -46,7 +49,7 @@ void CParticleObject::Update(void)
 {
 	if(!isDeth)
 	{
-
+		
 		LiveCnt++;
 
 		if(LiveCnt>=LiveTime)
