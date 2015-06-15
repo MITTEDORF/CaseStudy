@@ -20,6 +20,7 @@
 
 //ƒvƒŒƒCƒ„[§Œäˆ—
 #include "character_player.h"
+#include "particle_manager.h"
 
 // ”wŒi
 #include "sky.h"

@@ -66,6 +66,8 @@ const char* TEX_PATH[] =
 
 	//パーティクル
 	"./data/TEXTURE/particle/particle_yellow_small.png",
+	"./data/TEXTURE/particle/particle_daidai_small.png",
+	"./data/TEXTURE/particle/particle_white_small.png",
 
 
 	// 乗り物

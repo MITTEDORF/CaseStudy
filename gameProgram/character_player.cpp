@@ -11,7 +11,7 @@
 #include "character_player.h"
 #include "character_vehicle.h"
 
-#include "particle_object.h"
+#include "particle_manager.h"
 
 #include "inputKeyboard.h"
 #include "math_animation.h"
@@ -46,16 +46,14 @@ CPlayer::CPlayer(int priority, OBJTYPE objType) : CScene2D(priority, objType)
 //=============================================================================
 HRESULT CPlayer::Init(LPDIRECT3DDEVICE9 device)
 {
+	particle=NULL;
 	
 	Assy=CVehicle::Create(device,CImport::ASSY_TRAM);
 	Offset.x=-20.0f;
 	Offset.y=0;
 
-	for(int i=0;i<29;i++)
-	{
-		object[i]=CParticleObject::Create(device);
-	}
-	cnt=0;
+	particle=new CParticleManager();
+	particle->Init(device);
 
 	//親の初期化
 	CScene2D::Init(device,CImport::PLAYER_WAIT,POINT_CENTER);
@@ -99,14 +97,9 @@ void CPlayer::Update(void)
 
 
 	//乗り物破壊
-	if(m_keyboard->GetTrigger(DIK_T))
+	if(m_keyboard->GetPress(DIK_T))
 	{
-		object[cnt]->Start(m_pos,D3DXVECTOR2(5.0f,-1.0f),1000);
-		cnt++;
-		if(cnt>=29)
-		{
-			cnt=0;
-		}
+		
 	}
 
 	//乗り物修復
@@ -132,6 +125,8 @@ void CPlayer::Update(void)
 
 	//アッシーのポジションをセット
 	Assy->SetPos(m_pos.x+(int)Offset.x,m_pos.y+(int)Offset.y);
+
+	particle->Setpos(m_pos);
 	
 	//座標の再計算
 	SetVertexPolygon();
@@ -410,7 +405,6 @@ void CPlayer::UpdateAnim()
 		{
 			if(nowAnim==maxAnim)
 			{
-				
 				isAnimEnd=true;
 				
 			}
@@ -442,6 +436,11 @@ void CPlayer::UpdateAnim()
 		}
 
 		isAnimEnd=false;
+	}
+
+	else if(isAnimEnd&&isHoldLighting)
+	{
+		particle->StartBurst(NULL);
 	}
 }
 //=============================================================================
@@ -520,4 +519,11 @@ void CPlayer::InvincibleUpdate()
 			isDraw=true;
 		}
 	}
+}
+//=============================================================================
+// パーティクル開始
+//=============================================================================
+void CPlayer::PaticleStart(CScene* target)
+{
+	particle->StartBurst(target);
 }
