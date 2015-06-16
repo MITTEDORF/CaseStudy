@@ -74,6 +74,8 @@ public:
 
 		//パーティクル
 		PARTICLE_YELLOW_SMALL,
+		PARTICLE_DAIDAI_SMALL,
+		PARTICLE_WHITE_SMALL,
 
 		// 乗り物
 		ASSY_TRAM,

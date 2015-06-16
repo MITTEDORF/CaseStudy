@@ -15,7 +15,17 @@
 //=============================================================================
 // マクロ
 //============================================================================
+struct LASER
+{
+	float Time;
 
+	D3DXVECTOR2 Position;
+
+	D3DXVECTOR2 ControlVector0;
+	D3DXVECTOR2 ControlVector1;
+
+	bool Use;
+};
 //=============================================================================
 // 前方宣言
 //=============================================================================
@@ -51,31 +61,44 @@ public:
 	void	Update(void);
 
 	//描画処理
-	void	Draw(void);
+	void Draw(void);
 
 	//パーティクル開始処理
-	void Start(D3DXVECTOR2 pos,D3DXVECTOR2 spd,int LiveTime);
+	//第一引数:スタート座標
+	//第二引数:目的の座標
+	void Start(D3DXVECTOR2 pos,CScene *target);
+
 	//パーティクル破壊処理
 	void Destroy();
 
+	//パーティクルが生きているかどうか
+	//戻り値:パーティクルの生死
+	bool isLive()
+	{
+		return (m_Laser.Use);
+	}
+
 private:
-	//移動スピード
-	D3DXVECTOR2 m_spd;
-	//生存時間
-	int LiveTime;
-	//生きているかどうか
-	bool isDeth;
-	//存在した時間
-	int LiveCnt;
+
+	//レーザーの動きに必要な変数群
+	LASER m_Laser;
+
+	//目標の座標
+	CScene *objtarget;
+
+	float Angle;
 
 
 	//変数のNULL埋め処理
 	void NullSetVariable(void)
 	{
-		LiveCnt=0;
-		m_spd=D3DXVECTOR2(0.0f,0.0f);
-		LiveTime=100;
-		isDeth=true;
+		Angle=0.0f;
+		m_Laser.ControlVector0=D3DXVECTOR2(0.0f,0.0f);
+		m_Laser.ControlVector1=D3DXVECTOR2(0.0f,0.0f);
+		m_Laser.Position=D3DXVECTOR2(0.0f,0.0f);
+		m_Laser.Time=0.0f;
+		m_Laser.Use=false;
+		objtarget=this;
 	}
 };
 

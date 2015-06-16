@@ -25,7 +25,7 @@ const int PLAYER_HP_MAX                 = 3;
 class CInputKeyboard;
 //乗り物制御クラス
 class CVehicle;
-class CParticleObject;
+class CParticleManager;
 //=============================================================================
 // クラス定義
 //=============================================================================
@@ -86,14 +86,25 @@ public:
 		return (isinvincible);
 	}
 
+	CParticleManager* particle_()
+	{
+		return (particle);
+	}
+
+	bool isLitninng()
+	{
+		return(isAnimEnd&&isHoldLighting);
+	}
+
+	void PaticleStart(CScene* target);
+
 	//HPの加算処理
 	//第一引数:加算する値(減算したい場合は-の値を入れてください)
 	void AddHP(int value);
 
 private:
 
-	CParticleObject* object[30];
-	int cnt;
+	CParticleManager *particle;
 
 	bool isDraw;
 
@@ -200,7 +211,6 @@ private:
 	void HPUpdate();
 	//無敵処理
 	void InvincibleUpdate();
-
 };
 
 #endif
