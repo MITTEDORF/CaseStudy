@@ -64,8 +64,6 @@ public:
 	void	Attack(int damage){m_life -= damage;}
 	// 生存チェック
 	bool	LivingCheck(void);
-	// 衝突判定
-	bool	CheckCollisionAABB(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE pType);
 	// 次障害物ポインタセット処理
 	void		SetStumNext(CStumbler* next){m_next = next;}
 	// 次障害物ポインタゲット処理

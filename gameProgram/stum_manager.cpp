@@ -70,8 +70,8 @@ HRESULT CStumManager::Init(LPDIRECT3DDEVICE9 device)
 		D3DXVECTOR2(99,1)},
 		{TYPE_DUSTBOX,
 		D3DXVECTOR2(124,1)},
-		{TYPE_DUSTBOX,
-		D3DXVECTOR2(40,1)},
+		{TYPE_BIRD,
+		D3DXVECTOR2(32,6)},
 	};
 
 	int a = (int)(sizeof(data)/sizeof(STUM_DATA));
@@ -84,6 +84,7 @@ HRESULT CStumManager::Init(LPDIRECT3DDEVICE9 device)
 		{
 			// 障害物リスト先頭に障害物生成
 			m_list_top = CStumbler::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
+			m_list_top->SetHitSize(D3DXVECTOR2(100.0f, 100.0f));
 			// 障害物リスト末尾を障害物リスト先頭に
 			m_list_cur = m_list_top;
 		}

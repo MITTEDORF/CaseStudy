@@ -254,7 +254,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 void CGame::ColAll()
 {
 	//ƒvƒŒƒCƒ„‚ÆáŠQ•¨‚Ì“–‚½‚è”»’è
-	if(g_stumbler->CheckHit( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ))
+	if(g_stumbler->CheckHit( m_player->GetPos() , m_player->GetSize() , CScene2D::POINT_CENTER ))
 	{
 		m_player->AddHP(-1);
 	}

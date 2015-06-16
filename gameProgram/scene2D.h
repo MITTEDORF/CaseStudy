@@ -57,8 +57,14 @@ public:
 	D3DXVECTOR2	GetCord(int n){return m_coord[n];}
 	void SetTex(CImport::TEXTURES texture){m_texture = CImport::GetTexture(texture);};
 
+	// 衝突判定
+	bool	CheckCollisionAABB(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE pType);
+	// 当たり判定サイズセット処理
+	void	SetHitSize(D3DXVECTOR2 hitSize){m_hitSize = hitSize;}
+
 protected:
 	void SetVertexPolygon(void);
+	void DrawHitBox(void);
 
 	bool m_localTex;
 	LPDIRECT3DTEXTURE9		m_texture;
@@ -68,6 +74,9 @@ protected:
 	float		m_angle;		// 対角線の角度
 	POINT_TYPE	m_pointType;	// ポイントの位置
 	D3DXVECTOR2	m_coord[4];		// テクスチャコード
+
+	D3DXVECTOR2	m_hitSize;		// 当たり判定サイズ
+	VERTEX_2D	hitBox[4];		// 当たり判定ボックス
 };
 
 //=============================================================================

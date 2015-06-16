@@ -135,6 +135,7 @@ void CPlayer::Update(void)
 	
 	//座標の再計算
 	SetVertexPolygon();
+
 	//親の更新
 	CScene2D::Update();
 }
@@ -297,6 +298,8 @@ void CPlayer::Collider()
 	{
 		m_pos.x=((SCREEN_WIDTH>>1)+(SCREEN_WIDTH>>2)*2.f);
 	}
+
+	CheckCollisionAABB(D3DXVECTOR2(0,0),D3DXVECTOR2(0,0),POINT_LEFTTOP);
 
 }
 //=============================================================================
