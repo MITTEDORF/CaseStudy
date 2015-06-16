@@ -99,7 +99,7 @@ int APIENTRY WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdLine, 
 	// 初期化処理
 	//----------------------------
 	// マネージャ
-	CManager* manager = CManager::Create(instance, wnd, false);
+	CManager* manager = CManager::Create(instance, wnd, true);
 
 	// フレームカウント
 	timeBeginPeriod(1);				// 分解能を設定
