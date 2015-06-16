@@ -245,7 +245,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	g_stumbler = CStumManager::Create(device);
 
 	//goal(‘åˆäì 6/9_AM_10Žž •ÏX)
-	m_Goal = m_Goal->Create( device , CImport::GOAL_ON , CScene2D::POINT_CENTER , 2 , D3DXVECTOR2( 1000.0f , 500.0f ) );
+	m_Goal = m_Goal->Create( device , CImport::GOAL_ON , CScene2D::POINT_LEFTTOP , 2 , D3DXVECTOR2( 8500.0f , SCREEN_HEIGHT - ((1 * 64) + 128) ) );
 }
 
 //=============================================================================
