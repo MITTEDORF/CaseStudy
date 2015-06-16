@@ -84,7 +84,6 @@ HRESULT CStumManager::Init(LPDIRECT3DDEVICE9 device)
 		{
 			// 障害物リスト先頭に障害物生成
 			m_list_top = CStumbler::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
-			m_list_top->SetHitSize(D3DXVECTOR2(100.0f, 100.0f));
 			// 障害物リスト末尾を障害物リスト先頭に
 			m_list_cur = m_list_top;
 		}
