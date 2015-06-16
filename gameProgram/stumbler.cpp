@@ -10,6 +10,20 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "stumbler.h"
 
+D3DXVECTOR2 Size_Offset[] =
+{
+	D3DXVECTOR2(128, 128),		// TYPE_SIGNBOARD
+	D3DXVECTOR2(128, 128),		// TYPE_LION
+	D3DXVECTOR2(128, 128),		// TYPE_ROCK
+	D3DXVECTOR2(128, 128),		// TYPE_LOG_LEFT
+	D3DXVECTOR2(128, 128),		// TYPE_LOG_CENTER
+	D3DXVECTOR2(128, 128),		// TYPE_LOG_RIGHT
+	D3DXVECTOR2(128, 128),		// TYPE_BIRD
+	D3DXVECTOR2(128, 128),		// TYPE_DUSTBOX
+	D3DXVECTOR2(60, 60),		// TYPE_BARRICADE
+	D3DXVECTOR2(128, 128)		// TYPE_MAX
+};
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -29,6 +43,7 @@ CStumbler* CStumbler::Create(LPDIRECT3DDEVICE9 device, STUM_DATA data, POINT_TYP
 	pointer->Init(device, (CImport::TEXTURES)(CImport::SIGNBOARD + data.type), pointType);
 	// データを元に座標の変更
 	pointer->SetPos(data.Index.x * 64, SCREEN_HEIGHT - ((data.Index.y * 64) + 128));
+	pointer->SetHitSize(Size_Offset[data.type]);
 	return pointer;
 }
 
@@ -75,6 +90,9 @@ void CStumbler::Draw(void)
 {
 	// 継承元の描画処理呼び出し
 	CScene2D::Draw();
+
+	// 当たり判定ボックスの描画
+	DrawHitBox();
 }
 
 //=============================================================================
