@@ -92,6 +92,12 @@ HRESULT CScene2D::Init(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POIN
 	// 当たり判定サイズ
 	m_hitSize = m_size;
 
+	// 当たり判定用座標
+	m_hitPos = m_pos;
+
+	// 当たり判定座標オフセット
+	m_hitOffset = D3DXVECTOR2(0.0f, 0.0f);
+
 	return S_OK;
 }
 
@@ -265,17 +271,17 @@ bool CScene2D::CheckCollisionAABB(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE 
 	// 自分の頂点情報を計算
 	if(m_pointType == POINT_LEFTTOP)		// 左上原点の場合
 	{
-		self[0].x = m_pos.x + temp.x;				self[0].y = m_pos.y + temp.y;
-		self[1].x = m_pos.x + m_size.x - temp.x;	self[1].y = m_pos.y + temp.y;
-		self[2].x = m_pos.x + m_size.x - temp.x;	self[2].y = m_pos.y + m_size.y - temp.y;
-		self[3].x = m_pos.x + temp.x;				self[3].y = m_pos.y + m_size.y - temp.y;
+		self[0].x = m_pos.x + m_hitOffset.x + temp.x;				self[0].y = m_pos.y + m_hitOffset.y + temp.y;
+		self[1].x = m_pos.x + m_hitOffset.x + m_size.x - temp.x;	self[1].y = m_pos.y + m_hitOffset.y + temp.y;
+		self[2].x = m_pos.x + m_hitOffset.x + m_size.x - temp.x;	self[2].y = m_pos.y + m_hitOffset.y + m_size.y - temp.y;
+		self[3].x = m_pos.x + m_hitOffset.x + temp.x;				self[3].y = m_pos.y + m_hitOffset.y + m_size.y - temp.y;
 	}
 	else if(m_pointType == POINT_CENTER)	// 中心原点の場合
 	{
-		self[0].x = m_pos.x - m_hitSize.x/2;	self[0].y = m_pos.y - m_hitSize.y/2;
-		self[1].x = m_pos.x + m_hitSize.x/2;	self[1].y = m_pos.y - m_hitSize.y/2;
-		self[2].x = m_pos.x + m_hitSize.x/2;	self[2].y = m_pos.y + m_hitSize.y/2;
-		self[3].x = m_pos.x - m_hitSize.x/2;	self[3].y = m_pos.y + m_hitSize.y/2;
+		self[0].x = m_pos.x + m_hitOffset.x - m_hitSize.x/2;	self[0].y = m_pos.y + m_hitOffset.y - m_hitSize.y/2;
+		self[1].x = m_pos.x + m_hitOffset.x + m_hitSize.x/2;	self[1].y = m_pos.y + m_hitOffset.y - m_hitSize.y/2;
+		self[2].x = m_pos.x + m_hitOffset.x + m_hitSize.x/2;	self[2].y = m_pos.y + m_hitOffset.y + m_hitSize.y/2;
+		self[3].x = m_pos.x + m_hitOffset.x - m_hitSize.x/2;	self[3].y = m_pos.y + m_hitOffset.y + m_hitSize.y/2;
 	}
 
 	// 渡された情報から頂点を計算
@@ -320,36 +326,36 @@ void CScene2D::DrawHitBox(void)
 
 	if(m_pointType == POINT_LEFTTOP)		// 左上原点の場合
 	{
-		self[0].x = m_pos.x + temp.x;				self[0].y = m_pos.y + temp.y;
-		self[1].x = m_pos.x + m_size.x - temp.x;	self[1].y = m_pos.y + temp.y;
-		self[2].x = m_pos.x + m_size.x - temp.x;	self[2].y = m_pos.y + m_size.y - temp.y;
-		self[3].x = m_pos.x + temp.x;				self[3].y = m_pos.y + m_size.y - temp.y;
+		self[0].x = m_pos.x + m_hitOffset.x + temp.x;				self[0].y = m_pos.y + m_hitOffset.y + temp.y;
+		self[1].x = m_pos.x + m_hitOffset.x + m_size.x - temp.x;	self[1].y = m_pos.y + m_hitOffset.y + temp.y;
+		self[2].x = m_pos.x + m_hitOffset.x + m_size.x - temp.x;	self[2].y = m_pos.y + m_hitOffset.y + m_size.y - temp.y;
+		self[3].x = m_pos.x + m_hitOffset.x + temp.x;				self[3].y = m_pos.y + m_hitOffset.y + m_size.y - temp.y;
 	}
 	else if(m_pointType == POINT_CENTER)	// 中心原点の場合
 	{
-		self[0].x = m_pos.x - m_hitSize.x/2;	self[0].y = m_pos.y - m_hitSize.y/2;
-		self[1].x = m_pos.x + m_hitSize.x/2;	self[1].y = m_pos.y - m_hitSize.y/2;
-		self[2].x = m_pos.x + m_hitSize.x/2;	self[2].y = m_pos.y + m_hitSize.y/2;
-		self[3].x = m_pos.x - m_hitSize.x/2;	self[3].y = m_pos.y + m_hitSize.y/2;
+		self[0].x = m_pos.x + m_hitOffset.x - m_hitSize.x/2;	self[0].y = m_pos.y + m_hitOffset.y - m_hitSize.y/2;
+		self[1].x = m_pos.x + m_hitOffset.x + m_hitSize.x/2;	self[1].y = m_pos.y + m_hitOffset.y - m_hitSize.y/2;
+		self[2].x = m_pos.x + m_hitOffset.x + m_hitSize.x/2;	self[2].y = m_pos.y + m_hitOffset.y + m_hitSize.y/2;
+		self[3].x = m_pos.x + m_hitOffset.x - m_hitSize.x/2;	self[3].y = m_pos.y + m_hitOffset.y + m_hitSize.y/2;
 	}
 
 	// 頂点座標
-	hitBox[0].vtx = D3DXVECTOR3(self[0].x, self[0].y, 0);
-	hitBox[1].vtx = D3DXVECTOR3(self[1].x, self[1].y, 0);
-	hitBox[2].vtx = D3DXVECTOR3(self[3].x, self[3].y, 0);
-	hitBox[3].vtx = D3DXVECTOR3(self[2].x, self[2].y, 0);
+	m_hitBox[0].vtx = D3DXVECTOR3(self[0].x, self[0].y, 0);
+	m_hitBox[1].vtx = D3DXVECTOR3(self[1].x, self[1].y, 0);
+	m_hitBox[2].vtx = D3DXVECTOR3(self[3].x, self[3].y, 0);
+	m_hitBox[3].vtx = D3DXVECTOR3(self[2].x, self[2].y, 0);
 
 	// テクスチャ座標
-	hitBox[0].tex = D3DXVECTOR2(0.0f, 0.0f);
-	hitBox[1].tex = D3DXVECTOR2(1.0f, 0.0f);
-	hitBox[2].tex = D3DXVECTOR2(0.0f, 1.0f);
-	hitBox[3].tex = D3DXVECTOR2(1.0f, 1.0f);
+	m_hitBox[0].tex = D3DXVECTOR2(0.0f, 0.0f);
+	m_hitBox[1].tex = D3DXVECTOR2(1.0f, 0.0f);
+	m_hitBox[2].tex = D3DXVECTOR2(0.0f, 1.0f);
+	m_hitBox[3].tex = D3DXVECTOR2(1.0f, 1.0f);
 
 	// 色情報
 	for(int cnt = 0; cnt < 4; cnt++)
 	{
-		hitBox[cnt].diffuse	= D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.4f);
-		hitBox[cnt].rhw		= 1.0f;
+		m_hitBox[cnt].diffuse	= D3DXCOLOR(1.0f, 0.0f, 0.0f, 0.4f);
+		m_hitBox[cnt].rhw		= 1.0f;
 	}
 
 	//頂点フォーマットの設定
@@ -361,6 +367,6 @@ void CScene2D::DrawHitBox(void)
 	//描画設定
 	m_device->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP,
 								2,
-								hitBox,
+								m_hitBox,
 								sizeof(VERTEX_2D));
 }

@@ -10,18 +10,34 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "stumbler.h"
 
-D3DXVECTOR2 Size_Offset[] =
+// 当たり判定大きさリスト
+D3DXVECTOR2 Size_List[] =
 {
-	D3DXVECTOR2(128, 128),		// TYPE_SIGNBOARD
-	D3DXVECTOR2(128, 128),		// TYPE_LION
-	D3DXVECTOR2(128, 128),		// TYPE_ROCK
+	D3DXVECTOR2(112, 128),		// TYPE_SIGNBOARD
+	D3DXVECTOR2(112, 112),		// TYPE_LION
+	D3DXVECTOR2(128, 96),		// TYPE_ROCK
 	D3DXVECTOR2(128, 128),		// TYPE_LOG_LEFT
 	D3DXVECTOR2(128, 128),		// TYPE_LOG_CENTER
 	D3DXVECTOR2(128, 128),		// TYPE_LOG_RIGHT
 	D3DXVECTOR2(128, 128),		// TYPE_BIRD
-	D3DXVECTOR2(128, 128),		// TYPE_DUSTBOX
-	D3DXVECTOR2(60, 60),		// TYPE_BARRICADE
+	D3DXVECTOR2(80, 96),		// TYPE_DUSTBOX
+	D3DXVECTOR2(128, 128),		// TYPE_BARRICADE
 	D3DXVECTOR2(128, 128)		// TYPE_MAX
+};
+
+// 当たり判定座標オフセット値リスト
+D3DXVECTOR2 Offset_List[] =
+{
+	D3DXVECTOR2(0, 0),			// TYPE_SIGNBOARD
+	D3DXVECTOR2(0, 8),			// TYPE_LION
+	D3DXVECTOR2(0, 16),			// TYPE_ROCK
+	D3DXVECTOR2(0, 0),			// TYPE_LOG_LEFT
+	D3DXVECTOR2(0, 0),			// TYPE_LOG_CENTER
+	D3DXVECTOR2(0, 0),			// TYPE_LOG_RIGHT
+	D3DXVECTOR2(0, 0),			// TYPE_BIRD
+	D3DXVECTOR2(0, 16),			// TYPE_DUSTBOX
+	D3DXVECTOR2(0, 0),			// TYPE_BARRICADE
+	D3DXVECTOR2(0, 0)			// TYPE_MAX
 };
 
 //=============================================================================
@@ -43,7 +59,8 @@ CStumbler* CStumbler::Create(LPDIRECT3DDEVICE9 device, STUM_DATA data, POINT_TYP
 	pointer->Init(device, (CImport::TEXTURES)(CImport::SIGNBOARD + data.type), pointType);
 	// データを元に座標の変更
 	pointer->SetPos(data.Index.x * 64, SCREEN_HEIGHT - ((data.Index.y * 64) + 128));
-	pointer->SetHitSize(Size_Offset[data.type]);
+	pointer->SetHitSize(Size_List[data.type]);
+	pointer->SetHitOffset(Offset_List[data.type]);
 	return pointer;
 }
 

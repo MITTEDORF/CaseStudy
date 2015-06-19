@@ -61,6 +61,10 @@ public:
 	bool	CheckCollisionAABB(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE pType);
 	// 当たり判定サイズセット処理
 	void	SetHitSize(D3DXVECTOR2 hitSize){m_hitSize = hitSize;}
+	// 当たり判定用座標セット処理
+	void	SetHitPos(D3DXVECTOR2 hitPos){m_hitPos = hitPos;}
+	// 当たり判定座標オフセット値セット処理
+	void	SetHitOffset(D3DXVECTOR2 offset){m_hitOffset = offset;}
 
 protected:
 	void SetVertexPolygon(void);
@@ -76,7 +80,9 @@ protected:
 	D3DXVECTOR2	m_coord[4];		// テクスチャコード
 
 	D3DXVECTOR2	m_hitSize;		// 当たり判定サイズ
-	VERTEX_2D	hitBox[4];		// 当たり判定ボックス
+	D3DXVECTOR2 m_hitPos;		// 当たり判定用座標
+	D3DXVECTOR2	m_hitOffset;	// 当たり判定座標オフセット
+	VERTEX_2D	m_hitBox[4];	// 当たり判定ボックス
 };
 
 //=============================================================================

@@ -42,7 +42,6 @@ public:
 	void		SetColor(float r, float g, float b, float a){m_color = D3DXCOLOR(r, g, b, a); SetVertexPolygon();}
 	D3DXCOLOR	GetColor(void){return m_color;}
 	void		Scroll( float scroll );
-	BOOL		CheckCollisionAABB(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE pointType);
 	BOOL		GetFlag( void ){ return m_Flag ;}
 	void		SetFlag( BOOL flag ){ m_Flag = flag ;}
 	CGoal		*GetGoal( void ){ return m_Goal; }
