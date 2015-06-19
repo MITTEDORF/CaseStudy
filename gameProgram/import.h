@@ -22,6 +22,7 @@ class CImport
 public:
 	typedef enum
 	{
+		// ‚È‚µ
 		NONE = 0,
 
 		// ƒVƒXƒeƒ€
