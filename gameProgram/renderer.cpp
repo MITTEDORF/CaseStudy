@@ -218,6 +218,4 @@ void CRenderer::ScreenShot(
 	D3DXSaveSurfaceToFile(buff, format, m_screenshot_surface, NULL, &rect);
 }
 
-
-
 // end of file
