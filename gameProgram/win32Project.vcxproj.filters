@@ -80,6 +80,9 @@
     <Filter Include="phase\result\gameclear">
       <UniqueIdentifier>{b184bb7a-3855-45e5-980b-6a63cd871d06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="object\road">
+      <UniqueIdentifier>{3c524406-f6bf-4439-b033-ec064932cefb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -168,6 +171,12 @@
     </ClCompile>
     <ClCompile Include="stum_manager.cpp">
       <Filter>object\stumbler</Filter>
+    </ClCompile>
+    <ClCompile Include="road.cpp">
+      <Filter>object\road</Filter>
+    </ClCompile>
+    <ClCompile Include="road_manager.cpp">
+      <Filter>object\road</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +272,12 @@
     </ClInclude>
     <ClInclude Include="stum_manager.h">
       <Filter>object\stumbler</Filter>
+    </ClInclude>
+    <ClInclude Include="road.h">
+      <Filter>object\road</Filter>
+    </ClInclude>
+    <ClInclude Include="road_manager.h">
+      <Filter>object\road</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

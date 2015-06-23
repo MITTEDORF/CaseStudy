@@ -28,12 +28,15 @@
 
 #include "goal.h"
 
+// 障害物マネージャ
 #include "stum_manager.h"
+
+// 地面マネージャ
+#include "road_manager.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#define ROAD_SIZE	(64.0f)
 #define ROAD_NUM	(SCREEN_WIDTH / ROAD_SIZE)
 #define ROAD_POS	(SCREEN_HEIGHT - ROAD_SIZE)
 
@@ -46,6 +49,9 @@
 //----------------------------------------
 // 障害物関連（後で消してね
 CStumManager* g_stumbler;
+//----------------------------------------
+// 道路関連（後で消してね
+CRoadManager* g_road;
 
 //=============================================================================
 // 初期化
@@ -97,6 +103,9 @@ void CGame::Uninit(void)
 	//----------------------------------------
 	// 障害物関連（後で消してね
 	SAFE_DELETE(g_stumbler);
+	//----------------------------------------
+	// 道路関連（後で消してね
+	SAFE_DELETE(g_road);
 
 	// シーン
 	CScene::ReleaseAll();
@@ -224,16 +233,12 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	// 背景
 	m_bg = CBackground::Create(device, CBackground::FOREST);
 
-	//----------------------------
-	// 道
-	//----------------------------
-	CScene2D* road;
-	for(int cnt = 0; cnt < ROAD_NUM; ++cnt)
-	{
-		road = CScene2D::Create(device, CImport::DIRT, CScene2D::POINT_LEFTTOP);
-		road->SetSize(ROAD_SIZE, ROAD_SIZE);
-		road->SetPos(ROAD_SIZE * cnt, ROAD_POS);
-	}
+	//-----------------------------
+	// 道路関連(後で修正してね
+	g_road = CRoadManager::Create(device);
+	//-----------------------------
+	// 障害物関連(後で修正してね
+	g_stumbler = CStumManager::Create(device);
 
 	//----------------------------
 	// キャラクター
@@ -243,7 +248,6 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_player->SetPos(120.0f,300.0f);
 	m_player->SetKeyboard(m_keyboard);
 
-	g_stumbler = CStumManager::Create(device);
 
 	//goal(大井川 6/9_AM_10時頃変更)
 	m_Goal = m_Goal->Create( device , CImport::GOAL_ON , CScene2D::POINT_LEFTTOP , 2 , D3DXVECTOR2( 8500.0f , SCREEN_HEIGHT - ((1 * 64) + 128) ) );

@@ -95,6 +95,8 @@
     <ClCompile Include="math_animation.cpp" />
     <ClCompile Include="particle_manager.cpp" />
     <ClCompile Include="particle_object.cpp" />
+    <ClCompile Include="road.cpp" />
+    <ClCompile Include="road_manager.cpp" />
     <ClCompile Include="sky.cpp" />
     <ClCompile Include="listObject.cpp" />
     <ClCompile Include="main.cpp" />
@@ -127,6 +129,8 @@
     <ClInclude Include="particle_manager.h" />
     <ClInclude Include="particle_object.h" />
     <ClInclude Include="player_config.h" />
+    <ClInclude Include="road.h" />
+    <ClInclude Include="road_manager.h" />
     <ClInclude Include="sky.h" />
     <ClInclude Include="listObject.h" />
     <ClInclude Include="main.h" />
