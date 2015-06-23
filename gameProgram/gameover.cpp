@@ -13,7 +13,7 @@
 #include "fade.h"
 
 #include "title.h"
-
+#include "game.h"
 #include "inputKeyboard.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -101,7 +101,14 @@ void CGameOver::Update(void)
 	//----------------------------
 	if(m_fade->GetState() == CFade::FADESTATE_OUTEND)
 	{
-		CManager::SetNextPhase((CPhase*)new CTitle);
+		if( m_select_cur == SELECT_CUR_RETURN )
+		{
+			CManager::SetNextPhase((CPhase*)new CGame);
+		}
+		else
+		{
+			CManager::SetNextPhase((CPhase*)new CTitle);
+		}
 	}
 }
 

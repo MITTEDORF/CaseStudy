@@ -27,7 +27,7 @@ const float CGameClear::CHAPTER_BUTTON_WIDTH = 447.0f;
 const float CGameClear::NEXTSTAGE_BUTTON_WIDTH = 337.0f;
 const float CGameClear::BUTTON_HIGHT = 75.0f;
 
-//=============================================================================
+//============================================================================
 // ‰Šú‰»
 //=============================================================================
 HRESULT CGameClear::Init(LPDIRECT3DDEVICE9 device)
@@ -131,7 +131,7 @@ void CGameClear::InitObject(LPDIRECT3DDEVICE9 device)
 		m_Button[SELECT_CUR_CHAPTER]->SetCord( 2 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*1 ) );
 		m_Button[SELECT_CUR_CHAPTER]->SetCord( 3 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*1 ) );
 
-		m_Button[SELECT_CUR_NEXTSTAGE] = CScene2D::Create(device, "data/TEXTURE/button/retry.png" , CScene2D::POINT_LEFTTOP);
+		m_Button[SELECT_CUR_NEXTSTAGE] = CScene2D::Create(device, "data/TEXTURE/button/nextStage.png" , CScene2D::POINT_LEFTTOP);
 		m_Button[SELECT_CUR_NEXTSTAGE]->SetSize( NEXTSTAGE_BUTTON_WIDTH , BUTTON_HIGHT );
 		m_Button[SELECT_CUR_NEXTSTAGE]->SetPos( 753.0f , 576.0f);
 		m_Button[SELECT_CUR_NEXTSTAGE]->SetCord( 0 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*0 ) );
