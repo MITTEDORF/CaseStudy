@@ -28,7 +28,7 @@ const int PLAYER_MAXANIM_WAIT           = 4;
 const int PLAYER_MAXANIM_MOVE           = 1;
 const int PLAYER_MAXANIM_ATACK          = 5;
 const int PLAYER_MAXANIM_DAMAGE         = 10;
-const int PLAYER_MAXANIM_LIGHT          = 10;
+const int PLAYER_MAXANIM_LIGHT          = 6;
 
 //アニメーションスピード
 const int   PLAYER_ANIMSPD_WAIT         = 10;

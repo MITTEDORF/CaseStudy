@@ -68,6 +68,7 @@ HRESULT CPlayer::Init(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 void CPlayer::Uninit(void)
 {
+	SAFE_DELETE(particle);
 	//親の終了
 	CScene2D::Uninit();
 }
@@ -529,4 +530,15 @@ void CPlayer::InvincibleUpdate()
 void CPlayer::PaticleStart(CScene* target)
 {
 	particle->StartBurst(target);
+}
+
+//=============================================================================
+// スクロール処理
+//=============================================================================
+void CPlayer::ParticleScrol(float value)
+{
+	if(particle)
+	{
+		particle->Scrol(value);
+	}
 }

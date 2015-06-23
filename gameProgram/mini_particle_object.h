@@ -4,52 +4,41 @@
 // Author :YUKI SAKAMOTO
 //
 //=============================================================================
-#ifndef _PARTICLE_OBJECT_H
-#define _PARTICLE_OBJECT_H
+#ifndef _MINI_PARTICLE_OBJECT_H
+#define _MINI_PARTICLE_OBJECT_H
 //=============================================================================
 // インクルードファイル
 //=============================================================================
 #include "main.h"
+#include "particle_manager.h"
 #include "scene2D.h"
-#include "mini_particle_object.h"
-
 
 //=============================================================================
 // マクロ
 //============================================================================
-struct LASER
-{
-	float Time;
 
-	D3DXVECTOR2 Position;
-
-	D3DXVECTOR2 ControlVector0;
-	D3DXVECTOR2 ControlVector1;
-
-	bool Use;
-};
 //=============================================================================
 // 前方宣言
 //=============================================================================
-#define MINI_PARTHICLE_MAX (20)
+
 //=============================================================================
 // クラス定義
 //=============================================================================
-class CParticleObject: public CScene2D
+class CMiniParticleObject: public CScene2D
 {
 public:
 	//コンストラクタ
 	//第一引数:プライオリティ(最大はPRIORITY_MAX、何も入力しないとPRIORITY_MAX - 2に設定)
 	//第二引数:オブジェクトタイプ(何も入力しないとOBJTYPE_NONEに設定)
-	CParticleObject(int priority = PRIORITY_MAX -1, OBJTYPE objType = OBJTYPE_NONE);
+	CMiniParticleObject(int priority = PRIORITY_MAX - 2, OBJTYPE objType = OBJTYPE_NONE);
 
 	//デストラクタ
-	~CParticleObject(){};
+	~CMiniParticleObject(){};
 
 	//クリエイト
 	//第一引数:デバイス
 	//戻り値  :インスタンスのポインタ
-	static CParticleObject* Create(LPDIRECT3DDEVICE9 device);
+	static CMiniParticleObject* Create(LPDIRECT3DDEVICE9 device);
 
 	//初期化処理
 	//第一引数:デバイス
@@ -68,38 +57,24 @@ public:
 	//パーティクル開始処理
 	//第一引数:スタート座標
 	//第二引数:目的の座標
-	void Start(D3DXVECTOR2 pos,CScene *target);
+	void Start(D3DXVECTOR2 pos);
 
 	//パーティクル破壊処理
 	void Destroy();
 
 	//パーティクルが生きているかどうか
 	//戻り値:パーティクルの生死
-	bool isLive()
+	bool isUse_()
 	{
-		return (m_Laser.Use);
+		return (isUse);
 	}
 
 	void Scrol(float value)
 	{
-		m_Laser.Position.x -=value;
+		m_pos.x -=value;
 		CScene2D::SetVertexPolygon();
-		for(int i=0;i<MINI_PARTHICLE_MAX-1;i++)
-		{
-			if(miniParticle[i]->isUse_())
-			{
-				miniParticle[i]->Scrol(value);
-			}
-		}
 	}
-
 private:
-
-	//レーザーの動きに必要な変数群
-	LASER m_Laser;
-
-	//目標の座標
-	CScene *objtarget;
 
 	D3DXCOLOR m_color;
 
@@ -107,29 +82,23 @@ private:
 
 	float Angle;
 
-	float NowMini;
+	bool isUse;
 
-	
-	CMiniParticleObject* miniParticle[MINI_PARTHICLE_MAX];
+	float ColA;
+
+	float Anglespd;
+
 
 
 	//変数のNULL埋め処理
 	void NullSetVariable(void)
 	{
 		Angle=0.0f;
-		m_Laser.ControlVector0=D3DXVECTOR2(0.0f,0.0f);
-		m_Laser.ControlVector1=D3DXVECTOR2(0.0f,0.0f);
-		m_Laser.Position=D3DXVECTOR2(0.0f,0.0f);
-		m_Laser.Time=0.0f;
-		m_Laser.Use=false;
-		objtarget=this;
 		m_Rad=0;
 		m_color=D3DXCOLOR(1.0f,1.0f,1.0f,1.0f);
-		for(int i=0;i<=MINI_PARTHICLE_MAX-1;i++)
-		{
-			miniParticle[i]=NULL;
-		}
-		NowMini=0;
+		isUse=false;
+		ColA=1.0f;
+		Anglespd=0;
 	}
 };
 

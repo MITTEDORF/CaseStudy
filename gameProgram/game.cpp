@@ -137,6 +137,9 @@ void CGame::Update(void)
 			// 背景のスクロール
 			m_bg->Scroll(scroll);
 
+			//パーティクルのスクロール
+			m_player->ParticleScrol(scroll);
+
 			//----------------------------------------
 			// 障害物関連（後で消してね
 			g_stumbler->Scroll(scroll);
@@ -156,6 +159,9 @@ void CGame::Update(void)
 
 			// 背景のスクロール
 			m_bg->Scroll(scroll);
+
+			//パーティクルのスクロール
+			m_player->ParticleScrol(scroll);
 
 			//----------------------------------------
 			// 障害物関連（後で消してね

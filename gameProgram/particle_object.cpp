@@ -32,6 +32,10 @@ HRESULT CParticleObject::Init(LPDIRECT3DDEVICE9 device)
 	//êeÇÃèâä˙âª
 	CScene2D::Init(device,CImport::PARTICLE_YELLOW_SMALL,POINT_CENTER);
 	
+	for(int i=0;i<=MINI_PARTHICLE_MAX-1;i++)
+	{
+		miniParticle[i]=CMiniParticleObject::Create(device);
+	}
 
 	//ê¨å˜Çï‘Ç∑
 	return S_OK;
@@ -55,10 +59,21 @@ void CParticleObject::Update(void)
 	if( m_Laser.Use )
 	{
 		m_Laser.Time += dt;
-
-		if( (m_Laser.Time > 1.0f) )
+		
+		if(!(objtarget==this))
 		{
-			m_Laser.Use = false;
+			if( (m_Laser.Time > 1.0f) )
+			{
+				m_Laser.Use = false;
+			}
+		}
+
+		else
+		{
+			if( (m_Laser.Time > 0.7f) )
+			{
+				m_Laser.Use = false;
+			}
 		}
 
 		Angle+=0.2f;
@@ -79,12 +94,12 @@ void CParticleObject::Update(void)
 		if(objtarget==this)
 		{
 			m_pos.x = h00 *m_Laser.Position.x +
-				h01 *objtarget->GetPos().x +
+				h01 *m_Laser.Position.x +
 				h10 * m_Laser.ControlVector0.x +
 				h11 * m_Laser.ControlVector1.x;
 
 			m_pos.y = h00 * m_Laser.Position.y +
-				h01 * objtarget->GetPos().y +
+				h01 * m_Laser.Position.y +
 				h10 * m_Laser.ControlVector0.y +
 				h11 * m_Laser.ControlVector1.y;
 		}
@@ -101,7 +116,23 @@ void CParticleObject::Update(void)
 				h10 * m_Laser.ControlVector0.y +
 				h11 * m_Laser.ControlVector1.y;
 		}
+
+		if(m_Laser.Time>=(NowMini+1.0f)*0.01f)
+		{
+			for(int i=0;i<MINI_PARTHICLE_MAX-1;i++)
+			{
+				if(!miniParticle[i]->isUse_())
+				{
+					miniParticle[i]->Start(m_pos);
+					NowMini++;
+					break;
+				}
+			}
+		}
+
 	}
+		SetColor(m_color);
+
 		SetRot(Angle);
 		//ç¿ïWÇÃçƒåvéZ
 		SetVertexPolygon();
@@ -164,6 +195,21 @@ void CParticleObject::Start(D3DXVECTOR2 pos,CScene *target)
 		int dsize=2 + (int)( rand() * (5 - 2 + 1.0) / (1.0 + RAND_MAX) );
 		SetSize((128.0f*dsize*0.2f),(128.0f*dsize*0.2f));
 		m_Laser.Use = true;
+
+		this->SetTex(CImport::PARTICLE_WHITE_SMALL);
+
+
+		//m_Rad=(float)(0 + (int)( rand() * (D3DX_PI - 0 + 1.0)) / (float)(1.0 + RAND_MAX) );
+
+		NowMini=0;
+		//float g=(0 + (int)( rand() * (100 - 0 + 1.0) / (1.0 + RAND_MAX) ))/100.0f;
+		//float b=(0 + (int)( rand() * (100 - 0 + 1.0) / (1.0 + RAND_MAX) ))/100.0f;
+
+		/*
+		this->SetColor(r,g,b,1.0f);
+		*/
+
+
 		int tex=1 + (int)( rand() * (3 - 1 + 1.0) / (1.0 + RAND_MAX) );
 		switch (tex)
 		{

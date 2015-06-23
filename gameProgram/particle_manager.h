@@ -14,7 +14,7 @@
 // マクロ
 //============================================================================
 //パーティクル数
-const int PARTICLE_MAX            = 150;
+const int PARTICLE_MAX            = 40;
 //ディレイ
 const int PARTICLE_COOL_DOWN_TIME = 10;
 //=============================================================================
@@ -53,6 +53,14 @@ public:
 
 	//プレイヤーの座標のセット
 	void Setpos(D3DXVECTOR2 pos);
+
+	void Scrol(float value)
+	{
+		for(int i=0;i<PARTICLE_MAX-1;i++)
+		{
+			object[i]->Scrol(value);
+		}
+	}
 
 private:
 	//パーティクルオブジェクト
