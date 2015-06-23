@@ -93,6 +93,7 @@
     <ClCompile Include="inputPadDirect.cpp" />
     <ClCompile Include="inputPadX.cpp" />
     <ClCompile Include="math_animation.cpp" />
+    <ClCompile Include="mini_particle_object.cpp" />
     <ClCompile Include="particle_manager.cpp" />
     <ClCompile Include="particle_object.cpp" />
     <ClCompile Include="sky.cpp" />
@@ -124,6 +125,7 @@
     <ClInclude Include="inputPadDirect.h" />
     <ClInclude Include="inputPadX.h" />
     <ClInclude Include="math_animation.h" />
+    <ClInclude Include="mini_particle_object.h" />
     <ClInclude Include="particle_manager.h" />
     <ClInclude Include="particle_object.h" />
     <ClInclude Include="player_config.h" />

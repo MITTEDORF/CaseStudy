@@ -80,6 +80,15 @@
     <Filter Include="phase\result\gameclear">
       <UniqueIdentifier>{b184bb7a-3855-45e5-980b-6a63cd871d06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="object\particle\manager">
+      <UniqueIdentifier>{a97f7bf8-e6e9-4fce-baf5-4426583a26aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object\particle\paticle_object">
+      <UniqueIdentifier>{41e21f09-23e4-4255-944a-e49fc839e533}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object\particle\mini_particle_object">
+      <UniqueIdentifier>{b4dafc4e-e95e-487c-a5e6-724796a05d7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -160,14 +169,17 @@
     <ClCompile Include="gameover.cpp">
       <Filter>phase\result\gameover</Filter>
     </ClCompile>
-    <ClCompile Include="particle_manager.cpp">
-      <Filter>object\particle</Filter>
-    </ClCompile>
-    <ClCompile Include="particle_object.cpp">
-      <Filter>object\particle</Filter>
-    </ClCompile>
     <ClCompile Include="stum_manager.cpp">
       <Filter>object\stumbler</Filter>
+    </ClCompile>
+    <ClCompile Include="particle_manager.cpp">
+      <Filter>object\particle\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="particle_object.cpp">
+      <Filter>object\particle\paticle_object</Filter>
+    </ClCompile>
+    <ClCompile Include="mini_particle_object.cpp">
+      <Filter>object\particle\mini_particle_object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -255,14 +267,17 @@
     <ClInclude Include="gameover.h">
       <Filter>phase\result\gameover</Filter>
     </ClInclude>
-    <ClInclude Include="particle_manager.h">
-      <Filter>object\particle</Filter>
-    </ClInclude>
-    <ClInclude Include="particle_object.h">
-      <Filter>object\particle</Filter>
-    </ClInclude>
     <ClInclude Include="stum_manager.h">
       <Filter>object\stumbler</Filter>
+    </ClInclude>
+    <ClInclude Include="particle_manager.h">
+      <Filter>object\particle\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="particle_object.h">
+      <Filter>object\particle\paticle_object</Filter>
+    </ClInclude>
+    <ClInclude Include="mini_particle_object.h">
+      <Filter>object\particle\mini_particle_object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -98,6 +98,8 @@ public:
 
 	void PaticleStart(CScene* target);
 
+	void ParticleScrol(float value);
+
 	//HP‚Ì‰ÁZˆ—
 	//‘æˆêˆø”:‰ÁZ‚·‚é’l(Œ¸Z‚µ‚½‚¢ê‡‚Í-‚Ì’l‚ğ“ü‚ê‚Ä‚­‚¾‚³‚¢)
 	void AddHP(int value);
