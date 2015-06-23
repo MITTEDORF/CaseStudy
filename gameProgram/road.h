@@ -47,6 +47,9 @@ public:
 	void	Update(void);
 	void	Draw(void);
 
+	// ‰Ÿ‚µ•Ô‚µˆ—
+	D3DXVECTOR2	ReturnPush(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE pointType);
+
 	// ƒXƒNƒ[ƒ‹ˆ—
 	void	Scroll(float scroll){m_pos.x -= scroll; CScene2D::SetVertexPolygon();}
 

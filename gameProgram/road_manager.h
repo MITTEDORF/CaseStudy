@@ -27,7 +27,7 @@ public:
 	HRESULT	Init(LPDIRECT3DDEVICE9 device);
 	void	Update(void);
 	void	Scroll(float f);
-	bool	CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
+	D3DXVECTOR2	CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
 	static	CRoadManager* Create(LPDIRECT3DDEVICE9 device);
 private:
 	CRoad* m_list_top;		// è·äQï®ÉäÉXÉgêÊì™
