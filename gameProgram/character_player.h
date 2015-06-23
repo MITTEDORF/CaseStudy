@@ -11,6 +11,8 @@
 //=============================================================================
 #include "main.h"
 #include "scene2D.h"
+#include "character_config.h"
+#include "player_config.h"
 
 //=============================================================================
 // マクロ
@@ -32,6 +34,7 @@ class CParticleManager;
 class CPlayer : public CScene2D
 {
 public:
+	
 	//コンストラクタ
 	//第一引数:プライオリティ(最大はPRIORITY_MAX、何も入力しないとPRIORITY_MAX - 2に設定)
 	//第二引数:オブジェクトタイプ(何も入力しないとOBJTYPE_NONEに設定)
@@ -43,7 +46,7 @@ public:
 	//クリエイト
 	//第一引数:デバイス
 	//戻り値  :インスタンスのポインタ
-	static CPlayer* Create(LPDIRECT3DDEVICE9 device);
+	static CPlayer* Create(LPDIRECT3DDEVICE9 device,CostumeID costume_id=COSTUME_SANTA,VehicleID vehicle_id=VEHICLE_TRAM);
 
 	//初期化処理
 	//第一引数:デバイス
@@ -76,40 +79,68 @@ public:
 		return (HP);
 	}
 
+	//プレイヤーの生死確認
+	//戻り値:死んでたらfalseが返ってくるよ
 	bool isDeth_()
 	{
 		return (isDeth);
 	}
 
+	//無敵状態かどうかの取得
+	//戻り値:無敵状態ならtrueが返ってくるよ
 	bool isinvincible_()
 	{
 		return (isinvincible);
 	}
 
+	//パーティクル管理クラスの取得
+	//戻り値:パーティクル管理クラスのポインタ
 	CParticleManager* particle_()
 	{
 		return (particle);
 	}
 
+	//光アクション中かどうかのチェック
+	//戻り値:trueなら光アクション中だよ
 	bool isLitninng()
 	{
 		return(isAnimEnd&&isHoldLighting);
 	}
 
+	//パーティクルを放出
+	//第一引数:パーティクルが向かう目標のポインタ(NULLをいれればほわ～っと消える)
 	void PaticleStart(CScene* target);
-
+	//パーティクルの画面スクロール処理(とりあえず毎フレーム呼んで)
+	//第一引数:スクロールの値
 	void ParticleScrol(float value);
 
 	//HPの加算処理
 	//第一引数:加算する値(減算したい場合は-の値を入れてください)
 	void AddHP(int value);
 
+	//コスチュームのセット
+	//第一引数:ID入れてね(character_configにて定義)
+	void SetCostumeID(CostumeID value)
+	{
+		Costume_id=value;
+	}
+
+	//乗り物のセット
+	//第一引数:ID入れてね(character_configにて定義)
+	void SetVehicleID(VehicleID value)
+	{
+		Vehicle_id=value;
+	}
 private:
 
+	CostumeID Costume_id;
+	VehicleID Vehicle_id;
+
+
+	//パーティクル管理クラス
 	CParticleManager *particle;
-
+	//描画フラグ
 	bool isDraw;
-
 	//Y値オフセット
 	D3DXVECTOR2 Offset;
 
@@ -213,6 +244,12 @@ private:
 	void HPUpdate();
 	//無敵処理
 	void InvincibleUpdate();
+
+	//テクスチャIDの参照
+	CImport::TEXTURES ConsultationPlayerTexID(PlayerState state);
+
+	CImport::TEXTURES ConsultationVehicleTexID();
+
 };
 
 #endif

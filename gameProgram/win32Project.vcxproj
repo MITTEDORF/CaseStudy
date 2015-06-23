@@ -82,6 +82,7 @@
     <ClCompile Include="character_player.cpp" />
     <ClCompile Include="character_vehicle.cpp" />
     <ClCompile Include="debugproc.cpp" />
+    <ClCompile Include="equipment_choice.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameclear.cpp" />
@@ -111,9 +112,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="background.h" />
+    <ClInclude Include="character_config.h" />
     <ClInclude Include="character_player.h" />
     <ClInclude Include="character_vehicle.h" />
     <ClInclude Include="debugproc.h" />
+    <ClInclude Include="equipment_choice.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameclear.h" />

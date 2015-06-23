@@ -50,6 +50,22 @@ const int   PLAYER_ANIM_LIGHT           = 4;
 //乗り物ごとの高さオフセット
 const float PLAYER_HEGHIT_OFFSET_MARUTA = 25.0f;
 
+//プレイヤーの状態
+typedef enum
+{
+	// 待機
+	PLAYER_STATE_WAIT = 0,
+	//攻撃
+	PLAYER_STATE_ATTACK,
+	//光アクション
+	PLAYER_STATE_LIGHTNING,
+	//ダメージ
+	PLAYER_STATE_DAMAGE,
+
+	//状態の数
+	PLAYER_STATE_MAX
+
+} PlayerState;
 
 #endif
 
