@@ -92,6 +92,9 @@
     <Filter Include="object\road">
       <UniqueIdentifier>{3c524406-f6bf-4439-b033-ec064932cefb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="object\list">
+      <UniqueIdentifier>{6f62a0ca-dee8-4360-8ce5-d929c34a5977}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -111,9 +114,6 @@
     </ClCompile>
     <ClCompile Include="scene2D.cpp">
       <Filter>object\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="listObject.cpp">
-      <Filter>object</Filter>
     </ClCompile>
     <ClCompile Include="import.cpp">
       <Filter>import</Filter>
@@ -190,6 +190,9 @@
     <ClCompile Include="road_manager.cpp">
       <Filter>object\road</Filter>
     </ClCompile>
+    <ClCompile Include="listObject.cpp">
+      <Filter>object\list</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -209,9 +212,6 @@
     </ClInclude>
     <ClInclude Include="scene2D.h">
       <Filter>object\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="listObject.h">
-      <Filter>object</Filter>
     </ClInclude>
     <ClInclude Include="import.h">
       <Filter>import</Filter>
@@ -293,6 +293,9 @@
     </ClInclude>
     <ClInclude Include="road_manager.h">
       <Filter>object\road</Filter>
+    </ClInclude>
+    <ClInclude Include="listObject.h">
+      <Filter>object\list</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
