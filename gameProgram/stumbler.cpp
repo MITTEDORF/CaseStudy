@@ -59,6 +59,7 @@ CStumbler* CStumbler::Create(LPDIRECT3DDEVICE9 device, STUM_DATA data, POINT_TYP
 	pointer->Init(device, (CImport::TEXTURES)(CImport::SIGNBOARD + data.type), pointType);
 	// データを元に座標の変更
 	pointer->SetPos(data.Index.x * 64, SCREEN_HEIGHT - ((data.Index.y * 64) + 128));
+	// 障害物タイプによる当たり判定の変更
 	pointer->SetHitSize(Size_List[data.type]);
 	pointer->SetHitOffset(Offset_List[data.type]);
 	return pointer;

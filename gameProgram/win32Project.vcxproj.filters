@@ -89,6 +89,9 @@
     <Filter Include="object\particle\mini_particle_object">
       <UniqueIdentifier>{b4dafc4e-e95e-487c-a5e6-724796a05d7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="object\road">
+      <UniqueIdentifier>{3c524406-f6bf-4439-b033-ec064932cefb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -180,6 +183,12 @@
     </ClCompile>
     <ClCompile Include="mini_particle_object.cpp">
       <Filter>object\particle\mini_particle_object</Filter>
+    </ClCompile>
+    <ClCompile Include="road.cpp">
+      <Filter>object\road</Filter>
+    </ClCompile>
+    <ClCompile Include="road_manager.cpp">
+      <Filter>object\road</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +287,12 @@
     </ClInclude>
     <ClInclude Include="mini_particle_object.h">
       <Filter>object\particle\mini_particle_object</Filter>
+    </ClInclude>
+    <ClInclude Include="road.h">
+      <Filter>object\road</Filter>
+    </ClInclude>
+    <ClInclude Include="road_manager.h">
+      <Filter>object\road</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
