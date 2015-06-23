@@ -41,47 +41,47 @@ CRoadManager* CRoadManager::Create(LPDIRECT3DDEVICE9 device)
 HRESULT CRoadManager::Init(LPDIRECT3DDEVICE9 device)
 {
 	//----------------------------------------
-	// 障害物関連（とりあえずべた打ち、エディタからのデータになる予定地
+	// 道路関連（とりあえずべた打ち、エディタからのデータになる予定地
 	ROAD_DATA data[] = {
 		{TYPE_DIRT,
 		D3DXVECTOR2(0,0)},
-		{TYPE_DIRT,
+		{TYPE_ASPHALT,
 		D3DXVECTOR2(1,0)},
 		{TYPE_DIRT,
 		D3DXVECTOR2(2,0)},
-		{TYPE_DIRT,
+		{TYPE_ASPHALT,
 		D3DXVECTOR2(3,0)},
 		{TYPE_DIRT,
 		D3DXVECTOR2(4,0)},
+		{TYPE_ASPHALT,
+		D3DXVECTOR2(5,3)},
 		{TYPE_DIRT,
-		D3DXVECTOR2(5,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(6,0)},
-		{TYPE_DIRT,
+		D3DXVECTOR2(6,3)},
+		{TYPE_ASPHALT,
 		D3DXVECTOR2(7,0)},
 		{TYPE_DIRT,
 		D3DXVECTOR2(8,0)},
-		{TYPE_DIRT,
+		{TYPE_ASPHALT,
 		D3DXVECTOR2(9,0)},
 		{TYPE_DIRT,
 		D3DXVECTOR2(10,0)},
-		{TYPE_DIRT,
+		{TYPE_ASPHALT,
 		D3DXVECTOR2(11,0)},
 		{TYPE_DIRT,
 		D3DXVECTOR2(12,0)},
-		{TYPE_DIRT,
+		{TYPE_ASPHALT,
 		D3DXVECTOR2(13,0)},
 		{TYPE_DIRT,
 		D3DXVECTOR2(14,0)},
-		{TYPE_DIRT,
+		{TYPE_ASPHALT,
 		D3DXVECTOR2(15,0)},
 		{TYPE_DIRT,
 		D3DXVECTOR2(16,0)},
-		{TYPE_DIRT,
+		{TYPE_ASPHALT,
 		D3DXVECTOR2(17,0)},
 		{TYPE_DIRT,
 		D3DXVECTOR2(18,0)},
-		{TYPE_DIRT,
+		{TYPE_ASPHALT,
 		D3DXVECTOR2(19,0)},
 	};
 
@@ -147,6 +147,31 @@ void CRoadManager::Scroll(float f)
 
 		cur = next;
 	}
+}
+
+//=============================================================================
+// 衝突判定
+//=============================================================================
+D3DXVECTOR2	CRoadManager::CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType)
+{
+	CRoad* cur = m_list_top;
+	CRoad* next;
+
+	while(cur)
+	{
+		// ぶつかっていた場合、めり込んでる数値分を返す
+		if(cur->CheckCollisionAABB(pos, size, pointType) == true)
+		{
+			return cur->ReturnPush(pos, size, pointType);
+		}
+
+		next = cur->GetRoadNext();
+
+		cur = next;
+	}
+
+	// ぶつかってない場合
+	return D3DXVECTOR2(0.0f, 0.0f);
 }
 
 

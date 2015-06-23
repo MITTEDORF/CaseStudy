@@ -152,6 +152,7 @@ void CGame::Update(void)
 			//----------------------------------------
 			// 障害物関連（後で消してね
 			g_stumbler->Scroll(scroll);
+			g_road->Scroll(scroll);
 
 			//ゴールのスクロール(大井川 6/2_12時頃追加)
 			m_Goal->Scroll( scroll );
@@ -175,6 +176,7 @@ void CGame::Update(void)
 			//----------------------------------------
 			// 障害物関連（後で消してね
 			g_stumbler->Scroll(scroll);
+			g_road->Scroll(scroll);
 		}
 
 		//全当たり判定
@@ -265,11 +267,16 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 void CGame::ColAll()
 {
 	//プレイヤと障害物の当たり判定
-	if(g_stumbler->CheckHit( m_player->GetPos() , m_player->GetSize() , CScene2D::POINT_CENTER ))
+	if(g_stumbler->CheckHit( m_player->GetHitPos() , m_player->GetHitSize() , CScene2D::POINT_CENTER ))
 	{
 		m_player->AddHP(-1);
 	}
 
+	// プレイヤーと道路の当たり判定、押し戻し
+	D3DXVECTOR2 tmp[2];
+	tmp[0] = g_road->CheckHit( m_player->GetHitPos() , m_player->GetHitSize() , CScene2D::POINT_CENTER );
+	tmp[1] = m_player->GetPos();
+	m_player->SetPos(tmp[0].x + tmp[1].x, tmp[0].y + tmp[1].y);
 
 	//ライトニング判定
 	if(m_player->isLitninng())

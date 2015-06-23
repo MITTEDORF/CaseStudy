@@ -132,6 +132,9 @@ void CPlayer::Update(void)
 	//座標の再計算
 	SetVertexPolygon();
 
+	// 当たり判定用座標の更新
+	CScene2D::SetHitPos(m_pos);
+
 	//親の更新
 	CScene2D::Update();
 }

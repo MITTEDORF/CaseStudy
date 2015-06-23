@@ -83,5 +83,67 @@ void CRoad::Draw(void)
 	DrawHitBox();
 }
 
+//=============================================================================
+// 押し返し処理
+//=============================================================================
+D3DXVECTOR2	CRoad::ReturnPush(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE pointType)
+{
+	// 自分の4頂点と相手の4頂点を計算
+	D3DXVECTOR2 self[4], target[4], temp, rtn;
+
+	temp = (m_size - m_hitSize)/2;
+
+	// 自分の頂点情報を計算
+	if(m_pointType == POINT_LEFTTOP)		// 左上原点の場合
+	{
+		self[0].x = m_pos.x + m_hitOffset.x + temp.x;				self[0].y = m_pos.y + m_hitOffset.y + temp.y;
+		self[1].x = m_pos.x + m_hitOffset.x + m_size.x - temp.x;	self[1].y = m_pos.y + m_hitOffset.y + temp.y;
+		self[2].x = m_pos.x + m_hitOffset.x + m_size.x - temp.x;	self[2].y = m_pos.y + m_hitOffset.y + m_size.y - temp.y;
+		self[3].x = m_pos.x + m_hitOffset.x + temp.x;				self[3].y = m_pos.y + m_hitOffset.y + m_size.y - temp.y;
+	}
+	else if(m_pointType == POINT_CENTER)	// 中心原点の場合
+	{
+		self[0].x = m_pos.x + m_hitOffset.x - m_hitSize.x/2;	self[0].y = m_pos.y + m_hitOffset.y - m_hitSize.y/2;
+		self[1].x = m_pos.x + m_hitOffset.x + m_hitSize.x/2;	self[1].y = m_pos.y + m_hitOffset.y - m_hitSize.y/2;
+		self[2].x = m_pos.x + m_hitOffset.x + m_hitSize.x/2;	self[2].y = m_pos.y + m_hitOffset.y + m_hitSize.y/2;
+		self[3].x = m_pos.x + m_hitOffset.x - m_hitSize.x/2;	self[3].y = m_pos.y + m_hitOffset.y + m_hitSize.y/2;
+	}
+
+	// 渡された情報から頂点を計算
+	if(pointType == POINT_LEFTTOP)		// 左上原点の場合
+	{
+		target[0].x = pos.x;				target[0].y = pos.y;
+		target[1].x = pos.x + size.x;		target[1].y = pos.y;
+		target[2].x = pos.x + size.x;		target[2].y = pos.y + size.y;
+		target[3].x = pos.x;				target[3].y = pos.y + size.y;
+	}
+	else if(pointType == POINT_CENTER)	// 中心原点の場合
+	{
+		target[0].x = pos.x - size.x/2;		target[0].y = pos.y - size.y/2;
+		target[1].x = pos.x + size.x/2;		target[1].y = pos.y - size.y/2;
+		target[2].x = pos.x + size.x/2;		target[2].y = pos.y + size.y/2;
+		target[3].x = pos.x - size.x/2;		target[3].y = pos.y + size.y/2;
+	}
+
+	rtn = D3DXVECTOR2(0.0f, 0.0f);
+
+	// 箱に当たり判定
+	if( (self[0].x < target[1].x) &&
+		(target[0].x < self[1].x) &&
+		(self[0].y < target[3].y) &&
+		(target[0].y < self[3].y) )
+	{
+		/*if(self[0].x < target[0].x && self[1].x > target[0].x && )
+			rtn.x = self[0].x - target[1].x;
+		if(self[0].x > target[1].x && self[1].x > target[1].x)
+			rtn.x = self[1].x - target[0].x;
+		if(self[0].y < target[3].y)
+			rtn.y = self[0].y - target[3].y;
+		if(self[3].y > target[0].y)
+			rtn.y = self[3].y - target[0].y;*/
+	}
+
+	return rtn;
+}
 
 // End of File
