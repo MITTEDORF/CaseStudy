@@ -15,7 +15,6 @@
 
 #include "inputKeyboard.h"
 #include "math_animation.h"
-#include "player_config.h"
 
 #include "game.h"
 #include "debugproc.h"
@@ -48,7 +47,7 @@ HRESULT CPlayer::Init(LPDIRECT3DDEVICE9 device)
 {
 	particle=NULL;
 	
-	Assy=CVehicle::Create(device,CImport::ASSY_TRAM);
+	Assy=CVehicle::Create(device,ConsultationVehicleTexID());
 	Offset.x=-20.0f;
 	Offset.y=0;
 
@@ -56,7 +55,7 @@ HRESULT CPlayer::Init(LPDIRECT3DDEVICE9 device)
 	particle->Init(device);
 
 	//親の初期化
-	CScene2D::Init(device,CImport::PLAYER_WAIT,POINT_CENTER);
+	CScene2D::Init(device,ConsultationPlayerTexID(PLAYER_STATE_WAIT),POINT_CENTER);
 
 	SetAnimMode(PLAYER_ANIM_WAIT,true);
 
@@ -149,9 +148,13 @@ void CPlayer::Draw(void)
 //=============================================================================
 // 生成
 //=============================================================================
-CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 device)
+CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 device,CostumeID costume_id,VehicleID vehicle_id)
 {
 	CPlayer* scene = new CPlayer;
+	//コスチュームと乗り物のIDのセット
+	scene->SetCostumeID(costume_id);
+	scene->SetVehicleID(vehicle_id);
+	//初期化
 	scene->Init(device);
 
 	return scene;
@@ -463,7 +466,7 @@ void CPlayer::SetAnimMode(int AnimID,bool Rupe)
 		cntAnim=0;
 		nowAnim=1;
 		maxAnim=PLAYER_MAXANIM_WAIT;
-		this->SetTex(CImport::PLAYER_WAIT);
+		this->SetTex(ConsultationPlayerTexID(PLAYER_STATE_WAIT));
 		SetAnim(maxAnim,1,1,1,this);
 		break;
 
@@ -476,7 +479,7 @@ void CPlayer::SetAnimMode(int AnimID,bool Rupe)
 		nowAnim=1;
 		maxAnim=PLAYER_MAXANIM_ATACK;
 		isAttack=true;
-		this->SetTex(CImport::PLAYER_ATTACK);
+		this->SetTex(ConsultationPlayerTexID(PLAYER_STATE_ATTACK));
 		SetAnim(maxAnim,1,1,1,this);
 		break;
 
@@ -490,7 +493,7 @@ void CPlayer::SetAnimMode(int AnimID,bool Rupe)
 		maxAnim=PLAYER_MAXANIM_LIGHT;
 		isHoldLighting=true;
 		isLighting=true;
-		this->SetTex(CImport::PLAYER_LIGHT);
+		this->SetTex(ConsultationPlayerTexID(PLAYER_STATE_LIGHTNING));
 		SetAnim(maxAnim,1,1,1,this);
 		break;
 	}
@@ -541,4 +544,83 @@ void CPlayer::ParticleScrol(float value)
 	{
 		particle->Scrol(value);
 	}
+}
+
+//=============================================================================
+// テクスチャIDの参照処理(プレイヤー)
+//=============================================================================
+CImport::TEXTURES CPlayer::ConsultationPlayerTexID(PlayerState state)
+{
+	switch (state)
+	{
+	case PLAYER_STATE_WAIT:
+		switch (Costume_id)
+		{
+		case COSTUME_NONE:
+			return (CImport::PLAYER_DEFAULT_WAIT);
+			break;
+		case COSTUME_KNIGHT:
+			return (CImport::PLAYER_KNIGHT_WAIT);
+			break;
+		case COSTUME_SANTA:
+			return (CImport::PLAYER_SANTA_WAIT);
+			break;
+		case COSTUME_SWIMWEAR:
+			return (CImport::PLAYER_SWIMWEAR_WAIT);
+			break;
+		}
+		break;
+	case PLAYER_STATE_ATTACK:
+		switch (Costume_id)
+		{
+		case COSTUME_NONE:
+			return (CImport::PLAYER_DEFAULT_ATTACK);
+			break;
+		case COSTUME_KNIGHT:
+			return (CImport::PLAYER_KNIGHT_ATTACK);
+			break;
+		case COSTUME_SANTA:
+			return (CImport::PLAYER_SANTA_ATTACK);
+			break;
+		case COSTUME_SWIMWEAR:
+			return (CImport::PLAYER_SWIMWEAR_ATTACK);
+			break;
+		}
+		break;
+	case PLAYER_STATE_LIGHTNING:
+		switch (Costume_id)
+		{
+		case COSTUME_NONE:
+			return (CImport::PLAYER_DEFAULT_LIGHT);
+			break;
+		case COSTUME_KNIGHT:
+			return (CImport::PLAYER_DEFAULT_LIGHT);
+			break;
+		case COSTUME_SANTA:
+			return (CImport::PLAYER_DEFAULT_LIGHT);
+			break;
+		case COSTUME_SWIMWEAR:
+			return (CImport::PLAYER_DEFAULT_LIGHT);
+			break;
+		}
+
+		break;
+	}
+
+	return (CImport::PLAYER_DEFAULT_WAIT);
+}
+
+//=============================================================================
+// テクスチャIDの参照処理(乗り物)
+//=============================================================================
+CImport::TEXTURES CPlayer::ConsultationVehicleTexID()
+{
+	switch (Vehicle_id)
+	{
+	case VEHICLE_TRAM:
+		return (CImport::ASSY_TRAM);
+		break;
+	}
+
+	return (CImport::ASSY_TRAM);
 }

@@ -95,6 +95,9 @@
     <Filter Include="object\list">
       <UniqueIdentifier>{6f62a0ca-dee8-4360-8ce5-d929c34a5977}</UniqueIdentifier>
     </Filter>
+    <Filter Include="phase\equipment_choice">
+      <UniqueIdentifier>{2c5ad15d-52c5-4ccc-a6ff-83487d2616f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -192,6 +195,9 @@
     </ClCompile>
     <ClCompile Include="listObject.cpp">
       <Filter>object\list</Filter>
+    </ClCompile>
+    <ClCompile Include="equipment_choice.cpp">
+      <Filter>phase\equipment_choice</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -296,6 +302,12 @@
     </ClInclude>
     <ClInclude Include="listObject.h">
       <Filter>object\list</Filter>
+    </ClInclude>
+    <ClInclude Include="equipment_choice.h">
+      <Filter>phase\equipment_choice</Filter>
+    </ClInclude>
+    <ClInclude Include="character_config.h">
+      <Filter>object\character\player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

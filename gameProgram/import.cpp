@@ -60,9 +60,23 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/goal/tv_clear.png",
 
 	// ÉvÉåÉCÉÑÅ[
-	"./data/TEXTURE/player/player_wait.png",
-	"./data/TEXTURE/player/player_attack.png",
-	"./data/TEXTURE/player/player_light.png",
+	"./data/TEXTURE/player/default/player_wait.png",
+	"./data/TEXTURE/player/default/player_attack.png",
+	"./data/TEXTURE/player/default/player_light.png",
+
+	"./data/TEXTURE/player/knight/player_wait.png",
+	"./data/TEXTURE/player/knight/player_attack.png",
+	//"./data/TEXTURE/player/knight/player_light.png",
+
+	"./data/TEXTURE/player/santa/player_wait.png",
+	"./data/TEXTURE/player/santa/player_attack.png",
+	//"./data/TEXTURE/player/santa/player_light.png",
+
+	"./data/TEXTURE/player/swimwear/player_wait.png",
+	"./data/TEXTURE/player/swimwear/player_attack.png",
+	//"./data/TEXTURE/player/swimwear/player_light.png",
+
+
 	"./data/TEXTURE/player/player_goodmood.png",
 	"./data/TEXTURE/player/player_badmood.png",
 
