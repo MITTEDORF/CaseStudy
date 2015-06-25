@@ -12,7 +12,7 @@
 #include "manager.h"
 #include "fade.h"
 
-#include "game.h"
+#include "equipment_choice.h"
 
 #include "inputKeyboard.h"
 
@@ -91,7 +91,7 @@ void CTitle::Update(void)
 	//----------------------------
 	if(m_fade->GetState() == CFade::FADESTATE_OUTEND)
 	{
-		CManager::SetNextPhase((CPhase*)new CGame);
+		CManager::SetNextPhase((CPhase*)new CEquipmentChoice);
 	}
 }
 

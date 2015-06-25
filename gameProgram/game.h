@@ -14,6 +14,7 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "main.h"
 #include "phase.h"
+#include "character_config.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ定義
@@ -31,7 +32,11 @@ class CGoal;
 class CGame : CPhase
 {
 public:
-	CGame(void){};
+	CGame(CostumeID cos_id,VehicleID veh_id)
+	{
+		costume_id=cos_id;
+		vehicle_id=veh_id;
+	};
 	~CGame(){};
 
 	HRESULT	Init(LPDIRECT3DDEVICE9 device);
@@ -42,6 +47,9 @@ public:
 private:
 	void InitObject(LPDIRECT3DDEVICE9 device);
 	void Debug(void);
+
+	CostumeID costume_id;
+	VehicleID vehicle_id;
 
 	//全当たり判定
 	void ColAll();

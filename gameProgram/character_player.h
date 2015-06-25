@@ -14,6 +14,7 @@
 #include "character_config.h"
 #include "player_config.h"
 
+#include "character_vehicle.h"
 //=============================================================================
 // マクロ
 //============================================================================
@@ -25,8 +26,7 @@ const int PLAYER_HP_MAX                 = 3;
 //=============================================================================
 //キーボード入力制御クラス
 class CInputKeyboard;
-//乗り物制御クラス
-class CVehicle;
+
 class CParticleManager;
 //=============================================================================
 // クラス定義
@@ -46,7 +46,7 @@ public:
 	//クリエイト
 	//第一引数:デバイス
 	//戻り値  :インスタンスのポインタ
-	static CPlayer* Create(LPDIRECT3DDEVICE9 device,CostumeID costume_id=COSTUME_SANTA,VehicleID vehicle_id=VEHICLE_TRAM);
+	static CPlayer* Create(LPDIRECT3DDEVICE9 device,CostumeID costume_id=COSTUME_NONE,VehicleID vehicle_id=VEHICLE_TRAM);
 
 	//初期化処理
 	//第一引数:デバイス
@@ -120,22 +120,29 @@ public:
 
 	//コスチュームのセット
 	//第一引数:ID入れてね(character_configにて定義)
-	void SetCostumeID(CostumeID value)
-	{
-		Costume_id=value;
-	}
+	void SetCostumeID(CostumeID value);
 
 	//乗り物のセット
 	//第一引数:ID入れてね(character_configにて定義)
-	void SetVehicleID(VehicleID value)
+	void SetVehicleID(VehicleID value);
+
+	void Set_isGame(bool value);
+
+	void PlayerReflash()
 	{
-		Vehicle_id=value;
+		m_move_spd.y=0.0f;
+	}
+
+	CVehicle* Assy_()
+	{
+		return (Assy);
 	}
 private:
 
 	CostumeID Costume_id;
 	VehicleID Vehicle_id;
 
+	bool isGame;
 
 	//パーティクル管理クラス
 	CParticleManager *particle;
@@ -199,6 +206,7 @@ private:
 		Offset.x=0;
 		Offset.y=0;
 
+		isGame=true;
 		HP=PLAYER_HP_MAX;
 		AssyDamage=HP/3;
 		AssyHP=3;

@@ -66,15 +66,23 @@ const char* TEX_PATH[] =
 
 	"./data/TEXTURE/player/knight/player_wait.png",
 	"./data/TEXTURE/player/knight/player_attack.png",
-	//"./data/TEXTURE/player/knight/player_light.png",
+	"./data/TEXTURE/player/knight/player_light.png",
 
 	"./data/TEXTURE/player/santa/player_wait.png",
 	"./data/TEXTURE/player/santa/player_attack.png",
-	//"./data/TEXTURE/player/santa/player_light.png",
+	"./data/TEXTURE/player/santa/player_light.png",
 
 	"./data/TEXTURE/player/swimwear/player_wait.png",
 	"./data/TEXTURE/player/swimwear/player_attack.png",
-	//"./data/TEXTURE/player/swimwear/player_light.png",
+	"./data/TEXTURE/player/swimwear/player_light.png",
+	
+	"./data/TEXTURE/player/ninja/player_wait.png",
+	"./data/TEXTURE/player/ninja/player_attack.png",
+	"./data/TEXTURE/player/ninja/player_light.png",
+
+	"./data/TEXTURE/player/faiter/player_wait.png",
+	"./data/TEXTURE/player/faiter/player_attack.png",
+	"./data/TEXTURE/player/faiter/player_light.png",
 
 
 	"./data/TEXTURE/player/player_goodmood.png",
@@ -87,6 +95,11 @@ const char* TEX_PATH[] =
 
 	// èÊÇËï®
 	"./data/TEXTURE/assy/tram.png",
+	"./data/TEXTURE/assy/log.png",
+	"./data/TEXTURE/assy/bathtub.png",
+	"./data/TEXTURE/assy/dolly.png",
+	"./data/TEXTURE/assy/sleigh.png",
+	"./data/TEXTURE/assy/truck.png"
 };
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
