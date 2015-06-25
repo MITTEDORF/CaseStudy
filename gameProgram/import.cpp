@@ -99,7 +99,16 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/assy/bathtub.png",
 	"./data/TEXTURE/assy/dolly.png",
 	"./data/TEXTURE/assy/sleigh.png",
-	"./data/TEXTURE/assy/truck.png"
+	"./data/TEXTURE/assy/truck.png",
+
+	//ÉLÉÉÉâÉÅÉCÉNâÊñ UI
+	"./data/TEXTURE/select/assy_option.png",
+	"./data/TEXTURE/select/costume_option.png",
+	"./data/TEXTURE/select/option_details.png",
+	"./data/TEXTURE/select/select_cursor.png",
+	"./data/TEXTURE/select/select_frame.png"
+
+
 };
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

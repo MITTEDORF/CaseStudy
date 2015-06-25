@@ -185,8 +185,8 @@ void CGame::Update(void)
 		//α仮置き
 		if( m_Goal->CheckCollisionAABB( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
 		{
-			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 			m_player->PlayerReflash();
+			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 		}
 	}
 
@@ -296,6 +296,7 @@ void CGame::ColAll()
 	//プレイヤが死んでる場合フェード開始
 	if(m_player->isDeth_())
 	{
+		m_player->PlayerReflash();
 		m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 	}
 }
