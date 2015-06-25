@@ -296,7 +296,7 @@ void CGame::ColAll()
 	//プレイヤが死んでる場合フェード開始
 	if(m_player->isDeth_())
 	{
-		m_player->PlayerReflash();
+		m_player->PlayerReflash(false);
 		m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 	}
 }
