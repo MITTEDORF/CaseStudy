@@ -32,7 +32,7 @@ class CGoal;
 class CGame : CPhase
 {
 public:
-	CGame(CostumeID cos_id,VehicleID veh_id)
+	CGame(CostumeID cos_id = COSTUME_NONE,VehicleID veh_id = VEHICLE_TRAM)
 	{
 		costume_id=cos_id;
 		vehicle_id=veh_id;
