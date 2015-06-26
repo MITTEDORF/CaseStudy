@@ -131,6 +131,7 @@ public:
 	void PlayerReflash()
 	{
 		m_move_spd.y=0.0f;
+		isLighting=false;
 	}
 
 	CVehicle* Assy_()
