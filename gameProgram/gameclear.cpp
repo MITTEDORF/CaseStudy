@@ -106,7 +106,7 @@ void CGameClear::Update(void)
 	{
 		if( m_select_cur == SELECT_CUR_RETURN )
 		{
-			CManager::SetNextPhase((CPhase*)new CGame);
+			CManager::SetNextPhase((CPhase*)new CGame(costume_id, vehicle_id));
 		}
 		else
 		{

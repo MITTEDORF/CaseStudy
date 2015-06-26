@@ -197,12 +197,12 @@ void CGame::Update(void)
 	{
 		if(m_player->isDeth_())
 		{
-			CManager::SetNextPhase((CPhase*)new CGameOver);
+			CManager::SetNextPhase((CPhase*)new CGameOver(costume_id, vehicle_id));
 		}
 
 		else
 		{
-			CManager::SetNextPhase((CPhase*)new CGameClear);
+			CManager::SetNextPhase((CPhase*)new CGameClear(costume_id, vehicle_id));
 		}
 	}
 }
