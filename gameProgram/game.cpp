@@ -152,7 +152,7 @@ void CGame::Update(void)
 			//----------------------------------------
 			// 障害物関連（後で消してね
 			g_stumbler->Scroll(scroll);
-			g_road->Scroll(scroll);
+			//g_road->Scroll(scroll);
 
 			//ゴールのスクロール(大井川 6/2_12時頃追加)
 			m_Goal->Scroll( scroll );
@@ -176,7 +176,7 @@ void CGame::Update(void)
 			//----------------------------------------
 			// 障害物関連（後で消してね
 			g_stumbler->Scroll(scroll);
-			g_road->Scroll(scroll);
+			//g_road->Scroll(scroll);
 		}
 
 		//全当たり判定
