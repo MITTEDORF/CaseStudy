@@ -319,6 +319,7 @@ bool CScene2D::CheckCollisionAABB(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE 
 //=============================================================================
 void CScene2D::DrawHitBox(void)
 {
+#ifdef _DEBUG
 	// é©ï™ÇÃí∏ì_èÓïÒÇåvéZ
 	D3DXVECTOR2 self[4], temp;
 
@@ -369,4 +370,5 @@ void CScene2D::DrawHitBox(void)
 								2,
 								m_hitBox,
 								sizeof(VERTEX_2D));
+#endif
 }
