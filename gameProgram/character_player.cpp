@@ -122,6 +122,9 @@ void CPlayer::Update(void)
 	Assy->SetPos(m_pos.x+(int)Offset.x,m_pos.y+(int)Offset.y);
 	//座標の再計算
 	SetVertexPolygon();
+	// 当たり判定用座標の更新
+	CScene2D::SetHitPos(m_pos);
+
 	//親の更新
 	CScene2D::Update();
 }
@@ -134,6 +137,7 @@ void CPlayer::Draw(void)
 	{
 		//親の描画
 		CScene2D::Draw();
+		CScene2D::DrawHitBox();
 	}
 }
 //=============================================================================
