@@ -133,7 +133,7 @@ D3DXVECTOR2	CRoad::ReturnPush(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE poin
 		(self[0].y < target[3].y) &&
 		(target[0].y < self[3].y) )
 	{
-		/*if(self[0].x < target[0].x && self[1].x > target[0].x)
+		/*if(self[0].x < target[0].x && self[1].x > target[0].x && )
 			rtn.x = self[0].x - target[1].x;
 		if(self[0].x > target[1].x && self[1].x > target[1].x)
 			rtn.x = self[1].x - target[0].x;
