@@ -13,6 +13,7 @@
 #include "fade.h"
 
 #include "title.h"
+#include "game.h"
 
 #include "inputKeyboard.h"
 
@@ -23,8 +24,9 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 静的変数
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-const float CGameClear::CHAPTER_BUTTON_WIDTH = 447.0f;
-const float CGameClear::NEXTSTAGE_BUTTON_WIDTH = 337.0f;
+const float CGameClear::CHAPTER_BUTTON_WIDTH = 445.0f;
+const float CGameClear::NEXTSTAGE_BUTTON_WIDTH = 336.0f;
+const float CGameClear::RETURN_BUTTON_WIDTH = 247.0f;
 const float CGameClear::BUTTON_HIGHT = 75.0f;
 
 //============================================================================
@@ -57,7 +59,7 @@ HRESULT CGameClear::Init(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	// ボタンカーソル初期化
 	//----------------------------
-	m_select_cur = SELECT_CUR_NEXTSTAGE;
+	m_select_cur = SELECT_CUR_CHAPTER;
 
 	//----------------------------
 	// 初期化成功
@@ -102,7 +104,14 @@ void CGameClear::Update(void)
 	//----------------------------
 	if(m_fade->GetState() == CFade::FADESTATE_OUTEND)
 	{
-		CManager::SetNextPhase((CPhase*)new CTitle);
+		if( m_select_cur == SELECT_CUR_RETURN )
+		{
+			CManager::SetNextPhase((CPhase*)new CGame);
+		}
+		else
+		{
+			CManager::SetNextPhase((CPhase*)new CTitle);
+		}
 	}
 }
 
@@ -125,7 +134,7 @@ void CGameClear::InitObject(LPDIRECT3DDEVICE9 device)
 
 		m_Button[SELECT_CUR_CHAPTER] = CScene2D::Create(device, "data/TEXTURE/button/chapterSelect.png" , CScene2D::POINT_LEFTTOP);
 		m_Button[SELECT_CUR_CHAPTER]->SetSize( CHAPTER_BUTTON_WIDTH , BUTTON_HIGHT );
-		m_Button[SELECT_CUR_CHAPTER]->SetPos( 213.0f , 576.0f);
+		m_Button[SELECT_CUR_CHAPTER]->SetPos( 60.0f , 576.0f);
 		m_Button[SELECT_CUR_CHAPTER]->SetCord( 0 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*0 ) );
 		m_Button[SELECT_CUR_CHAPTER]->SetCord( 1 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*0 ) );
 		m_Button[SELECT_CUR_CHAPTER]->SetCord( 2 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*1 ) );
@@ -133,11 +142,19 @@ void CGameClear::InitObject(LPDIRECT3DDEVICE9 device)
 
 		m_Button[SELECT_CUR_NEXTSTAGE] = CScene2D::Create(device, "data/TEXTURE/button/nextStage.png" , CScene2D::POINT_LEFTTOP);
 		m_Button[SELECT_CUR_NEXTSTAGE]->SetSize( NEXTSTAGE_BUTTON_WIDTH , BUTTON_HIGHT );
-		m_Button[SELECT_CUR_NEXTSTAGE]->SetPos( 753.0f , 576.0f);
+		m_Button[SELECT_CUR_NEXTSTAGE]->SetPos( 565.0f , 576.0f);
 		m_Button[SELECT_CUR_NEXTSTAGE]->SetCord( 0 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*0 ) );
 		m_Button[SELECT_CUR_NEXTSTAGE]->SetCord( 1 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*0 ) );
 		m_Button[SELECT_CUR_NEXTSTAGE]->SetCord( 2 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*1 ) );
 		m_Button[SELECT_CUR_NEXTSTAGE]->SetCord( 3 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*1 ) );
+
+		m_Button[SELECT_CUR_RETURN] = CScene2D::Create(device, "data/TEXTURE/button/retry.png" , CScene2D::POINT_LEFTTOP);
+		m_Button[SELECT_CUR_RETURN]->SetSize( RETURN_BUTTON_WIDTH , BUTTON_HIGHT );
+		m_Button[SELECT_CUR_RETURN]->SetPos( 961.0f , 576.0f);
+		m_Button[SELECT_CUR_RETURN]->SetCord( 0 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*0 ) );
+		m_Button[SELECT_CUR_RETURN]->SetCord( 1 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*0 ) );
+		m_Button[SELECT_CUR_RETURN]->SetCord( 2 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*1 ) );
+		m_Button[SELECT_CUR_RETURN]->SetCord( 3 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*1 ) );
 
 }
 //=============================================================================
@@ -152,12 +169,20 @@ void CGameClear::ButtonSelect( void )
 		{
 			m_select_cur--;
 		}
+		else
+		{
+			m_select_cur = SELECT_CUR_MAX-1;
+		}
 	}
 	if(m_keyboard->GetTrigger(DIK_D))
 	{
 		if( m_select_cur+1 <= SELECT_CUR_MAX-1 )
 		{
 			m_select_cur++;
+		}
+		else
+		{
+			m_select_cur = 0;
 		}
 	}
 	if( m_select_old == m_select_cur )

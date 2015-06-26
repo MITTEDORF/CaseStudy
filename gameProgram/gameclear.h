@@ -36,10 +36,12 @@ private:
 	{
 		SELECT_CUR_CHAPTER =0,
 		SELECT_CUR_NEXTSTAGE,
+		SELECT_CUR_RETURN,
 		SELECT_CUR_MAX
 	}SELECT_CUR;
 	static const float CHAPTER_BUTTON_WIDTH;
 	static const float NEXTSTAGE_BUTTON_WIDTH;
+	static const float RETURN_BUTTON_WIDTH;
 	static const float BUTTON_HIGHT;
 	int m_select_cur;
 	int m_select_old;
