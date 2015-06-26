@@ -23,8 +23,8 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 静的変数
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-const float CGameOver::CHAPTER_BUTTON_WIDTH = 447.0f;
-const float CGameOver::RETURN_BUTTON_WIDTH = 275.0f;
+const float CGameOver::CHAPTER_BUTTON_WIDTH = 445.0f;
+const float CGameOver::RETURN_BUTTON_WIDTH = 247.0f;
 const float CGameOver::BUTTON_HIGHT = 75.0f;
 //=============================================================================
 // 初期化
@@ -56,7 +56,7 @@ HRESULT CGameOver::Init(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	// ボタンカーソル初期化
 	//----------------------------
-	m_select_cur = SELECT_CUR_RETURN;
+	m_select_cur = SELECT_CUR_CHAPTER;
 	//----------------------------
 	// 初期化成功
 	//----------------------------
@@ -127,7 +127,7 @@ void CGameOver::InitObject(LPDIRECT3DDEVICE9 device)
 
 	//ゲームオーバー画面
 		CScene2D* resultLogo = CScene2D::Create(device, CImport::PLAYER_BADMOOD, CScene2D::POINT_CENTER);
-		resultLogo->SetSize(743.0f, 1274.0f);
+		resultLogo->SetSize(743.0f*0.5f, 1274.0f*0.5f);
 		resultLogo->SetPos(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 
 		m_Button[SELECT_CUR_CHAPTER] = CScene2D::Create(device, "data/TEXTURE/button/chapterSelect.png" , CScene2D::POINT_LEFTTOP);
@@ -158,12 +158,20 @@ void CGameOver::ButtonSelect( void )
 		{
 			m_select_cur--;
 		}
+		else
+		{
+			m_select_cur = SELECT_CUR_MAX-1;
+		}
 	}
 	if(m_keyboard->GetTrigger(DIK_D))
 	{
 		if( m_select_cur+1 <= SELECT_CUR_MAX-1 )
 		{
 			m_select_cur++;
+		}
+		else
+		{
+			m_select_cur = 0;
 		}
 	}
 	if( m_select_old == m_select_cur )
