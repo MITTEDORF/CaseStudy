@@ -108,6 +108,13 @@ void CTitle::Draw(void)
 void CTitle::InitObject(LPDIRECT3DDEVICE9 device)
 {
 	//----------------------------
+	// タイトル背景
+	//----------------------------
+	CScene2D* titleBG = CScene2D::Create(device, CImport::TITLEBG, CScene2D::POINT_CENTER);
+	titleBG->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	titleBG->SetPos(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
+
+	//----------------------------
 	// タイトルロゴ
 	//----------------------------
 	CScene2D* titleLogo = CScene2D::Create(device, CImport::TITLELOGO, CScene2D::POINT_CENTER);

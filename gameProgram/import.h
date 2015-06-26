@@ -29,8 +29,9 @@ public:
 		FADE,
 		VERSION,
 
-		// ÉçÉS
+		// É^ÉCÉgÉã
 		TITLELOGO,
+		TITLEBG,
 
 		// ãÛ
 		SKY_BG,

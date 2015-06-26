@@ -22,8 +22,9 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/fade.jpg",
 	"./data/TEXTURE/version/beta.png",
 
-	// ÉçÉS
-	"./data/TEXTURE/titleLogo.png",
+	// É^ÉCÉgÉã
+	"./data/TEXTURE/title/titleLogo.png",
+	"./data/TEXTURE/title/title_bg.png",
 
 	// ãÛ
 	"./data/TEXTURE/sky/sky_back.png",
