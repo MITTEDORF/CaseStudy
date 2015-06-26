@@ -16,6 +16,8 @@
 
 #include "inputKeyboard.h"
 
+#include "character_player.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -29,6 +31,8 @@
 //=============================================================================
 HRESULT CEquipmentChoice::Init(LPDIRECT3DDEVICE9 device)
 {
+	//変数のNULL埋め
+	NullSetVariable();
 	//----------------------------
 	// デバイス取得
 	//----------------------------
@@ -77,6 +81,8 @@ void CEquipmentChoice::Update(void)
 {
 	if(m_fade->GetState() == CFade::FADESTATE_NONE)
 	{
+		CostumeChoice();
+		VehicleChoice();
 		//----------------------------
 		// 入力
 		//----------------------------
@@ -91,7 +97,7 @@ void CEquipmentChoice::Update(void)
 	//----------------------------
 	if(m_fade->GetState() == CFade::FADESTATE_OUTEND)
 	{
-		CManager::SetNextPhase((CPhase*)new CGame);
+		CManager::SetNextPhase((CPhase*)new CGame((CostumeID)costume_id,(VehicleID)vehicle_id));
 	}
 }
 
@@ -107,10 +113,62 @@ void CEquipmentChoice::Draw(void)
 //=============================================================================
 void CEquipmentChoice::InitObject(LPDIRECT3DDEVICE9 device)
 {
-	//----------------------------
-	// タイトルロゴ
-	//----------------------------
-	CScene2D* titleLogo = CScene2D::Create(device, CImport::TITLELOGO, CScene2D::POINT_CENTER);
-	titleLogo->SetSize(876.0f, 563.0f);
-	titleLogo->SetPos(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
+	//プレイヤーの生成
+	m_player=CPlayer::Create(device);
+	m_player->SetPos(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
+	m_player->SetSize(128.0f*2.f,128.0f*2.f);
+	m_player->Assy_()->SetSize(m_player->GetSize());
+	m_player->SetKeyboard(m_keyboard);
+	m_player->Set_isGame(false);
+}
+
+//=============================================================================
+// 乗り物の選択
+//=============================================================================
+void CEquipmentChoice::VehicleChoice()
+{
+	if(m_keyboard->GetTrigger(DIK_UP))
+	{
+		vehicle_id++;
+		if(vehicle_id>=VEHICLE_MAX-1)
+		{
+			vehicle_id=VEHICLE_MAX-1;
+		}
+		m_player->SetVehicleID((VehicleID)vehicle_id);
+	}
+
+	else if(m_keyboard->GetTrigger(DIK_DOWN))
+	{
+		vehicle_id--;
+		if(vehicle_id<=VEHICLE_TRAM)
+		{
+			vehicle_id=VEHICLE_TRAM;
+		}
+		m_player->SetVehicleID((VehicleID)vehicle_id);
+	}
+}
+//=============================================================================
+// コスチュームの選択
+//=============================================================================
+void CEquipmentChoice::CostumeChoice()
+{
+	if(m_keyboard->GetTrigger(DIK_LEFT))
+	{
+		costume_id--;
+		if(costume_id<=COSTUME_NONE)
+		{
+			costume_id=COSTUME_NONE;
+		}
+		m_player->SetCostumeID((CostumeID)costume_id);
+	}
+
+	else if(m_keyboard->GetTrigger(DIK_RIGHT))
+	{
+		costume_id++;
+		if(costume_id>=COSTUME_MAX-1)
+		{
+			costume_id=COSTUME_MAX-1;
+		}
+		m_player->SetCostumeID((CostumeID)costume_id);
+	}
 }

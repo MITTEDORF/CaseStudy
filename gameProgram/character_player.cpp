@@ -9,7 +9,6 @@
 // インクルードファイル
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "character_player.h"
-#include "character_vehicle.h"
 
 #include "particle_manager.h"
 
@@ -80,60 +79,49 @@ void CPlayer::Update(void)
 	//アニメーションのアップデート
 	UpdateAnim();
 
-	//フェード中ではないとき
-	if(CPhase::GetFade()->GetState() == CFade::FADESTATE_NONE)
+	if(isGame)
 	{
-		m_posOld = m_pos;
+		//フェード中ではないとき
+		if(CPhase::GetFade()->GetState() == CFade::FADESTATE_NONE)
+		{
+			m_posOld = m_pos;
 		
-		//移動処理
-		Move();
+			//移動処理
+			Move();
 
-		//攻撃処理
-		Attack();
+			//攻撃処理
+			Attack();
 
-		//光アクション処理
-		LightAction();
-	}
+			//光アクション処理
+			LightAction();
+		}
 
+		//重力加算
+		AddGravity();
 
-	//乗り物破壊
-	if(m_keyboard->GetPress(DIK_T))
-	{
+		//無敵処理の更新
+		InvincibleUpdate();
+
+		//スピードを考慮した座標の算出
+		m_pos+=m_move_spd;
+
+		//様々な当たり判定
+		Collider();
+
+		//無敵処理の更新
+		InvincibleUpdate();
+
 		
+
+		particle->Setpos(m_pos);
+
+	
 	}
-
-	//乗り物修復
-	if(m_keyboard->GetTrigger(DIK_U))
-	{
-		AddHP(-1);
-	}
-
-	//重力加算
-	AddGravity();
-
-	//無敵処理の更新
-	InvincibleUpdate();
-
-	//スピードを考慮した座標の算出
-	m_pos+=m_move_spd;
-
-	//様々な当たり判定
-	Collider();
-
-	//無敵処理の更新
-	InvincibleUpdate();
 
 	//アッシーのポジションをセット
 	Assy->SetPos(m_pos.x+(int)Offset.x,m_pos.y+(int)Offset.y);
-
-	particle->Setpos(m_pos);
-	
 	//座標の再計算
 	SetVertexPolygon();
-
-	// 当たり判定用座標の更新
-	CScene2D::SetHitPos(m_pos);
-
 	//親の更新
 	CScene2D::Update();
 }
@@ -447,11 +435,6 @@ void CPlayer::UpdateAnim()
 
 		isAnimEnd=false;
 	}
-
-	else if(isAnimEnd&&isHoldLighting)
-	{
-		//particle->StartBurst(NULL);
-	}
 }
 //=============================================================================
 //アニメーションのセット処理
@@ -571,6 +554,12 @@ CImport::TEXTURES CPlayer::ConsultationPlayerTexID(PlayerState state)
 		case COSTUME_SWIMWEAR:
 			return (CImport::PLAYER_SWIMWEAR_WAIT);
 			break;
+		case COSTUME_NINJA:
+			return (CImport::PLAYER_NINJA_WAIT);
+			break;
+		case COSTUME_FAITER:
+			return (CImport::PLAYER_FAITER_WAIT);
+			break;
 		}
 		break;
 	case PLAYER_STATE_ATTACK:
@@ -588,6 +577,12 @@ CImport::TEXTURES CPlayer::ConsultationPlayerTexID(PlayerState state)
 		case COSTUME_SWIMWEAR:
 			return (CImport::PLAYER_SWIMWEAR_ATTACK);
 			break;
+		case COSTUME_NINJA:
+			return (CImport::PLAYER_NINJA_ATTACK);
+			break;
+		case COSTUME_FAITER:
+			return (CImport::PLAYER_FAITER_ATTACK);
+			break;
 		}
 		break;
 	case PLAYER_STATE_LIGHTNING:
@@ -597,13 +592,19 @@ CImport::TEXTURES CPlayer::ConsultationPlayerTexID(PlayerState state)
 			return (CImport::PLAYER_DEFAULT_LIGHT);
 			break;
 		case COSTUME_KNIGHT:
-			return (CImport::PLAYER_DEFAULT_LIGHT);
+			return (CImport::PLAYER_KNIGHT_LIGHT);
 			break;
 		case COSTUME_SANTA:
-			return (CImport::PLAYER_DEFAULT_LIGHT);
+			return (CImport::PLAYER_SANTA_LIGHT);
 			break;
 		case COSTUME_SWIMWEAR:
-			return (CImport::PLAYER_DEFAULT_LIGHT);
+			return (CImport::PLAYER_SWIMWEAR_LIGHT);
+			break;
+		case COSTUME_NINJA:
+			return (CImport::PLAYER_NINJA_LIGHT);
+			break;
+		case COSTUME_FAITER:
+			return (CImport::PLAYER_FAITER_LIGHT);
 			break;
 		}
 
@@ -623,7 +624,58 @@ CImport::TEXTURES CPlayer::ConsultationVehicleTexID()
 	case VEHICLE_TRAM:
 		return (CImport::ASSY_TRAM);
 		break;
+	case VHEICLE_LOG:
+		return (CImport::ASSY_LOG);
+		break;
+	case VEHICLE_BATHTUB:
+		return (CImport::ASSY_BATHTUB);
+		break;
+	case VHEICLE_DOLLY:
+		return (CImport::ASSY_DOLLY);
+		break;
+	case VEHICLE_SLEIGH:
+		return (CImport::ASSY_SLEIGH);
+		break;
+	case VHEICLE_TRUCK:
+		return (CImport::ASSY_TRUCK);
+		break;
 	}
 
 	return (CImport::ASSY_TRAM);
+}
+
+//=============================================================================
+// 乗り物のテクスチャIDのセット(ゲームシーン以外で使う場合はアニメも勝手にセット)
+//=============================================================================
+void CPlayer::SetVehicleID(VehicleID value)
+{
+	if(Vehicle_id==value){return;}
+
+	Vehicle_id=value;;
+	if(!isGame)
+	{
+		Assy->SetTex(ConsultationVehicleTexID());
+	}
+}
+
+//=============================================================================
+// コスプレのテクスチャIDのセット(ゲームシーン以外で使う場合はアニメも勝手にセット)
+//=============================================================================
+void CPlayer::SetCostumeID(CostumeID value)
+{
+	if(Costume_id==value){return;}
+
+	Costume_id=value;
+	if(!isGame)
+	{
+		this->SetTex(ConsultationPlayerTexID(PLAYER_STATE_WAIT));
+	}
+}
+
+//=============================================================================
+//ゲーム中かどうかのセット
+//=============================================================================
+void CPlayer::Set_isGame(bool value)
+{
+	isGame=value;
 }

@@ -14,11 +14,13 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "main.h"
 #include "phase.h"
+#include "character_config.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // クラス定義
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 class CScene2D;
+class CPlayer;
 
 class CEquipmentChoice : CPhase
 {
@@ -38,6 +40,19 @@ private:
 
 	void VehicleChoice();
 	void CostumeChoice();
+
+	//プレイヤー制御
+	CPlayer *m_player;
+
+	int costume_id;
+	int vehicle_id;
+
+	void NullSetVariable(void)
+	{
+		m_player=NULL;
+		costume_id=COSTUME_NONE;
+		vehicle_id=VEHICLE_TRAM;
+	}
 
 };
 

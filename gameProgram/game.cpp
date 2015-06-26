@@ -186,6 +186,7 @@ void CGame::Update(void)
 		if( m_Goal->CheckCollisionAABB( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
 		{
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+			m_player->PlayerReflash();
 		}
 	}
 
@@ -252,7 +253,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	// キャラクター
 	//----------------------------
 	//プレイヤーの生成
-	m_player=CPlayer::Create(device);
+	m_player=CPlayer::Create(device,costume_id,vehicle_id);
 	m_player->SetPos(120.0f,300.0f);
 	m_player->SetKeyboard(m_keyboard);
 
