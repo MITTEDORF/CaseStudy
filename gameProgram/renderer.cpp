@@ -158,6 +158,8 @@ HRESULT CRenderer::Init(HWND wnd, bool window)
 //=============================================================================
 void CRenderer::Uninit(void)
 {
+	//スクリーンショット用サーフェスの開放
+	SAFE_RELEASE(m_screenshot_surface);
 	// デバイスオブジェクトの開放
 	SAFE_RELEASE(m_device);
 }

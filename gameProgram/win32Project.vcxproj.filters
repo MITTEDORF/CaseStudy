@@ -98,6 +98,21 @@
     <Filter Include="phase\equipment_choice">
       <UniqueIdentifier>{2c5ad15d-52c5-4ccc-a6ff-83487d2616f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="object\equipment_choice_ui">
+      <UniqueIdentifier>{277d8351-73b9-4d03-969a-5944d0a1a22b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object\equipment_choice_ui\assy_option">
+      <UniqueIdentifier>{394ca599-56c9-4e37-ad66-ae6121c41ea7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object\equipment_choice_ui\cos_option">
+      <UniqueIdentifier>{acc5a1f4-83c1-4828-b330-fed64c9dcb2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object\equipment_choice_ui\slot">
+      <UniqueIdentifier>{794a0f21-64bd-40da-b67a-40908a865a9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object\equipment_choice_ui\all_option">
+      <UniqueIdentifier>{e46a19fe-53f2-4116-9446-f96c1df126a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

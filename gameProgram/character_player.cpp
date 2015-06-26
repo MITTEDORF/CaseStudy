@@ -111,11 +111,7 @@ void CPlayer::Update(void)
 		//無敵処理の更新
 		InvincibleUpdate();
 
-		
-
 		particle->Setpos(m_pos);
-
-	
 	}
 
 	//アッシーのポジションをセット
