@@ -60,9 +60,9 @@ HRESULT CRoadManager::Init(LPDIRECT3DDEVICE9 device)
 		{TYPE_DIRT,
 		D3DXVECTOR2(7,0)},
 		{TYPE_DIRT,
-		D3DXVECTOR2(8,0)},
+		D3DXVECTOR2(8,3)},
 		{TYPE_DIRT,
-		D3DXVECTOR2(9,0)},
+		D3DXVECTOR2(9,3)},
 		{TYPE_DIRT,
 		D3DXVECTOR2(10,0)},
 		{TYPE_DIRT,
@@ -87,21 +87,50 @@ HRESULT CRoadManager::Init(LPDIRECT3DDEVICE9 device)
 
 	int a = (int)(sizeof(data)/sizeof(TYPE_DIRT));
 
-	// データの個数分生成処理
-	for(int loop = 0; loop < (int)(sizeof(data)/sizeof(ROAD_DATA)); loop++)
+	//// データの個数分生成処理
+	//for(int loop = 0; loop < (int)(sizeof(data)/sizeof(ROAD_DATA)); loop++)
+	//{
+	//	// 道路リスト先頭が空の時
+	//	if(m_list_top == NULL)
+	//	{
+	//		// 道路リスト先頭に道路生成
+	//		m_list_top = CRoad::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
+	//		// 道路リスト末尾を道路リスト先頭に
+	//		m_list_cur = m_list_top;
+	//	}
+	//	else
+	//	{
+	//		// 道路生成
+	//		CRoad* p = CRoad::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
+	//		// 道路リスト末尾のnextに生成した道路をセット
+	//		m_list_cur->SetRoadNext(p);
+	//		// 生成した道路のprevに道路リスト末尾をセット
+	//		p->SetRoadPrev(m_list_cur);
+	//		// 道路リスト末尾を生成した道路に
+	//		m_list_cur = p;
+	//	}
+	//}
+
+	// データ出来るまでの繋ぎ、本物は上のコメント部
+	for(int loop = 0; loop < 144; loop++)
 	{
+		ROAD_DATA a = {TYPE_DIRT, D3DXVECTOR2(loop,0)};
+		if((loop > 4 && loop < 8) || (loop > 30 && loop < 35))
+		{
+			a.Index.y = 3;
+		}
 		// 道路リスト先頭が空の時
 		if(m_list_top == NULL)
 		{
 			// 道路リスト先頭に道路生成
-			m_list_top = CRoad::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
+			m_list_top = CRoad::Create(device, a, CScene2D::POINT_LEFTTOP);
 			// 道路リスト末尾を道路リスト先頭に
 			m_list_cur = m_list_top;
 		}
 		else
 		{
 			// 道路生成
-			CRoad* p = CRoad::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
+			CRoad* p = CRoad::Create(device, a, CScene2D::POINT_LEFTTOP);
 			// 道路リスト末尾のnextに生成した道路をセット
 			m_list_cur->SetRoadNext(p);
 			// 生成した道路のprevに道路リスト末尾をセット
@@ -110,6 +139,7 @@ HRESULT CRoadManager::Init(LPDIRECT3DDEVICE9 device)
 			m_list_cur = p;
 		}
 	}
+
 	return S_OK;
 }
 

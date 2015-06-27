@@ -141,7 +141,14 @@ bool CStumManager::CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_T
 	while(cur)
 	{
 		if(cur->CheckCollisionAABB(pos, size, pointType) == true)
+		{
+			// ぶつかってる障害物にダメージ
+			cur->Attack(1);
+			// ダメージで死んでたらリストから削除
+			if(cur->LivingCheck())
+				UnLinkStum(cur);
 			return true;
+		}
 
 		next = cur->GetStumNext();
 
@@ -150,4 +157,16 @@ bool CStumManager::CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_T
 	return false;
 }
 
+//=============================================================================
+// リスト抹消
+//=============================================================================
+void CStumManager::UnLinkStum(CStumbler* cur)
+{
+	// リスト先頭だった場合、次障害物をリスト先頭に
+	if(cur == m_list_top)
+		m_list_top = cur->GetStumNext();
+	// リスト末尾だった場合、前障害物をリスト末尾に
+	if(cur == m_list_cur)
+		m_list_cur = cur->GetStumPrev();
+}
 // End of File

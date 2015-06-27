@@ -97,6 +97,17 @@ void CStumbler::Uninit(void)
 //=============================================================================
 void CStumbler::Update(void)
 {
+	// HPが0以下なら削除フラグ立てる
+	if(m_life <= 0)
+	{
+		// 前後ポインタの繋ぎ替え
+		if(m_prev != NULL)
+		m_prev->m_next = m_next;
+		if(m_next != NULL)
+			m_next->m_prev = m_prev;
+		// 削除フラグ立てる
+		CScene::Delete();
+	}
 	// 継承元の更新処理呼び出し
 	CScene2D::Update();
 }

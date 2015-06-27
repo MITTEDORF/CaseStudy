@@ -153,7 +153,6 @@ void CManager::Update(void)
 	// FPSXV
 	m_debugproc->PrintDebugProc("FPS:%d\n", m_renderer->GetFPS());
 #endif
-
 	// “ü—Í
 	m_keyboard->Update();
 

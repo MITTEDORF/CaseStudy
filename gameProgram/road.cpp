@@ -127,21 +127,36 @@ D3DXVECTOR2	CRoad::ReturnPush(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE poin
 
 	rtn = D3DXVECTOR2(0.0f, 0.0f);
 
-	// 箱に当たり判定
-	if( (self[0].x < target[1].x) &&
-		(target[0].x < self[1].x) &&
-		(self[0].y < target[3].y) &&
-		(target[0].y < self[3].y) )
-	{
-		/*if(self[0].x < target[0].x && self[1].x > target[0].x && )
-			rtn.x = self[0].x - target[1].x;
-		if(self[0].x > target[1].x && self[1].x > target[1].x)
-			rtn.x = self[1].x - target[0].x;
-		if(self[0].y < target[3].y)
-			rtn.y = self[0].y - target[3].y;
-		if(self[3].y > target[0].y)
-			rtn.y = self[3].y - target[0].y;*/
-	}
+	//-------------------------------
+	// めり込みチェック
+	//-------------------------------
+	// 上からめり込んできてる時
+	if(self[0].y > target[0].y && self[0].y < target[3].y && self[3].y > target[3].y && self[3].y > target[3].y)
+		rtn.y = self[0].y - target[3].y;
+	// 上下ともにめり込んでる時
+	if(self[0].y > target[0].y && self[0].y < target[3].y && self[3].y > target[3].y && self[3].y < target[3].y)
+		// 浅くめり込んでる方に押し返す
+		if((self[0].y - target[0].y) < (target[3].y - self[3].y))
+			rtn.y = target[3].y - self[0].y;
+		else
+			rtn.y = target[0].y - self[3].y;
+	// 下からめり込んできてる時
+	if(self[0].y < target[0].y && self[0].y < target[3].y && self[3].y > target[3].y && self[3].y < target[3].y)
+		rtn.y = self[3].y - target[0].y;
+
+	// 左からめり込んできてる時
+	if(self[0].x > target[0].x && self[0].x < target[1].x && self[1].x > target[1].x && self[1].x > target[1].x)
+		rtn.x = self[0].x - target[1].x;
+	// 左右ともにめり込んでる時
+	if(self[0].x > target[0].x && self[0].x < target[1].x && self[1].x > target[1].x && self[1].x < target[1].x)
+		// 浅くめり込んでる方に押し返す
+		if((self[0].x - target[0].x) < (target[1].x - self[1].x))
+			rtn.x = target[1].x - self[0].x;
+		else
+			rtn.x = target[0].x - self[1].x;
+	// 右からめり込んできてる時
+	if(self[0].x < target[0].x && self[0].x < target[1].x && self[1].x > target[1].x && self[1].x < target[1].x)
+		rtn.x = self[1].x - target[0].x;
 
 	return rtn;
 }
