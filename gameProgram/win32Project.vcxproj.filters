@@ -113,6 +113,9 @@
     <Filter Include="object\equipment_choice_ui\all_option">
       <UniqueIdentifier>{e46a19fe-53f2-4116-9446-f96c1df126a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="mapdata">
+      <UniqueIdentifier>{ac3d011f-9b37-4e52-ae71-56b19f32a6e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -213,6 +216,12 @@
     </ClCompile>
     <ClCompile Include="equipment_choice.cpp">
       <Filter>phase\equipment_choice</Filter>
+    </ClCompile>
+    <ClCompile Include="mapData.cpp">
+      <Filter>mapdata</Filter>
+    </ClCompile>
+    <ClCompile Include="background_manager.cpp">
+      <Filter>object\background</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -323,6 +332,12 @@
     </ClInclude>
     <ClInclude Include="character_config.h">
       <Filter>object\character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="mapData.h">
+      <Filter>mapdata</Filter>
+    </ClInclude>
+    <ClInclude Include="background_manager.h">
+      <Filter>object\background</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

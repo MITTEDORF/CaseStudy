@@ -24,15 +24,16 @@
 
 // 背景
 #include "sky.h"
-#include "background.h"
-
-#include "goal.h"
+#include "background_manager.h"
 
 // 障害物マネージャ
 #include "stum_manager.h"
 
 // 地面マネージャ
 #include "road_manager.h"
+
+// ゴール
+#include "goal.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
@@ -45,13 +46,6 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 静的変数
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-//----------------------------------------
-// 障害物関連（後で消してね
-CStumManager* g_stumbler;
-//----------------------------------------
-// 道路関連（後で消してね
-CRoadManager* g_road;
 
 //=============================================================================
 // 初期化
@@ -93,19 +87,19 @@ HRESULT CGame::Init(LPDIRECT3DDEVICE9 device)
 void CGame::Uninit(void)
 {
 	//----------------------------
-	// オブジェクト
+	// 背景
 	//----------------------------
 	// 空
 	SAFE_END(m_sky);
 
-	SAFE_END(m_bg);
+	SAFE_DELETE(m_bg);
 
 	//----------------------------------------
 	// 障害物関連（後で消してね
-	SAFE_DELETE(g_stumbler);
+	SAFE_DELETE(m_stumbler);
 	//----------------------------------------
 	// 道路関連（後で消してね
-	SAFE_DELETE(g_road);
+	SAFE_DELETE(m_road);
 
 	// シーン
 	CScene::ReleaseAll();
@@ -151,8 +145,8 @@ void CGame::Update(void)
 
 			//----------------------------------------
 			// 障害物関連（後で消してね
-			g_stumbler->Scroll(scroll);
-			g_road->Scroll(scroll);
+			m_stumbler->Scroll(scroll);
+			m_road->Scroll(scroll);
 
 			//ゴールのスクロール(大井川 6/2_12時頃追加)
 			m_Goal->Scroll( scroll );
@@ -175,8 +169,8 @@ void CGame::Update(void)
 
 			//----------------------------------------
 			// 障害物関連（後で消してね
-			g_stumbler->Scroll(scroll);
-			g_road->Scroll(scroll);
+			m_stumbler->Scroll(scroll);
+			m_road->Scroll(scroll);
 		}
 
 		//全当たり判定
@@ -240,14 +234,14 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_sky = CSky::Create(device);
 
 	// 背景
-	m_bg = CBackground::Create(device, CBackground::FOREST);
+	m_bg = CBackgroundManager::Create(device);
 
 	//-----------------------------
 	// 道路関連(後で修正してね
-	g_road = CRoadManager::Create(device);
+	m_road = CRoadManager::Create(device);
 	//-----------------------------
 	// 障害物関連(後で修正してね
-	g_stumbler = CStumManager::Create(device);
+	m_stumbler = CStumManager::Create(device);
 
 	//----------------------------
 	// キャラクター
@@ -268,14 +262,14 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 void CGame::ColAll()
 {
 	//プレイヤと障害物の当たり判定
-	if(g_stumbler->CheckHit( m_player->GetHitPos() , m_player->GetHitSize() , CScene2D::POINT_CENTER ))
+	if(m_stumbler->CheckHit( m_player->GetHitPos() , m_player->GetHitSize() , CScene2D::POINT_CENTER ))
 	{
 		m_player->AddHP(-1);
 	}
 
 	// プレイヤーと道路の当たり判定、押し戻し
 	D3DXVECTOR2 tmp[2];
-	tmp[0] = g_road->CheckHit( m_player->GetHitPos() , m_player->GetHitSize() , CScene2D::POINT_CENTER );
+	tmp[0] = m_road->CheckHit( m_player->GetHitPos() , m_player->GetHitSize() , CScene2D::POINT_CENTER );
 	tmp[1] = m_player->GetPos();
 	m_player->SetPos(tmp[0].x + tmp[1].x, tmp[0].y + tmp[1].y);
 

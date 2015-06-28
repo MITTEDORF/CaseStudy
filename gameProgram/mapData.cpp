@@ -1,6 +1,6 @@
 //*****************************************************************************
 //
-// CBackgroundクラス [background.h]
+// CMapDataクラス [mapData.cpp]
 // Author :MAI TANABE
 //
 //*****************************************************************************
@@ -8,43 +8,35 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // インクルードファイル
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#include "background.h"
+#include "mapData.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// マクロ
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// 静的変数
+// マクロ定義
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CBackground::CBackground(int priority, OBJTYPE objType) : CScene2D(priority, objType)
+CMapData::CMapData(void)
 {
-	m_next = nullptr;
-	m_prev = nullptr;
+
 }
 
 //=============================================================================
 // 生成
 //=============================================================================
-CBackground* CBackground::Create(LPDIRECT3DDEVICE9 device, BG_DATA data)
+CMapData* CMapData::Create(void)
 {
-	CBackground* pointer = new CBackground;
-	pointer->Init(device, (CImport::TEXTURES)(CImport::FOREST_01 + data.type));
-	pointer->SetPos((float)(data.index * SCREEN_WIDTH), 0.0f);
+	CMapData* pointer = new CMapData;
+	pointer->Init();
 	return pointer;
 }
 
 //=============================================================================
 // 初期化
 //=============================================================================
-HRESULT CBackground::Init(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture)
+HRESULT CMapData::Init(void)
 {
-	CScene2D::Init(device, texture, CScene2D::POINT_LEFTTOP);
-	SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	return S_OK;
 }
@@ -52,23 +44,20 @@ HRESULT CBackground::Init(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture)
 //=============================================================================
 // 終了
 //=============================================================================
-void CBackground::Uninit(void)
+void CMapData::Uninit(void)
 {
-	CScene2D::Uninit();
 }
 
 //=============================================================================
 // 更新
 //=============================================================================
-void CBackground::Update(void)
+void CMapData::Update(void)
 {
-	CScene2D::Update();
 }
 
 //=============================================================================
 // 描画
 //=============================================================================
-void CBackground::Draw(void)
+void CMapData::Draw(void)
 {
-	CScene2D::Draw();
 }

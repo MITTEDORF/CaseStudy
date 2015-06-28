@@ -20,7 +20,7 @@
 class CImport
 {
 public:
-	typedef enum
+	enum TEXTURES
 	{
 		// Ç»Çµ
 		NONE = 0,
@@ -116,7 +116,13 @@ public:
 		MAKE_UI_SELECT_FRAME,
 
 		TEX_MAX
-	} TEXTURES;
+	};
+
+	enum MAPS
+	{
+		// êXÅiâºÅj
+		STAGE_1_1 = 0,
+	};
 
 	CImport();
 	~CImport(){};
@@ -126,9 +132,10 @@ public:
 	void	Uninit(void);
 
 	static LPDIRECT3DTEXTURE9 GetTexture(TEXTURES tex){return m_tex[tex];}
+	static LPDIRECT3DTEXTURE9 GetMap(MAPS map){return m_tex[map];}
 
 private:
-	static LPDIRECT3DTEXTURE9 m_tex[TEX_MAX];;
+	static LPDIRECT3DTEXTURE9 m_tex[TEX_MAX];
 };
 
 //=============================================================================
