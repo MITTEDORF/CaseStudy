@@ -27,7 +27,8 @@ public:
 	HRESULT	Init(LPDIRECT3DDEVICE9 device);
 	void	Update(void);
 	void	Scroll(float f);
-	bool	CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
+	CTarget*	CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
+	bool	CheckHitGoal(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
 	static	CTargetManager* Create(LPDIRECT3DDEVICE9 device);
 	// ÉäÉXÉgñïè¡
 	void	UnLinkTarget(CTarget* cur);

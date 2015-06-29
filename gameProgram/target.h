@@ -19,10 +19,13 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 画像データ識別
 typedef enum{
-	TYPE_NULL
+	TYPE_TARGET_OFF,
+	TYPE_GOAL_OFF,
+	TYPE_GOAL_ON,
+	TYPE_GOAL_CLEAR
 }TARGET_TYPE;
 
-// 障害物情報
+// ターゲット情報
 typedef struct{
 	TARGET_TYPE type;
 	D3DXVECTOR2 Index;
@@ -48,18 +51,22 @@ public:
 	// スクロール処理
 	void	Scroll(float scroll){m_pos.x -= scroll; CScene2D::SetVertexPolygon();}
 
-	// 次障害物ポインタセット処理
+	// 次ターゲットポインタセット処理
 	void		SetTargetNext(CTarget* next){m_next = next;}
-	// 次障害物ポインタゲット処理
+	// 次ターゲットポインタゲット処理
 	CTarget*	GetTargetNext(void){return m_next;}
-	// 前障害物ポインタセット処理
+	// 前ターゲットポインタセット処理
 	void		SetTargetPrev(CTarget* prev){m_prev = prev;}
-	// 前障害物ポインタゲット処理
+	// 前ターゲットポインタゲット処理
 	CTarget*	GetTargetPrev(void){return m_prev;}
 
+	bool		GetTargetFrag(void){return m_targetFlag;}
+	void		SetTargetFrag(void){m_targetFlag = true;}
+
 protected:
-	CTarget* m_next;						// 次障害物へのポインタ
-	CTarget* m_prev;						// 前障害物へのポインタ
+	CTarget* m_next;						// 次ターゲットへのポインタ
+	CTarget* m_prev;						// 前ターゲットへのポインタ
+	bool m_targetFlag;
 };
 
 //=============================================================================
