@@ -89,7 +89,7 @@ void CRoad::Draw(void)
 D3DXVECTOR2	CRoad::ReturnPush(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE pointType)
 {
 	// 自分の4頂点と相手の4頂点を計算
-	D3DXVECTOR2 self[4], target[4], temp, rtn;
+	D3DXVECTOR2 self[4], target[4], temp, rtn, selfpos,tarpos;
 
 	temp = (m_size - m_hitSize)/2;
 
@@ -100,6 +100,8 @@ D3DXVECTOR2	CRoad::ReturnPush(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE poin
 		self[1].x = m_pos.x + m_hitOffset.x + m_size.x - temp.x;	self[1].y = m_pos.y + m_hitOffset.y + temp.y;
 		self[2].x = m_pos.x + m_hitOffset.x + m_size.x - temp.x;	self[2].y = m_pos.y + m_hitOffset.y + m_size.y - temp.y;
 		self[3].x = m_pos.x + m_hitOffset.x + temp.x;				self[3].y = m_pos.y + m_hitOffset.y + m_size.y - temp.y;
+		selfpos.x = self[0].x + (self[1].x - self[0].x)/2;
+		selfpos.y = self[0].y +(self[3].y - self[0].y)/2;
 	}
 	else if(m_pointType == POINT_CENTER)	// 中心原点の場合
 	{
@@ -107,6 +109,7 @@ D3DXVECTOR2	CRoad::ReturnPush(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE poin
 		self[1].x = m_pos.x + m_hitOffset.x + m_hitSize.x/2;	self[1].y = m_pos.y + m_hitOffset.y - m_hitSize.y/2;
 		self[2].x = m_pos.x + m_hitOffset.x + m_hitSize.x/2;	self[2].y = m_pos.y + m_hitOffset.y + m_hitSize.y/2;
 		self[3].x = m_pos.x + m_hitOffset.x - m_hitSize.x/2;	self[3].y = m_pos.y + m_hitOffset.y + m_hitSize.y/2;
+		selfpos = m_pos;
 	}
 
 	// 渡された情報から頂点を計算
@@ -116,6 +119,8 @@ D3DXVECTOR2	CRoad::ReturnPush(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE poin
 		target[1].x = pos.x + size.x;		target[1].y = pos.y;
 		target[2].x = pos.x + size.x;		target[2].y = pos.y + size.y;
 		target[3].x = pos.x;				target[3].y = pos.y + size.y;
+		tarpos.x = target[0].x + (target[1].x - target[0].x)/2;
+		tarpos.y = target[0].y + (target[3].y - target[0].y)/2;
 	}
 	else if(pointType == POINT_CENTER)	// 中心原点の場合
 	{
@@ -123,6 +128,7 @@ D3DXVECTOR2	CRoad::ReturnPush(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE poin
 		target[1].x = pos.x + size.x/2;		target[1].y = pos.y - size.y/2;
 		target[2].x = pos.x + size.x/2;		target[2].y = pos.y + size.y/2;
 		target[3].x = pos.x - size.x/2;		target[3].y = pos.y + size.y/2;
+		tarpos = pos;
 	}
 
 	rtn = D3DXVECTOR2(0.0f, 0.0f);
@@ -131,33 +137,127 @@ D3DXVECTOR2	CRoad::ReturnPush(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE poin
 	// めり込みチェック
 	//-------------------------------
 	// 上からめり込んできてる時
-	if(self[0].y > target[0].y && self[0].y < target[3].y && self[3].y > target[3].y && self[3].y > target[3].y)
-		rtn.y = self[0].y - target[3].y;
-	// 上下ともにめり込んでる時
-	if(self[0].y > target[0].y && self[0].y < target[3].y && self[3].y > target[3].y && self[3].y < target[3].y)
-		// 浅くめり込んでる方に押し返す
-		if((self[0].y - target[0].y) < (target[3].y - self[3].y))
-			rtn.y = target[3].y - self[0].y;
-		else
-			rtn.y = target[0].y - self[3].y;
-	// 下からめり込んできてる時
-	if(self[0].y < target[0].y && self[0].y < target[3].y && self[3].y > target[3].y && self[3].y < target[3].y)
-		rtn.y = self[3].y - target[0].y;
+	//if(self[0].y > target[0].y && self[0].y < target[3].y && self[3].y > target[3].y && self[3].y > target[3].y)
+	//	rtn.y = self[0].y - target[3].y;
+	//// 上下ともにめり込んでる時
+	//if(self[0].y > target[0].y && self[0].y < target[3].y && self[3].y > target[3].y && self[3].y < target[3].y)
+	//	// 浅くめり込んでる方に押し返す
+	//	if((self[0].y - target[0].y) < (target[3].y - self[3].y))
+	//		rtn.y = target[3].y - self[0].y;
+	//	else
+	//		rtn.y = target[0].y - self[3].y;
+	//// 下からめり込んできてる時
+	//if(self[0].y < target[0].y && self[0].y < target[3].y && self[3].y > target[3].y && self[3].y < target[3].y)
+	//	rtn.y = self[3].y - target[0].y;
 
-	// 左からめり込んできてる時
-	if(self[0].x > target[0].x && self[0].x < target[1].x && self[1].x > target[1].x && self[1].x > target[1].x)
-		rtn.x = self[0].x - target[1].x;
-	// 左右ともにめり込んでる時
-	if(self[0].x > target[0].x && self[0].x < target[1].x && self[1].x > target[1].x && self[1].x < target[1].x)
-		// 浅くめり込んでる方に押し返す
-		if((self[0].x - target[0].x) < (target[1].x - self[1].x))
-			rtn.x = target[1].x - self[0].x;
-		else
-			rtn.x = target[0].x - self[1].x;
-	// 右からめり込んできてる時
-	if(self[0].x < target[0].x && self[0].x < target[1].x && self[1].x > target[1].x && self[1].x < target[1].x)
-		rtn.x = self[1].x - target[0].x;
+	//// 左からめり込んできてる時
+	//if(self[0].x > target[0].x && self[0].x < target[1].x && self[1].x > target[1].x && self[1].x > target[1].x)
+	//	rtn.x = self[0].x - target[1].x;
+	//// 左右ともにめり込んでる時
+	//if(self[0].x > target[0].x && self[0].x < target[1].x && self[1].x > target[1].x && self[1].x < target[1].x)
+	//	// 浅くめり込んでる方に押し返す
+	//	if((self[0].x - target[0].x) < (target[1].x - self[1].x))
+	//		rtn.x = target[1].x - self[0].x;
+	//	else
+	//		rtn.x = target[0].x - self[1].x;
+	//// 右からめり込んできてる時
+	//if(self[0].x < target[0].x && self[0].x < target[1].x && self[1].x > target[1].x && self[1].x < target[1].x)
+	//	rtn.x = self[1].x - target[0].x;
 
+	// 当たった？
+	if (tarpos.x + (size.x / 2.0f) > selfpos.x - (m_hitSize.x / 2.0f) &&
+		tarpos.x - (size.x / 2.0f) < selfpos.x + (m_hitSize.x / 2.0f))
+	{
+		if (tarpos.y + (size.y / 2.0f) > selfpos.y - (m_hitSize.y / 2.0f) &&
+			tarpos.y - (size.y / 2.0f) < selfpos.y + (m_hitSize.y / 2.0f))
+		{
+			// 当たった上で、どこから？
+			// 上下どっちからか
+			if (tarpos.y > selfpos.y)
+			{
+				// 下
+				
+				// 左右どっちからか
+				if (tarpos.x > selfpos.x)
+				{
+					// 右
+					D3DXVECTOR2 vec(
+						(tarpos.x - (size.x / 2.0f)) - (selfpos.x + (m_hitSize.x / 2.0f)),
+						(tarpos.y - (size.y / 2.0f)) - (selfpos.y + (m_hitSize.y / 2.0f)));
+					// X成分とY成分を比較
+					if ((vec.x * vec.x) > (vec.y * vec.y))
+					{
+						tarpos.y -= vec.y;
+					}
+					else
+					{
+						tarpos.x -= vec.x;
+					}
+				}
+				else
+				{
+					// 左
+					D3DXVECTOR2 vec(
+						(tarpos.x + (size.x / 2.0f)) - (selfpos.x - (m_hitSize.x / 2.0f)),
+						(tarpos.y - (size.y / 2.0f)) - (selfpos.y + (m_hitSize.y / 2.0f)));
+					// X成分とY成分を比較
+					if ((vec.x * vec.x) > (vec.y * vec.y))
+					{
+						// 横のほうが長いから、上に行こう
+						tarpos.y -= vec.y;
+					}
+					else
+					{
+						// 縦の方が長いから、横に行こう
+						tarpos.x -= vec.x;
+					}
+				}
+			}
+			else
+			{
+				// 上
+
+				// 左右どっちからか
+				if (tarpos.x > selfpos.x)
+				{
+					// 右
+					D3DXVECTOR2 vec(
+						(tarpos.x - (size.x / 2.0f)) - (selfpos.x + (m_hitSize.x / 2.0f)),
+						(tarpos.y + (size.y / 2.0f)) - (selfpos.y - (m_hitSize.y / 2.0f)));
+					// X成分とY成分を比較
+					if ((vec.x * vec.x) > (vec.y * vec.y))
+					{
+						// 横のほうが長いから、上に行こう
+						tarpos.y -= vec.y;
+					}
+					else
+					{
+						// 縦の方が長いから、横に行こう
+						tarpos.x -= vec.x;
+					}
+				}
+				else
+				{
+					// 左
+					D3DXVECTOR2 vec(
+						(tarpos.x + (size.x / 2.0f)) - (selfpos.x - (m_hitSize.x / 2.0f)),
+						(tarpos.y + (size.y / 2.0f)) - (selfpos.y - (m_hitSize.y / 2.0f)));
+					// X成分とY成分を比較
+					if ((vec.x * vec.x) > (vec.y * vec.y))
+					{
+						// 横のほうが長いから、上に行こう
+						tarpos.y -= vec.y;
+					}
+					else
+					{
+						// 縦の方が長いから、横に行こう
+						tarpos.x -= vec.x;
+					}
+				}
+			}
+		}
+	}
+	rtn = tarpos - pos;
 	return rtn;
 }
 
