@@ -32,8 +32,8 @@
 // 地面マネージャ
 #include "road_manager.h"
 
-// ゴール
-#include "goal.h"
+// ターゲットマネージャ
+#include "target_manager.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
@@ -100,6 +100,9 @@ void CGame::Uninit(void)
 	//----------------------------------------
 	// 道路関連（後で消してね
 	SAFE_DELETE(m_road);
+	//----------------------------------------
+	// ターゲット関連（後で消してね
+	SAFE_DELETE(m_target);
 
 	// シーン
 	CScene::ReleaseAll();
@@ -147,9 +150,10 @@ void CGame::Update(void)
 			// 障害物関連（後で消してね
 			m_stumbler->Scroll(scroll);
 			m_road->Scroll(scroll);
+			m_target->Scroll(scroll);
 
 			//ゴールのスクロール(大井川 6/2_12時頃追加)
-			m_Goal->Scroll( scroll );
+			//m_Goal->Scroll( scroll );
 		}
 		else if(playerPos.x < 0)
 		{
@@ -171,13 +175,19 @@ void CGame::Update(void)
 			// 障害物関連（後で消してね
 			m_stumbler->Scroll(scroll);
 			m_road->Scroll(scroll);
+			m_target->Scroll(scroll);
 		}
 
 		//全当たり判定
 		ColAll();
 
 		//α仮置き
-		if( m_Goal->CheckCollisionAABB( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
+		/*if( m_Goal->CheckCollisionAABB( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
+		{
+			m_player->PlayerReflash();
+			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+		}*/
+		if( m_target->CheckHit( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
 		{
 			m_player->PlayerReflash();
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
@@ -242,6 +252,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	//-----------------------------
 	// 障害物関連(後で修正してね
 	m_stumbler = CStumManager::Create(device);
+	m_target = CTargetManager::Create(device);
 
 	//----------------------------
 	// キャラクター
@@ -253,7 +264,9 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 
 
 	//goal(大井川 6/9_AM_10時頃変更)
-	m_Goal = m_Goal->Create( device , CImport::GOAL_ON , CScene2D::POINT_LEFTTOP , 2 , D3DXVECTOR2( 8500.0f , SCREEN_HEIGHT - ((1 * 64) + 128) ) );
+	//m_Goal = m_Goal->Create( device , CImport::GOAL_ON , CScene2D::POINT_LEFTTOP , 2 , D3DXVECTOR2( 8500.0f , SCREEN_HEIGHT - ((1 * 64) + 128) ) );
+
+
 }
 
 //=============================================================================
@@ -276,7 +289,7 @@ void CGame::ColAll()
 	//ライトニング判定
 	if(m_player->isLitninng())
 	{
-		if((m_Goal->CheckCollisionAABB(m_player->GetPos() , m_player->GetSize()*3.0f , CScene2D::POINT_CENTER )))
+		/*if((m_Goal->CheckCollisionAABB(m_player->GetPos() , m_player->GetSize()*3.0f , CScene2D::POINT_CENTER )))
 		{
 			m_player->PaticleStart(m_Goal);
 		}
@@ -284,7 +297,8 @@ void CGame::ColAll()
 		else
 		{
 			m_player->PaticleStart(NULL);
-		}
+		}*/
+		m_player->PaticleStart((CScene*)m_target->CheckHit(m_player->GetPos() , m_player->GetSize()*3.0f , CScene2D::POINT_CENTER ));
 	}
 
 	//プレイヤが死んでる場合フェード開始

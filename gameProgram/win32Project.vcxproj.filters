@@ -116,6 +116,9 @@
     <Filter Include="map">
       <UniqueIdentifier>{ac3d011f-9b37-4e52-ae71-56b19f32a6e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="object\target">
+      <UniqueIdentifier>{aef4cc34-83f8-4343-9f63-87f397a683ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -222,6 +225,12 @@
     </ClCompile>
     <ClCompile Include="background_manager.cpp">
       <Filter>object\background</Filter>
+    </ClCompile>
+    <ClCompile Include="target.cpp">
+      <Filter>object\target</Filter>
+    </ClCompile>
+    <ClCompile Include="target_manager.cpp">
+      <Filter>object\target</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -344,6 +353,12 @@
     </ClInclude>
     <ClInclude Include="mapObj.h">
       <Filter>map</Filter>
+    </ClInclude>
+    <ClInclude Include="target.h">
+      <Filter>object\target</Filter>
+    </ClInclude>
+    <ClInclude Include="target_manager.h">
+      <Filter>object\target</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

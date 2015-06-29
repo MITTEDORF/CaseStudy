@@ -1,3 +1,4 @@
+
 //*****************************************************************************
 //
 // CImportクラス [import.h]
@@ -65,6 +66,7 @@ public:
 		BARRICADE,
 
 		// ターゲット
+		TARGET_OFF,
 		GOAL_OFF,
 		GOAL_ON,
 		GOAL_CLEAR,

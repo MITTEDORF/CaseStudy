@@ -38,6 +38,8 @@ public:
 
 	static void SetKeyboard(CInputKeyboard* keyboard){m_keyboard = keyboard;}
 
+	static bool GetDrawFrag(void){return m_drawFlg;}
+
 	static void PrintDebugProc(const char *fmt, ...);
 
 private:

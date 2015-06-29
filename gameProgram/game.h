@@ -29,6 +29,7 @@ class CSky;
 class CBackgroundManager;
 class CStumManager;
 class CRoadManager;
+class CTargetManager;
 class CGoal;
 
 class CGame : CPhase
@@ -72,8 +73,8 @@ private:
 	// “¹˜H
 	CRoadManager* m_road;
 
-	// ƒS[ƒ‹(‘åˆäì 6/2_12 ’Ç‰Á)
-	CGoal *m_Goal;
+	// ƒ^[ƒQƒbƒg
+	CTargetManager* m_target;
 };
 
 //=============================================================================

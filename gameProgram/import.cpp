@@ -59,6 +59,7 @@ const char* TEX_PATH[] =
 
 	// ターゲット
 	"./data/TEXTURE/goal/tv_on.png",
+	"./data/TEXTURE/goal/tv_on.png",
 	"./data/TEXTURE/goal/tv_off.png",
 	"./data/TEXTURE/goal/tv_clear.png",
 
