@@ -17,17 +17,7 @@
 #include "background.h"
 #include "road.h"
 #include "stumbler.h"
-
-// 仮置きターゲットデータ
-enum TARGET_TYPE
-{
-	TYPE_GOAL = 0
-};
-struct TARGET_DATA
-{
-	TARGET_TYPE type;
-	D3DXVECTOR2 Index;
-};
+#include "target.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // クラス定義
