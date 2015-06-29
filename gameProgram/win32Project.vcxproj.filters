@@ -113,7 +113,7 @@
     <Filter Include="object\equipment_choice_ui\all_option">
       <UniqueIdentifier>{e46a19fe-53f2-4116-9446-f96c1df126a7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="mapdata">
+    <Filter Include="map">
       <UniqueIdentifier>{ac3d011f-9b37-4e52-ae71-56b19f32a6e5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -218,7 +218,7 @@
       <Filter>phase\equipment_choice</Filter>
     </ClCompile>
     <ClCompile Include="mapData.cpp">
-      <Filter>mapdata</Filter>
+      <Filter>map</Filter>
     </ClCompile>
     <ClCompile Include="background_manager.cpp">
       <Filter>object\background</Filter>
@@ -334,10 +334,16 @@
       <Filter>object\character\player</Filter>
     </ClInclude>
     <ClInclude Include="mapData.h">
-      <Filter>mapdata</Filter>
+      <Filter>map</Filter>
     </ClInclude>
     <ClInclude Include="background_manager.h">
       <Filter>object\background</Filter>
+    </ClInclude>
+    <ClInclude Include="mapBg.h">
+      <Filter>map</Filter>
+    </ClInclude>
+    <ClInclude Include="mapObj.h">
+      <Filter>map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

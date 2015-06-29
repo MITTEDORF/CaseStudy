@@ -11,6 +11,8 @@
 #include "background_manager.h"
 #include "background.h"
 
+#include "mapData.h"
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -36,23 +38,15 @@ CBackgroundManager* CBackgroundManager::Create(LPDIRECT3DDEVICE9 device)
 HRESULT CBackgroundManager::Init(LPDIRECT3DDEVICE9 device)
 {
 	//----------------------------------------
-	// データ
-	BG_DATA data[] =
-	{
-		{TYPE_FOREST_01, 0},
-		{TYPE_FOREST_01, 1},
-		{TYPE_FOREST_01, 2},
-		{TYPE_FOREST_01, 3},
-		{TYPE_FOREST_01, 4},
-		{TYPE_FOREST_01, 5},
-		{TYPE_FOREST_01, 6},
-		{TYPE_FOREST_01, 7},
-		{TYPE_FOREST_01, 8}
-	};
+	// データ取得
+	//----------------------------------------
+	CMapData*	mapData = CImport::GetMap(CImport::STAGE_1_1);
+	BG_DATA*	data = mapData->GetBgData();
+	int			size = mapData->GetBgSize();
 
-	int size = (int)(sizeof(data)/sizeof(BG_DATA));
-
+	//----------------------------------------
 	// データの個数分生成処理
+	//----------------------------------------
 	for(int cnt = 0; cnt < size; cnt++)
 	{
 		if(m_top == NULL)

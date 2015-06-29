@@ -22,8 +22,7 @@
 enum BG_TYPE
 {
 	TYPE_FOREST_01 = 0,
-	TYPE_TWON_01,
-	TYPE_MAX
+	TYPE_TWON_01
 };
 
 // îwåièÓïÒ

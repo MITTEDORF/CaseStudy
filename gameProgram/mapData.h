@@ -14,12 +14,20 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "main.h"
 
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// 構造体定義
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-struct ROAD_DATA;
-struct STUM_DATA;
-struct TARGET_DATA;
+#include "background.h"
+#include "road.h"
+#include "stumbler.h"
+
+// 仮置きターゲットデータ
+enum TARGET_TYPE
+{
+	TYPE_GOAL = 0
+};
+struct TARGET_DATA
+{
+	TARGET_TYPE type;
+	D3DXVECTOR2 Index;
+};
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // クラス定義
@@ -30,14 +38,30 @@ public:
 	CMapData();
 	~CMapData(){};
 
-	static	CMapData* Create(void);
-	HRESULT	Init(void);
+	static	CMapData* Create(const char* file);
+	HRESULT	Init(const char* file);
 	void	Uninit(void);
-	void	Update(void);
-	void	Draw(void);
+
+	BG_DATA*	 GetBgData(void){return m_bgData;}
+	ROAD_DATA*	 GetRoadData(void){return m_roadData;}
+	STUM_DATA*	 GetStumData(void){return m_stumData;}
+	TARGET_DATA* GetTargetData(void){return m_targetData;}
+
+	int GetBgSize(void){return m_bgSize;}
+	int GetRoadSize(void){return m_roadSize;}
+	int GetStumSize(void){return m_stumSize;}
+	int GetTargetSize(void){return m_targetSize;}
 
 private:
+	int m_bgSize;
+	int m_roadSize;
+	int m_stumSize;
+	int m_targetSize;
 
+	BG_DATA*	 m_bgData;
+	ROAD_DATA*	 m_roadData;
+	STUM_DATA*	 m_stumData;
+	TARGET_DATA* m_targetData;
 };
 
 //=============================================================================
