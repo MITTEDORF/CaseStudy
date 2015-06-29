@@ -12,6 +12,8 @@
 #include "stum_manager.h"
 #include "stumbler.h"
 
+#include "mapData.h"
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -42,34 +44,14 @@ CStumManager* CStumManager::Create(LPDIRECT3DDEVICE9 device)
 HRESULT CStumManager::Init(LPDIRECT3DDEVICE9 device)
 {
 	//----------------------------------------
-	// 障害物関連（とりあえずべた打ち、エディタからのデータになる予定地
-	STUM_DATA data[] = {
-		{TYPE_BARRICADE,
-		D3DXVECTOR2(13,1)},
-		{TYPE_ROCK,
-		D3DXVECTOR2(27,1)},
-		{TYPE_DUSTBOX,
-		D3DXVECTOR2(40,1)},
-		{TYPE_LION,
-		D3DXVECTOR2(55,1)},
-		{TYPE_ROCK,
-		D3DXVECTOR2(67,1)},
-		{TYPE_BIRD,
-		D3DXVECTOR2(74,6)},
-		{TYPE_SIGNBOARD,
-		D3DXVECTOR2(89,1)},
-		{TYPE_DUSTBOX,
-		D3DXVECTOR2(99,1)},
-		{TYPE_DUSTBOX,
-		D3DXVECTOR2(124,1)},
-		{TYPE_BIRD,
-		D3DXVECTOR2(32,6)},
-	};
-
-	int a = (int)(sizeof(data)/sizeof(STUM_DATA));
+	// データ取得
+	//----------------------------------------
+	CMapData*	mapData = CImport::GetMap(CImport::STAGE_1_1);
+	STUM_DATA*	data = mapData->GetStumData();
+	int			size = mapData->GetStumSize();
 
 	// データの個数分生成処理
-	for(int loop = 0; loop < (int)(sizeof(data)/sizeof(STUM_DATA)); loop++)
+	for(int loop = 0; loop < size; loop++)
 	{
 		// 障害物リスト先頭が空の時
 		if(m_list_top == NULL)

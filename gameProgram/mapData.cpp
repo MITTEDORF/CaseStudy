@@ -130,7 +130,7 @@ HRESULT CMapData::Init(const char* file)
 	{
 		if((c == 'r') && ((c = fgetc(fp)) == ' '))
 		{
-			fscanf(fp, "%d %d %d", &type, &index.x, &index.y);
+			fscanf(fp, "%d %f %f", &type, &index.x, &index.y);
 
 			int typeTop = TYPE_DIRT;
 
@@ -151,7 +151,7 @@ HRESULT CMapData::Init(const char* file)
 	{
 		if((c == 's') && ((c = fgetc(fp)) == ' '))
 		{
-			fscanf(fp, "%d %d %d", &type, &index.x, &index.y);
+			fscanf(fp, "%d %f %f", &type, &index.x, &index.y);
 
 			int typeTop = TYPE_SIGNBOARD;
 
@@ -172,9 +172,9 @@ HRESULT CMapData::Init(const char* file)
 	{
 		if((c == 't') && ((c = fgetc(fp)) == ' '))
 		{
-			fscanf(fp, "%d %d %d", &type, &index.x, &index.y);
+			fscanf(fp, "%d %f %f", &type, &index.x, &index.y);
 
-			int typeTop = TYPE_GOAL;
+			int typeTop = TYPE_TARGET_OFF;
 
 			m_targetData[cnt].type = (TARGET_TYPE)(typeTop + type);
 			m_targetData[cnt].Index = index;
