@@ -187,7 +187,8 @@ void CGame::Update(void)
 			m_player->PlayerReflash();
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 		}*/
-		if( m_target->CheckHit( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
+		// ƒS[ƒ‹‚ÆÚG”»’è
+		if( m_target->CheckHitGoal( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
 		{
 			m_player->PlayerReflash();
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
@@ -265,8 +266,6 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 
 	//goal(‘åˆäì 6/9_AM_10Žž •ÏX)
 	//m_Goal = m_Goal->Create( device , CImport::GOAL_ON , CScene2D::POINT_LEFTTOP , 2 , D3DXVECTOR2( 8500.0f , SCREEN_HEIGHT - ((1 * 64) + 128) ) );
-
-
 }
 
 //=============================================================================

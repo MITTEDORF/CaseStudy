@@ -43,9 +43,9 @@ HRESULT CTargetManager::Init(LPDIRECT3DDEVICE9 device)
 {
 	TARGET_DATA data[] =
 	{
-		{TYPE_GOAL_OFF,
-		D3DXVECTOR2(130, 1)},
 		{TYPE_TARGET_OFF,
+		D3DXVECTOR2(130, 1)},
+		{TYPE_GOAL_OFF,
 		D3DXVECTOR2(145, 1)},
 	};
 	int a = (int)(sizeof(data)/sizeof(TARGET_DATA));
@@ -113,7 +113,7 @@ void CTargetManager::Scroll(float f)
 }
 
 //=============================================================================
-// 衝突判定
+// パーティクル用衝突判定
 //=============================================================================
 CTarget* CTargetManager::CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType)
 {
@@ -122,7 +122,7 @@ CTarget* CTargetManager::CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::P
 
 	while(cur)
 	{
-		if(cur->CheckCollisionAABB(pos, size, pointType) == true)
+		if(cur->CheckCollisionAABB(pos, size, pointType))
 		{
 			if(cur->GetTargetFrag() == true)
 				return cur;
@@ -136,7 +136,7 @@ CTarget* CTargetManager::CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::P
 }
 
 //=============================================================================
-// 衝突判定(goal)
+// ゴール用衝突判定
 //=============================================================================
 bool CTargetManager::CheckHitGoal(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType)
 {
@@ -145,7 +145,7 @@ bool CTargetManager::CheckHitGoal(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::P
 
 	while(cur)
 	{
-		if(cur->CheckCollisionAABB(pos, size, pointType) == false)
+		if(cur->CheckCollisionAABB(pos, size, pointType))
 		{
 			if(cur->GetTargetFrag() != true)
 				return true;
