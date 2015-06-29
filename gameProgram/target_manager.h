@@ -1,44 +1,41 @@
 //=============================================================================
 //
-// stum_managerクラス [stum_manager.h]
+// target_managerクラス [target_manager.h]
 // Author : Ken Matsuura
 //
 //=============================================================================
 
 // インクルードガード
-#ifndef __STUM_MANAGER_H__
-#define __STUM_MANAGER_H__
+#ifndef __TARGET_MANAGER_H__
+#define __TARGET_MANAGER_H__
 
 //=============================================================================
 // インクルード
 //=============================================================================
 #include "main.h"
 #include "scene2D.h"
-class CStumbler;
+class CTarget;
 
 //=============================================================================
 // クラス定義
 //=============================================================================
-class CStumManager
+class CTargetManager
 {
 public:
-	CStumManager();
-	~CStumManager(){};
+	CTargetManager();
+	~CTargetManager(){};
 	HRESULT	Init(LPDIRECT3DDEVICE9 device);
 	void	Update(void);
 	void	Scroll(float f);
-	bool	CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
-	static	CStumManager* Create(LPDIRECT3DDEVICE9 device);
+	CTarget*	CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
+	bool	CheckHitGoal(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
+	static	CTargetManager* Create(LPDIRECT3DDEVICE9 device);
 	// リスト抹消
-	void	UnLinkStum(CStumbler* cur);
+	void	UnLinkTarget(CTarget* cur);
 private:
-	CStumbler* m_list_top;		// 障害物リスト先頭
-	CStumbler* m_list_cur;		// 障害物リスト末尾
+	CTarget* m_list_top;		// 障害物リスト先頭
+	CTarget* m_list_cur;		// 障害物リスト末尾
 };
-
-
-
-
 
 // インクルードガード終了
 #endif // __STUM_MANAGER_H__

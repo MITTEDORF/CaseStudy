@@ -23,10 +23,13 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // クラス定義
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+class CScene2D;
 class CPlayer;
 class CSky;
-class CBackground;
-class CScene2D;
+class CBackgroundManager;
+class CStumManager;
+class CRoadManager;
+class CTargetManager;
 class CGoal;
 
 class CGame : CPhase
@@ -54,17 +57,24 @@ private:
 	//全当たり判定
 	void ColAll();
 
+	// バージョン表示
+	CScene2D* m_version;
+
 	//プレイヤー制御
 	CPlayer *m_player;
 
 	// 背景
-	CSky*		 m_sky;
-	CBackground* m_bg;
+	CSky*				m_sky;
+	CBackgroundManager* m_bg;
 
-	CScene2D* m_version;
+	// 障害物
+	CStumManager* m_stumbler;
 
-	// ゴール(大井川 6/2_12時頃追加)
-	CGoal *m_Goal;
+	// 道路
+	CRoadManager* m_road;
+
+	// ターゲット
+	CTargetManager* m_target;
 };
 
 //=============================================================================

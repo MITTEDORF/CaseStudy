@@ -10,20 +10,9 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "background.h"
 
-#include "scene2D.h"
-#include "import.h"
-
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#define BG_LEFT	(-SCREEN_WIDTH)
-#define BG_RIGHT	(SCREEN_WIDTH * (BG_MAX - 1))
-
-const CImport::TEXTURES _type_bg[CBackground::TYPE_MAX] =
-{
-	CImport::FOREST_01,
-	CImport::TOWN_01,
-};
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 静的変数
@@ -32,31 +21,30 @@ const CImport::TEXTURES _type_bg[CBackground::TYPE_MAX] =
 //=============================================================================
 // コンストラクタ
 //=============================================================================
-CBackground::CBackground(void)
+CBackground::CBackground(int priority, OBJTYPE objType) : CScene2D(priority, objType)
 {
+	m_next = nullptr;
+	m_prev = nullptr;
 }
 
 //=============================================================================
 // 生成
 //=============================================================================
-CBackground* CBackground::Create(LPDIRECT3DDEVICE9 device, TYPE type)
+CBackground* CBackground::Create(LPDIRECT3DDEVICE9 device, BG_DATA data)
 {
 	CBackground* pointer = new CBackground;
-	pointer->Init(device, type);
+	pointer->Init(device, (CImport::TEXTURES)(CImport::FOREST_01 + data.type));
+	pointer->SetPos((float)(data.index * SCREEN_WIDTH), 0.0f);
 	return pointer;
 }
 
 //=============================================================================
 // 初期化
 //=============================================================================
-HRESULT CBackground::Init(LPDIRECT3DDEVICE9 device, TYPE type)
+HRESULT CBackground::Init(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture)
 {
-	for(int cnt = 0; cnt < BG_MAX; ++cnt)
-	{
-		m_background[cnt] = CScene2D::Create(device, _type_bg[type], CScene2D::POINT_LEFTTOP, 1);
-		m_background[cnt]->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-		m_background[cnt]->SetPos((float)SCREEN_WIDTH * cnt, 0.0f);
-	}
+	CScene2D::Init(device, texture, CScene2D::POINT_LEFTTOP);
+	SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	return S_OK;
 }
@@ -66,26 +54,21 @@ HRESULT CBackground::Init(LPDIRECT3DDEVICE9 device, TYPE type)
 //=============================================================================
 void CBackground::Uninit(void)
 {
+	CScene2D::Uninit();
 }
 
 //=============================================================================
-// スクロール
+// 更新
 //=============================================================================
-void CBackground::Scroll(float scroll)
+void CBackground::Update(void)
 {
-	for(int cnt = 0; cnt < BG_MAX; ++cnt)
-	{
-		float backgroundScroll = m_background[cnt]->GetPos().x - scroll;
+	CScene2D::Update();
+}
 
-		if(backgroundScroll < BG_LEFT)
-		{
-			backgroundScroll = BG_RIGHT - (BG_LEFT - backgroundScroll);
-		}
-		else if(backgroundScroll > BG_RIGHT)
-		{
-			backgroundScroll = BG_LEFT - (backgroundScroll - BG_RIGHT);
-		}
-
-		m_background[cnt]->SetPosX(backgroundScroll);
-	}
+//=============================================================================
+// 描画
+//=============================================================================
+void CBackground::Draw(void)
+{
+	CScene2D::Draw();
 }

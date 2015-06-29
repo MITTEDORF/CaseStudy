@@ -79,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="background.cpp" />
+    <ClCompile Include="background_manager.cpp" />
     <ClCompile Include="character_player.cpp" />
     <ClCompile Include="character_vehicle.cpp" />
     <ClCompile Include="debugproc.cpp" />
@@ -93,6 +94,7 @@
     <ClCompile Include="inputKeyboard.cpp" />
     <ClCompile Include="inputPadDirect.cpp" />
     <ClCompile Include="inputPadX.cpp" />
+    <ClCompile Include="mapData.cpp" />
     <ClCompile Include="math_animation.cpp" />
     <ClCompile Include="mini_particle_object.cpp" />
     <ClCompile Include="particle_manager.cpp" />
@@ -110,10 +112,13 @@
     <ClCompile Include="scene2D.cpp" />
     <ClCompile Include="stumbler.cpp" />
     <ClCompile Include="stum_manager.cpp" />
+    <ClCompile Include="target.cpp" />
+    <ClCompile Include="target_manager.cpp" />
     <ClCompile Include="title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="background.h" />
+    <ClInclude Include="background_manager.h" />
     <ClInclude Include="character_config.h" />
     <ClInclude Include="character_player.h" />
     <ClInclude Include="character_vehicle.h" />
@@ -129,6 +134,9 @@
     <ClInclude Include="inputKeyboard.h" />
     <ClInclude Include="inputPadDirect.h" />
     <ClInclude Include="inputPadX.h" />
+    <ClInclude Include="mapBg.h" />
+    <ClInclude Include="mapData.h" />
+    <ClInclude Include="mapObj.h" />
     <ClInclude Include="math_animation.h" />
     <ClInclude Include="mini_particle_object.h" />
     <ClInclude Include="particle_manager.h" />
@@ -147,6 +155,8 @@
     <ClInclude Include="scene2D.h" />
     <ClInclude Include="stumbler.h" />
     <ClInclude Include="stum_manager.h" />
+    <ClInclude Include="target.h" />
+    <ClInclude Include="target_manager.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="vehicle_config.h" />
   </ItemGroup>

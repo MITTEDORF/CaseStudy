@@ -5,47 +5,58 @@
 //
 //*****************************************************************************
 
-#ifndef _MY_BACK_H
-#define _MY_BACK_H
+#ifndef _MY_BACKGROUND_H
+#define _MY_BACKGROUND_H
 //=============================================================================
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // インクルードファイル
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "main.h"
+#include "scene2D.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// マクロ定義
+// マクロ定義構造体
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#define BG_MAX	(3)
+// 画像データ識別
+enum BG_TYPE
+{
+	TYPE_FOREST_01 = 0,
+	TYPE_TWON_01
+};
+
+// 背景情報
+struct BG_DATA
+{
+	BG_TYPE type;
+	int index;
+};
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // クラス定義
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class CScene2D;
-
-class CBackground
+class CBackground : CScene2D
 {
 public:
-	typedef enum
-	{
-		FOREST = 0,
-		TWON,
-		TYPE_MAX
-	} TYPE;
-
-	CBackground(void);
+	CBackground(int priority = 1, OBJTYPE objType = OBJTYPE_2D);
 	~CBackground(){};
 
-	static CBackground* Create(LPDIRECT3DDEVICE9 device, TYPE type);
-	HRESULT	Init(LPDIRECT3DDEVICE9 device, TYPE type);
+	static CBackground* Create(LPDIRECT3DDEVICE9 device, BG_DATA data);
+	HRESULT	Init(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture);
 	void	Uninit(void);
+	void	Update(void);
+	void	Draw(void);
 
-	void Scroll(float scroll);
+	void Scroll(float scroll){SetPosX(m_pos.x - scroll);}
+
+	void		 SetBgNext(CBackground* next){m_next = next;}
+	CBackground* GetBgNext(void){return m_next;}
+	void		 SetBgPrev(CBackground* prev){m_prev = prev;}
+	CBackground* GetBgPrev(void){return m_prev;}
 
 private:
-
-	CScene2D* m_background[BG_MAX];
+	CBackground* m_next;	// 次へのポインタ
+	CBackground* m_prev;	// 前へのポインタ
 };
 
 //=============================================================================

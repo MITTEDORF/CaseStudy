@@ -11,6 +11,8 @@
 #include "road_manager.h"
 #include "road.h"
 
+#include "mapData.h"
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -41,54 +43,14 @@ CRoadManager* CRoadManager::Create(LPDIRECT3DDEVICE9 device)
 HRESULT CRoadManager::Init(LPDIRECT3DDEVICE9 device)
 {
 	//----------------------------------------
-	// 道路関連（とりあえずべた打ち、エディタからのデータになる予定地
-	ROAD_DATA data[] = {
-		{TYPE_DIRT,
-		D3DXVECTOR2(0,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(1,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(2,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(3,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(4,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(5,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(6,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(7,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(8,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(9,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(10,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(11,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(12,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(13,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(14,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(15,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(16,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(17,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(18,0)},
-		{TYPE_DIRT,
-		D3DXVECTOR2(19,0)},
-	};
-
-	int a = (int)(sizeof(data)/sizeof(TYPE_DIRT));
+	// データ取得
+	//----------------------------------------
+	CMapData*	mapData = CImport::GetMap(CImport::STAGE_1_1);
+	ROAD_DATA*	data = mapData->GetRoadData();
+	int			size = mapData->GetRoadSize();
 
 	// データの個数分生成処理
-	for(int loop = 0; loop < (int)(sizeof(data)/sizeof(ROAD_DATA)); loop++)
+	for(int loop = 0; loop < size; loop++)
 	{
 		// 道路リスト先頭が空の時
 		if(m_list_top == NULL)
@@ -110,6 +72,7 @@ HRESULT CRoadManager::Init(LPDIRECT3DDEVICE9 device)
 			m_list_cur = p;
 		}
 	}
+
 	return S_OK;
 }
 

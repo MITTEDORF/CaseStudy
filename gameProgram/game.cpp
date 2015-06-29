@@ -24,15 +24,16 @@
 
 // 背景
 #include "sky.h"
-#include "background.h"
-
-#include "goal.h"
+#include "background_manager.h"
 
 // 障害物マネージャ
 #include "stum_manager.h"
 
 // 地面マネージャ
 #include "road_manager.h"
+
+// ターゲットマネージャ
+#include "target_manager.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
@@ -45,13 +46,6 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 静的変数
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-//----------------------------------------
-// 障害物関連（後で消してね
-CStumManager* g_stumbler;
-//----------------------------------------
-// 道路関連（後で消してね
-CRoadManager* g_road;
 
 //=============================================================================
 // 初期化
@@ -93,19 +87,22 @@ HRESULT CGame::Init(LPDIRECT3DDEVICE9 device)
 void CGame::Uninit(void)
 {
 	//----------------------------
-	// オブジェクト
+	// 背景
 	//----------------------------
 	// 空
 	SAFE_END(m_sky);
 
-	SAFE_END(m_bg);
+	SAFE_DELETE(m_bg);
 
 	//----------------------------------------
 	// 障害物関連（後で消してね
-	SAFE_DELETE(g_stumbler);
+	SAFE_DELETE(m_stumbler);
 	//----------------------------------------
 	// 道路関連（後で消してね
-	SAFE_DELETE(g_road);
+	SAFE_DELETE(m_road);
+	//----------------------------------------
+	// ターゲット関連（後で消してね
+	SAFE_DELETE(m_target);
 
 	// シーン
 	CScene::ReleaseAll();
@@ -151,11 +148,12 @@ void CGame::Update(void)
 
 			//----------------------------------------
 			// 障害物関連（後で消してね
-			g_stumbler->Scroll(scroll);
-			//g_road->Scroll(scroll);
+			m_stumbler->Scroll(scroll);
+			m_road->Scroll(scroll);
+			m_target->Scroll(scroll);
 
 			//ゴールのスクロール(大井川 6/2_12時頃追加)
-			m_Goal->Scroll( scroll );
+			//m_Goal->Scroll( scroll );
 		}
 		else if(playerPos.x < 0)
 		{
@@ -175,15 +173,21 @@ void CGame::Update(void)
 
 			//----------------------------------------
 			// 障害物関連（後で消してね
-			g_stumbler->Scroll(scroll);
-			//g_road->Scroll(scroll);
+			m_stumbler->Scroll(scroll);
+			m_road->Scroll(scroll);
+			m_target->Scroll(scroll);
 		}
 
 		//全当たり判定
 		ColAll();
 
 		//α仮置き
-		if( m_Goal->CheckCollisionAABB( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
+		/*if( m_Goal->CheckCollisionAABB( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
+		{
+			m_player->PlayerReflash();
+			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+		}*/
+		if( m_target->CheckHit( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
 		{
 			m_player->PlayerReflash();
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
@@ -240,14 +244,15 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_sky = CSky::Create(device);
 
 	// 背景
-	m_bg = CBackground::Create(device, CBackground::FOREST);
+	m_bg = CBackgroundManager::Create(device);
 
 	//-----------------------------
 	// 道路関連(後で修正してね
-	g_road = CRoadManager::Create(device);
+	m_road = CRoadManager::Create(device);
 	//-----------------------------
 	// 障害物関連(後で修正してね
-	g_stumbler = CStumManager::Create(device);
+	m_stumbler = CStumManager::Create(device);
+	m_target = CTargetManager::Create(device);
 
 	//----------------------------
 	// キャラクター
@@ -259,7 +264,9 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 
 
 	//goal(大井川 6/9_AM_10時頃変更)
-	m_Goal = m_Goal->Create( device , CImport::GOAL_ON , CScene2D::POINT_LEFTTOP , 2 , D3DXVECTOR2( 8500.0f , SCREEN_HEIGHT - ((1 * 64) + 128) ) );
+	//m_Goal = m_Goal->Create( device , CImport::GOAL_ON , CScene2D::POINT_LEFTTOP , 2 , D3DXVECTOR2( 8500.0f , SCREEN_HEIGHT - ((1 * 64) + 128) ) );
+
+
 }
 
 //=============================================================================
@@ -268,21 +275,21 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 void CGame::ColAll()
 {
 	//プレイヤと障害物の当たり判定
-	if(g_stumbler->CheckHit( m_player->GetHitPos() , m_player->GetHitSize() , CScene2D::POINT_CENTER ))
+	if(m_stumbler->CheckHit( m_player->GetHitPos() , m_player->GetHitSize() , CScene2D::POINT_CENTER ))
 	{
 		m_player->AddHP(-1);
 	}
 
 	// プレイヤーと道路の当たり判定、押し戻し
 	D3DXVECTOR2 tmp[2];
-	tmp[0] = g_road->CheckHit( m_player->GetHitPos() , m_player->GetHitSize() , CScene2D::POINT_CENTER );
+	tmp[0] = m_road->CheckHit( m_player->GetHitPos() , m_player->GetHitSize() , CScene2D::POINT_CENTER );
 	tmp[1] = m_player->GetPos();
 	m_player->SetPos(tmp[0].x + tmp[1].x, tmp[0].y + tmp[1].y);
 
 	//ライトニング判定
 	if(m_player->isLitninng())
 	{
-		if((m_Goal->CheckCollisionAABB(m_player->GetPos() , m_player->GetSize()*3.0f , CScene2D::POINT_CENTER )))
+		/*if((m_Goal->CheckCollisionAABB(m_player->GetPos() , m_player->GetSize()*3.0f , CScene2D::POINT_CENTER )))
 		{
 			m_player->PaticleStart(m_Goal);
 		}
@@ -290,7 +297,8 @@ void CGame::ColAll()
 		else
 		{
 			m_player->PaticleStart(NULL);
-		}
+		}*/
+		m_player->PaticleStart((CScene*)m_target->CheckHit(m_player->GetPos() , m_player->GetSize()*3.0f , CScene2D::POINT_CENTER ));
 	}
 
 	//プレイヤが死んでる場合フェード開始

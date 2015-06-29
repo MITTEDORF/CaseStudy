@@ -20,8 +20,7 @@
 // 画像データ識別
 typedef enum{
 	TYPE_DIRT = 0,
-	TYPE_ASPHALT,
-	TYPE_MAX
+	TYPE_ASPHALT
 }ROAD_TYPE;
 
 // 地面情報

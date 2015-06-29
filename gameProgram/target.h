@@ -1,12 +1,12 @@
 //*****************************************************************************
 //
-// stumblerクラス [stumbler.h]
+// targetクラス [target.h]
 // Author : KEN MATSUURA
 //
 //*****************************************************************************
 
-#ifndef _STUMBLER_H
-#define _STUMBLER_H
+#ifndef _TARGET_H
+#define _TARGET_H
 //=============================================================================
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -19,33 +19,28 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 画像データ識別
 typedef enum{
-	TYPE_SIGNBOARD = 0,
-	TYPE_LION,
-	TYPE_ROCK,
-	TYPE_LOG_LEFT,
-	TYPE_LOG_CENTER,
-	TYPE_LOG_RIGHT,
-	TYPE_BIRD,
-	TYPE_DUSTBOX,
-	TYPE_BARRICADE
-}STUM_TYPE;
+	TYPE_TARGET_OFF,
+	TYPE_GOAL_OFF,
+	TYPE_GOAL_ON,
+	TYPE_GOAL_CLEAR
+}TARGET_TYPE;
 
-// 障害物情報
+// ターゲット情報
 typedef struct{
-	STUM_TYPE type;
+	TARGET_TYPE type;
 	D3DXVECTOR2 Index;
-}STUM_DATA;
+}TARGET_DATA;
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // クラス定義
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class CStumbler : public CScene2D
+class CTarget : public CScene2D
 {
 public:
-	CStumbler(int priority = PRIORITY_MAX - 1, OBJTYPE objType = OBJTYPE_2D);
-	~CStumbler(){};
+	CTarget(int priority = PRIORITY_MAX - 1, OBJTYPE objType = OBJTYPE_2D);
+	~CTarget(){};
 
-	static	CStumbler* Create(LPDIRECT3DDEVICE9 device, STUM_DATA data, POINT_TYPE pointType);
+	static	CTarget* Create(LPDIRECT3DDEVICE9 device, TARGET_DATA data, POINT_TYPE pointType);
 
 	HRESULT	Init(LPDIRECT3DDEVICE9 device, CImport::TEXTURES texture, POINT_TYPE pointType);
 	HRESULT	Init(LPDIRECT3DDEVICE9 device, const char* texture, POINT_TYPE pointType);
@@ -55,27 +50,23 @@ public:
 
 	// スクロール処理
 	void	Scroll(float scroll){m_pos.x -= scroll; CScene2D::SetVertexPolygon();}
-	// HPセット処理
-	void	SetHP(int life){m_life = life;}
-	// HPゲット処理
-	int		GetHP(void){return m_life;}
-	// 攻撃を受けた場合のHP減算処理
-	void	Attack(int damage){m_life -= damage;}
-	// 生存チェック
-	bool	LivingCheck(void);
-	// 次障害物ポインタセット処理
-	void		SetStumNext(CStumbler* next){m_next = next;}
-	// 次障害物ポインタゲット処理
-	CStumbler*	GetStumNext(void){return m_next;}
-	// 前障害物ポインタセット処理
-	void		SetStumPrev(CStumbler* prev){m_prev = prev;}
-	// 前障害物ポインタゲット処理
-	CStumbler*	GetStumPrev(void){return m_prev;}
+
+	// 次ターゲットポインタセット処理
+	void		SetTargetNext(CTarget* next){m_next = next;}
+	// 次ターゲットポインタゲット処理
+	CTarget*	GetTargetNext(void){return m_next;}
+	// 前ターゲットポインタセット処理
+	void		SetTargetPrev(CTarget* prev){m_prev = prev;}
+	// 前ターゲットポインタゲット処理
+	CTarget*	GetTargetPrev(void){return m_prev;}
+
+	bool		GetTargetFrag(void){return m_targetFlag;}
+	void		SetTargetFrag(void){m_targetFlag = true;}
 
 protected:
-	int		m_life;							// 障害物耐久度
-	CStumbler* m_next;						// 次障害物へのポインタ
-	CStumbler* m_prev;						// 前障害物へのポインタ
+	CTarget* m_next;						// 次ターゲットへのポインタ
+	CTarget* m_prev;						// 前ターゲットへのポインタ
+	bool m_targetFlag;
 };
 
 //=============================================================================

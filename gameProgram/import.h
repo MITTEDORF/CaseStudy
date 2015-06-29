@@ -1,3 +1,4 @@
+
 //*****************************************************************************
 //
 // CImportクラス [import.h]
@@ -17,10 +18,12 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // クラス定義
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+class CMapData;
+
 class CImport
 {
 public:
-	typedef enum
+	enum TEXTURES
 	{
 		// なし
 		NONE = 0,
@@ -63,6 +66,7 @@ public:
 		BARRICADE,
 
 		// ターゲット
+		TARGET_OFF,
 		GOAL_OFF,
 		GOAL_ON,
 		GOAL_CLEAR,
@@ -116,7 +120,14 @@ public:
 		MAKE_UI_SELECT_FRAME,
 
 		TEX_MAX
-	} TEXTURES;
+	};
+
+	enum MAPS
+	{
+		// 森（仮）
+		STAGE_1_1 = 0,
+		STAGE_MAX
+	};
 
 	CImport();
 	~CImport(){};
@@ -125,10 +136,12 @@ public:
 	HRESULT	Init(LPDIRECT3DDEVICE9 device);
 	void	Uninit(void);
 
-	static LPDIRECT3DTEXTURE9 GetTexture(TEXTURES tex){return m_tex[tex];}
+	static LPDIRECT3DTEXTURE9	GetTexture(TEXTURES tex){return m_tex[tex];}
+	static CMapData*			GetMap(MAPS map){return m_map[map];}
 
 private:
-	static LPDIRECT3DTEXTURE9 m_tex[TEX_MAX];;
+	static LPDIRECT3DTEXTURE9	m_tex[TEX_MAX];
+	static CMapData*			m_map[STAGE_MAX];
 };
 
 //=============================================================================
