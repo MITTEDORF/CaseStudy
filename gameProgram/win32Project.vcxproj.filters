@@ -113,6 +113,9 @@
     <Filter Include="object\equipment_choice_ui\all_option">
       <UniqueIdentifier>{e46a19fe-53f2-4116-9446-f96c1df126a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="object\target">
+      <UniqueIdentifier>{aef4cc34-83f8-4343-9f63-87f397a683ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -213,6 +216,12 @@
     </ClCompile>
     <ClCompile Include="equipment_choice.cpp">
       <Filter>phase\equipment_choice</Filter>
+    </ClCompile>
+    <ClCompile Include="target.cpp">
+      <Filter>object\target</Filter>
+    </ClCompile>
+    <ClCompile Include="target_manager.cpp">
+      <Filter>object\target</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -323,6 +332,12 @@
     </ClInclude>
     <ClInclude Include="character_config.h">
       <Filter>object\character\player</Filter>
+    </ClInclude>
+    <ClInclude Include="target.h">
+      <Filter>object\target</Filter>
+    </ClInclude>
+    <ClInclude Include="target_manager.h">
+      <Filter>object\target</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
