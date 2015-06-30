@@ -134,9 +134,7 @@
     <ClInclude Include="inputKeyboard.h" />
     <ClInclude Include="inputPadDirect.h" />
     <ClInclude Include="inputPadX.h" />
-    <ClInclude Include="mapBg.h" />
     <ClInclude Include="mapData.h" />
-    <ClInclude Include="mapObj.h" />
     <ClInclude Include="math_animation.h" />
     <ClInclude Include="mini_particle_object.h" />
     <ClInclude Include="particle_manager.h" />

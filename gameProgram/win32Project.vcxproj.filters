@@ -348,12 +348,6 @@
     <ClInclude Include="background_manager.h">
       <Filter>object\background</Filter>
     </ClInclude>
-    <ClInclude Include="mapBg.h">
-      <Filter>map</Filter>
-    </ClInclude>
-    <ClInclude Include="mapObj.h">
-      <Filter>map</Filter>
-    </ClInclude>
     <ClInclude Include="target.h">
       <Filter>object\target</Filter>
     </ClInclude>

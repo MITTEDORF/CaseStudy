@@ -12,6 +12,8 @@
 #include "target_manager.h"
 #include "target.h"
 
+#include "mapData.h"
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -41,17 +43,15 @@ CTargetManager* CTargetManager::Create(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 HRESULT CTargetManager::Init(LPDIRECT3DDEVICE9 device)
 {
-	TARGET_DATA data[] =
-	{
-		{TYPE_TARGET_OFF,
-		D3DXVECTOR2(130, 1)},
-		{TYPE_GOAL_OFF,
-		D3DXVECTOR2(145, 1)},
-	};
-	int a = (int)(sizeof(data)/sizeof(TARGET_DATA));
+	//----------------------------------------
+	// データ取得
+	//----------------------------------------
+	CMapData*	 mapData = CImport::GetMap(CImport::STAGE_1_1);
+	TARGET_DATA* data = mapData->GetTargetData();
+	int			 size = mapData->GetTargetSize();
 
 	// データの個数分生成処理
-	for(int loop = 0; loop < (int)(sizeof(data)/sizeof(TARGET_DATA)); loop++)
+	for(int loop = 0; loop < size; loop++)
 	{
 		// 障害物リスト先頭が空の時
 		if(m_list_top == NULL)
