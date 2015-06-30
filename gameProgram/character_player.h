@@ -128,10 +128,18 @@ public:
 
 	void Set_isGame(bool value);
 
-	void PlayerReflash()
+	void PlayerReflash(bool value=true)
 	{
-		m_move_spd.y=0.0f;
 		isLighting=false;
+		if(value)
+		{
+			m_move_spd.y=0.0f;
+		}
+
+		else
+		{
+			m_move_spd.y=JUMP_SPD/1.5f;
+		}
 	}
 
 	CVehicle* Assy_()
