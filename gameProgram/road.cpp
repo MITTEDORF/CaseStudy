@@ -89,7 +89,7 @@ void CRoad::Draw(void)
 D3DXVECTOR2	CRoad::ReturnPush(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE pointType)
 {
 	// Ž©•ª‚Ì4’¸“_‚Æ‘ŠŽè‚Ì4’¸“_‚ðŒvŽZ
-	D3DXVECTOR2 self[4], target[4], temp, rtn, selfpos,tarpos;
+	D3DXVECTOR2 self[4], target[4], temp, rtn, selfpos, tarpos, tarposdef;
 
 	temp = (m_size - m_hitSize)/2;
 
@@ -130,7 +130,7 @@ D3DXVECTOR2	CRoad::ReturnPush(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE poin
 		target[3].x = pos.x - size.x/2;		target[3].y = pos.y + size.y/2;
 		tarpos = pos;
 	}
-
+	tarposdef = tarpos;
 	rtn = D3DXVECTOR2(0.0f, 0.0f);
 
 	//-------------------------------
@@ -257,7 +257,7 @@ D3DXVECTOR2	CRoad::ReturnPush(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE poin
 			}
 		}
 	}
-	rtn = tarpos - pos;
+	rtn = tarpos - tarposdef;
 	return rtn;
 }
 

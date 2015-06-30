@@ -61,7 +61,8 @@ public:
 	CTarget*	GetTargetPrev(void){return m_prev;}
 
 	bool		GetTargetFrag(void){return m_targetFlag;}
-	void		SetTargetFrag(void){m_targetFlag = true;}
+	void		SetTargetFrag(bool b){m_targetFlag = b;}
+	void		TargetOn(void){m_texture = CImport::GetTexture(CImport::TARGET_ON); SetTargetFrag(false);}
 
 protected:
 	CTarget* m_next;						// 次ターゲットへのポインタ

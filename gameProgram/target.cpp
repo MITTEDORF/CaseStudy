@@ -50,7 +50,7 @@ CTarget* CTarget::Create(LPDIRECT3DDEVICE9 device, TARGET_DATA data, POINT_TYPE 
 	pointer->SetHitOffset(Offset_List[data.type]);
 	// Œõ‚ªû‘©‚·‚é‚Ì‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒOİ’è
 	if(data.type == TYPE_TARGET_OFF)
-		pointer->SetTargetFrag();
+		pointer->SetTargetFrag(true);
 	return pointer;
 }
 

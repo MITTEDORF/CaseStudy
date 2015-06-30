@@ -120,12 +120,14 @@ D3DXVECTOR2	CRoadManager::CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::
 	CRoad* cur = m_list_top;
 	CRoad* next;
 
+	D3DXVECTOR2 rtn = D3DXVECTOR2(0.0f, 0.0f);
+
 	while(cur)
 	{
 		// ‚Ô‚Â‚©‚Á‚Ä‚¢‚½ê‡A‚ß‚è‚ñ‚Å‚é”’l•ª‚ğ•Ô‚·
 		if(cur->CheckCollisionAABB(pos, size, pointType) == true)
 		{
-			return cur->ReturnPush(pos, size, pointType);
+			rtn += cur->ReturnPush(pos, size, pointType);
 		}
 
 		next = cur->GetRoadNext();
@@ -133,8 +135,7 @@ D3DXVECTOR2	CRoadManager::CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::
 		cur = next;
 	}
 
-	// ‚Ô‚Â‚©‚Á‚Ä‚È‚¢ê‡
-	return D3DXVECTOR2(0.0f, 0.0f);
+	return rtn;
 }
 
 
