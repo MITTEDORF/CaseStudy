@@ -111,7 +111,9 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/select/costume_option.png",
 	"./data/TEXTURE/select/option_details.png",
 	"./data/TEXTURE/select/select_cursor.png",
-	"./data/TEXTURE/select/select_frame.png"
+	"./data/TEXTURE/select/select_frame.png",
+	"./data/TEXTURE/select/select_bg.png"
+
 
 
 };
