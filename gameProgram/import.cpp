@@ -58,9 +58,10 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/stumbler/barricade.png",
 
 	// ターゲット
-	"./data/TEXTURE/goal/tv_on.png",
+	"./data/TEXTURE/goal/tv_off.png",
 	"./data/TEXTURE/goal/tv_on.png",
 	"./data/TEXTURE/goal/tv_off.png",
+	"./data/TEXTURE/goal/tv_on.png",
 	"./data/TEXTURE/goal/tv_clear.png",
 
 	// プレイヤー

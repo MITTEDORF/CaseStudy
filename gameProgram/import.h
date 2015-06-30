@@ -67,6 +67,7 @@ public:
 
 		// ターゲット
 		TARGET_OFF,
+		TARGET_ON,
 		GOAL_OFF,
 		GOAL_ON,
 		GOAL_CLEAR,

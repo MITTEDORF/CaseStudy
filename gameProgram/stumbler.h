@@ -71,11 +71,19 @@ public:
 	void		SetStumPrev(CStumbler* prev){m_prev = prev;}
 	// 前障害物ポインタゲット処理
 	CStumbler*	GetStumPrev(void){return m_prev;}
+	// 障害物タイプセット処理
+	void		SetStumType(STUM_TYPE type){m_type = type;}
+	// デフォルト位置セット処理
+	void		SetDefPos(D3DXVECTOR2 pos){m_defpos = pos;}
 
 protected:
-	int		m_life;							// 障害物耐久度
-	CStumbler* m_next;						// 次障害物へのポインタ
-	CStumbler* m_prev;						// 前障害物へのポインタ
+	int			m_life;						// 障害物耐久度
+	CStumbler*	m_next;						// 次障害物へのポインタ
+	CStumbler*	m_prev;						// 前障害物へのポインタ
+	STUM_TYPE	m_type;						// 障害物タイプ
+	float		m_move;						// 移動値
+	D3DXVECTOR2	m_defpos;					// 初期位置
+	int			m_texAnim;					// テクスチャアニメーション用タイマ
 };
 
 //=============================================================================
