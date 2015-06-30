@@ -17,7 +17,8 @@ CTarget::CTarget(int priority, OBJTYPE objType) : CScene2D(priority, objType)
 {
 	m_next = NULL;
 	m_prev = NULL;
-	m_targetFlag = NULL;
+	m_targetFlag = false;
+	m_goalFlag = false;
 }
 
 //=============================================================================
@@ -50,7 +51,16 @@ CTarget* CTarget::Create(LPDIRECT3DDEVICE9 device, TARGET_DATA data, POINT_TYPE 
 	pointer->SetHitOffset(Offset_List[data.type]);
 	// 光が収束するのかどうかのフラグ設定
 	if(data.type == TYPE_TARGET_OFF)
+	{
 		pointer->SetTargetFrag(true);
+		pointer->SetGoalFrag(false);
+	}
+	// ゴールするのかどうかのフラグ設定
+	if(data.type == TYPE_GOAL_OFF || data.type == TYPE_GOAL_ON || data.type == TYPE_GOAL_CLEAR)
+	{
+		pointer->SetTargetFrag(false);
+		pointer->SetGoalFrag(true);
+	}
 	return pointer;
 }
 

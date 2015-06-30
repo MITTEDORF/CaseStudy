@@ -62,12 +62,15 @@ public:
 
 	bool		GetTargetFrag(void){return m_targetFlag;}
 	void		SetTargetFrag(bool b){m_targetFlag = b;}
+	bool		GetGoalFrag(void){return m_goalFlag;}
+	void		SetGoalFrag(bool b){m_goalFlag = b;}
 	void		TargetOn(void){m_texture = CImport::GetTexture(CImport::TARGET_ON); SetTargetFrag(false);}
 
 protected:
 	CTarget* m_next;						// 次ターゲットへのポインタ
 	CTarget* m_prev;						// 前ターゲットへのポインタ
 	bool m_targetFlag;
+	bool m_goalFlag;
 };
 
 //=============================================================================

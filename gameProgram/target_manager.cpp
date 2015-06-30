@@ -150,7 +150,7 @@ bool CTargetManager::CheckHitGoal(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::P
 	{
 		if(cur->CheckCollisionAABB(pos, size, pointType))
 		{
-			if(cur->GetTargetFrag() != true)
+			if(cur->GetGoalFrag() == true)
 				return true;
 		}
 
