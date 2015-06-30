@@ -20,6 +20,7 @@
 #include "result.h"
 
 #include "inputKeyboard.h"
+#include "inputPadX.h"
 
 #include "listObject.h"
 #include "scene2D.h"
@@ -66,6 +67,7 @@ HRESULT CManager::Init(HINSTANCE instance, HWND wnd, bool window)
 
 	// 入力
 	m_keyboard = CInputKeyboard::Create(instance, wnd);
+	m_padX = CInputPadX::Create();
 
 	// デバッグ表示
 	m_debugproc = CDebugproc::Create(device);
@@ -91,6 +93,7 @@ HRESULT CManager::Init(HINSTANCE instance, HWND wnd, bool window)
 	m_phase = (CPhase*)new CTitle;
 	m_phase->Init(device);
 	m_phase->SetKeyboard(m_keyboard);
+	m_phase->SetPadX(m_padX);
 
 	m_phaseNext = m_phase;
 
@@ -130,6 +133,7 @@ void CManager::Uninit(void)
 
 	// 入力
 	SAFE_END(m_keyboard);
+	SAFE_END(m_padX);
 
 	// レンダラー
 	SAFE_END(m_renderer);
@@ -155,6 +159,7 @@ void CManager::Update(void)
 #endif
 	// 入力
 	m_keyboard->Update();
+	m_padX->Update();
 
 	//----------------------------
 	// フェーズ
