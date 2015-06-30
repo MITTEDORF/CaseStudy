@@ -360,5 +360,8 @@
     <ClInclude Include="target_manager.h">
       <Filter>object\target</Filter>
     </ClInclude>
+    <ClInclude Include="equipment_choice_config.h">
+      <Filter>phase\equipment_choice</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
