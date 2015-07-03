@@ -110,6 +110,7 @@
     <ClCompile Include="result.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="scene2D.cpp" />
+    <ClCompile Include="sound.cpp" />
     <ClCompile Include="stumbler.cpp" />
     <ClCompile Include="stum_manager.cpp" />
     <ClCompile Include="target.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="result.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="scene2D.h" />
+    <ClInclude Include="sound.h" />
     <ClInclude Include="stumbler.h" />
     <ClInclude Include="stum_manager.h" />
     <ClInclude Include="target.h" />

@@ -28,6 +28,7 @@
 #define DIRECTINPUT_VERSION (0x0800) // 警告対策用
 #include <dinput.h>
 #include "XInput.h"
+#include "xaudio2.h"	// サウンド処理
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // メモリーリークチェック

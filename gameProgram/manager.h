@@ -20,6 +20,7 @@
 class CRenderer;
 class CDebugproc;
 class CImport;
+class CSound;
 class CPhase;
 
 class CInputKeyboard;
@@ -47,6 +48,7 @@ private:
 	CRenderer*	m_renderer;
 	CDebugproc*	m_debugproc;
 	CImport*	m_import;
+	CSound*		m_sound;
 
 	CPhase*	m_phase;
 	static CPhase*	m_phaseNext;

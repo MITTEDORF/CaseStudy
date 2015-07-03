@@ -11,6 +11,7 @@
 #include "game.h"
 #include "manager.h"
 #include "fade.h"
+#include "sound.h"
 
 #include "result.h"
 #include "gameclear.h"
@@ -76,6 +77,11 @@ HRESULT CGame::Init(LPDIRECT3DDEVICE9 device)
 	m_version->SetPos(SCREEN_WIDTH - 206.0f, SCREEN_HEIGHT - 65.0f);
 
 	//----------------------------
+	// サウンドの再生
+	//----------------------------
+	m_sound->Play(CSound::SOUND_LABEL_GAMEBGM);
+
+	//----------------------------
 	// 初期化成功
 	//----------------------------
 	return S_OK;
@@ -106,6 +112,11 @@ void CGame::Uninit(void)
 
 	// シーン
 	CScene::ReleaseAll();
+
+	//----------------------------
+	// サウンドの停止
+	//----------------------------
+	m_sound->Stop(CSound::SOUND_LABEL_GAMEBGM);
 }
 
 //=============================================================================

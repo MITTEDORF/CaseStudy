@@ -119,6 +119,9 @@
     <Filter Include="object\target">
       <UniqueIdentifier>{aef4cc34-83f8-4343-9f63-87f397a683ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sound">
+      <UniqueIdentifier>{86099491-5e6f-410d-a9ea-53b5049cd0a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -231,6 +234,9 @@
     </ClCompile>
     <ClCompile Include="target_manager.cpp">
       <Filter>object\target</Filter>
+    </ClCompile>
+    <ClCompile Include="sound.cpp">
+      <Filter>sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -356,6 +362,9 @@
     </ClInclude>
     <ClInclude Include="equipment_choice_config.h">
       <Filter>phase\equipment_choice</Filter>
+    </ClInclude>
+    <ClInclude Include="sound.h">
+      <Filter>sound</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
