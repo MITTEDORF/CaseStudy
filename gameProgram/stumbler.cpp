@@ -22,6 +22,7 @@ CStumbler::CStumbler(int priority, OBJTYPE objType) : CScene2D(priority, objType
 	m_defpos = D3DXVECTOR2(0.0f, 0.0f);
 	m_texAnim = 0;
 	m_fallFrag = false;
+	m_stumDelete = false;
 }
 
 //=============================================================================
@@ -115,72 +116,74 @@ void CStumbler::Update(void)
 	// HPが0以下なら削除フラグ立てる
 	if(m_life <= 0)
 	{
-		// 前後ポインタの繋ぎ替え
-		if(m_prev != NULL)
-		m_prev->m_next = m_next;
-		if(m_next != NULL)
-			m_next->m_prev = m_prev;
 		// 削除フラグ立てる
-		CScene::Delete();
+		SetStumDelete();
 	}
-
-	// タイプによって色々処理
-	switch(m_type)
+	else
 	{
-	case TYPE_BIRD:			// カラスの時
-		// 上下移動
-		CScene2D::SetPosY(m_pos.y + m_move);
-		// デフォルト位置との開きが規定値を超えたら反転
-		if(abs(m_defpos.y - m_pos.y) > 45.0f)
-			m_move *= -1;
-		// 12fごとにテクスチャアニメーション
-		m_texAnim++;
-		if(m_texAnim % 12 == 0)
+		// タイプによって色々処理
+		switch(m_type)
 		{
-			if(m_coord[0].x != 0.5f)
-			{
-				CScene2D::SetCord(0, D3DXVECTOR2(0.5, 0));
-				CScene2D::SetCord(1, D3DXVECTOR2(1, 0));
-				CScene2D::SetCord(2, D3DXVECTOR2(0.5, 1));
-				CScene2D::SetCord(3, D3DXVECTOR2(1, 1));
-			}
-			else
-			{
-				CScene2D::SetCord(0, D3DXVECTOR2(0, 0));
-				CScene2D::SetCord(1, D3DXVECTOR2(0.5, 0));
-				CScene2D::SetCord(2, D3DXVECTOR2(0, 1));
-				CScene2D::SetCord(3, D3DXVECTOR2(0.5, 1));
-			}
-		}
-		break;
-
-	case TYPE_NEEDLE:
-		if(m_fallFrag)
-		{
+		case TYPE_BIRD:			// カラスの時
+			// 上下移動
+			CScene2D::SetPosY(m_pos.y + m_move);
+			// デフォルト位置との開きが規定値を超えたら反転
+			if(abs(m_defpos.y - m_pos.y) > 45.0f)
+				m_move *= -1;
+			// 12fごとにテクスチャアニメーション
 			m_texAnim++;
-			// 30f横揺れする
-			if(m_texAnim < 30)
-				if(m_texAnim % 2 == 0)
-					CScene2D::SetPosX(m_pos.x += 16.0f);
-				else
-					CScene2D::SetPosX(m_pos.x -= 16.0f);
-			// 待機フレーム経過後落下
-			else
-				CScene2D::SetPosY(m_pos.y += 16.0f);
-			// 画面下に出たら死ね
-			if(m_pos.y >= 760.0f)
+			if(m_texAnim % 12 == 0)
 			{
-				Attack(1);
+				if(m_coord[0].x != 0.5f)
+				{
+					CScene2D::SetCord(0, D3DXVECTOR2(0.5, 0));
+					CScene2D::SetCord(1, D3DXVECTOR2(1, 0));
+					CScene2D::SetCord(2, D3DXVECTOR2(0.5, 1));
+					CScene2D::SetCord(3, D3DXVECTOR2(1, 1));
+				}
+				else
+				{
+					CScene2D::SetCord(0, D3DXVECTOR2(0, 0));
+					CScene2D::SetCord(1, D3DXVECTOR2(0.5, 0));
+					CScene2D::SetCord(2, D3DXVECTOR2(0, 1));
+					CScene2D::SetCord(3, D3DXVECTOR2(0.5, 1));
+				}
 			}
+			break;
+
+		case TYPE_NEEDLE:
+			if(m_fallFrag)
+			{
+				m_texAnim++;
+				// 30f横揺れする
+				if(m_texAnim < 30)
+					if(m_texAnim % 4 == 0 || m_texAnim % 4 == 1)
+					{	
+						CScene2D::SetRot(0.5f);
+						CScene2D::SetPosX(m_pos.x += 16.0f);
+					}
+					else
+					{
+						CScene2D::SetRot(-0.5f);
+						CScene2D::SetPosX(m_pos.x -= 16.0f);
+					}
+				// 待機フレーム経過後落下
+				else
+					CScene2D::SetPosY(m_pos.y += 16.0f);
+				// 画面下に出たら死ね
+				if(m_pos.y >= 760.0f)
+				{
+					SetStumDelete();
+				}
+			}
+			break;
+
+		default:
+			break;
 		}
-		break;
-
-	default:
-		break;
+		// 継承元の更新処理呼び出し
+		CScene2D::Update();
 	}
-
-	// 継承元の更新処理呼び出し
-	CScene2D::Update();
 }
 
 //=============================================================================
@@ -210,7 +213,7 @@ bool CStumbler::LivingCheck(void)
 
 void CStumbler::CheckFall(D3DXVECTOR2 pos)
 {
-	if(pos.x >= m_pos.x - 320.0f)
+	if(pos.x >= m_pos.x - (SCREEN_HEIGHT - m_pos.y)/2)
 	{
 		SetFall();
 	}

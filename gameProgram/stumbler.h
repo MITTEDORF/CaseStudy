@@ -81,6 +81,10 @@ public:
 	// 落下チェック
 	void		CheckFall(D3DXVECTOR2 pos);
 
+	void		SetStumDelete(void){m_stumDelete = true;}
+
+	bool		GetStumDelete(void){return m_stumDelete;}
+
 protected:
 	int			m_life;						// 障害物耐久度
 	CStumbler*	m_next;						// 次障害物へのポインタ
@@ -90,6 +94,7 @@ protected:
 	D3DXVECTOR2	m_defpos;					// 初期位置
 	int			m_texAnim;					// テクスチャアニメーション用タイマ
 	bool		m_fallFrag;					// 落下フラグ
+	bool		m_stumDelete;				// 障害物削除フラグあ
 };
 
 //=============================================================================

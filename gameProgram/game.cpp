@@ -129,6 +129,8 @@ void CGame::Update(void)
 		// プレイヤーの座標取得
 		D3DXVECTOR2 playerPos = m_player->GetPos();
 
+		m_stumbler->UnLinkStum();
+
 		// スクロール処理(プレイヤーが画面半分を越えた時)
 		if(playerPos.x >= SCREEN_HALF)
 		{

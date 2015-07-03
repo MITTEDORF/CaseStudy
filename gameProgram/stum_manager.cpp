@@ -77,24 +77,6 @@ HRESULT CStumManager::Init(LPDIRECT3DDEVICE9 device)
 }
 
 //=============================================================================
-// 更新処理
-//=============================================================================
-void CStumManager::Update(void)
-{
-	CStumbler* cur = m_list_top;
-	CStumbler* next;
-
-	while(cur)
-	{
-		cur->Update();
-
-		next = cur->GetStumNext();
-
-		cur = next;
-	}
-}
-
-//=============================================================================
 // スクロール
 //=============================================================================
 void CStumManager::Scroll(float f)
@@ -137,9 +119,6 @@ bool CStumManager::CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_T
 		{
 			// ぶつかってる障害物にダメージ
 			cur->Attack(1);
-			// ダメージで死んでたらリストから削除
-			if(cur->LivingCheck())
-				UnLinkStum(cur);
 			return true;
 		}
 
@@ -153,13 +132,46 @@ bool CStumManager::CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_T
 //=============================================================================
 // リスト抹消
 //=============================================================================
-void CStumManager::UnLinkStum(CStumbler* cur)
+void CStumManager::UnLinkStum(void)
 {
-	// リスト先頭だった場合、次障害物をリスト先頭に
-	if(cur == m_list_top)
-		m_list_top = cur->GetStumNext();
-	// リスト末尾だった場合、前障害物をリスト末尾に
-	if(cur == m_list_cur)
-		m_list_cur = cur->GetStumPrev();
+	CStumbler* cur = m_list_top;
+	CStumbler* next;
+
+	while(cur)
+	{
+		next = cur->GetStumNext();
+		if(cur->GetStumDelete() == true)
+		{
+			if(m_list_top == cur && m_list_cur == cur)
+			{
+				m_list_top = NULL;
+				m_list_cur = NULL;
+			}
+			else
+			{
+				if(m_list_top != cur)
+				{
+					cur->GetStumPrev()->SetStumNext(cur->GetStumNext());
+				}
+				else
+				{
+					cur->GetStumNext()->SetStumPrev(NULL);
+					m_list_top = cur->GetStumNext();
+				}
+
+				if(m_list_cur != cur)
+				{
+					cur->GetStumNext()->SetStumPrev(cur->GetStumPrev());
+				}
+				else
+				{
+					cur->GetStumPrev()->SetStumNext(NULL);
+					m_list_cur = cur->GetStumPrev();
+				}
+			}
+			cur->Uninit();
+		}
+		cur = next;
+	}
 }
 // End of File
