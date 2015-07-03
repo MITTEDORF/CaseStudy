@@ -169,7 +169,7 @@ void CStumManager::UnLinkStum(void)
 					m_list_cur = cur->GetStumPrev();
 				}
 			}
-			cur->Uninit();
+			cur->Delete();
 		}
 		cur = next;
 	}
