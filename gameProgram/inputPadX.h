@@ -28,7 +28,6 @@ public:
 	HRESULT	Init(void);
 	void	Uninit(void);
 	void	Update(void);
-	void	Draw(void);
 
 	bool GetButton(WORD wButton){return (m_pad.Gamepad.wButtons & wButton) ? true : false;}
 	bool GetLeftTrigger(void){return (m_pad.Gamepad.bLeftTrigger > XINPUT_GAMEPAD_TRIGGER_THRESHOLD) ? true : false;}

@@ -262,6 +262,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_player=CPlayer::Create(device,costume_id,vehicle_id);
 	m_player->SetPos(120.0f,300.0f);
 	m_player->SetKeyboard(m_keyboard);
+	m_player->SetPadX(m_padX);
 
 
 	//goal(‘åˆäì 6/9_AM_10 •ÏX)

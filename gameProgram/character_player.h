@@ -26,7 +26,7 @@ const int PLAYER_HP_MAX                 = 3;
 //=============================================================================
 //キーボード入力制御クラス
 class CInputKeyboard;
-
+class CInputPadX;
 class CParticleManager;
 //=============================================================================
 // クラス定義
@@ -64,6 +64,8 @@ public:
 
 	//キーボード情報のセット
 	void SetKeyboard(CInputKeyboard* keyboard){m_keyboard = keyboard;}
+	//パッド情報のセット
+	void SetPadX(CInputPadX* padX){m_padX = padX;}
 
 	//移動速度の取得処理
 	//戻り値:プレイヤーの移動量
@@ -146,6 +148,12 @@ public:
 	{
 		return (Assy);
 	}
+
+	
+	//テクスチャIDの参照
+	CImport::TEXTURES ConsultationPlayerTexID(PlayerState state);
+
+	CImport::TEXTURES ConsultationVehicleTexID();
 private:
 
 	CostumeID Costume_id;
@@ -169,6 +177,8 @@ private:
 
 	//キーボード情報格納変数
 	CInputKeyboard*	m_keyboard;
+	//パッド情報格納変数
+	CInputPadX*		m_padX;
 	//プレイヤーの移動速度
 	D3DXVECTOR2 m_move_spd;
 
@@ -228,6 +238,7 @@ private:
 		isRupeAnim=true;
 		AnimMode=-1;
 		m_keyboard=NULL;
+		m_padX=NULL;
 		Assy=NULL;
 		cntAnim=0;
 		nowAnim=1;
@@ -262,10 +273,6 @@ private:
 	//無敵処理
 	void InvincibleUpdate();
 
-	//テクスチャIDの参照
-	CImport::TEXTURES ConsultationPlayerTexID(PlayerState state);
-
-	CImport::TEXTURES ConsultationVehicleTexID();
 
 };
 

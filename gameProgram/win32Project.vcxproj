@@ -124,6 +124,7 @@
     <ClInclude Include="character_vehicle.h" />
     <ClInclude Include="debugproc.h" />
     <ClInclude Include="equipment_choice.h" />
+    <ClInclude Include="equipment_choice_config.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameclear.h" />

@@ -23,6 +23,7 @@ class CImport;
 class CPhase;
 
 class CInputKeyboard;
+class CInputPadX;
 
 class CManager
 {
@@ -51,6 +52,7 @@ private:
 	static CPhase*	m_phaseNext;
 
 	CInputKeyboard*	m_keyboard;
+	CInputPadX*		m_padX;
 };
 
 //=============================================================================
