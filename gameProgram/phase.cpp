@@ -14,6 +14,6 @@
 // Ã“I•Ï”
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 CFade*			CPhase::m_fade		= NULL;
+CSound*			CPhase::m_sound		= NULL;
 CInputKeyboard*	CPhase::m_keyboard	= NULL;
-CInputMouse*	CPhase::m_mouse		= NULL;
 CInputPadX*		CPhase::m_padX		= NULL;

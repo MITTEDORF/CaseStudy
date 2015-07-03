@@ -128,13 +128,13 @@ void CGameClear::Draw(void)
 void CGameClear::InitObject(LPDIRECT3DDEVICE9 device)
 {
 
-	CScene2D* resultLogo = CScene2D::Create(device, CImport::SKY1, CScene2D::POINT_LEFTTOP);
-		resultLogo->SetSize(SCREEN_WIDTH*0.5f-30.0f, SCREEN_HEIGHT*0.5f-30.0f);
-		resultLogo->SetPos(15.0f, SCREEN_HEIGHT * 0.25f);
+	CScene2D* resultLogo = CScene2D::Create(device, CImport::PLAYER_GOODMOOD, CScene2D::POINT_LEFTTOP);
+		resultLogo->SetSize(602, 664.5f);
+		resultLogo->SetPos(15.0f , SCREEN_HEIGHT * 0.125f*0.5f);
 
-	CScene2D* resultLogo2 = CScene2D::Create(device, CImport::SKY1, CScene2D::POINT_LEFTTOP);
-		resultLogo2->SetSize(SCREEN_WIDTH*0.5f-30.0f, SCREEN_HEIGHT*0.5f-30.0f);
-		resultLogo2->SetPos(45.0f+SCREEN_WIDTH*0.5f-30.0f, SCREEN_HEIGHT * 0.25f);
+		CScene2D* resultLogo2 = CScene2D::Create(device, CImport::GOAL_CLEAR, CScene2D::POINT_LEFTTOP);
+		resultLogo2->SetSize(SCREEN_WIDTH*0.25f-30.0f, SCREEN_WIDTH*0.25f-30.0f);
+		resultLogo2->SetPos(45.0f+SCREEN_WIDTH*0.625f-30.0f, SCREEN_HEIGHT * 0.25f);
 
 		m_Button[SELECT_CUR_CHAPTER] = CScene2D::Create(device, "data/TEXTURE/button/chapterSelect.png" , CScene2D::POINT_LEFTTOP);
 		m_Button[SELECT_CUR_CHAPTER]->SetSize( CHAPTER_BUTTON_WIDTH , BUTTON_HIGHT );

@@ -18,6 +18,10 @@
 
 #include "character_player.h"
 
+#include "math_animation.h"
+
+#include "equipment_choice_config.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -83,6 +87,9 @@ void CEquipmentChoice::Update(void)
 	{
 		CostumeChoice();
 		VehicleChoice();
+		CurUpdate();
+		AnimUpdate();
+		cosUpdate();
 		//----------------------------
 		// 入力
 		//----------------------------
@@ -113,6 +120,10 @@ void CEquipmentChoice::Draw(void)
 //=============================================================================
 void CEquipmentChoice::InitObject(LPDIRECT3DDEVICE9 device)
 {
+	//bg=CScene2D::Create(device, CImport::MAKE_UI_SELECT_BACK, CScene2D::POINT_LEFTTOP);
+	//bg->SetSize(SCREEN_WIDTH , SCREEN_HEIGHT );
+	//bg->SetPos(0,0);
+
 	//プレイヤーの生成
 	m_player=CPlayer::Create(device);
 	m_player->SetPos(SCREEN_WIDTH * 0.8f, SCREEN_HEIGHT * 0.3f);
@@ -120,6 +131,23 @@ void CEquipmentChoice::InitObject(LPDIRECT3DDEVICE9 device)
 	m_player->Assy_()->SetSize(m_player->GetSize());
 	m_player->SetKeyboard(m_keyboard);
 	m_player->Set_isGame(false);
+
+	m_cos=CScene2D::Create(device, CImport::PLAYER_DEFAULT_WAIT, CScene2D::POINT_CENTER);
+	m_cos->SetPos(SCREEN_WIDTH * 0.3f, CUR_UP);
+	SetAnim(4,1,1,1,m_cos);
+
+	m_ass=CScene2D::Create(device, CImport::ASSY_TRAM, CScene2D::POINT_CENTER);
+	m_ass->SetPos(SCREEN_WIDTH * 0.3f, CUR_BUTTOM);
+	SetAnim(4,1,3,1,m_ass);
+
+	m_cur=CScene2D::Create(device, CImport::MAKE_UI_SELECT_CUR, CScene2D::POINT_CENTER);
+	m_cur->SetSize(320.f,210.f);
+	m_cur->SetPos(SCREEN_WIDTH * 0.3f, CUR_UP);
+	SetAnim(4,1,1,1,m_cur);
+
+	m_slotback=CScene2D::Create(device, CImport::MAKE_UI_SELECT_FRAME, CScene2D::POINT_CENTER);
+	m_slotback->SetSize(721.f,496.f);
+	m_slotback->SetPos(SCREEN_WIDTH * 0.3f, SCREEN_HEIGHT * 0.4f);
 }
 
 //=============================================================================
@@ -127,24 +155,27 @@ void CEquipmentChoice::InitObject(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 void CEquipmentChoice::VehicleChoice()
 {
-	if(m_keyboard->GetTrigger(DIK_UP))
+	if(m_cur->GetPos().y==CUR_BUTTOM)
 	{
-		vehicle_id++;
-		if(vehicle_id>=VEHICLE_MAX-1)
+		if(m_keyboard->GetTrigger(DIK_LEFT))
 		{
-			vehicle_id=VEHICLE_MAX-1;
+			vehicle_id--;
+			if(vehicle_id<=VEHICLE_TRAM)
+			{
+				vehicle_id=VEHICLE_TRAM;
+			}
+			m_player->SetVehicleID((VehicleID)vehicle_id);
 		}
-		m_player->SetVehicleID((VehicleID)vehicle_id);
-	}
 
-	else if(m_keyboard->GetTrigger(DIK_DOWN))
-	{
-		vehicle_id--;
-		if(vehicle_id<=VEHICLE_TRAM)
+		else if(m_keyboard->GetTrigger(DIK_RIGHT))
 		{
-			vehicle_id=VEHICLE_TRAM;
+			vehicle_id++;
+			if(vehicle_id>=VEHICLE_MAX-1)
+			{
+				vehicle_id=VEHICLE_MAX-1;
+			}
+			m_player->SetVehicleID((VehicleID)vehicle_id);
 		}
-		m_player->SetVehicleID((VehicleID)vehicle_id);
 	}
 }
 //=============================================================================
@@ -152,23 +183,61 @@ void CEquipmentChoice::VehicleChoice()
 //=============================================================================
 void CEquipmentChoice::CostumeChoice()
 {
-	if(m_keyboard->GetTrigger(DIK_LEFT))
+	if(m_cur->GetPos().y==CUR_UP)
 	{
-		costume_id--;
-		if(costume_id<=COSTUME_NONE)
+		if(m_keyboard->GetTrigger(DIK_LEFT))
 		{
-			costume_id=COSTUME_NONE;
+			costume_id--;
+			if(costume_id<=COSTUME_NONE)
+			{
+				costume_id=COSTUME_NONE;
+			}
+			m_player->SetCostumeID((CostumeID)costume_id);
 		}
-		m_player->SetCostumeID((CostumeID)costume_id);
+
+		else if(m_keyboard->GetTrigger(DIK_RIGHT))
+		{
+			costume_id++;
+			if(costume_id>=COSTUME_MAX-1)
+			{
+				costume_id=COSTUME_MAX-1;
+			}
+			m_player->SetCostumeID((CostumeID)costume_id);
+		}
+	}
+}
+
+void CEquipmentChoice::AnimUpdate()
+{
+	if(cntAnim>=10)
+		{
+			nowAnim++;
+			if(nowAnim==5)
+			{
+				nowAnim=1;
+			}
+
+			SetAnim(4,nowAnim,1,1,m_cur);
+			cntAnim=0;
+		}
+		cntAnim++;
+}
+
+void CEquipmentChoice::CurUpdate()
+{
+	if(m_keyboard->GetTrigger(DIK_UP))
+	{
+		m_cur->SetPosY(CUR_UP);
 	}
 
-	else if(m_keyboard->GetTrigger(DIK_RIGHT))
+	else if(m_keyboard->GetTrigger(DIK_DOWN))
 	{
-		costume_id++;
-		if(costume_id>=COSTUME_MAX-1)
-		{
-			costume_id=COSTUME_MAX-1;
-		}
-		m_player->SetCostumeID((CostumeID)costume_id);
+		m_cur->SetPosY(CUR_BUTTOM);
 	}
+}
+
+void CEquipmentChoice::cosUpdate()
+{
+	m_cos->SetTex(m_player->ConsultationPlayerTexID(PLAYER_STATE_WAIT));
+	m_ass->SetTex(m_player->ConsultationVehicleTexID());
 }

@@ -18,8 +18,8 @@
 // ƒNƒ‰ƒX’è‹`
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 class CFade;
+class CSound;
 class CInputKeyboard;
-class CInputMouse;
 class CInputPadX;
 
 class CPhase
@@ -35,8 +35,9 @@ public:
 
 	static CFade*	GetFade(void){return m_fade;}
 
+	void SetSound(CSound* sound){m_sound = sound;}
+
 	void SetKeyboard(CInputKeyboard* keyboard){m_keyboard = keyboard;}
-	void SetMouse(CInputMouse* mouse){m_mouse = mouse;}
 	void SetPadX(CInputPadX* padX){m_padX = padX;}
 
 protected:
@@ -44,8 +45,9 @@ protected:
 
 	static CFade* m_fade;
 
+	static CSound* m_sound;
+
 	static CInputKeyboard*	m_keyboard;
-	static CInputMouse*		m_mouse;
 	static CInputPadX*		m_padX;
 };
 

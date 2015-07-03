@@ -13,6 +13,7 @@
 #include "renderer.h"
 #include "debugproc.h"
 #include "import.h"
+#include "sound.h"
 
 #include "phase.h"
 #include "title.h"
@@ -86,14 +87,16 @@ HRESULT CManager::Init(HINSTANCE instance, HWND wnd, bool window)
 	// ファイル読み込み
 	//----------------------------
 	m_import = CImport::Create(device);
+	m_sound  = CSound::Create(wnd);
 
 	//----------------------------
 	// フェーズ
 	//----------------------------
 	m_phase = (CPhase*)new CTitle;
-	m_phase->Init(device);
 	m_phase->SetKeyboard(m_keyboard);
 	m_phase->SetPadX(m_padX);
+	m_phase->SetSound(m_sound);
+	m_phase->Init(device);
 
 	m_phaseNext = m_phase;
 
@@ -125,6 +128,9 @@ void CManager::Uninit(void)
 	//----------------------------
 	// 共通部
 	//----------------------------
+	// サウンド
+	SAFE_END(m_sound);
+
 	// インポート
 	SAFE_END(m_import);
 

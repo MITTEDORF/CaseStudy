@@ -148,6 +148,12 @@ public:
 	{
 		return (Assy);
 	}
+
+	
+	//テクスチャIDの参照
+	CImport::TEXTURES ConsultationPlayerTexID(PlayerState state);
+
+	CImport::TEXTURES ConsultationVehicleTexID();
 private:
 
 	CostumeID Costume_id;
@@ -267,10 +273,6 @@ private:
 	//無敵処理
 	void InvincibleUpdate();
 
-	//テクスチャIDの参照
-	CImport::TEXTURES ConsultationPlayerTexID(PlayerState state);
-
-	CImport::TEXTURES ConsultationVehicleTexID();
 
 };
 
