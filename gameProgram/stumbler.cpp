@@ -21,6 +21,7 @@ CStumbler::CStumbler(int priority, OBJTYPE objType) : CScene2D(priority, objType
 	m_move = -1.0f;
 	m_defpos = D3DXVECTOR2(0.0f, 0.0f);
 	m_texAnim = 0;
+	m_fallFrag = false;
 }
 
 //=============================================================================
@@ -40,7 +41,7 @@ CStumbler* CStumbler::Create(LPDIRECT3DDEVICE9 device, STUM_DATA data, POINT_TYP
 		D3DXVECTOR2(96, 96),		// TYPE_BIRD
 		D3DXVECTOR2(80, 96),		// TYPE_DUSTBOX
 		D3DXVECTOR2(128, 128),		// TYPE_BARRICADE
-		D3DXVECTOR2(128, 128)		// TYPE_MAX
+		D3DXVECTOR2(128, 128)		// TYPE_NEEDLE
 	};
 
 	// 当たり判定座標オフセット値リスト
@@ -55,7 +56,7 @@ CStumbler* CStumbler::Create(LPDIRECT3DDEVICE9 device, STUM_DATA data, POINT_TYP
 		D3DXVECTOR2(0, 0),			// TYPE_BIRD
 		D3DXVECTOR2(0, 16),			// TYPE_DUSTBOX
 		D3DXVECTOR2(0, 0),			// TYPE_BARRICADE
-		D3DXVECTOR2(0, 0)			// TYPE_MAX
+		D3DXVECTOR2(0, 0)			// TYPE_NEEDLE
 	};
 
 	CStumbler* pointer = new CStumbler;
@@ -133,6 +134,7 @@ void CStumbler::Update(void)
 		if(abs(m_defpos.y - m_pos.y) > 45.0f)
 			m_move *= -1;
 		// 12fごとにテクスチャアニメーション
+		m_texAnim++;
 		if(m_texAnim % 12 == 0)
 		{
 			if(m_coord[0].x != 0.5f)
@@ -152,11 +154,30 @@ void CStumbler::Update(void)
 		}
 		break;
 
+	case TYPE_NEEDLE:
+		if(m_fallFrag)
+		{
+			m_texAnim++;
+			// 30f横揺れする
+			if(m_texAnim < 30)
+				if(m_texAnim % 2 == 0)
+					CScene2D::SetPosX(m_pos.x += 16.0f);
+				else
+					CScene2D::SetPosX(m_pos.x -= 16.0f);
+			// 待機フレーム経過後落下
+			else
+				CScene2D::SetPosY(m_pos.y += 16.0f);
+			// 画面下に出たら死ね
+			if(m_pos.y >= 760.0f)
+			{
+				Attack(1);
+			}
+		}
+		break;
+
 	default:
 		break;
 	}
-
-	m_texAnim++;
 
 	// 継承元の更新処理呼び出し
 	CScene2D::Update();
@@ -184,4 +205,13 @@ bool CStumbler::LivingCheck(void)
 		return true;
 	}
 	return false;
+}
+
+
+void CStumbler::CheckFall(D3DXVECTOR2 pos)
+{
+	if(pos.x >= m_pos.x - 320.0f)
+	{
+		SetFall();
+	}
 }

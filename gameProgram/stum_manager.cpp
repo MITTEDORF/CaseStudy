@@ -122,6 +122,17 @@ bool CStumManager::CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_T
 
 	while(cur)
 	{
+		cur->CheckFall(pos);
+
+		next = cur->GetStumNext();
+
+		cur = next;
+	}
+
+	cur = m_list_top;
+
+	while(cur)
+	{
 		if(cur->CheckCollisionAABB(pos, size, pointType) == true)
 		{
 			// ‚Ô‚Â‚©‚Á‚Ä‚éáŠQ•¨‚Éƒ_ƒ[ƒW
