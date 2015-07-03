@@ -64,6 +64,7 @@ public:
 		BIRD,
 		DUSTBOX,
 		BARRICADE,
+		NEEDLE,
 
 		// ターゲット
 		TARGET_OFF,

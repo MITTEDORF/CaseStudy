@@ -27,7 +27,8 @@ typedef enum{
 	TYPE_LOG_RIGHT,
 	TYPE_BIRD,
 	TYPE_DUSTBOX,
-	TYPE_BARRICADE
+	TYPE_BARRICADE,
+	TYPE_NEEDLE
 }STUM_TYPE;
 
 // 障害物情報
@@ -75,6 +76,10 @@ public:
 	void		SetStumType(STUM_TYPE type){m_type = type;}
 	// デフォルト位置セット処理
 	void		SetDefPos(D3DXVECTOR2 pos){m_defpos = pos;}
+	// 落下フラグ
+	void		SetFall(void){m_fallFrag = true;}
+	// 落下チェック
+	void		CheckFall(D3DXVECTOR2 pos);
 
 protected:
 	int			m_life;						// 障害物耐久度
@@ -84,6 +89,7 @@ protected:
 	float		m_move;						// 移動値
 	D3DXVECTOR2	m_defpos;					// 初期位置
 	int			m_texAnim;					// テクスチャアニメーション用タイマ
+	bool		m_fallFrag;					// 落下フラグ
 };
 
 //=============================================================================
