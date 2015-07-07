@@ -56,6 +56,12 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/stumbler/bird.png",
 	"./data/TEXTURE/stumbler/dustbox.png",
 	"./data/TEXTURE/stumbler/barricade.png",
+	"./data/TEXTURE/stumbler/cuctus.png",
+	"./data/TEXTURE/stumbler/iceberg.png",
+	"./data/TEXTURE/stumbler/icicle.png",
+	"./data/TEXTURE/stumbler/nuts.png",
+	"./data/TEXTURE/stumbler/nuts_reverse.png",
+	"./data/TEXTURE/stumbler/sandstone.png",
 	"./data/TEXTURE/stumbler/needle.png",
 
 	// ターゲット
