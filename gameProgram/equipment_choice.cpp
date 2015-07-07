@@ -126,8 +126,8 @@ void CEquipmentChoice::InitObject(LPDIRECT3DDEVICE9 device)
 
 	//プレイヤーの生成
 	m_player=CPlayer::Create(device);
-	m_player->SetPos(SCREEN_WIDTH * 0.8f, SCREEN_HEIGHT * 0.3f);
-	m_player->SetSize(128.0f*2.f,128.0f*2.f);
+	m_player->SetPos(SCREEN_WIDTH * 0.8f, SCREEN_HEIGHT * 0.2f);
+	m_player->SetSize(128.0f*2.5f,128.0f*2.5f);
 	m_player->Assy_()->SetSize(m_player->GetSize());
 	m_player->SetKeyboard(m_keyboard);
 	m_player->Set_isGame(false);
@@ -148,6 +148,33 @@ void CEquipmentChoice::InitObject(LPDIRECT3DDEVICE9 device)
 	m_slotback=CScene2D::Create(device, CImport::MAKE_UI_SELECT_FRAME, CScene2D::POINT_CENTER);
 	m_slotback->SetSize(721.f,496.f);
 	m_slotback->SetPos(SCREEN_WIDTH * 0.3f, SCREEN_HEIGHT * 0.4f);
+
+	// 効果テキスト
+	m_message = CScene2D::Create(device, CImport::MAKE_UI_VEH_MES_SLED, CScene2D::POINT_CENTER);
+	m_message->SetSize(1200.0f,91.0f);
+	m_message->SetPos(SCREEN_WIDTH * 0.5f,SCREEN_HEIGHT * 0.9);
+	// 効果ウィンドウ
+	m_message_win = CScene2D::Create(device, CImport::MAKE_UI_COS_DETAIL, CScene2D::POINT_CENTER,2);
+	m_message_win->SetSize(1200.0f,91.0f);
+	m_message_win->SetPos(SCREEN_WIDTH * 0.5f,SCREEN_HEIGHT * 0.9);
+
+	// 乗り物名テキスト
+	m_veh_mes = CScene2D::Create(device, CImport::MAKE_UI_HYPHEN_5, CScene2D::POINT_CENTER);
+	m_veh_mes->SetSize(466.0f,91.0f);
+	m_veh_mes->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55);
+	// 乗り物名ウィンドウ
+	m_veh_mes_win = CScene2D::Create(device, CImport::MAKE_UI_ASSY_OPTION, CScene2D::POINT_CENTER,2);
+	m_veh_mes_win->SetSize(466.0f,91.0f);
+	m_veh_mes_win->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55);
+
+	// 服装テキスト
+	m_cos_mes = CScene2D::Create(device, CImport::MAKE_UI_HYPHEN_5, CScene2D::POINT_CENTER);
+	m_cos_mes->SetSize(466.0f,91.0f);
+	m_cos_mes->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55 + 91.0f);
+	// 服装ウィンドウ
+	m_cos_mes_win = CScene2D::Create(device, CImport::MAKE_UI_COS_OPTION, CScene2D::POINT_CENTER,2);
+	m_cos_mes_win->SetSize(466.0f,91.0f);
+	m_cos_mes_win->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55 + 91.0f);
 }
 
 //=============================================================================

@@ -42,6 +42,12 @@ private:
 	CScene2D* m_cos;
 	CScene2D* m_ass;
 	CScene2D* bg;
+	CScene2D* m_message;
+	CScene2D* m_message_win;
+	CScene2D* m_veh_mes;
+	CScene2D* m_veh_mes_win;
+	CScene2D* m_cos_mes;
+	CScene2D* m_cos_mes_win;
 
 	void VehicleChoice();
 	void CostumeChoice();

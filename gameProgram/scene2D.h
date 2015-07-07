@@ -69,7 +69,6 @@ public:
 	D3DXVECTOR2	GetHitPos(void){return (m_hitPos + m_hitOffset);}
 	// 当たり判定座標オフセット値セット処理
 	void	SetHitOffset(D3DXVECTOR2 offset){m_hitOffset = offset;}
-
 protected:
 	void SetVertexPolygon(void);
 	void DrawHitBox(void);

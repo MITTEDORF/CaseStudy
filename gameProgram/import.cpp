@@ -62,6 +62,8 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/stumbler/nuts.png",
 	"./data/TEXTURE/stumbler/nuts_reverse.png",
 	"./data/TEXTURE/stumbler/sandstone.png",
+	"./data/TEXTURE/stumbler/bee.png",
+	"./data/TEXTURE/stumbler/huneycomb.png",
 	"./data/TEXTURE/stumbler/needle.png",
 
 	// ターゲット
@@ -119,9 +121,14 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/select/option_details.png",
 	"./data/TEXTURE/select/select_cursor.png",
 	"./data/TEXTURE/select/select_frame.png",
-	"./data/TEXTURE/select/select_bg.png"
-
-
+	"./data/TEXTURE/select/select_bg.png",
+	"./data/TEXTURE/select/cos_mes_santa.png",
+	"./data/TEXTURE/select/cos_mes_swim.png",
+	"./data/TEXTURE/select/veh_mes_sled.png",
+	"./data/TEXTURE/select/veh_mes_truck.png",
+	"./data/TEXTURE/select/hyphen_3.png",
+	"./data/TEXTURE/select/hyphen_4.png",
+	"./data/TEXTURE/select/hyphen_5.png",
 
 };
 
