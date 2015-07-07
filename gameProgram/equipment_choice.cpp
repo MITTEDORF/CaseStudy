@@ -120,9 +120,9 @@ void CEquipmentChoice::Draw(void)
 //=============================================================================
 void CEquipmentChoice::InitObject(LPDIRECT3DDEVICE9 device)
 {
-	//bg=CScene2D::Create(device, CImport::MAKE_UI_SELECT_BACK, CScene2D::POINT_LEFTTOP);
-	//bg->SetSize(SCREEN_WIDTH , SCREEN_HEIGHT );
-	//bg->SetPos(0,0);
+	bg=CScene2D::Create(device, CImport::MAKE_UI_SELECT_BACK, CScene2D::POINT_LEFTTOP,2);
+	bg->SetSize(SCREEN_WIDTH , SCREEN_HEIGHT );
+	bg->SetPos(0,0);
 
 	//ƒvƒŒƒCƒ„[‚Ì¶¬
 	m_player=CPlayer::Create(device);
