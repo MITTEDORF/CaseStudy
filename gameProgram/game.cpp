@@ -310,7 +310,10 @@ void CGame::ColAll()
 		m_player->PaticleStart((CScene*)m_target->CheckHit(m_player->GetPos() , m_player->GetSize()*3.0f , CScene2D::POINT_CENTER ));
 	}
 
-	ColPlayer();
+	if(!m_player->isDeth_())
+	{
+		ColPlayer();
+	}
 
 	if(m_fade->GetState() == CFade::FADESTATE_NONE)
 	{
@@ -332,44 +335,32 @@ void CGame::ColPlayer()
 	tmp[0] = m_road->CheckHit( m_player->GetHitPos() , m_player->GetHitSize() , CScene2D::POINT_CENTER );
 	tmp[1] = m_player->GetPos();
 
-	//Xの押し戻し適用
-	newpos.x = tmp[0].x + tmp[1].x;
-
-	//重力適用時
-	if(m_player->isGravity_())
-	{
-		//Yの押し戻し適用
-		newpos.y = tmp[0].y + tmp[1].y;
-	}
-
-	//重力適用外時
-	else
-	{
-		//Y押し戻し適用しない
-		newpos.y=tmp[1].y;
-	}
+	//Y押し戻し適用しない
+	newpos.x= tmp[0].x + tmp[1].x;
+	newpos.y= tmp[0].y + tmp[1].y;
 
 	//道路の上から当たった場合
 	if(tmp[0].y<0)
 	{
+		if(!m_player->isGround_())
+		{
+			newpos.x= tmp[1].x;
+			m_player->isGround_set(true);
+		}
 		//Yの速度を0にして重力を切る
-		m_player->ChoseisGravity(false);
+		m_player->SetCanJump();
 		m_player->SpdKill();
+	}
+
+	else
+	{
+		m_player->isGround_set(false);
 	}
 
 	//道路の下から当たった場合
-	else if(tmp[0].y>0)
+	if(tmp[0].y>0)
 	{
-		//Yの速度を0にして重力を入れる
-		m_player->ChoseisGravity(true);
 		m_player->SpdKill();
-	}
-
-	//その他の場合
-	else
-	{
-		//重力を入れる
-		m_player->ChoseisGravity(true);
 	}
 
 	//自機の座標に適用
