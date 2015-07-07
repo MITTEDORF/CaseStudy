@@ -133,7 +133,7 @@ public:
 	void PlayerReflash(bool value=true)
 	{
 		isLighting=false;
-		if(value)
+		if(value||isFall)
 		{
 			m_move_spd.y=0.0f;
 		}
@@ -149,6 +149,46 @@ public:
 		return (Assy);
 	}
 
+	void ChoseisGravity(bool value)
+	{
+		isGravity=value;
+		if(!isGravity)
+		{
+			m_move_spd.y=0.0f;
+			canJump=true;
+			isJump=false;
+		}
+	}
+
+	bool isGravity_()
+	{
+		return (isGravity);
+	}
+
+	bool NotDumDum_()
+	{
+		return (NotDumDum);
+	}
+
+	void SetNotDumDum_(bool value)
+	{
+		NotDumDum=value;
+	}
+
+	void SpdKill()
+	{
+		m_move_spd.y=0.0f;
+	}
+
+	void SetNotDumDumPos(float value)
+	{
+		NotDumDumPos=value;
+	}
+
+	float NotDumDumPos_()
+	{
+		return (NotDumDumPos);
+	}
 	
 	//テクスチャIDの参照
 	CImport::TEXTURES ConsultationPlayerTexID(PlayerState state);
@@ -160,6 +200,8 @@ private:
 	VehicleID Vehicle_id;
 
 	bool isGame;
+
+	bool isGravity;
 
 	//パーティクル管理クラス
 	CParticleManager *particle;
@@ -174,6 +216,10 @@ private:
 	int AssyDamage;
 	//ビークルの耐久(1～3)
 	int AssyHP;
+
+	bool isFall;
+
+	bool NotDumDum;
 
 	//キーボード情報格納変数
 	CInputKeyboard*	m_keyboard;
@@ -203,6 +249,8 @@ private:
 	//無敵の見た目カウンター
 	int isinvincibleDrawCnt;
 
+	float NotDumDumPos;
+
 	//現在のアニメーションモード
 	int AnimMode;
 	//アニメーションのループフラグ
@@ -224,7 +272,7 @@ private:
 	{
 		Offset.x=0;
 		Offset.y=0;
-
+		isGravity=true;
 		isGame=true;
 		HP=PLAYER_HP_MAX;
 		AssyDamage=HP/3;
@@ -232,6 +280,8 @@ private:
 		isinvincible=false;
 		isDraw=true;
 		isDeth=false;
+		isFall=false;
+		NotDumDum=false;
 		isinvincibleDrawCnt=0;
 		maxAnim=1;
 		isAnimEnd=false;

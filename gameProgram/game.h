@@ -51,8 +51,11 @@ private:
 	void InitObject(LPDIRECT3DDEVICE9 device);
 	void Debug(void);
 
+	void ColPlayer();
+
 	CostumeID costume_id;
 	VehicleID vehicle_id;
+
 
 	//‘S“–‚½‚è”»’è
 	void ColAll();
