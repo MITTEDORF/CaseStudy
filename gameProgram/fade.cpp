@@ -10,14 +10,6 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "fade.h"
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// 静的変数宣言(大井川)
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-volatile bool CFade::m_EndThread;//(大井川)
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// プロトタイプ宣言(大井川)
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-unsigned __stdcall Animation( LPVOID Param );//(大井川)
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 const int FADE_CNG[CFade::FADESTATE_MAX] =
@@ -49,9 +41,6 @@ CFade::CFade(int priority, OBJTYPE objType) : CScene2D(priority, objType)
 	m_alpha = 0.0f;
 	m_color = D3DXCOLOR(0.0f, 0.0f, 0.0f, m_alpha);
 	m_flg	= false;
-
-	m_ThrHandle = NULL;//(大井川)
-	m_EndThread = false;//(大井川)
 }
 
 //=============================================================================
@@ -71,19 +60,15 @@ CFade* CFade::Create(LPDIRECT3DDEVICE9 device)
 HRESULT CFade::Init(LPDIRECT3DDEVICE9 device)
 {
 	//----------------------------
-	// 独自のリソース設定
-	//----------------------------
-
-	//----------------------------
 	// 親クラス初期化
 	//----------------------------
 	HRESULT_FUNC(CScene2D::Init(device, CImport::FADE, CScene2D::POINT_CENTER))
 	SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	SetPos(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
 	//----------------------------
-	// スレッド関数起動
+	// 独自のリソース設定
 	//----------------------------
-	m_ThrHandle = (HANDLE)_beginthreadex( NULL , 0 , Animation , (void*)this , 0 , NULL );
+
 	//----------------------------
 	// 初期化成功
 	//----------------------------
@@ -98,8 +83,6 @@ void CFade::Uninit(void)
 	//----------------------------
 	// 独自の開放
 	//----------------------------
-	m_EndThread = TRUE;//(大井川)
-	WaitForSingleObject( m_ThrHandle , INFINITE );//(大井川)
 	//----------------------------
 	// 親クラス終了
 	//----------------------------
@@ -184,19 +167,5 @@ void CFade::Start(FADESTATE state, int time, float r, float g, float b, float a)
 	{
 		m_flg = true;
 	}
-}
-//=============================================================================
-// アニメーション(スレッド:大井川)
-//=============================================================================
-unsigned __stdcall Animation( LPVOID Param )
-{
-	CFade* p = (CFade*)Param;
-	static float red = 0.0f;
-	while(1)
-	{
-		if( CFade::GetEndThread() == TRUE )
-		{
-			_endthread();
-		}
-	}
+
 }

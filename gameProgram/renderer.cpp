@@ -90,7 +90,7 @@ HRESULT CRenderer::Init(HWND wnd, bool window)
 	if(FAILED(obj->CreateDevice(D3DADAPTER_DEFAULT,
 									D3DDEVTYPE_HAL,
 									wnd,
-									D3DCREATE_HARDWARE_VERTEXPROCESSING,
+									D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
 									&pp,
 									&m_device)))
 	{
@@ -98,7 +98,7 @@ HRESULT CRenderer::Init(HWND wnd, bool window)
 		if(FAILED(obj->CreateDevice(D3DADAPTER_DEFAULT,
 										D3DDEVTYPE_HAL,
 										wnd,
-										D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+										D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
 										&pp,
 										&m_device)))
 		{
@@ -106,7 +106,7 @@ HRESULT CRenderer::Init(HWND wnd, bool window)
 			HRESULT_FUNC(obj->CreateDevice(D3DADAPTER_DEFAULT,
 											D3DDEVTYPE_REF,
 											wnd,
-											D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+											D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
 											&pp,
 											&m_device))
 		}

@@ -119,6 +119,15 @@
     <Filter Include="object\target">
       <UniqueIdentifier>{aef4cc34-83f8-4343-9f63-87f397a683ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="phase\nowload">
+      <UniqueIdentifier>{15f8eef4-1240-4531-afbf-012647cafe34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object\thr_obj">
+      <UniqueIdentifier>{3d305629-0213-42d9-a8dd-a776bc5f0677}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object\loading_icon">
+      <UniqueIdentifier>{f3525687-13b9-4ca2-8b60-aaa9cc3a1bca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -231,6 +240,15 @@
     </ClCompile>
     <ClCompile Include="target_manager.cpp">
       <Filter>object\target</Filter>
+    </ClCompile>
+    <ClCompile Include="nowload.cpp">
+      <Filter>phase\nowload</Filter>
+    </ClCompile>
+    <ClCompile Include="thr_obj.cpp">
+      <Filter>object\thr_obj</Filter>
+    </ClCompile>
+    <ClCompile Include="loading_icon.cpp">
+      <Filter>object\loading_icon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -356,6 +374,15 @@
     </ClInclude>
     <ClInclude Include="equipment_choice_config.h">
       <Filter>phase\equipment_choice</Filter>
+    </ClInclude>
+    <ClInclude Include="nowload.h">
+      <Filter>phase\nowload</Filter>
+    </ClInclude>
+    <ClInclude Include="thr_obj.h">
+      <Filter>object\thr_obj</Filter>
+    </ClInclude>
+    <ClInclude Include="loading_icon.h">
+      <Filter>object\loading_icon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

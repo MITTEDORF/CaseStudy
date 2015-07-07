@@ -94,9 +94,11 @@
     <ClCompile Include="inputKeyboard.cpp" />
     <ClCompile Include="inputPadDirect.cpp" />
     <ClCompile Include="inputPadX.cpp" />
+    <ClCompile Include="loading_icon.cpp" />
     <ClCompile Include="mapData.cpp" />
     <ClCompile Include="math_animation.cpp" />
     <ClCompile Include="mini_particle_object.cpp" />
+    <ClCompile Include="nowload.cpp" />
     <ClCompile Include="particle_manager.cpp" />
     <ClCompile Include="particle_object.cpp" />
     <ClCompile Include="road.cpp" />
@@ -114,6 +116,7 @@
     <ClCompile Include="stum_manager.cpp" />
     <ClCompile Include="target.cpp" />
     <ClCompile Include="target_manager.cpp" />
+    <ClCompile Include="thr_obj.cpp" />
     <ClCompile Include="title.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -135,9 +138,11 @@
     <ClInclude Include="inputKeyboard.h" />
     <ClInclude Include="inputPadDirect.h" />
     <ClInclude Include="inputPadX.h" />
+    <ClInclude Include="loading_icon.h" />
     <ClInclude Include="mapData.h" />
     <ClInclude Include="math_animation.h" />
     <ClInclude Include="mini_particle_object.h" />
+    <ClInclude Include="nowload.h" />
     <ClInclude Include="particle_manager.h" />
     <ClInclude Include="particle_object.h" />
     <ClInclude Include="player_config.h" />
@@ -156,6 +161,7 @@
     <ClInclude Include="stum_manager.h" />
     <ClInclude Include="target.h" />
     <ClInclude Include="target_manager.h" />
+    <ClInclude Include="thr_obj.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="vehicle_config.h" />
   </ItemGroup>
