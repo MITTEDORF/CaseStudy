@@ -191,8 +191,7 @@ void CGame::Update(void)
 			m_target->Scroll(scroll);
 		}
 
-		//全当たり判定
-		ColAll();
+		
 
 		//α仮置き
 		/*if( m_Goal->CheckCollisionAABB( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
@@ -207,6 +206,9 @@ void CGame::Update(void)
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 		}
 	}
+
+	//全当たり判定
+	ColAll();
 
 	//----------------------------
 	// 画面遷移
@@ -293,12 +295,6 @@ void CGame::ColAll()
 		m_player->AddHP(-1);
 	}
 
-	// プレイヤーと道路の当たり判定、押し戻し
-	D3DXVECTOR2 tmp[2];
-	tmp[0] = m_road->CheckHit( m_player->GetHitPos() , m_player->GetHitSize() , CScene2D::POINT_CENTER );
-	tmp[1] = m_player->GetPos();
-	m_player->SetPos(tmp[0].x + tmp[1].x, tmp[0].y + tmp[1].y);
-
 	//ライトニング判定
 	if(m_player->isLitninng())
 	{
@@ -314,11 +310,68 @@ void CGame::ColAll()
 		m_player->PaticleStart((CScene*)m_target->CheckHit(m_player->GetPos() , m_player->GetSize()*3.0f , CScene2D::POINT_CENTER ));
 	}
 
-	//プレイヤが死んでる場合フェード開始
-	if(m_player->isDeth_())
+	ColPlayer();
+
+	if(m_fade->GetState() == CFade::FADESTATE_NONE)
 	{
-		m_player->PlayerReflash(false);
-		m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+		//プレイヤが死んでる場合フェード開始
+		if(m_player->isDeth_())
+		{
+			m_player->PlayerReflash(false);
+			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+		}
 	}
 }
 
+void CGame::ColPlayer()
+{
+	// プレイヤーと道路の当たり判定、押し戻し
+	D3DXVECTOR2 tmp[2],newpos;
+
+	//全道路との当たり判定を行う(tmp[0]=押し戻し量,tmp[1]=自機座標)
+	tmp[0] = m_road->CheckHit( m_player->GetHitPos() , m_player->GetHitSize() , CScene2D::POINT_CENTER );
+	tmp[1] = m_player->GetPos();
+
+	//Xの押し戻し適用
+	newpos.x = tmp[0].x + tmp[1].x;
+
+	//重力適用時
+	if(m_player->isGravity_())
+	{
+		//Yの押し戻し適用
+		newpos.y = tmp[0].y + tmp[1].y;
+	}
+
+	//重力適用外時
+	else
+	{
+		//Y押し戻し適用しない
+		newpos.y=tmp[1].y;
+	}
+
+	//道路の上から当たった場合
+	if(tmp[0].y<0)
+	{
+		//Yの速度を0にして重力を切る
+		m_player->ChoseisGravity(false);
+		m_player->SpdKill();
+	}
+
+	//道路の下から当たった場合
+	else if(tmp[0].y>0)
+	{
+		//Yの速度を0にして重力を入れる
+		m_player->ChoseisGravity(true);
+		m_player->SpdKill();
+	}
+
+	//その他の場合
+	else
+	{
+		//重力を入れる
+		m_player->ChoseisGravity(true);
+	}
+
+	//自機の座標に適用
+	m_player->SetPos(newpos);
+}

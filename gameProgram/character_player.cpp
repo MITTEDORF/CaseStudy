@@ -27,6 +27,9 @@
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// 実体定義
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // プロトタイプ宣言
@@ -50,7 +53,7 @@ HRESULT CPlayer::Init(LPDIRECT3DDEVICE9 device)
 	
 	Assy=CVehicle::Create(device,ConsultationVehicleTexID());
 	Offset.x=-20.0f;
-	Offset.y=0;
+	Offset.y=0.0f;
 
 	particle=new CParticleManager();
 	particle->Init(device);
@@ -112,7 +115,6 @@ void CPlayer::Update(void)
 
 		//無敵処理の更新
 		InvincibleUpdate();
-
 		particle->Setpos(m_pos);
 	}
 
@@ -121,7 +123,7 @@ void CPlayer::Update(void)
 	//座標の再計算
 	SetVertexPolygon();
 	// 当たり判定用座標の更新
-	CScene2D::SetHitPos(m_pos);
+	CScene2D::SetHitPos(D3DXVECTOR2(m_pos.x,m_pos.y));
 
 	//親の更新
 	CScene2D::Update();
@@ -274,12 +276,15 @@ void CPlayer::moveJump()
 	{
 		if(!isJump)
 		{
+			isGravity=true;
+			NotDumDum=false;
 			canJump=false;
 			isJump=true;
 			//スピードの設定
 			m_move_spd.y=JUMP_SPD;
 		}
 	}
+
 
 	//if(m_padX != NULL)
 	//{
@@ -294,13 +299,29 @@ void CPlayer::moveJump()
 	//		}
 	//	}
 	//}
+
+	if(m_padX != NULL)
+	{
+		if(m_padX->GetButton(XINPUT_GAMEPAD_A))
+		{
+			if(!isJump)
+			{
+				//isGravity=true;
+				canJump=false;
+				isJump=true;
+				//スピードの設定
+				m_move_spd.y=JUMP_SPD;
+			}
+		}
+	}
+
 }
 //=============================================================================
 // 重力加算処理
 //=============================================================================
 void CPlayer::AddGravity()
 {
-	if(!isLighting)
+	if(!isLighting&&isGravity)
 	{
 		m_move_spd.y+=GRAVITY_SPD;
 	}
@@ -312,12 +333,10 @@ void CPlayer::AddGravity()
 void CPlayer::Collider()
 {
 	//地面とプレイヤの当たり判定
-	if((m_pos.y>=593.0f-Offset.y)&&!isDeth)
+	if((m_pos.y>=SCREEN_HEIGHT)&&!isDeth)
 	{
-		canJump=true;
-		canLighting=true;
-		isJump=false;
-		m_pos.y=593.0f-Offset.y;
+		AddHP(-5);
+		isFall=true;
 	}
 
 	if(m_pos.x<=0.0f)
