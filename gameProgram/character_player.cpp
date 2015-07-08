@@ -49,18 +49,22 @@ CPlayer::CPlayer(int priority, OBJTYPE objType) : CScene2D(priority, objType)
 //=============================================================================
 HRESULT CPlayer::Init(LPDIRECT3DDEVICE9 device)
 {
-	particle=NULL;
-	
+
+	//アッシーの生成
 	Assy=CVehicle::Create(device,ConsultationVehicleTexID());
+
+	//オフセットの初期化
 	Offset.x=-20.0f;
 	Offset.y=0.0f;
 
+	//パーティクルの生成/初期化
 	particle=new CParticleManager();
 	particle->Init(device);
 
 	//親の初期化
 	CScene2D::Init(device,ConsultationPlayerTexID(PLAYER_STATE_WAIT),POINT_CENTER);
 
+	//現在のアニメーションを待機にする
 	SetAnimMode(PLAYER_ANIM_WAIT,true);
 
 	//成功を返す
@@ -71,6 +75,7 @@ HRESULT CPlayer::Init(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 void CPlayer::Uninit(void)
 {
+	//パーティクルさよなら
 	SAFE_DELETE(particle);
 	//親の終了
 	CScene2D::Uninit();
@@ -276,8 +281,6 @@ void CPlayer::moveJump()
 	{
 		if(!isJump)
 		{
-			isGravity=true;
-			NotDumDum=false;
 			canJump=false;
 			isJump=true;
 			//スピードの設定
@@ -321,7 +324,7 @@ void CPlayer::moveJump()
 //=============================================================================
 void CPlayer::AddGravity()
 {
-	if(!isLighting&&isGravity)
+	if(!isLighting)
 	{
 		m_move_spd.y+=GRAVITY_SPD;
 	}
@@ -588,7 +591,6 @@ void CPlayer::PaticleStart(CScene* target)
 {
 	particle->StartBurst(target);
 }
-
 //=============================================================================
 // スクロール処理
 //=============================================================================
@@ -599,7 +601,6 @@ void CPlayer::ParticleScrol(float value)
 		particle->Scrol(value);
 	}
 }
-
 //=============================================================================
 // テクスチャIDの参照処理(プレイヤー)
 //=============================================================================
@@ -681,7 +682,6 @@ CImport::TEXTURES CPlayer::ConsultationPlayerTexID(PlayerState state)
 
 	return (CImport::PLAYER_DEFAULT_WAIT);
 }
-
 //=============================================================================
 // テクスチャIDの参照処理(乗り物)
 //=============================================================================
@@ -711,7 +711,6 @@ CImport::TEXTURES CPlayer::ConsultationVehicleTexID()
 
 	return (CImport::ASSY_TRAM);
 }
-
 //=============================================================================
 // 乗り物のテクスチャIDのセット(ゲームシーン以外で使う場合はアニメも勝手にセット)
 //=============================================================================
@@ -725,7 +724,6 @@ void CPlayer::SetVehicleID(VehicleID value)
 		Assy->SetTex(ConsultationVehicleTexID());
 	}
 }
-
 //=============================================================================
 // コスプレのテクスチャIDのセット(ゲームシーン以外で使う場合はアニメも勝手にセット)
 //=============================================================================
@@ -739,7 +737,6 @@ void CPlayer::SetCostumeID(CostumeID value)
 		this->SetTex(ConsultationPlayerTexID(PLAYER_STATE_WAIT));
 	}
 }
-
 //=============================================================================
 //ゲーム中かどうかのセット
 //=============================================================================

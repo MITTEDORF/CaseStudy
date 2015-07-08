@@ -121,18 +121,64 @@ D3DXVECTOR2	CRoadManager::CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::
 	CRoad* next;
 
 	D3DXVECTOR2 rtn = D3DXVECTOR2(0.0f, 0.0f);
+	D3DXVECTOR2 max = D3DXVECTOR2(0.0f, 0.0f);
+	D3DXVECTOR2 min = D3DXVECTOR2(0.0f, 0.0f);
+	D3DXVECTOR2 value;
 
 	while(cur)
 	{
 		// ‚Ô‚Â‚©‚Á‚Ä‚¢‚½ê‡A‚ß‚èž‚ñ‚Å‚é”’l•ª‚ð•Ô‚·
 		if(cur->CheckCollisionAABB(pos, size, pointType) == true)
 		{
-			rtn = cur->ReturnPush(pos, size, pointType);
+			value=cur->ReturnPush(pos, size, pointType);
+
+
+				if(max.y<=value.y)
+				{
+					max.y=value.y;
+				}
+				if(min.y>=value.y)
+				{
+					min.y=value.y;
+				}
+
+			if(value.y<=0)
+			{
+				if(max.x<=value.x)
+				{
+					max.x=value.x;
+				}
+				if(min.x>=value.x)
+				{
+					min.x=value.x;
+				}
+			}
+
 		}
 
 		next = cur->GetRoadNext();
 
 		cur = next;
+	}
+
+	if((max.x*max.x)>=(min.x*min.x))
+	{
+		rtn.x=max.x;
+	}
+
+	else
+	{
+		rtn.x=min.x;
+	}
+
+	if((max.y*max.y)>=(min.y*min.y))
+	{
+		rtn.y=max.y;
+	}
+
+	else
+	{
+		rtn.y=min.y;
 	}
 
 	return rtn;

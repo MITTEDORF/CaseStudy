@@ -127,9 +127,13 @@ public:
 	//乗り物のセット
 	//第一引数:ID入れてね(character_configにて定義)
 	void SetVehicleID(VehicleID value);
-
+	
+	//現在のシーンがゲーム中かどうか切り替える
+	//第一引数:ゲーム中ならtrue、それ以外はfalse
 	void Set_isGame(bool value);
 
+	//プレイヤーの値をリフレッシュする
+	//第一引数:死に際に小ジャンプをさせたい場合はtrueを入れる
 	void PlayerReflash(bool value=true)
 	{
 		isLighting=false;
@@ -143,91 +147,60 @@ public:
 			m_move_spd.y=JUMP_SPD/1.5f;
 		}
 	}
-
+	
+	//アッシーのポインタを渡す
+	//戻り値:アッシーのポインター
 	CVehicle* Assy_()
 	{
 		return (Assy);
 	}
-
-	void ChoseisGravity(bool value)
+	
+	//今現在地面に着地中かどうか調べる
+	//戻り値:地面に着地中ならばtrueが返ってくる
+	bool isGround_()
 	{
-		isGravity=value;
-		if(!isGravity)
-		{
-			m_move_spd.y=0.0f;
-			canJump=true;
-			isJump=false;
-		}
+		return (isGround);
 	}
 
-	bool isGravity_()
+	//今現在地面に着地中かどうかをセット出来る(接地判定以外では呼ぶのNG)
+	//第一引数:着地中ならばtrueを入れる
+	void isGround_set(bool value)
 	{
-		return (isGravity);
+		if(isGround==value){return;}
+		isGround=value;
 	}
 
-	bool NotDumDum_()
-	{
-		return (NotDumDum);
-	}
-
-	void SetNotDumDum_(bool value)
-	{
-		NotDumDum=value;
-	}
-
+	//Y方向の高さを0にする
 	void SpdKill()
 	{
 		m_move_spd.y=0.0f;
 	}
 
-	void SetNotDumDumPos(float value)
+	//ジャンプ可能状態にする
+	void SetCanJump()
 	{
-		NotDumDumPos=value;
-	}
-
-	float NotDumDumPos_()
-	{
-		return (NotDumDumPos);
+		isJump=false;
+		canJump=true;
 	}
 	
 	//テクスチャIDの参照
 	CImport::TEXTURES ConsultationPlayerTexID(PlayerState state);
-
 	CImport::TEXTURES ConsultationVehicleTexID();
+
 private:
 
+	//テクスチャID
 	CostumeID Costume_id;
 	VehicleID Vehicle_id;
 
+	//ゲーム中かどうか
 	bool isGame;
-
-	bool isGravity;
-
-	//パーティクル管理クラス
-	CParticleManager *particle;
+	//今地面に接地しているかどうか
+	bool isGround;
 	//描画フラグ
 	bool isDraw;
-	//Y値オフセット
-	D3DXVECTOR2 Offset;
-
-	//プレイヤーのHP
-	int HP;
-	//ビークルダメージ値
-	int AssyDamage;
-	//ビークルの耐久(1～3)
-	int AssyHP;
-
+	//落ちているかどうか
 	bool isFall;
-
-	bool NotDumDum;
-
-	//キーボード情報格納変数
-	CInputKeyboard*	m_keyboard;
-	//パッド情報格納変数
-	CInputPadX*		m_padX;
-	//プレイヤーの移動速度
-	D3DXVECTOR2 m_move_spd;
-
 	//ジャンプ中かどうか
 	bool isJump;
 	//ジャンプ可能かどうか
@@ -244,20 +217,39 @@ private:
 	bool isDeth;
 	//無敵フラグ
 	bool isinvincible;
-	//無敵カウンター
-	int isinvincibleCnt;
-	//無敵の見た目カウンター
-	int isinvincibleDrawCnt;
-
-	float NotDumDumPos;
-
-	//現在のアニメーションモード
-	int AnimMode;
 	//アニメーションのループフラグ
 	bool isRupeAnim;
 	//アニメーションの1順終了フラグ
 	bool isAnimEnd;
 
+
+	//パーティクル管理クラス
+	CParticleManager *particle;
+	//キーボード情報格納変数
+	CInputKeyboard* m_keyboard;
+	//パッド情報格納変数
+	CInputPadX* m_padX;
+	//アッシー管理クラス
+	CVehicle* Assy;
+
+	//プレイヤーの移動速度
+	D3DXVECTOR2 m_move_spd;
+	//Y値オフセット
+	D3DXVECTOR2 Offset;
+
+	//プレイヤーのHP
+	int HP;
+	//ビークルダメージ値
+	int AssyDamage;
+	//ビークルの耐久(1～3)
+	int AssyHP;
+	//無敵カウンター
+	int isinvincibleCnt;
+	//無敵の見た目カウンター
+	int isinvincibleDrawCnt;
+
+	//現在のアニメーションモード
+	int AnimMode;
 	//現在のアニメーション番号
 	int nowAnim;
 	//アニメーションのカウント用
@@ -265,14 +257,13 @@ private:
 	//アニメーションの最大コマ数
 	int maxAnim;
 
-	CVehicle* Assy;
-
 	//変数のNULL埋め処理
 	void NullSetVariable(void)
 	{
+		particle=NULL;
+		isGround=false;
 		Offset.x=0;
 		Offset.y=0;
-		isGravity=true;
 		isGame=true;
 		HP=PLAYER_HP_MAX;
 		AssyDamage=HP/3;
@@ -281,7 +272,6 @@ private:
 		isDraw=true;
 		isDeth=false;
 		isFall=false;
-		NotDumDum=false;
 		isinvincibleDrawCnt=0;
 		maxAnim=1;
 		isAnimEnd=false;
@@ -294,10 +284,10 @@ private:
 		nowAnim=1;
 		m_move_spd=D3DXVECTOR2(0.0f,0.0f);
 		isJump=false;
+		canJump=true;
 		isAttack=false;
 		isLighting=false;
 		isHoldLighting=false;
-		canJump=true;
 		canLighting=true;
 		isinvincibleCnt=0;
 	}
@@ -322,8 +312,6 @@ private:
 	void HPUpdate();
 	//無敵処理
 	void InvincibleUpdate();
-
-
 };
 
 #endif
