@@ -152,8 +152,6 @@ void CGame::Update(void)
 			m_road->Scroll(scroll);
 			m_target->Scroll(scroll);
 
-			//ゴールのスクロール(大井川 6/2_12時頃追加)
-			//m_Goal->Scroll( scroll );
 		}
 		else if(playerPos.x < 0)
 		{
@@ -263,10 +261,6 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_player->SetPos(120.0f,300.0f);
 	m_player->SetKeyboard(m_keyboard);
 	m_player->SetPadX(m_padX);
-
-
-	//goal(大井川 6/9_AM_10時頃変更)
-	//m_Goal = m_Goal->Create( device , CImport::GOAL_ON , CScene2D::POINT_LEFTTOP , 2 , D3DXVECTOR2( 8500.0f , SCREEN_HEIGHT - ((1 * 64) + 128) ) );
 }
 
 //=============================================================================

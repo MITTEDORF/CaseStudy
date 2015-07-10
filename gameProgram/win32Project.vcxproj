@@ -116,7 +116,7 @@
     <ClCompile Include="stum_manager.cpp" />
     <ClCompile Include="target.cpp" />
     <ClCompile Include="target_manager.cpp" />
-    <ClCompile Include="thr_obj.cpp" />
+    <ClCompile Include="Thread.cpp" />
     <ClCompile Include="title.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,7 +161,7 @@
     <ClInclude Include="stum_manager.h" />
     <ClInclude Include="target.h" />
     <ClInclude Include="target_manager.h" />
-    <ClInclude Include="thr_obj.h" />
+    <ClInclude Include="Thread.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="vehicle_config.h" />
   </ItemGroup>

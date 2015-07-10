@@ -25,11 +25,18 @@
 #include "listObject.h"
 #include "scene2D.h"
 
+#include "Thread.h"
+#include "nowload.h"
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 静的変数
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 CPhase* CManager::m_phaseNext = NULL;
+CPhase* CManager::m_phase = NULL;
+CNLoad* CManager::m_now_load=NULL;
 HWND	CManager::m_window_handle = NULL;
+CThread* CManager::m_Thread = NULL;
+CRenderer* CManager::m_renderer;
+bool CManager::m_loading_flag;
 
 //=============================================================================
 // コンストラクタ
@@ -76,11 +83,22 @@ HRESULT CManager::Init(HINSTANCE instance, HWND wnd, bool window)
 	//----------------------------
 	// 初期起動表示
 	//----------------------------
+
+	m_loading_flag = true;
+
 	CScene2D* setup = CScene2D::Create(device, "./data/TEXTURE/fade.jpg", CScene2D::POINT_CENTER);
 	setup->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	setup->SetPos(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
 
 	m_renderer->Draw();
+	//----------------------------
+	// ロード中描画
+	//----------------------------
+	m_now_load = new CNLoad;
+	m_now_load->Init(device);
+
+	m_Thread = new CThread();
+	m_Thread->Create( InitLoad );
 
 	//----------------------------
 	// ファイル読み込み
@@ -90,8 +108,17 @@ HRESULT CManager::Init(HINSTANCE instance, HWND wnd, bool window)
 	//----------------------------
 	// フェーズ
 	//----------------------------
-	m_phase = (CPhase*)new CTitle;
-	m_phase->Init(device);
+	m_loading_flag = false;
+	// スレッドが生きていたら破棄
+	if (m_Thread)
+	{
+		m_Thread->Release();
+		delete m_Thread;
+		m_Thread = NULL;
+	}
+
+	m_phaseNext = (CPhase*)new CTitle;
+	Change();
 	m_phase->SetKeyboard(m_keyboard);
 	m_phase->SetPadX(m_padX);
 
@@ -140,6 +167,9 @@ void CManager::Uninit(void)
 
 	// 解放忘れをしない為
 	CScene::ReleaseAll();
+
+	//ナウローディング
+	m_now_load->Uninit();
 }
 
 //=============================================================================
@@ -164,28 +194,38 @@ void CManager::Update(void)
 	//----------------------------
 	// フェーズ
 	//----------------------------
-	if(m_phase != NULL)
+	if( m_loading_flag == false )
 	{
-		m_phase->Update();
+		// スレッドが生きていたら破棄
+		if (m_Thread)
+		{
+			m_Thread->Release();
+			delete m_Thread;
+			m_Thread = NULL;
+		}
+
+		if(m_phase != NULL)
+		{
+			m_phase->Update();
+			// レンダラー
+			m_renderer->Update();
+		}
+	}
+	else
+	{
+		m_now_load->Update();
 	}
 
 	//----------------------------
-	// レンダラー、サウンド
+	// サウンド
 	//----------------------------
-	// レンダラー
-	m_renderer->Update();
 
 	//----------------------------
 	// フェーズ切替
 	//----------------------------
 	if(m_phaseNext != m_phase)
 	{
-		// 現在フェーズを破棄
-		SAFE_END(m_phase);
-
-		// 次のフェーズを生成・初期化
-		m_phase = m_phaseNext;
-		m_phase->Init(m_renderer->GetDevice());
+		Change();
 	}
 }
 
@@ -194,18 +234,25 @@ void CManager::Update(void)
 //=============================================================================
 void CManager::Draw(void)
 {
-	//----------------------------
-	// フェーズ
-	//----------------------------
-	if(m_phase != NULL)
+	if( m_loading_flag == false )
 	{
-		m_phase->Draw();
-	}
+		//----------------------------
+		// フェーズ
+		//----------------------------
+		if(m_phase != NULL)
+		{
+			m_phase->Draw();
+			//----------------------------
+			// レンダラー
+			//----------------------------
+			m_renderer->Draw();
+		}
 
-	//----------------------------
-	// レンダラー
-	//----------------------------
-	m_renderer->Draw();
+	}
+	else
+	{
+		m_now_load->Draw();
+	}
 }
 
 //=============================================================================
@@ -214,4 +261,40 @@ void CManager::Draw(void)
 void CManager::CalculateFPS(DWORD frameCnt, DWORD curTime, DWORD FPSLastTime)
 {
 	m_renderer->SetFPS(frameCnt * 1000 / (curTime - FPSLastTime));
+}
+//=============================================================================
+// フェーズ変更
+//=============================================================================
+void CManager::Change( void )
+{
+	// 現在フェーズを破棄
+	SAFE_END(m_phase);
+	// 次のフェーズを生成・初期化
+	m_phase = m_phaseNext;
+
+	m_loading_flag = true;
+	m_Thread = new CThread();
+	m_Thread->Create( Load );
+}
+//=============================================================================
+// ロード
+//=============================================================================
+void CManager::Load( void )
+{
+	m_phase->Init(m_renderer->GetDevice());
+	m_loading_flag = false;
+}
+//=============================================================================
+// 初回ロード
+//=============================================================================
+void CManager::InitLoad( void )
+{
+	while(m_loading_flag)
+	{
+		if( m_now_load != NULL )
+		{
+			m_now_load->Update();
+			m_now_load->Draw();
+		}
+	}
 }

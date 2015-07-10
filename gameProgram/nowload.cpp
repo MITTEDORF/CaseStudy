@@ -11,46 +11,34 @@
 #include "nowload.h"
 #include "thr_obj.h"
 #include "loading_icon.h"
+#include "fade.h"
+#include "loading_icon.h"
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 静的変数宣言(大井川)
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-volatile bool CNLoad::m_EndThread;//(大井川)
-const float CNLoad::UP_MAX = 10.0f;
-const float CNLoad::DOWN_MAX = 0.0f;
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // プロトタイプ宣言(大井川)
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-unsigned __stdcall NowLoad( LPVOID Param );//(大井川)
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//=============================================================================
-// コンストラクタ
-//=============================================================================
-CNLoad::CNLoad()
-{
-
-}
-//=============================================================================
-// 生成
-//=============================================================================
-CNLoad* CNLoad::Create( LPDIRECT3DDEVICE9 device )
-{
-	CNLoad* p = new CNLoad;
-	p->m_now_load = p;
-	p->Init( device );
-	return p;
-}
 //=============================================================================
 // 初期化
 //=============================================================================
 HRESULT CNLoad::Init(LPDIRECT3DDEVICE9 device)
 {
+	//----------------------------
+	// デバイス取得
+	//----------------------------
 	m_device = device;
-	m_LoadIcon = CLIcon::Create( device , CImport::PLAYER_DEFAULT_WAIT , CScene2D::POINT_CENTER , 4 , D3DXVECTOR2( SCREEN_WIDTH*0.5f , SCREEN_HEIGHT*0.5f ) );
-	m_ThrHandle = (HANDLE)_beginthreadex( NULL , 0 , NowLoad , (void*)this , 0 , NULL );
-	SetThreadPriority( m_ThrHandle , THREAD_PRIORITY_TIME_CRITICAL );
 
+	//----------------------------
+	// オブジェクト
+	//----------------------------
+	InitObject(device);
+	//----------------------------
+	// 初期化成功
+	//----------------------------
 	return S_OK;
 }
 //=============================================================================
@@ -58,30 +46,43 @@ HRESULT CNLoad::Init(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 void CNLoad::Uninit(void)
 {
-	if( m_EndThread == false )
-	{
-		m_EndThread = true;//(大井川)
-		WaitForSingleObject( m_ThrHandle , INFINITE );//(大井川)
-	}
+	m_load_icon->Uninit();
 	delete this;
 }
 //=============================================================================
-// アニメーション(スレッド:大井川)
+// 更新
 //=============================================================================
-unsigned __stdcall NowLoad( LPVOID Param )
+void CNLoad::Update( void )
 {
-	CNLoad* now_load = (CNLoad*)Param;
-	while(1)
+	m_load_icon->Update();
+}
+//=============================================================================
+// 描画
+//=============================================================================
+void CNLoad::Draw( void )
+{
+	// バックバッファ＆Ｚバッファのクリア
+	m_device->Clear(0, NULL, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER), D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f), 1.0f, 0);
+	if( SUCCEEDED(
+		m_device ->BeginScene()))
 	{
-		CLIcon* load_icon = now_load->GetLIcon();
-		if( load_icon != NULL )
-		{
-			load_icon->Update();
-			load_icon->Draw();
-		}
-		if( now_load->GetEndThread() == TRUE )
-		{
-			_endthread();
-		}
+
+		m_load_icon->Draw();
+
+		m_device ->EndScene();
+
+
 	}
+	m_device ->Present(NULL,NULL,NULL,NULL);
+}
+//=============================================================================
+// オブジェクト初期化
+//=============================================================================
+void CNLoad::InitObject( LPDIRECT3DDEVICE9 device )
+{
+	//----------------------------
+	// キャラクター
+	//----------------------------
+	m_load_icon = CLIcon::Create( device , "./data/TEXTURE/player/player_goodmood.png" , CLIcon::POINT_CENTER , D3DXVECTOR2( SCREEN_WIDTH*0.5f , SCREEN_HEIGHT*0.5f ) );
+
 }
