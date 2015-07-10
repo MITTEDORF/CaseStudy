@@ -1,39 +1,40 @@
 //*****************************************************************************
 //
-// CTitleクラス [title.h]
-// Author :MAI TANABE
+// CNLoadクラス [nowload.h]
+// Author :KAZUMA OOIGAWA
 //
 //*****************************************************************************
 
-#ifndef _MY_TITLE_H
-#define _MY_TITLE_H
+#ifndef _NOW_LOAD_H_
+#define _NOW_LOAD_H_
 //=============================================================================
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // インクルードファイル
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "main.h"
+#include "scene2D.h"
 #include "phase.h"
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// 構造体定義
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // クラス定義
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class CScene2D;
-
-class CTitle : CPhase
+class CLIcon;
+class CNLoad :  CPhase
 {
 public:
-	CTitle(void){};
-	~CTitle(){};
-
-	HRESULT	Init(LPDIRECT3DDEVICE9 device);
-	void	Uninit(void);
-	void	Update(void);
-	void	Draw(void);
-
+	HRESULT Init( LPDIRECT3DDEVICE9 device );
+	void Uninit( void );
+	void Update( void );
+	void Draw( void );
 private:
-	void InitObject(LPDIRECT3DDEVICE9 device);
-
+	void InitObject( LPDIRECT3DDEVICE9 device );
 	CScene2D* m_version;
+	CLIcon* m_load_icon;
+protected:
 };
 
 //=============================================================================

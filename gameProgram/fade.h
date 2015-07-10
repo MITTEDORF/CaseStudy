@@ -12,10 +12,20 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // インクルードファイル
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#include <process.h>//(大井川)
 #include "main.h"
 #include "scene2D.h"
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// 構造体定義
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+typedef struct
+{
+	LPDIRECT3DTEXTURE9		texture;
+	LPDIRECT3DVERTEXBUFFER9	vtxBuff;
+	D3DXVECTOR2				size;
+	D3DXVECTOR2				pos;
+	D3DXVECTOR2				texcoord[4];		// テクスチャコード
+}POLYGON_DATA;
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // クラス定義
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -52,9 +62,6 @@ public:
 	void	  SetColor(D3DXCOLOR color){m_color = color;}
 	D3DXCOLOR GetColor(void){return m_color;}
 
-	static bool GetEndThread( void ){ return m_EndThread;}//(大井川)
-	static void SetEndThread( bool endthread ){ m_EndThread = endthread;}//(大井川)
-
 private:
 	FADESTATE	m_state;
 	int			m_time;
@@ -62,9 +69,6 @@ private:
 	D3DXCOLOR	m_color;
 	float		m_cngAlpha;
 	bool		m_flg;
-
-	static volatile bool		m_EndThread;//スレッド終了用フラグ(大井川)
-	HANDLE		m_ThrHandle;//スレッド終了待ち用ハンドル(大井川)
 
 };
 

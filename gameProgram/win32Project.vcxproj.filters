@@ -122,6 +122,15 @@
     <Filter Include="sound">
       <UniqueIdentifier>{86099491-5e6f-410d-a9ea-53b5049cd0a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="phase\nowload">
+      <UniqueIdentifier>{15f8eef4-1240-4531-afbf-012647cafe34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object\loading_icon">
+      <UniqueIdentifier>{f3525687-13b9-4ca2-8b60-aaa9cc3a1bca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Thread">
+      <UniqueIdentifier>{259cc470-2bfd-40f7-8e45-d8d08cf4eb3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -237,6 +246,15 @@
     </ClCompile>
     <ClCompile Include="sound.cpp">
       <Filter>sound</Filter>
+    </ClCompile>
+    <ClCompile Include="nowload.cpp">
+      <Filter>phase\nowload</Filter>
+    </ClCompile>
+    <ClCompile Include="loading_icon.cpp">
+      <Filter>object\loading_icon</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread.cpp">
+      <Filter>Thread</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -365,6 +383,15 @@
     </ClInclude>
     <ClInclude Include="sound.h">
       <Filter>sound</Filter>
+    </ClInclude>
+    <ClInclude Include="nowload.h">
+      <Filter>phase\nowload</Filter>
+    </ClInclude>
+    <ClInclude Include="loading_icon.h">
+      <Filter>object\loading_icon</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread.h">
+      <Filter>Thread</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
