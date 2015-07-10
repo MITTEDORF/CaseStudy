@@ -227,7 +227,7 @@ void CEquipmentChoice::VehicleChoice()
 {
 	if(m_cur->GetPos().y==CUR_BUTTOM)
 	{
-		if(m_keyboard->GetTrigger(DIK_LEFT))
+		if(m_keyboard->GetTrigger(DIK_A))
 		{
 			vehicle_id--;
 			if(vehicle_id<=0)
@@ -237,7 +237,7 @@ void CEquipmentChoice::VehicleChoice()
 			m_player->SetVehicleID((VehicleID)vehicle_id);
 		}
 
-		else if(m_keyboard->GetTrigger(DIK_RIGHT))
+		else if(m_keyboard->GetTrigger(DIK_D))
 		{
 			vehicle_id++;
 			if(vehicle_id>=VEHICLE_MAX-1)
@@ -255,7 +255,7 @@ void CEquipmentChoice::CostumeChoice()
 {
 	if(m_cur->GetPos().y==CUR_UP)
 	{
-		if(m_keyboard->GetTrigger(DIK_LEFT))
+		if(m_keyboard->GetTrigger(DIK_A))
 		{
 			costume_id--;
 			if(costume_id<=COSTUME_NONE)
@@ -265,7 +265,7 @@ void CEquipmentChoice::CostumeChoice()
 			m_player->SetCostumeID((CostumeID)costume_id);
 		}
 
-		else if(m_keyboard->GetTrigger(DIK_RIGHT))
+		else if(m_keyboard->GetTrigger(DIK_D))
 		{
 			costume_id++;
 			if(costume_id>=COSTUME_MAX-1)
@@ -300,12 +300,12 @@ void CEquipmentChoice::AnimUpdate()
 //=============================================================================
 void CEquipmentChoice::CurUpdate()
 {
-	if(m_keyboard->GetTrigger(DIK_UP))
+	if(m_keyboard->GetTrigger(DIK_W))
 	{
 		m_cur->SetPosY(CUR_UP);
 	}
 
-	else if(m_keyboard->GetTrigger(DIK_DOWN))
+	else if(m_keyboard->GetTrigger(DIK_S))
 	{
 		m_cur->SetPosY(CUR_BUTTOM);
 	}
@@ -329,6 +329,7 @@ void CEquipmentChoice::cosUpdate(int id)
 		else
 		{
 			m_cos[id]->SetColor(255,255,255,255);
+			m_cos[id]->SetTex(texid);
 		}
 
 		if(assid==CImport::TEX_MAX)
@@ -338,10 +339,8 @@ void CEquipmentChoice::cosUpdate(int id)
 		else
 		{
 			m_ass[id]->SetColor(255,255,255,255);
+			m_ass[id]->SetTex(assid);
 		}
-
-		m_cos[id]->SetTex(texid);
-		m_ass[id]->SetTex(assid);
 		break;
 
 	case 1:
@@ -359,6 +358,7 @@ void CEquipmentChoice::cosUpdate(int id)
 		else
 		{
 			m_cos[id]->SetColor(255,255,255,255);
+			m_cos[id]->SetTex(texid);
 		}
 
 		if(assid==CImport::TEX_MAX)
@@ -368,10 +368,9 @@ void CEquipmentChoice::cosUpdate(int id)
 		else
 		{
 			m_ass[id]->SetColor(255,255,255,255);
+			m_ass[id]->SetTex(assid);
 		}
 
-		m_cos[id]->SetTex(texid);
-		m_ass[id]->SetTex(assid);
 		break;
 	}
 }
