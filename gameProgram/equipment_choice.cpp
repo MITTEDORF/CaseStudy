@@ -60,6 +60,10 @@ HRESULT CEquipmentChoice::Init(LPDIRECT3DDEVICE9 device)
 	m_version->SetSize(206.0f, 65);
 	m_version->SetPos(SCREEN_WIDTH - 206.0f, SCREEN_HEIGHT - 65.0f);
 
+	cosUpdate(0);
+	cosUpdate(1);
+	cosUpdate(2);
+
 	//----------------------------
 	// 初期化成功
 	//----------------------------
@@ -89,7 +93,11 @@ void CEquipmentChoice::Update(void)
 		VehicleChoice();
 		CurUpdate();
 		AnimUpdate();
-		cosUpdate();
+
+		cosUpdate(0);
+		cosUpdate(1);
+		cosUpdate(2);
+
 		//----------------------------
 		// 入力
 		//----------------------------
@@ -132,13 +140,31 @@ void CEquipmentChoice::InitObject(LPDIRECT3DDEVICE9 device)
 	m_player->SetKeyboard(m_keyboard);
 	m_player->Set_isGame(false);
 
-	m_cos=CScene2D::Create(device, CImport::PLAYER_DEFAULT_WAIT, CScene2D::POINT_CENTER);
-	m_cos->SetPos(SCREEN_WIDTH * 0.3f, CUR_UP);
-	SetAnim(4,1,1,1,m_cos);
+	float PolSize=m_player->GetSize().x/1.5f;
 
-	m_ass=CScene2D::Create(device, CImport::ASSY_TRAM, CScene2D::POINT_CENTER);
-	m_ass->SetPos(SCREEN_WIDTH * 0.3f, CUR_BUTTOM);
-	SetAnim(4,1,3,1,m_ass);
+	m_cos[0]=CScene2D::Create(device, CImport::PLAYER_DEFAULT_WAIT, CScene2D::POINT_CENTER);
+	m_cos[0]->SetPos(SCREEN_WIDTH * 0.3f-PolSize, CUR_UP);
+	SetAnim(4,1,1,1,m_cos[0]);
+
+	m_ass[0]=CScene2D::Create(device, CImport::ASSY_TRAM, CScene2D::POINT_CENTER);
+	m_ass[0]->SetPos(SCREEN_WIDTH * 0.3f-PolSize, CUR_BUTTOM);
+	SetAnim(4,1,3,1,m_ass[0]);
+
+	m_cos[1]=CScene2D::Create(device, CImport::PLAYER_DEFAULT_WAIT, CScene2D::POINT_CENTER);
+	m_cos[1]->SetPos(SCREEN_WIDTH * 0.3f, CUR_UP);
+	SetAnim(4,1,1,1,m_cos[1]);
+
+	m_ass[1]=CScene2D::Create(device, CImport::ASSY_TRAM, CScene2D::POINT_CENTER);
+	m_ass[1]->SetPos(SCREEN_WIDTH * 0.3f, CUR_BUTTOM);
+	SetAnim(4,1,3,1,m_ass[1]);
+
+	m_cos[2]=CScene2D::Create(device, CImport::PLAYER_DEFAULT_WAIT, CScene2D::POINT_CENTER);
+	m_cos[2]->SetPos(SCREEN_WIDTH * 0.3f+PolSize, CUR_UP);
+	SetAnim(4,1,1,1,m_cos[2]);
+
+	m_ass[2]=CScene2D::Create(device, CImport::ASSY_TRAM, CScene2D::POINT_CENTER);
+	m_ass[2]->SetPos(SCREEN_WIDTH * 0.3f+PolSize, CUR_BUTTOM);
+	SetAnim(4,1,3,1,m_ass[2]);
 
 	m_cur=CScene2D::Create(device, CImport::MAKE_UI_SELECT_CUR, CScene2D::POINT_CENTER);
 	m_cur->SetSize(320.f,210.f);
@@ -187,9 +213,9 @@ void CEquipmentChoice::VehicleChoice()
 		if(m_keyboard->GetTrigger(DIK_LEFT))
 		{
 			vehicle_id--;
-			if(vehicle_id<=VEHICLE_TRAM)
+			if(vehicle_id<=0)
 			{
-				vehicle_id=VEHICLE_TRAM;
+				vehicle_id=0;
 			}
 			m_player->SetVehicleID((VehicleID)vehicle_id);
 		}
@@ -234,6 +260,9 @@ void CEquipmentChoice::CostumeChoice()
 	}
 }
 
+//=============================================================================
+// アニメーションの更新
+//=============================================================================
 void CEquipmentChoice::AnimUpdate()
 {
 	if(cntAnim>=10)
@@ -249,7 +278,9 @@ void CEquipmentChoice::AnimUpdate()
 		}
 		cntAnim++;
 }
-
+//=============================================================================
+// カーソルの更新
+//=============================================================================
 void CEquipmentChoice::CurUpdate()
 {
 	if(m_keyboard->GetTrigger(DIK_UP))
@@ -263,8 +294,67 @@ void CEquipmentChoice::CurUpdate()
 	}
 }
 
-void CEquipmentChoice::cosUpdate()
+//=============================================================================
+// コスチューム、アッシーの更新
+//=============================================================================
+void CEquipmentChoice::cosUpdate(int id)
 {
-	m_cos->SetTex(m_player->ConsultationPlayerTexID(PLAYER_STATE_WAIT));
-	m_ass->SetTex(m_player->ConsultationVehicleTexID());
+	switch (id)
+	{
+		CImport::TEXTURES texid,assid;
+	case 0:
+		texid=m_player->ConsultationPlayerTexID(PLAYER_STATE_WAIT,-1);
+		assid=m_player->ConsultationVehicleTexID(-1);
+		if(texid==CImport::TEX_MAX)
+		{
+			m_cos[id]->SetColor(255,255,255,0);
+		}
+		else
+		{
+			m_cos[id]->SetColor(255,255,255,255);
+		}
+
+		if(assid==CImport::TEX_MAX)
+		{
+			m_ass[id]->SetColor(255,255,255,0);
+		}
+		else
+		{
+			m_ass[id]->SetColor(255,255,255,255);
+		}
+
+		m_cos[id]->SetTex(texid);
+		m_ass[id]->SetTex(assid);
+		break;
+
+	case 1:
+		m_cos[id]->SetTex(m_player->ConsultationPlayerTexID(PLAYER_STATE_WAIT));
+		m_ass[id]->SetTex(m_player->ConsultationVehicleTexID());
+		break;
+
+	case 2:
+		texid=m_player->ConsultationPlayerTexID(PLAYER_STATE_WAIT,1);
+		assid=m_player->ConsultationVehicleTexID(1);
+		if(texid==CImport::TEX_MAX)
+		{
+			m_cos[id]->SetColor(255,255,255,0);
+		}
+		else
+		{
+			m_cos[id]->SetColor(255,255,255,255);
+		}
+
+		if(assid==CImport::TEX_MAX)
+		{
+			m_ass[id]->SetColor(255,255,255,0);
+		}
+		else
+		{
+			m_ass[id]->SetColor(255,255,255,255);
+		}
+
+		m_cos[id]->SetTex(texid);
+		m_ass[id]->SetTex(assid);
+		break;
+	}
 }

@@ -23,6 +23,8 @@
 
 #include "inputPadX.h"
 
+#include "road_manager.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -326,7 +328,15 @@ void CPlayer::AddGravity()
 {
 	if(!isLighting)
 	{
-		m_move_spd.y+=GRAVITY_SPD;
+		if(m_move_spd.y<0||isinvincible)
+		{
+			m_move_spd.y+=GRAVITY_SPD;
+		}
+
+		else
+		{
+			m_move_spd.y+=localGravity;
+		}
 	}
 
 }
@@ -604,12 +614,19 @@ void CPlayer::ParticleScrol(float value)
 //=============================================================================
 // テクスチャIDの参照処理(プレイヤー)
 //=============================================================================
-CImport::TEXTURES CPlayer::ConsultationPlayerTexID(PlayerState state)
+CImport::TEXTURES CPlayer::ConsultationPlayerTexID(PlayerState state,int offset)
 {
+	int lid = (int)Costume_id+offset;
+
+	if(lid<0||lid>=COSTUME_MAX)
+	{
+		return (CImport::TEX_MAX);
+	}
+
 	switch (state)
 	{
 	case PLAYER_STATE_WAIT:
-		switch (Costume_id)
+		switch (lid)
 		{
 		case COSTUME_NONE:
 			return (CImport::PLAYER_DEFAULT_WAIT);
@@ -632,7 +649,7 @@ CImport::TEXTURES CPlayer::ConsultationPlayerTexID(PlayerState state)
 		}
 		break;
 	case PLAYER_STATE_ATTACK:
-		switch (Costume_id)
+		switch (lid)
 		{
 		case COSTUME_NONE:
 			return (CImport::PLAYER_DEFAULT_ATTACK);
@@ -655,7 +672,7 @@ CImport::TEXTURES CPlayer::ConsultationPlayerTexID(PlayerState state)
 		}
 		break;
 	case PLAYER_STATE_LIGHTNING:
-		switch (Costume_id)
+		switch (lid)
 		{
 		case COSTUME_NONE:
 			return (CImport::PLAYER_DEFAULT_LIGHT);
@@ -685,9 +702,16 @@ CImport::TEXTURES CPlayer::ConsultationPlayerTexID(PlayerState state)
 //=============================================================================
 // テクスチャIDの参照処理(乗り物)
 //=============================================================================
-CImport::TEXTURES CPlayer::ConsultationVehicleTexID()
+CImport::TEXTURES CPlayer::ConsultationVehicleTexID(int offset)
 {
-	switch (Vehicle_id)
+	int lid = (int)Vehicle_id+offset;
+
+	if(lid<0||lid>=VEHICLE_MAX)
+	{
+		return (CImport::TEX_MAX);
+	}
+
+	switch (lid)
 	{
 	case VEHICLE_TRAM:
 		return (CImport::ASSY_TRAM);
@@ -709,7 +733,7 @@ CImport::TEXTURES CPlayer::ConsultationVehicleTexID()
 		break;
 	}
 
-	return (CImport::ASSY_TRAM);
+	return (CImport::ASSY_DOLLY);
 }
 //=============================================================================
 // 乗り物のテクスチャIDのセット(ゲームシーン以外で使う場合はアニメも勝手にセット)
@@ -718,7 +742,27 @@ void CPlayer::SetVehicleID(VehicleID value)
 {
 	if(Vehicle_id==value){return;}
 
-	Vehicle_id=value;;
+	Vehicle_id=value;
+	switch (Vehicle_id)
+	{
+	case VEHICLE_TRAM:
+		break;
+
+	case VHEICLE_LOG:
+		break;
+
+	case VEHICLE_BATHTUB:
+		break;
+
+	case VEHICLE_SLEIGH:
+		localGravity=localGravity/5.0f;
+		break;
+
+	case VHEICLE_TRUCK:
+		break;
+
+	}
+
 	if(!isGame)
 	{
 		Assy->SetTex(ConsultationVehicleTexID());
@@ -732,6 +776,29 @@ void CPlayer::SetCostumeID(CostumeID value)
 	if(Costume_id==value){return;}
 
 	Costume_id=value;
+	
+	switch (Costume_id)
+	{
+	case COSTUME_NONE:
+		break;
+
+	case COSTUME_KNIGHT:
+		break;
+
+	case COSTUME_SANTA:
+		localGravity=localGravity/5.0f;
+		break;
+
+	case COSTUME_SWIMWEAR:
+		break;
+
+	case COSTUME_NINJA:
+		break;
+
+	case COSTUME_FAITER:
+		break;
+
+	}
 	if(!isGame)
 	{
 		this->SetTex(ConsultationPlayerTexID(PLAYER_STATE_WAIT));
