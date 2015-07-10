@@ -130,12 +130,12 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/particle/particle_white_small.png",
 
 	// æ‚è•¨
+	"./data/TEXTURE/assy/truck.png",
+	"./data/TEXTURE/assy/dolly.png",
 	"./data/TEXTURE/assy/tram.png",
 	"./data/TEXTURE/assy/log.png",
 	"./data/TEXTURE/assy/bathtub.png",
-	"./data/TEXTURE/assy/dolly.png",
 	"./data/TEXTURE/assy/sleigh.png",
-	"./data/TEXTURE/assy/truck.png",
 
 	//ƒLƒƒƒ‰ƒƒCƒN‰æ–ÊUI
 	"./data/TEXTURE/select/assy_option.png",

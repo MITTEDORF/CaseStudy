@@ -46,7 +46,7 @@ public:
 	//クリエイト
 	//第一引数:デバイス
 	//戻り値  :インスタンスのポインタ
-	static CPlayer* Create(LPDIRECT3DDEVICE9 device,CostumeID costume_id=COSTUME_NONE,VehicleID vehicle_id=VEHICLE_TRAM);
+	static CPlayer* Create(LPDIRECT3DDEVICE9 device,CostumeID costume_id=COSTUME_NONE,VehicleID vehicle_id=(VehicleID)0);
 
 	//初期化処理
 	//第一引数:デバイス
@@ -184,8 +184,8 @@ public:
 	}
 	
 	//テクスチャIDの参照
-	CImport::TEXTURES ConsultationPlayerTexID(PlayerState state);
-	CImport::TEXTURES ConsultationVehicleTexID();
+	CImport::TEXTURES ConsultationPlayerTexID(PlayerState state,int offset=0);
+	CImport::TEXTURES ConsultationVehicleTexID(int offset=0);
 
 private:
 
@@ -222,7 +222,6 @@ private:
 	//アニメーションの1順終了フラグ
 	bool isAnimEnd;
 
-
 	//パーティクル管理クラス
 	CParticleManager *particle;
 	//キーボード情報格納変数
@@ -257,6 +256,9 @@ private:
 	//アニメーションの最大コマ数
 	int maxAnim;
 
+	//重力値
+	float localGravity;
+
 	//変数のNULL埋め処理
 	void NullSetVariable(void)
 	{
@@ -290,6 +292,7 @@ private:
 		isHoldLighting=false;
 		canLighting=true;
 		isinvincibleCnt=0;
+		localGravity=GRAVITY_SPD;
 	}
 
 	//移動処理

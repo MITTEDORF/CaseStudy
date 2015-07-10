@@ -39,8 +39,8 @@ private:
 	CScene2D* m_version;
 	CScene2D* m_slotback;
 	CScene2D* m_cur;
-	CScene2D* m_cos;
-	CScene2D* m_ass;
+	CScene2D* m_cos[3];
+	CScene2D* m_ass[3];
 	CScene2D* bg;
 	CScene2D* m_message;
 	CScene2D* m_message_win;
@@ -70,18 +70,22 @@ private:
 		m_player=NULL;
 		m_slotback=NULL;
 		bg=NULL;
-		m_cos=NULL;
-		m_ass=NULL;
+		m_cos[0]=NULL;
+		m_ass[0]=NULL;
+		m_cos[1]=NULL;
+		m_ass[1]=NULL;
+		m_cos[2]=NULL;
+		m_ass[2]=NULL;
 		m_cur=NULL;
-		costume_id=COSTUME_NONE;
-		vehicle_id=VEHICLE_TRAM;
+		costume_id=0;
+		vehicle_id=0;
 	}
 
 	void AnimUpdate();
 
 	void CurUpdate();
 
-	void cosUpdate();
+	void cosUpdate(int id);
 
 };
 
