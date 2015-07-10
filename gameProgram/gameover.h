@@ -59,6 +59,9 @@ private:
 	CScene2D* m_version;
 	CScene2D* m_Button[SELECT_CUR_MAX];
 
+	// ƒXƒNƒ[ƒ‹‚·‚é”wŒi
+	CScene2D* m_bg;
+
 	CostumeID costume_id;
 	VehicleID vehicle_id;
 };

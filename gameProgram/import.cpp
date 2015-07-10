@@ -39,12 +39,34 @@ const char* TEX_PATH[] =
 	// êX
 	"./data/TEXTURE/forest/forest_01.png",
 
+	// çªîô
+	"./data/TEXTURE/desert/desert_01.png",
+	"./data/TEXTURE/desert/desert_02.png",
+	"./data/TEXTURE/desert/desert_03.png",
+
+	// ïXâÕ
+	"./data/TEXTURE/glacier/glacier_01.png",
+	"./data/TEXTURE/glacier/glacier_02.png",
+	"./data/TEXTURE/glacier/glacier_03.png",
+	"./data/TEXTURE/glacier/glacier_04.png",
+	"./data/TEXTURE/glacier/glacier_05.png",
+
+	// ÉTÉoÉìÉi
+	"./data/TEXTURE/savannah/savannah_01.png",
+	"./data/TEXTURE/savannah/savannah_02.png",
+	"./data/TEXTURE/savannah/savannah_03.png",
+	"./data/TEXTURE/savannah/savannah_04.png",
+	"./data/TEXTURE/savannah/savannah_05.png",
+
 	// í¨
 	"./data/TEXTURE/town/town_01.png",
 
 	// ìπ
 	"./data/TEXTURE/forest/dirt.png",
 	"./data/TEXTURE/town/asphalt.png",
+	"./data/TEXTURE/desert/sand.png",
+	"./data/TEXTURE/glacier/ice.png",
+	"./data/TEXTURE/savannah/grassfield.png",
 
 	// è·äQï®
 	"./data/TEXTURE/stumbler/signboard.png",
@@ -129,6 +151,8 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/select/hyphen_3.png",
 	"./data/TEXTURE/select/hyphen_4.png",
 	"./data/TEXTURE/select/hyphen_5.png",
+	"./data/TEXTURE/select/char_sel_back_01.png",
+	"./data/TEXTURE/select/char_sel_chip_01.png",
 
 };
 

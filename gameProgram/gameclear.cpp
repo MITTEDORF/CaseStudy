@@ -113,6 +113,16 @@ void CGameClear::Update(void)
 			CManager::SetNextPhase((CPhase*)new CTitle);
 		}
 	}
+
+	// ”wŒiƒXƒNƒ[ƒ‹ˆ—
+	D3DXVECTOR2 tmp;
+	float scroll = 0.002;
+	for(int i = 0; i < 4;  i++)
+	{
+		tmp = m_bg->GetCord(i);
+		tmp.y -= scroll;
+		m_bg->SetCord(i, tmp);
+	}
 }
 
 //=============================================================================
@@ -127,6 +137,16 @@ void CGameClear::Draw(void)
 //=============================================================================
 void CGameClear::InitObject(LPDIRECT3DDEVICE9 device)
 {
+	// ”wŒi
+	CScene2D* bg = CScene2D::Create(device, CImport::MAKE_UI_CHAR_SEL_BACK_01, CScene2D::POINT_LEFTTOP, 1);
+	bg->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	bg->SetPos(0.0f, 0.0f);
+
+	// ƒXƒNƒ[ƒ‹‚·‚é”wŒi
+	m_bg = CScene2D::Create(device, CImport::MAKE_UI_CHAR_SEL_CHIP_01, CScene2D::POINT_CENTER, 2);
+	m_bg->SetSize(SCREEN_WIDTH * 1.3, SCREEN_WIDTH * 1.3);
+	m_bg->SetPos(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+	m_bg->SetRot(-0.5f);
 
 	CScene2D* resultLogo = CScene2D::Create(device, CImport::PLAYER_GOODMOOD, CScene2D::POINT_LEFTTOP);
 		resultLogo->SetSize(602, 664.5f);

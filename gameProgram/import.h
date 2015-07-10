@@ -47,12 +47,34 @@ public:
 		// êX
 		FOREST_01,
 
+		// çªîô
+		DESERT_01,
+		DESERT_02,
+		DESERT_03,
+
+		// ïXâÕ
+		GLACIER_01,
+		GLACIER_02,
+		GLACIER_03,
+		GLACIER_04,
+		GLACIER_05,
+
+		// ÉTÉoÉìÉi
+		SAVANNAH_01,
+		SAVANNAH_02,
+		SAVANNAH_03,
+		SAVANNAH_04,
+		SAVANNAH_05,
+
 		// í¨
 		TOWN_01,
 
 		// ìπ
 		DIRT,
 		ASPHALT,
+		SAND,
+		ICE,
+		GRASSFIELD,
 
 		// è·äQï®
 		SIGNBOARD,
@@ -136,6 +158,8 @@ public:
 		MAKE_UI_HYPHEN_3,
 		MAKE_UI_HYPHEN_4,
 		MAKE_UI_HYPHEN_5,
+		MAKE_UI_CHAR_SEL_BACK_01,
+		MAKE_UI_CHAR_SEL_CHIP_01,
 
 		TEX_MAX
 	};

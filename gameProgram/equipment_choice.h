@@ -49,6 +49,9 @@ private:
 	CScene2D* m_cos_mes;
 	CScene2D* m_cos_mes_win;
 
+	// ÉXÉNÉçÅ[ÉãÇ∑ÇÈîwåi
+	CScene2D* m_bg;
+
 	void VehicleChoice();
 	void CostumeChoice();
 

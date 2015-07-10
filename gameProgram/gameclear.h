@@ -62,6 +62,9 @@ private:
 
 	CScene2D* m_version;
 
+	// ƒXƒNƒ[ƒ‹‚·‚é”wŒi
+	CScene2D* m_bg;
+
 	CostumeID costume_id;
 	VehicleID vehicle_id;
 };

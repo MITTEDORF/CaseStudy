@@ -107,7 +107,6 @@ void CResult::Draw(void)
 //=============================================================================
 void CResult::InitObject(LPDIRECT3DDEVICE9 device)
 {
-
 	//ÉçÉS
 
 	//ÉNÉäÉAâÊñ 
