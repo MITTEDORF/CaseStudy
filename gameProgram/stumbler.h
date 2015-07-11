@@ -63,15 +63,13 @@ public:
 	void	Draw(void);
 
 	// スクロール処理
-	void	Scroll(float scroll){m_pos.x -= scroll; CScene2D::SetVertexPolygon();}
+	void	Scroll(float scroll){m_pos.x -= scroll; m_defpos.x -= scroll; CScene2D::SetVertexPolygon();}
 	// HPセット処理
 	void	SetHP(int life){m_life = life;}
 	// HPゲット処理
 	int		GetHP(void){return m_life;}
 	// 攻撃を受けた場合のHP減算処理
 	void	Attack(int damage){m_life -= damage;}
-	// 生存チェック
-	bool	LivingCheck(void);
 	// 次障害物ポインタセット処理
 	void		SetStumNext(CStumbler* next){m_next = next;}
 	// 次障害物ポインタゲット処理
@@ -88,17 +86,19 @@ public:
 	void		SetFall(void){m_fallFrag = true;}
 	// 落下チェック
 	void		CheckFall(D3DXVECTOR2 pos);
-
+	// 障害物削除フラグオン
 	void		SetStumDelete(void){m_stumDelete = true;}
-
+	// 障害物削除フラグ状態取得
 	bool		GetStumDelete(void){return m_stumDelete;}
+	// 移動値セット
+	void		SetStumMove(D3DXVECTOR2 v){m_move = v;}
 
 protected:
 	int			m_life;						// 障害物耐久度
 	CStumbler*	m_next;						// 次障害物へのポインタ
 	CStumbler*	m_prev;						// 前障害物へのポインタ
 	STUM_TYPE	m_type;						// 障害物タイプ
-	float		m_move;						// 移動値
+	D3DXVECTOR2	m_move;						// 移動値
 	D3DXVECTOR2	m_defpos;					// 初期位置
 	int			m_texAnim;					// テクスチャアニメーション用タイマ
 	bool		m_fallFrag;					// 落下フラグ
