@@ -21,6 +21,7 @@
 #include "math_animation.h"
 
 #include "equipment_choice_config.h"
+#include "character_config.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
@@ -193,7 +194,7 @@ void CEquipmentChoice::InitObject(LPDIRECT3DDEVICE9 device)
 	m_slotback->SetPos(SCREEN_WIDTH * 0.3f, SCREEN_HEIGHT * 0.4f);
 
 	// 効果テキスト
-	m_message = CScene2D::Create(device, CImport::MAKE_UI_VEH_MES_SLED, CScene2D::POINT_CENTER);
+	m_message = CScene2D::Create(device, CImport::MAKE_UI_HYPHEN_5, CScene2D::POINT_CENTER);
 	m_message->SetSize(1200.0f,91.0f);
 	m_message->SetPos(SCREEN_WIDTH * 0.5f,SCREEN_HEIGHT * 0.9);
 	// 効果ウィンドウ
@@ -202,22 +203,22 @@ void CEquipmentChoice::InitObject(LPDIRECT3DDEVICE9 device)
 	m_message_win->SetPos(SCREEN_WIDTH * 0.5f,SCREEN_HEIGHT * 0.9);
 
 	// 乗り物名テキスト
-	m_veh_mes = CScene2D::Create(device, CImport::MAKE_UI_HYPHEN_5, CScene2D::POINT_CENTER);
+	m_veh_mes = CScene2D::Create(device, CImport::MAKE_UI_HYPHEN_3, CScene2D::POINT_CENTER);
 	m_veh_mes->SetSize(466.0f,91.0f);
-	m_veh_mes->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55);
+	m_veh_mes->SetPos(SCREEN_WIDTH * 0.81f,SCREEN_HEIGHT * 0.55 + 91.0f);
 	// 乗り物名ウィンドウ
 	m_veh_mes_win = CScene2D::Create(device, CImport::MAKE_UI_ASSY_OPTION, CScene2D::POINT_CENTER,2);
 	m_veh_mes_win->SetSize(466.0f,91.0f);
-	m_veh_mes_win->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55);
+	m_veh_mes_win->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55 + 91.0f);
 
 	// 服装テキスト
-	m_cos_mes = CScene2D::Create(device, CImport::MAKE_UI_HYPHEN_5, CScene2D::POINT_CENTER);
+	m_cos_mes = CScene2D::Create(device, CImport::MAKE_UI_HYPHEN_3, CScene2D::POINT_CENTER);
 	m_cos_mes->SetSize(466.0f,91.0f);
-	m_cos_mes->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55 + 91.0f);
+	m_cos_mes->SetPos(SCREEN_WIDTH * 0.81f,SCREEN_HEIGHT * 0.55);
 	// 服装ウィンドウ
 	m_cos_mes_win = CScene2D::Create(device, CImport::MAKE_UI_COS_OPTION, CScene2D::POINT_CENTER,2);
 	m_cos_mes_win->SetSize(466.0f,91.0f);
-	m_cos_mes_win->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55 + 91.0f);
+	m_cos_mes_win->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55);
 }
 
 //=============================================================================
@@ -247,6 +248,52 @@ void CEquipmentChoice::VehicleChoice()
 			m_player->SetVehicleID((VehicleID)vehicle_id);
 		}
 	}
+
+	// 乗り物によってメッセージの切り替え
+	switch(vehicle_id)
+	{
+	case VEHICLE_TRAM:
+		m_veh_mes->SetTex(CImport::MAKE_UI_VEH_TRUM);
+		if(curUp != true)
+			m_message->SetTex(CImport::MAKE_UI_VEH_MES_TRUM);
+		break;
+
+	case VHEICLE_DOLLY:
+		m_veh_mes->SetTex(CImport::MAKE_UI_VEH_DOLLY);
+		if(curUp != true)
+			m_message->SetTex(CImport::MAKE_UI_VEH_MES_DOLLY);
+		break;
+
+	case VHEICLE_LOG:
+		m_veh_mes->SetTex(CImport::MAKE_UI_VEH_LOG);
+		if(curUp != true)
+			m_message->SetTex(CImport::MAKE_UI_VEH_MES_LOG);
+		break;
+
+	case VEHICLE_BATHTUB:
+		m_veh_mes->SetTex(CImport::MAKE_UI_VEH_BATHTUB);
+		if(curUp != true)
+			m_message->SetTex(CImport::MAKE_UI_VEH_MES_BATHTUB);
+		break;
+
+	case VEHICLE_SLEIGH:
+		m_veh_mes->SetTex(CImport::MAKE_UI_VEH_SLEIGH);
+		if(curUp != true)
+			m_message->SetTex(CImport::MAKE_UI_VEH_MES_SLEIGH);
+		break;
+
+	case VHEICLE_TRUCK:
+		m_veh_mes->SetTex(CImport::MAKE_UI_VEH_TRUCK);
+		if(curUp != true)
+			m_message->SetTex(CImport::MAKE_UI_VEH_MES_TRUCK);
+		break;
+
+	default:
+		m_veh_mes->SetTex(CImport::MAKE_UI_HYPHEN_3);
+		if(curUp != true)
+			m_message->SetTex(CImport::MAKE_UI_HYPHEN_5);
+		break;
+	}
 }
 //=============================================================================
 // コスチュームの選択
@@ -275,6 +322,46 @@ void CEquipmentChoice::CostumeChoice()
 			m_player->SetCostumeID((CostumeID)costume_id);
 		}
 	}
+
+	// コスチュームによってメッセージの切り替え
+	switch(costume_id)
+	{
+		case COSTUME_NONE:
+			m_cos_mes->SetTex(CImport::MAKE_UI_COS_NONE);
+			if(curUp == true)
+				m_message->SetTex(CImport::MAKE_UI_COS_MES_NONE);
+			break;
+		case COSTUME_KNIGHT:
+			m_cos_mes->SetTex(CImport::MAKE_UI_COS_KNIGHT);
+			if(curUp == true)
+				m_message->SetTex(CImport::MAKE_UI_COS_MES_NINJA);
+			break;
+		case COSTUME_SANTA:
+			m_cos_mes->SetTex(CImport::MAKE_UI_COS_SANTA);
+			if(curUp == true)
+				m_message->SetTex(CImport::MAKE_UI_COS_MES_SANTA);
+			break;
+		case COSTUME_SWIMWEAR:
+			m_cos_mes->SetTex(CImport::MAKE_UI_COS_SWIM);
+			if(curUp == true)
+				m_message->SetTex(CImport::MAKE_UI_COS_MES_SWIM);
+			break;
+		case COSTUME_NINJA:
+			m_cos_mes->SetTex(CImport::MAKE_UI_COS_NINJA);
+			if(curUp == true)
+				m_message->SetTex(CImport::MAKE_UI_COS_MES_NINJA);
+			break;
+		case COSTUME_FAITER:
+			m_cos_mes->SetTex(CImport::MAKE_UI_COS_FIGHTER);
+			if(curUp == true)
+				m_message->SetTex(CImport::MAKE_UI_COS_MES_FIGHTER);
+			break;
+		default:
+			m_cos_mes->SetTex(CImport::MAKE_UI_HYPHEN_3);
+			if(curUp == true)
+				m_message->SetTex(CImport::MAKE_UI_HYPHEN_5);
+			break;
+		}
 }
 
 //=============================================================================
@@ -303,11 +390,13 @@ void CEquipmentChoice::CurUpdate()
 	if(m_keyboard->GetTrigger(DIK_W))
 	{
 		m_cur->SetPosY(CUR_UP);
+		curUp = true;
 	}
 
 	else if(m_keyboard->GetTrigger(DIK_S))
 	{
 		m_cur->SetPosY(CUR_BUTTOM);
+		curUp = false;
 	}
 }
 

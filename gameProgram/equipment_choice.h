@@ -63,6 +63,9 @@ private:
 	int cntAnim;
 	int nowAnim;
 
+	// カーソル上？下？
+	bool curUp;
+
 	void NullSetVariable(void)
 	{
 		cntAnim=0;
@@ -79,6 +82,7 @@ private:
 		m_cur=NULL;
 		costume_id=0;
 		vehicle_id=0;
+		curUp= true;
 	}
 
 	void AnimUpdate();
