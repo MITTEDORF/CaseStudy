@@ -39,6 +39,9 @@ const char* TEX_PATH[] =
 	// êX
 	"./data/TEXTURE/forest/forest_01.png",
 
+	// êÖï”
+	"./data/TEXTURE/waterside/waterside_01.png",
+
 	// çªîô
 	"./data/TEXTURE/desert/desert_01.png",
 	"./data/TEXTURE/desert/desert_02.png",
@@ -67,6 +70,7 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/desert/sand.png",
 	"./data/TEXTURE/glacier/ice.png",
 	"./data/TEXTURE/savannah/grassfield.png",
+	"./data/TEXTURE/waterside/water.png",
 
 	// è·äQï®
 	"./data/TEXTURE/stumbler/signboard.png",

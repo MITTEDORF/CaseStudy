@@ -100,14 +100,11 @@ void CGame::Uninit(void)
 
 	SAFE_DELETE(m_bg);
 
-	//----------------------------------------
-	// 障害物関連（後で消してね
+	// 障害物
 	SAFE_DELETE(m_stumbler);
-	//----------------------------------------
-	// 道路関連（後で消してね
+	// 道路
 	SAFE_DELETE(m_road);
-	//----------------------------------------
-	// ターゲット関連（後で消してね
+	// ターゲット
 	SAFE_DELETE(m_target);
 
 	// シーン
@@ -159,12 +156,12 @@ void CGame::Update(void)
 			//パーティクルのスクロール
 			m_player->ParticleScrol(scroll);
 
-			//----------------------------------------
-			// 障害物関連（後で消してね
+			// 障害物のスクロール
 			m_stumbler->Scroll(scroll);
-			m_road->Scroll(scroll);
 			m_target->Scroll(scroll);
 
+			// 道路のスクロール
+			m_road->Scroll(scroll);
 		}
 		else if(playerPos.x < 0)
 		{
@@ -182,26 +179,12 @@ void CGame::Update(void)
 			//パーティクルのスクロール
 			m_player->ParticleScrol(scroll);
 
-			//----------------------------------------
-			// 障害物関連（後で消してね
+			// 障害物のスクロール
 			m_stumbler->Scroll(scroll);
-			m_road->Scroll(scroll);
 			m_target->Scroll(scroll);
-		}
 
-		
-
-		//α仮置き
-		/*if( m_Goal->CheckCollisionAABB( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
-		{
-			m_player->PlayerReflash();
-			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
-		}*/
-		// ゴールと接触判定
-		if( m_target->CheckHitGoal( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
-		{
-			m_player->PlayerReflash();
-			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+			// 道路のスクロール
+			m_road->Scroll(scroll);
 		}
 	}
 
@@ -260,11 +243,9 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	// 背景
 	m_bg = CBackgroundManager::Create(device);
 
-	//-----------------------------
-	// 道路関連(後で修正してね
+	// 道路
 	m_road = CRoadManager::Create(device);
-	//-----------------------------
-	// 障害物関連(後で修正してね
+	// 障害物
 	m_stumbler = CStumManager::Create(device);
 	m_target = CTargetManager::Create(device);
 
@@ -283,6 +264,13 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 void CGame::ColAll()
 {
+	// ゴールと接触判定
+	if( m_target->CheckHitGoal( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
+	{
+		m_player->PlayerReflash();
+		m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+	}
+
 	//プレイヤと障害物の当たり判定
 	if(m_stumbler->CheckHit( m_player->GetHitPos() , m_player->GetHitSize() , CScene2D::POINT_CENTER ))
 	{
@@ -292,15 +280,6 @@ void CGame::ColAll()
 	//ライトニング判定
 	if(m_player->isLitninng())
 	{
-		/*if((m_Goal->CheckCollisionAABB(m_player->GetPos() , m_player->GetSize()*3.0f , CScene2D::POINT_CENTER )))
-		{
-			m_player->PaticleStart(m_Goal);
-		}
-
-		else
-		{
-			m_player->PaticleStart(NULL);
-		}*/
 		m_player->PaticleStart((CScene*)m_target->CheckHit(m_player->GetPos() , m_player->GetSize()*3.0f , CScene2D::POINT_CENTER ));
 	}
 
