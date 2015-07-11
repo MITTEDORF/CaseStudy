@@ -47,6 +47,9 @@ public:
 		// êX
 		FOREST_01,
 
+		// êÖï”
+		WATERSIDE_01,
+
 		// çªîô
 		DESERT_01,
 		DESERT_02,
@@ -75,6 +78,7 @@ public:
 		SAND,
 		ICE,
 		GRASSFIELD,
+		WATER,
 
 		// è·äQï®
 		SIGNBOARD,
