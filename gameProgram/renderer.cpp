@@ -130,8 +130,8 @@ HRESULT CRenderer::Init(HWND wnd, bool window)
 	// サンプラーステートパラメータ
 	m_device->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);	// テクスチャアドレッシング方法(U値)を設定
 	m_device->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);	// テクスチャアドレッシング方法(V値)を設定
-	m_device->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);	// テクスチャ縮小フィルタモードを設定
-	m_device->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);	// テクスチャ拡大フィルタモードを設定
+	m_device->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_POINT);	// テクスチャ縮小フィルタモードを設定
+	m_device->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_POINT);	// テクスチャ拡大フィルタモードを設定
 	
 	// テクスチャステージステート
 	m_device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);	// アルファブレンディング処理を設定
