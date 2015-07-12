@@ -186,22 +186,22 @@ void CPlayer::Move()
 			Assy->SetAnimMode(1,true);
 		}
 
-		//if(m_padX != NULL)
-		//{
-		//	//右移動
-		//	if(m_padX->GetButton(XINPUT_GAMEPAD_DPAD_LEFT))
-		//	{
-		//		m_move_spd.x-=MOVE_SPD;
-		//		Assy->SetAnimMode(1,true);
-		//	}
+		if(m_padX != NULL)
+		{
+			//右移動
+			if(m_padX->GetButton(XINPUT_GAMEPAD_DPAD_LEFT))
+			{
+				m_move_spd.x-=MOVE_SPD;
+				Assy->SetAnimMode(1,true);
+			}
 
-		//	//左移動
-		//	if(m_padX->GetButton(XINPUT_GAMEPAD_DPAD_RIGHT))
-		//	{
-		//		m_move_spd.x+=MOVE_SPD;
-		//		Assy->SetAnimMode(1,true);
-		//	}
-		//}
+			//左移動
+			if(m_padX->GetButton(XINPUT_GAMEPAD_DPAD_RIGHT))
+			{
+				m_move_spd.x+=MOVE_SPD;
+				Assy->SetAnimMode(1,true);
+			}
+		}
 	}
 
 	//慣性
@@ -212,13 +212,13 @@ void CPlayer::Move()
 		Assy->SetAnimMode(0,true);
 	}
 
-	/*if(m_padX != NULL)
+	if(m_padX != NULL)
 	{
 		if(m_padX->GetButton(XINPUT_GAMEPAD_DPAD_LEFT)||m_padX->GetButton(XINPUT_GAMEPAD_DPAD_RIGHT))
 		{
 			Assy->SetAnimMode(0,true);
 		}
-	}*/
+	}
 
 	//ジャンプ処理
 	moveJump();
@@ -294,35 +294,21 @@ void CPlayer::moveJump()
 		}
 	}
 
-
-	//if(m_padX != NULL)
-	//{
-	//	if(m_padX->GetButton(XINPUT_GAMEPAD_A))
-	//	{
-	//		if(!isJump)
-	//		{
-	//			canJump=false;
-	//			isJump=true;
-	//			//スピードの設定
-	//			m_move_spd.y=JUMP_SPD;
-	//		}
-	//	}
-	//}
-
-	//if(m_padX != NULL)
-	//{
-	//	if(m_padX->GetButton(XINPUT_GAMEPAD_A))
-	//	{
-	//		if(!isJump)
-	//		{
-	//			//isGravity=true;
-	//			canJump=false;
-	//			isJump=true;
-	//			//スピードの設定
-	//			m_move_spd.y=JUMP_SPD;
-	//		}
-	//	}
-	//}
+	if(m_padX != NULL)
+	{
+		if(m_padX->GetButton(XINPUT_GAMEPAD_A))
+		{
+			if(!isJump)
+			{
+				//isGravity=true;
+				canJump=false;
+				isJump=true;
+				//スピードの設定
+				m_move_spd.y=JUMP_SPD;
+				CDebugproc::PrintDebugProc("ジャンプ\n");
+			}
+		}
+	}
 
 }
 //=============================================================================
@@ -390,7 +376,7 @@ void CPlayer::LightAction()
 		SetAnimMode(PLAYER_ANIM_LIGHT,false);
 	}
 
-	/*if(m_padX != NULL)
+	if(m_padX != NULL)
 	{
 		if(m_padX->GetButton(XINPUT_GAMEPAD_B))
 		{
@@ -398,7 +384,7 @@ void CPlayer::LightAction()
 			m_move_spd.y=0.0f;
 			SetAnimMode(PLAYER_ANIM_LIGHT,false);
 		}
-	}*/
+	}
 
 	if(isHoldLighting)
 	{
