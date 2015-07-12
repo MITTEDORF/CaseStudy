@@ -178,6 +178,10 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/select/char_sel_back_01.png",
 	"./data/TEXTURE/select/char_sel_chip_01.png",
 
+	// ï∂éöëfçﬁ
+	"./data/TEXTURE/number/coron.png",
+	"./data/TEXTURE/number/coron_half.png",
+	"./data/TEXTURE/number/number.png",
 };
 
 // É}ÉbÉv

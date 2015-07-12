@@ -131,6 +131,29 @@ void CGame::Update(void)
 		//----------------------------
 		// 更新内容
 		//----------------------------
+		// タイマー更新
+		m_time++;
+
+		m_timePol[0]->SetCord(0, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1, 0));
+		m_timePol[0]->SetCord(1, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1 + 0.1, 0));
+		m_timePol[0]->SetCord(2, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1, 1));
+		m_timePol[0]->SetCord(3, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1 + 0.1, 1));
+
+		m_timePol[1]->SetCord(0, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1, 0));
+		m_timePol[1]->SetCord(1, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1 + 0.1, 0));
+		m_timePol[1]->SetCord(2, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1, 1));
+		m_timePol[1]->SetCord(3, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1 + 0.1, 1));
+
+		m_timePol[3]->SetCord(0, D3DXVECTOR2( ((m_time/600) % 6) * 0.1, 0));
+		m_timePol[3]->SetCord(1, D3DXVECTOR2( ((m_time/600) % 6) * 0.1 + 0.1, 0));
+		m_timePol[3]->SetCord(2, D3DXVECTOR2( ((m_time/600) % 6) * 0.1, 1));
+		m_timePol[3]->SetCord(3, D3DXVECTOR2( ((m_time/600) % 6) * 0.1 + 0.1, 1));
+
+		m_timePol[4]->SetCord(0, D3DXVECTOR2( ((m_time/60) % 10) * 0.1, 0));
+		m_timePol[4]->SetCord(1, D3DXVECTOR2( ((m_time/60) % 10) * 0.1 + 0.1, 0));
+		m_timePol[4]->SetCord(2, D3DXVECTOR2( ((m_time/60) % 10) * 0.1, 1));
+		m_timePol[4]->SetCord(3, D3DXVECTOR2( ((m_time/60) % 10) * 0.1 + 0.1, 1));
+
 		// 空の更新（スクロール）
 		m_sky->Update();
 
@@ -257,6 +280,30 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_player->SetPos(120.0f,300.0f);
 	m_player->SetKeyboard(m_keyboard);
 	m_player->SetPadX(m_padX);
+
+	// タイマー
+	m_time = 0;
+	D3DXVECTOR2 pos = D3DXVECTOR2(SCREEN_WIDTH * 0.65, SCREEN_HEIGHT * 0.1f);
+	for(int i = 0; i < 5; i++)
+	{
+		m_timePol[i] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
+
+		m_timePol[i]->SetSize(60.0f, 70.0f);
+		m_timePol[i]->SetPos(pos.x + 60.0f * i, pos.y);
+
+		if(i != 2)
+		{
+			m_timePol[i]->SetTex(CImport::NUMBER);
+			m_timePol[i]->SetCord(0, D3DXVECTOR2(0, 0));
+			m_timePol[i]->SetCord(1, D3DXVECTOR2(0.1, 0));
+			m_timePol[i]->SetCord(2, D3DXVECTOR2(0, 1));
+			m_timePol[i]->SetCord(3, D3DXVECTOR2(0.1, 1));
+		}
+		else
+		{
+			m_timePol[i]->SetTex(CImport::COLON);
+		}
+	}
 }
 
 //=============================================================================

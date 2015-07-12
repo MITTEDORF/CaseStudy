@@ -185,6 +185,12 @@ public:
 		MAKE_UI_CHAR_SEL_BACK_01,
 		MAKE_UI_CHAR_SEL_CHIP_01,
 
+		// ï∂éöëfçﬁ
+		COLON,
+		COLON_HALF,
+		NUMBER,
+
+
 		TEX_MAX
 	};
 
