@@ -189,14 +189,14 @@ void CPlayer::Move()
 		if(m_padX != NULL)
 		{
 			//‰EˆÚ“®
-			if(m_padX->GetButton(XINPUT_GAMEPAD_DPAD_LEFT))
+			if(m_padX->GetButtonPress(XINPUT_GAMEPAD_DPAD_LEFT))
 			{
 				m_move_spd.x-=MOVE_SPD;
 				Assy->SetAnimMode(1,true);
 			}
 
 			//¶ˆÚ“®
-			if(m_padX->GetButton(XINPUT_GAMEPAD_DPAD_RIGHT))
+			if(m_padX->GetButtonPress(XINPUT_GAMEPAD_DPAD_RIGHT))
 			{
 				m_move_spd.x+=MOVE_SPD;
 				Assy->SetAnimMode(1,true);
@@ -214,7 +214,7 @@ void CPlayer::Move()
 
 	if(m_padX != NULL)
 	{
-		if(m_padX->GetButton(XINPUT_GAMEPAD_DPAD_LEFT)||m_padX->GetButton(XINPUT_GAMEPAD_DPAD_RIGHT))
+		if(m_padX->GetButtonPress(XINPUT_GAMEPAD_DPAD_LEFT)||m_padX->GetButtonPress(XINPUT_GAMEPAD_DPAD_RIGHT))
 		{
 			Assy->SetAnimMode(0,true);
 		}
@@ -296,7 +296,7 @@ void CPlayer::moveJump()
 
 	if(m_padX != NULL)
 	{
-		if(m_padX->GetButton(XINPUT_GAMEPAD_A))
+		if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_A))
 		{
 			if(!isJump)
 			{
@@ -378,7 +378,7 @@ void CPlayer::LightAction()
 
 	if(m_padX != NULL)
 	{
-		if(m_padX->GetButton(XINPUT_GAMEPAD_B))
+		if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_B))
 		{
 			canLighting=false;
 			m_move_spd.y=0.0f;

@@ -82,19 +82,9 @@ HRESULT CManager::Init(HINSTANCE instance, HWND wnd, bool window)
 	m_renderer->SetDebugproc(m_debugproc);
 
 	//----------------------------
-	// 初期起動表示
-	//----------------------------
-
-	m_loading_flag = true;
-
-	CScene2D* setup = CScene2D::Create(device, "./data/TEXTURE/fade.jpg", CScene2D::POINT_CENTER);
-	setup->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-	setup->SetPos(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
-
-	m_renderer->Draw();
-	//----------------------------
 	// ロード中描画
 	//----------------------------
+	m_loading_flag = true;
 	m_now_load = new CNLoad;
 	m_now_load->Init(device);
 
@@ -136,10 +126,6 @@ HRESULT CManager::Init(HINSTANCE instance, HWND wnd, bool window)
 	//----------------------------
 	// 初期化成功
 	//----------------------------
-	// 起動画面破棄
-	setup->UnLinkScene();
-	SAFE_END(setup);
-
 	return S_OK;
 }
 
