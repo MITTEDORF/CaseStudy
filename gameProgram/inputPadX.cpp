@@ -39,7 +39,20 @@ const WORD PAD_BUTTON[BUTTON_NUM] =
 //=============================================================================
 CInputPadX::CInputPadX(void)
 {
+	// Ú‘±ƒiƒ“ƒo[
+	m_no = -1;
 
+	// Ú‘±î•ñ
+	m_connected = false;
+
+	// “ü—Íî•ñ
+	m_pad.Gamepad.wButtons		= 0;
+	m_pad.Gamepad.bLeftTrigger	= 0;
+	m_pad.Gamepad.bRightTrigger	= 0;
+	m_pad.Gamepad.sThumbLX		= 0;
+	m_pad.Gamepad.sThumbLY		= 0;
+	m_pad.Gamepad.sThumbRX		= 0;
+	m_pad.Gamepad.sThumbRY		= 0;
 }
 
 //=============================================================================
@@ -68,6 +81,7 @@ HRESULT CInputPadX::Init(void)
 		}
 		else
 		{
+			// Ú‘±î•ñ
 			m_no = cnt;
 			m_padFlg[m_no] = true;
 			m_connected	  = true;
@@ -85,7 +99,7 @@ void CInputPadX::Uninit(void)
 {
 	if(m_connected == true)
 	{
-		m_padFlg[m_no] = true;
+		m_padFlg[m_no] = false;
 	}
 }
 

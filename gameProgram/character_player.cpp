@@ -320,7 +320,6 @@ void CPlayer::moveJump()
 				isJump=true;
 				//スピードの設定
 				m_move_spd.y=JUMP_SPD;
-				CDebugproc::PrintDebugProc("パッドジャンプ！\n");
 			}
 		}
 	}

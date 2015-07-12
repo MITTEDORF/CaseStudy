@@ -29,6 +29,8 @@ public:
 	void	Uninit(void);
 	void	Update(void);
 
+	bool GetPadFlg(void){return (m_no < 0) ? false : true;}
+
 	bool GetButton(WORD wButton){return (m_pad.Gamepad.wButtons & wButton) ? true : false;}
 	bool GetLeftTrigger(void){return (m_pad.Gamepad.bLeftTrigger > XINPUT_GAMEPAD_TRIGGER_THRESHOLD) ? true : false;}
 	bool GetRightrigger(void){return (m_pad.Gamepad.bRightTrigger > XINPUT_GAMEPAD_TRIGGER_THRESHOLD) ? true : false;}
