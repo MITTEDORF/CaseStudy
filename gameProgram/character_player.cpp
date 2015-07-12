@@ -305,20 +305,20 @@ void CPlayer::moveJump()
 	//	}
 	//}
 
-	if(m_padX != NULL)
-	{
-		if(m_padX->GetButton(XINPUT_GAMEPAD_A))
-		{
-			if(!isJump)
-			{
-				//isGravity=true;
-				canJump=false;
-				isJump=true;
-				//スピードの設定
-				m_move_spd.y=JUMP_SPD;
-			}
-		}
-	}
+	//if(m_padX != NULL)
+	//{
+	//	if(m_padX->GetButton(XINPUT_GAMEPAD_A))
+	//	{
+	//		if(!isJump)
+	//		{
+	//			//isGravity=true;
+	//			canJump=false;
+	//			isJump=true;
+	//			//スピードの設定
+	//			m_move_spd.y=JUMP_SPD;
+	//		}
+	//	}
+	//}
 
 }
 //=============================================================================
