@@ -186,9 +186,10 @@ void CRenderer::Draw(void)
 		// オブジェクト
 		CListObject::Draw();
 
-#ifdef _DEBUG
+	if(CDebugproc::GetDrawFrag())
+	{
 		m_debugproc->Draw();
-#endif
+	}
 
 		m_device->EndScene();	// 終了
 	}

@@ -190,10 +190,12 @@ void CManager::Update(void)
 	// デバッグ表示
 	m_debugproc->Update();
 
-#ifdef _DEBUG
-	// FPS更新
-	m_debugproc->PrintDebugProc("FPS:%d\n", m_renderer->GetFPS());
-#endif
+	if(CDebugproc::GetDrawFrag())
+	{
+		// FPS更新
+		m_debugproc->PrintDebugProc("FPS:%d\n", m_renderer->GetFPS());
+	}
+
 	// 入力
 	m_keyboard->Update();
 	m_padX->Update();

@@ -63,6 +63,10 @@ HRESULT CPlayer::Init(LPDIRECT3DDEVICE9 device)
 	particle=new CParticleManager();
 	particle->Init(device);
 
+	// 入力関係
+	m_keyboard = nullptr;
+	m_padX = nullptr;
+
 	//親の初期化
 	CScene2D::Init(device,ConsultationPlayerTexID(PLAYER_STATE_WAIT),POINT_CENTER);
 
@@ -316,6 +320,7 @@ void CPlayer::moveJump()
 				isJump=true;
 				//スピードの設定
 				m_move_spd.y=JUMP_SPD;
+				CDebugproc::PrintDebugProc("パッドジャンプ！\n");
 			}
 		}
 	}
