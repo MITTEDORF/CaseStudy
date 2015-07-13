@@ -152,8 +152,8 @@ void CEquipmentChoice::InitObject(LPDIRECT3DDEVICE9 device)
 
 	//ƒvƒŒƒCƒ„[‚Ì¶¬
 	m_player=CPlayer::Create(device);
-	m_player->SetPos(SCREEN_WIDTH * 0.8f, SCREEN_HEIGHT * 0.2f);
-	m_player->SetSize(128.0f*2.5f,128.0f*2.5f);
+	m_player->SetPos(SCREEN_WIDTH * 0.8f, SCREEN_HEIGHT * 0.3f);
+	m_player->SetSize(128.0f*2.0f,128.0f*2.0f);
 	m_player->Assy_()->SetSize(m_player->GetSize());
 	m_player->SetKeyboard(m_keyboard);
 	m_player->Set_isGame(false);

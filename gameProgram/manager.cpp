@@ -98,7 +98,7 @@ HRESULT CManager::Init(HINSTANCE instance, HWND wnd, bool window)
 	m_sound  = CSound::Create(wnd);
 
 	//----------------------------
-	// フェーズ
+	// ロード終了
 	//----------------------------
 	m_loading_flag = false;
 	// スレッドが生きていたら破棄
@@ -109,6 +109,9 @@ HRESULT CManager::Init(HINSTANCE instance, HWND wnd, bool window)
 		m_Thread = NULL;
 	}
 
+	//----------------------------
+	// フェーズ
+	//----------------------------
 	m_phaseNext = (CPhase*)new CTitle;
 	Change();
 	m_phase->SetKeyboard(m_keyboard);

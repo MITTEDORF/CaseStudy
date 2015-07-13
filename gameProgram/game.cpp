@@ -186,7 +186,7 @@ void CGame::Update(void)
 			// 道路のスクロール
 			m_road->Scroll(scroll);
 		}
-		else if(playerPos.x < 0)
+/*		else if(playerPos.x < 0)
 		{
 			float scroll = 0 - playerPos.x;
 
@@ -208,7 +208,7 @@ void CGame::Update(void)
 
 			// 道路のスクロール
 			m_road->Scroll(scroll);
-		}
+		}*/
 	}
 
 	//全当たり判定
@@ -283,7 +283,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 
 	// タイマー
 	m_time = 0;
-	D3DXVECTOR2 pos = D3DXVECTOR2(SCREEN_WIDTH * 0.65, SCREEN_HEIGHT * 0.1f);
+	D3DXVECTOR2 pos = D3DXVECTOR2(SCREEN_WIDTH * 0.75, SCREEN_HEIGHT * 0.01f);
 	for(int i = 0; i < 5; i++)
 	{
 		m_timePol[i] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
