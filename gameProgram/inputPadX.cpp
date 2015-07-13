@@ -184,12 +184,15 @@ void CInputPadX::Update(void)
 		m_release.sThumbRX		= (padInput.sThumbRX	  ^ m_state.sThumbRX)		& m_state.sThumbRX;
 		m_release.sThumbRY		= (padInput.sThumbRY	  ^ m_state.sThumbRY)		& m_state.sThumbRY;
 
+/* ---考え中---
 		// リピート
-/*		for(int cnt = 0; cnt < BUTTON_NUM; ++cnt)
+		for(int cnt = 0; cnt < BUTTON_NUM; ++cnt)
 		{
 			if(padInput.wButtons & PAD_BUTTON[cnt])
 			{
 				// カウントアップ・キーリセット
+				++m_cntRepeatBtn[cnt];
+				m_repeat.wButtons = PAD_BUTTON[cnt];
 			}
 		}
 		m_repeat.wButtons		= (padInput.wButtons	  ^ m_state.wButtons)		& m_state.wButtons;
@@ -198,8 +201,8 @@ void CInputPadX::Update(void)
 		m_repeat.sThumbLX		= (padInput.sThumbLX	  ^ m_state.sThumbLX)		& m_state.sThumbLX;
 		m_repeat.sThumbLY		= (padInput.sThumbLY	  ^ m_state.sThumbLY)		& m_state.sThumbLY;
 		m_repeat.sThumbRX		= (padInput.sThumbRX	  ^ m_state.sThumbRX)		& m_state.sThumbRX;
-		m_repeat.sThumbRY		= (padInput.sThumbRY	  ^ m_state.sThumbRY)		& m_state.sThumbRY;*/
-
+		m_repeat.sThumbRY		= (padInput.sThumbRY	  ^ m_state.sThumbRY)		& m_state.sThumbRY;
+*/
 		// プレス
 		m_state = padInput;
 	}
