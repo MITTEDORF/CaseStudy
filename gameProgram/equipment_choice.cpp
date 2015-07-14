@@ -118,7 +118,7 @@ void CEquipmentChoice::Update(void)
 
 	// ”wŒiƒXƒNƒ[ƒ‹ˆ—
 	D3DXVECTOR2 tmp;
-	float scroll = 0.002;
+	float scroll = 0.002f;
 	for(int i = 0; i < 4;  i++)
 	{
 		tmp = m_bg->GetCord(i);

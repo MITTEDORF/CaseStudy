@@ -12,7 +12,7 @@
 #include "manager.h"
 #include "fade.h"
 
-#include "title.h"
+#include "stage_select.h"
 #include "game.h"
 #include "inputKeyboard.h"
 
@@ -107,13 +107,13 @@ void CGameOver::Update(void)
 		}
 		else
 		{
-			CManager::SetNextPhase((CPhase*)new CTitle);
+			CManager::SetNextPhase((CPhase*)new CStageSelect);
 		}
 	}
 
 	// ”wŒiƒXƒNƒ[ƒ‹ˆ—
 	D3DXVECTOR2 tmp;
-	float scroll = 0.002;
+	float scroll = 0.002f;
 	for(int i = 0; i < 4;  i++)
 	{
 		tmp = m_bg->GetCord(i);

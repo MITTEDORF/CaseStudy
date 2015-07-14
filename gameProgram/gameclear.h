@@ -24,10 +24,16 @@ class CScene2D;
 class CGameClear : CPhase
 {
 public:
-	CGameClear(CostumeID cos_id = COSTUME_NONE,VehicleID veh_id = VEHICLE_TRAM)
+	CGameClear(int time, int life, CostumeID cos_id = COSTUME_NONE,VehicleID veh_id = VEHICLE_TRAM)
 	{
 		costume_id=cos_id;
 		vehicle_id=veh_id;
+
+		//--------------------------------------------------
+		// ゲームから渡されてきたステータスを保存
+		//--------------------------------------------------
+		m_time = time;
+		m_assyLife = life;
 	};
 	~CGameClear(){};
 
@@ -62,7 +68,37 @@ private:
 
 	CScene2D* m_version;
 
-	CScene2D* m_window[10];
+	CScene2D* m_window[5];
+
+	// クリア時の時間表示用
+	CScene2D* m_timePol[5];
+	void SetTimePol(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 pos, D3DXVECTOR2 size);
+	int m_time;
+
+	// クリア時の残体力表示用
+	CScene2D* m_assyPol;
+	void SetAssyPol(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 pos, D3DXVECTOR2 size);
+	int m_assyLife;
+
+	// 時間によるスコア表示用
+	CScene2D* m_timeScorePol[6];
+	void SetTimeScorePol(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 pos, D3DXVECTOR2 size);
+	void UpdateTimePol(int score);
+	int m_timescore;
+	int m_scoredest;
+	char m_switch;
+
+	// 乗り物の状態によるスコア表示用
+	CScene2D* m_assyScorePol[6];
+	void SetAssyScorePol(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 pos, D3DXVECTOR2 size);
+	void UpdateAssyPol(int score);
+	int m_assyscore;
+
+	// 最終的なスコア表示用
+	CScene2D* m_ScorePol[6];
+	void SetScorePol(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 pos, D3DXVECTOR2 size);
+	void UpdateScorePol(int score);
+	int m_score;
 
 	// スクロールする背景
 	CScene2D* m_bg;

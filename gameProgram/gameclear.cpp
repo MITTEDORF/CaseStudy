@@ -12,10 +12,11 @@
 #include "manager.h"
 #include "fade.h"
 
-#include "title.h"
+#include "stage_select.h"
 #include "game.h"
 
 #include "inputKeyboard.h"
+#include <math.h>
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
@@ -62,6 +63,15 @@ HRESULT CGameClear::Init(LPDIRECT3DDEVICE9 device)
 	m_select_cur = SELECT_CUR_CHAPTER;
 
 	//----------------------------
+	// スコア系初期化
+	//----------------------------
+	m_timescore = 300000 - m_time;
+	m_assyscore = m_assyLife * 30000;
+	m_score = m_timescore + m_assyscore;
+	m_switch = 0;
+	m_scoredest = 0;
+
+	//----------------------------
 	// 初期化成功
 	//----------------------------
 	return S_OK;
@@ -97,6 +107,55 @@ void CGameClear::Update(void)
 		{
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 		}
+
+		// スコア処理
+		switch(m_switch)
+		{
+		case 0:		// タイムのスコア
+			if(m_scoredest < m_timescore)
+			{
+				m_scoredest += m_timescore / 120 + 1;
+				UpdateTimePol(m_scoredest);
+			}
+			else
+			{
+				m_scoredest = m_timescore;
+				UpdateTimePol(m_scoredest);
+				m_scoredest = 0;
+				m_switch = 1;
+			}
+			break;
+		case 1:		// 残体力のスコア
+			if(m_scoredest < m_assyscore)
+			{
+				m_scoredest += m_assyscore / 120 + 1;
+				UpdateAssyPol(m_scoredest);
+			}
+			else
+			{
+				m_scoredest = m_assyscore;
+				UpdateAssyPol(m_scoredest);
+				m_scoredest = 0;
+				m_switch = 2;
+			}
+			break;
+		case 2:		// 総スコア
+			if(m_scoredest < m_score)
+			{
+				m_scoredest += m_score / 120 + 1;
+				UpdateScorePol(m_scoredest);
+			}
+			else
+			{
+				m_scoredest = m_score;
+				UpdateScorePol(m_scoredest);
+				m_scoredest = 0;
+				m_switch = 3;
+			}
+			break;
+		default:
+			break;
+		}
 	}
 
 	//----------------------------
@@ -110,13 +169,13 @@ void CGameClear::Update(void)
 		}
 		else
 		{
-			CManager::SetNextPhase((CPhase*)new CTitle);
+			CManager::SetNextPhase((CPhase*)new CStageSelect);
 		}
 	}
 
 	// 背景スクロール処理
 	D3DXVECTOR2 tmp;
-	float scroll = 0.002;
+	float scroll = 0.002f;
 	for(int i = 0; i < 4;  i++)
 	{
 		tmp = m_bg->GetCord(i);
@@ -149,109 +208,71 @@ void CGameClear::InitObject(LPDIRECT3DDEVICE9 device)
 	m_bg->SetRot(-0.5f);
 
 	CScene2D* resultLogo = CScene2D::Create(device, CImport::PLAYER_GOODMOOD, CScene2D::POINT_LEFTTOP);
-		resultLogo->SetSize(602, 664.5f);
-		resultLogo->SetPos(15.0f , SCREEN_HEIGHT * 0.125f*0.5f);
+	resultLogo->SetSize(602.0f/2, 664.5f/2);
+	resultLogo->SetPos(940.0f , 100.0f);
 
-		CScene2D* resultLogo2 = CScene2D::Create(device, CImport::GOAL_CLEAR, CScene2D::POINT_LEFTTOP);
-		resultLogo2->SetSize(SCREEN_WIDTH*0.25f-30.0f, SCREEN_WIDTH*0.25f-30.0f);
-		resultLogo2->SetPos(45.0f+SCREEN_WIDTH*0.625f-30.0f, SCREEN_HEIGHT * 0.25f);
+	/*CScene2D* resultLogo2 = CScene2D::Create(device, CImport::GOAL_CLEAR, CScene2D::POINT_LEFTTOP);
+	resultLogo2->SetSize(SCREEN_WIDTH*0.25f-30.0f, SCREEN_WIDTH*0.25f-30.0f);
+	resultLogo2->SetPos(45.0f+SCREEN_WIDTH*0.625f-30.0f, SCREEN_HEIGHT * 0.25f);*/
 
-		m_Button[SELECT_CUR_CHAPTER] = CScene2D::Create(device, "data/TEXTURE/button/chapterSelect.png" , CScene2D::POINT_LEFTTOP);
-		m_Button[SELECT_CUR_CHAPTER]->SetSize( CHAPTER_BUTTON_WIDTH , BUTTON_HIGHT );
-		m_Button[SELECT_CUR_CHAPTER]->SetPos( 60.0f , 576.0f);
-		m_Button[SELECT_CUR_CHAPTER]->SetCord( 0 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*0 ) );
-		m_Button[SELECT_CUR_CHAPTER]->SetCord( 1 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*0 ) );
-		m_Button[SELECT_CUR_CHAPTER]->SetCord( 2 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*1 ) );
-		m_Button[SELECT_CUR_CHAPTER]->SetCord( 3 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*1 ) );
+	m_Button[SELECT_CUR_CHAPTER] = CScene2D::Create(device, "data/TEXTURE/button/chapterSelect.png" , CScene2D::POINT_LEFTTOP);
+	m_Button[SELECT_CUR_CHAPTER]->SetSize( CHAPTER_BUTTON_WIDTH , BUTTON_HIGHT );
+	m_Button[SELECT_CUR_CHAPTER]->SetPos( 60.0f , 576.0f);
+	m_Button[SELECT_CUR_CHAPTER]->SetCord( 0 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*0 ) );
+	m_Button[SELECT_CUR_CHAPTER]->SetCord( 1 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*0 ) );
+	m_Button[SELECT_CUR_CHAPTER]->SetCord( 2 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*1 ) );
+	m_Button[SELECT_CUR_CHAPTER]->SetCord( 3 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*1 ) );
 
-		m_Button[SELECT_CUR_NEXTSTAGE] = CScene2D::Create(device, "data/TEXTURE/button/nextStage.png" , CScene2D::POINT_LEFTTOP);
-		m_Button[SELECT_CUR_NEXTSTAGE]->SetSize( NEXTSTAGE_BUTTON_WIDTH , BUTTON_HIGHT );
-		m_Button[SELECT_CUR_NEXTSTAGE]->SetPos( 565.0f , 576.0f);
-		m_Button[SELECT_CUR_NEXTSTAGE]->SetCord( 0 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*0 ) );
-		m_Button[SELECT_CUR_NEXTSTAGE]->SetCord( 1 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*0 ) );
-		m_Button[SELECT_CUR_NEXTSTAGE]->SetCord( 2 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*1 ) );
-		m_Button[SELECT_CUR_NEXTSTAGE]->SetCord( 3 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*1 ) );
+	m_Button[SELECT_CUR_NEXTSTAGE] = CScene2D::Create(device, "data/TEXTURE/button/nextStage.png" , CScene2D::POINT_LEFTTOP);
+	m_Button[SELECT_CUR_NEXTSTAGE]->SetSize( NEXTSTAGE_BUTTON_WIDTH , BUTTON_HIGHT );
+	m_Button[SELECT_CUR_NEXTSTAGE]->SetPos( 565.0f , 576.0f);
+	m_Button[SELECT_CUR_NEXTSTAGE]->SetCord( 0 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*0 ) );
+	m_Button[SELECT_CUR_NEXTSTAGE]->SetCord( 1 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*0 ) );
+	m_Button[SELECT_CUR_NEXTSTAGE]->SetCord( 2 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*1 ) );
+	m_Button[SELECT_CUR_NEXTSTAGE]->SetCord( 3 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*1 ) );
 
-		m_Button[SELECT_CUR_RETURN] = CScene2D::Create(device, "data/TEXTURE/button/retry.png" , CScene2D::POINT_LEFTTOP);
-		m_Button[SELECT_CUR_RETURN]->SetSize( RETURN_BUTTON_WIDTH , BUTTON_HIGHT );
-		m_Button[SELECT_CUR_RETURN]->SetPos( 961.0f , 576.0f);
-		m_Button[SELECT_CUR_RETURN]->SetCord( 0 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*0 ) );
-		m_Button[SELECT_CUR_RETURN]->SetCord( 1 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*0 ) );
-		m_Button[SELECT_CUR_RETURN]->SetCord( 2 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*1 ) );
-		m_Button[SELECT_CUR_RETURN]->SetCord( 3 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*1 ) );
+	m_Button[SELECT_CUR_RETURN] = CScene2D::Create(device, "data/TEXTURE/button/retry.png" , CScene2D::POINT_LEFTTOP);
+	m_Button[SELECT_CUR_RETURN]->SetSize( RETURN_BUTTON_WIDTH , BUTTON_HIGHT );
+	m_Button[SELECT_CUR_RETURN]->SetPos( 961.0f , 576.0f);
+	m_Button[SELECT_CUR_RETURN]->SetCord( 0 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*0 ) );
+	m_Button[SELECT_CUR_RETURN]->SetCord( 1 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*0 ) );
+	m_Button[SELECT_CUR_RETURN]->SetCord( 2 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*1 ) );
+	m_Button[SELECT_CUR_RETURN]->SetCord( 3 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*1 ) );
 
-		m_window[0] = CScene2D::Create(device, CImport::RESULT_WINDOW_BG, CScene2D::POINT_LEFTTOP);
-		m_window[0]->SetSize(870.0f,500.0f);
-		m_window[0]->SetPos(40, 40);
+	// スコア表示用ウィンドウ
+	m_window[0] = CScene2D::Create(device, CImport::RESULT_WINDOW_BG, CScene2D::POINT_LEFTTOP);
+	m_window[0]->SetSize(870.0f,500.0f);
+	m_window[0]->SetPos(40.0f, 40.0f);
 
-		m_window[1] = CScene2D::Create(device, CImport::CLOCK, CScene2D::POINT_LEFTTOP);
-		m_window[1]->SetSize(100.0f,100.0f);
-		m_window[1]->SetPos(80, 95);
+	// 時計アイコン
+	m_window[1] = CScene2D::Create(device, CImport::CLOCK, CScene2D::POINT_LEFTTOP);
+	m_window[1]->SetSize(100.0f,100.0f);
+	m_window[1]->SetPos(80.0f, 95.0f);
 
-		m_window[2] = CScene2D::Create(device, CImport::ASSY_TRUCK, CScene2D::POINT_LEFTTOP);
-		m_window[2]->SetSize(120.0f,120.0f);
-		m_window[2]->SetPos(80, 225);
-		m_window[2]->SetCord( 0 , D3DXVECTOR2( 0.0f , 0.0f ) );
-		m_window[2]->SetCord( 1 , D3DXVECTOR2( 0.25f , 0.0f ) );
-		m_window[2]->SetCord( 2 , D3DXVECTOR2( 0.0f , 0.33f ) );
-		m_window[2]->SetCord( 3 , D3DXVECTOR2( 0.25f , 0.33f ) );
+	// 乗り物アイコン
+	m_window[2] = CScene2D::Create(device, CImport::ASSY_TRUCK, CScene2D::POINT_LEFTTOP);
+	m_window[2]->SetSize(100.0f,100.0f);
+	m_window[2]->SetPos(80.0f, 225.0f);
+	m_window[2]->SetCord( 0 , D3DXVECTOR2( 0.0f , 0.0f ) );
+	m_window[2]->SetCord( 1 , D3DXVECTOR2( 0.25f , 0.0f ) );
+	m_window[2]->SetCord( 2 , D3DXVECTOR2( 0.0f , 0.33f ) );
+	m_window[2]->SetCord( 3 , D3DXVECTOR2( 0.25f , 0.33f ) );
 
-		m_window[3] = CScene2D::Create(device, CImport::SCORE, CScene2D::POINT_LEFTTOP);
-		m_window[3]->SetSize(300.0f,100.0f);
-		m_window[3]->SetPos(125, 385);
+	// スコア文字
+	m_window[3] = CScene2D::Create(device, CImport::SCORE, CScene2D::POINT_LEFTTOP);
+	m_window[3]->SetSize(300.0f,100.0f);
+	m_window[3]->SetPos(125.0f, 385.0f);
 
-		int score = 123456;
-		D3DXVECTOR2 pos = D3DXVECTOR2(510,80);
-		D3DXVECTOR2 size = D3DXVECTOR2(60,100);
-		D3DXVECTOR2 i = D3DXVECTOR2(60,0);
-
-		m_window[4] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
-		m_window[4]->SetSize(size);
-		m_window[4]->SetPos(pos);
-		m_window[4]->SetCord( 0 , D3DXVECTOR2( ( (score/100000) % 10 ) * 0.1, 0));
-		m_window[4]->SetCord( 1 , D3DXVECTOR2( ( (score/100000) % 10 ) * 0.1 + 0.1, 0));
-		m_window[4]->SetCord( 2 , D3DXVECTOR2( ( (score/100000) % 10 ) * 0.1, 1));
-		m_window[4]->SetCord( 3 , D3DXVECTOR2( ( (score/100000) % 10 ) * 0.1 + 0.1, 1));
-
-		m_window[5] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
-		m_window[5]->SetSize(size);
-		m_window[5]->SetPos(pos + i);
-		m_window[5]->SetCord( 0 , D3DXVECTOR2( ( (score/10000) % 10 ) * 0.1, 0));
-		m_window[5]->SetCord( 1 , D3DXVECTOR2( ( (score/10000) % 10 ) * 0.1 + 0.1, 0));
-		m_window[5]->SetCord( 2 , D3DXVECTOR2( ( (score/10000) % 10 ) * 0.1, 1));
-		m_window[5]->SetCord( 3 , D3DXVECTOR2( ( (score/10000) % 10 ) * 0.1 + 0.1, 1));
-
-		m_window[6] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
-		m_window[6]->SetSize(size);
-		m_window[6]->SetPos(pos + i*2);
-		m_window[6]->SetCord( 0 , D3DXVECTOR2( ( (score/1000) % 10 ) * 0.1, 0));
-		m_window[6]->SetCord( 1 , D3DXVECTOR2( ( (score/1000) % 10 ) * 0.1 + 0.1, 0));
-		m_window[6]->SetCord( 2 , D3DXVECTOR2( ( (score/1000) % 10 ) * 0.1, 1));
-		m_window[6]->SetCord( 3 , D3DXVECTOR2( ( (score/1000) % 10 ) * 0.1 + 0.1, 1));
-
-		m_window[7] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
-		m_window[7]->SetSize(size);
-		m_window[7]->SetPos(pos + i*3);
-		m_window[7]->SetCord( 0 , D3DXVECTOR2( ( (score/100) % 10 ) * 0.1, 0));
-		m_window[7]->SetCord( 1 , D3DXVECTOR2( ( (score/100) % 10 ) * 0.1 + 0.1, 0));
-		m_window[7]->SetCord( 2 , D3DXVECTOR2( ( (score/100) % 10 ) * 0.1, 1));
-		m_window[7]->SetCord( 3 , D3DXVECTOR2( ( (score/100) % 10 ) * 0.1 + 0.1, 1));
-
-		m_window[8] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
-		m_window[8]->SetSize(size);
-		m_window[8]->SetPos(pos + i*4);
-		m_window[8]->SetCord( 0 , D3DXVECTOR2( ( (score/10) % 10 ) * 0.1, 0));
-		m_window[8]->SetCord( 1 , D3DXVECTOR2( ( (score/10) % 10 ) * 0.1 + 0.1, 0));
-		m_window[8]->SetCord( 2 , D3DXVECTOR2( ( (score/10) % 10 ) * 0.1, 1));
-		m_window[8]->SetCord( 3 , D3DXVECTOR2( ( (score/10) % 10 ) * 0.1 + 0.1, 1));
-
-		m_window[9] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
-		m_window[9]->SetSize(size);
-		m_window[9]->SetPos(pos + i*5);
-		m_window[9]->SetCord( 0 , D3DXVECTOR2( ( (score/1) % 10 ) * 0.1, 0));
-		m_window[9]->SetCord( 1 , D3DXVECTOR2( ( (score/1) % 10 ) * 0.1 + 0.1, 0));
-		m_window[9]->SetCord( 2 , D3DXVECTOR2( ( (score/1) % 10 ) * 0.1, 1));
-		m_window[9]->SetCord( 3 , D3DXVECTOR2( ( (score/1) % 10 ) * 0.1 + 0.1, 1));
+	// 時間によるスコア表示用ポリゴン初期化
+	SetTimeScorePol(device, D3DXVECTOR2(510.0f, 95.0f), D3DXVECTOR2(60.0f, 100.0f));
+	// 乗り物の状態によるスコア表示用ポリゴン初期化
+	SetAssyScorePol(device, D3DXVECTOR2(510.0f, 225.0f), D3DXVECTOR2(60.0f, 100.0f));
+	// 総スコア表示用ポリゴン初期化
+	SetScorePol(device, D3DXVECTOR2(510.0f, 385.0f), D3DXVECTOR2(60.0f, 100.0f));
+	// クリア時の時間表示用初期化
+	SetTimePol(device, D3DXVECTOR2(190.0f, 95.0f), D3DXVECTOR2(60.0f, 100.0f));
+	// クリア時の残体力表示用初期化
+	SetAssyPol(device, D3DXVECTOR2(290.0f, 225.0f), D3DXVECTOR2(90.0f, 100.0f));
 }
 //=============================================================================
 // ボタンUV変更処理
@@ -311,4 +332,167 @@ void CGameClear::ButtonSelect( void )
 	}
 	m_select_old = m_select_cur;
 
+}
+
+//=============================================================================
+// 時間によるスコア表示用ポリゴンセット処理
+//=============================================================================
+void CGameClear::SetTimeScorePol(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 pos, D3DXVECTOR2 size)
+{
+	D3DXVECTOR2 offset = D3DXVECTOR2(size.x,0);
+
+	for(int i = 0; i < 6; i++)
+	{
+		m_timeScorePol[i] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
+		m_timeScorePol[i]->SetSize(size);
+		m_timeScorePol[i]->SetPos(pos + offset * (FLOAT)i);
+		m_timeScorePol[i]->SetCord( 0, D3DXVECTOR2(0.0f, 0.0f));
+		m_timeScorePol[i]->SetCord( 1, D3DXVECTOR2(0.1f, 0.0f));
+		m_timeScorePol[i]->SetCord( 2, D3DXVECTOR2(0.0f, 1.0f));
+		m_timeScorePol[i]->SetCord( 3, D3DXVECTOR2(0.1f, 1.0f));
+	}
+}
+
+//=============================================================================
+// 時間によるスコア表示用ポリゴン更新処理
+//=============================================================================
+void CGameClear::UpdateTimePol(int score)
+{
+	for(int i = 0; i < 6; i++)
+	{
+		m_timeScorePol[i]->SetCord( 0 , D3DXVECTOR2( ( (score/(100000/(int)pow(10.0f,i))) % 10 ) * 0.1f,			0.0f));
+		m_timeScorePol[i]->SetCord( 1 , D3DXVECTOR2( ( (score/(100000/(int)pow(10.0f,i))) % 10 ) * 0.1f + 0.1f,	0.0f));
+		m_timeScorePol[i]->SetCord( 2 , D3DXVECTOR2( ( (score/(100000/(int)pow(10.0f,i))) % 10 ) * 0.1f,			1.0f));
+		m_timeScorePol[i]->SetCord( 3 , D3DXVECTOR2( ( (score/(100000/(int)pow(10.0f,i))) % 10 ) * 0.1f + 0.1f,	1.0f));
+	}
+}
+
+//=============================================================================
+// 乗り物の状態によるスコア表示用ポリゴンセット処理
+//=============================================================================
+void CGameClear::SetAssyScorePol(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 pos, D3DXVECTOR2 size)
+{
+	D3DXVECTOR2 offset = D3DXVECTOR2(size.x,0);
+
+	for(int i = 0; i < 6; i++)
+	{
+		m_assyScorePol[i] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
+		m_assyScorePol[i]->SetSize(size);
+		m_assyScorePol[i]->SetPos(pos + offset * (FLOAT)i);
+		m_assyScorePol[i]->SetCord( 0, D3DXVECTOR2(0.0f, 0.0f));
+		m_assyScorePol[i]->SetCord( 1, D3DXVECTOR2(0.1f, 0.0f));
+		m_assyScorePol[i]->SetCord( 2, D3DXVECTOR2(0.0f, 1.0f));
+		m_assyScorePol[i]->SetCord( 3, D3DXVECTOR2(0.1f, 1.0f));
+	}
+}
+
+//=============================================================================
+// 乗り物の状態によるスコア表示用ポリゴン更新処理
+//=============================================================================
+void CGameClear::UpdateAssyPol(int score)
+{
+	for(int i = 0; i < 6; i++)
+	{
+		m_assyScorePol[i]->SetCord( 0 , D3DXVECTOR2( ( (score/(100000/(int)pow(10.0f,i))) % 10 ) * 0.1f,			0.0f));
+		m_assyScorePol[i]->SetCord( 1 , D3DXVECTOR2( ( (score/(100000/(int)pow(10.0f,i))) % 10 ) * 0.1f + 0.1f,	0.0f));
+		m_assyScorePol[i]->SetCord( 2 , D3DXVECTOR2( ( (score/(100000/(int)pow(10.0f,i))) % 10 ) * 0.1f,			1.0f));
+		m_assyScorePol[i]->SetCord( 3 , D3DXVECTOR2( ( (score/(100000/(int)pow(10.0f,i))) % 10 ) * 0.1f + 0.1f,	1.0f));
+	}
+}
+
+//=============================================================================
+// 総スコア表示用ポリゴンセット処理
+//=============================================================================
+void CGameClear::SetScorePol(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 pos, D3DXVECTOR2 size)
+{
+	D3DXVECTOR2 offset = D3DXVECTOR2(size.x,0);
+
+	for(int i = 0; i < 6; i++)
+	{
+		m_ScorePol[i] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
+		m_ScorePol[i]->SetSize(size);
+		m_ScorePol[i]->SetPos(pos + offset * (FLOAT)i);
+		m_ScorePol[i]->SetCord( 0, D3DXVECTOR2(0.0f, 0.0f));
+		m_ScorePol[i]->SetCord( 1, D3DXVECTOR2(0.1f, 0.0f));
+		m_ScorePol[i]->SetCord( 2, D3DXVECTOR2(0.0f, 1.0f));
+		m_ScorePol[i]->SetCord( 3, D3DXVECTOR2(0.1f, 1.0f));
+	}
+}
+
+//=============================================================================
+// 総スコア表示用ポリゴン更新処理
+//=============================================================================
+void CGameClear::UpdateScorePol(int score)
+{
+	for(int i = 0; i < 6; i++)
+	{
+		m_ScorePol[i]->SetCord( 0 , D3DXVECTOR2( ( (score/(100000/(int)pow(10.0f,i))) % 10 ) * 0.1f,			0.0f));
+		m_ScorePol[i]->SetCord( 1 , D3DXVECTOR2( ( (score/(100000/(int)pow(10.0f,i))) % 10 ) * 0.1f + 0.1f,	0.0f));
+		m_ScorePol[i]->SetCord( 2 , D3DXVECTOR2( ( (score/(100000/(int)pow(10.0f,i))) % 10 ) * 0.1f,			1.0f));
+		m_ScorePol[i]->SetCord( 3 , D3DXVECTOR2( ( (score/(100000/(int)pow(10.0f,i))) % 10 ) * 0.1f + 0.1f,	1.0f));
+	}
+}
+
+//=============================================================================
+// クリア時間表示用ポリゴンセット処理
+//=============================================================================
+void CGameClear::SetTimePol(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 pos, D3DXVECTOR2 size)
+{
+	D3DXVECTOR2 offset = D3DXVECTOR2(size.x,0);
+
+	for(int i = 0; i < 5; i++)
+	{
+		m_timePol[i] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
+
+		m_timePol[i]->SetSize(size);
+		m_timePol[i]->SetPos(pos + offset * (FLOAT)i);
+
+		if(i != 2)
+		{
+			m_timePol[i]->SetTex(CImport::NUMBER);
+			m_timePol[i]->SetCord(0, D3DXVECTOR2(0.0f, 0.0f));
+			m_timePol[i]->SetCord(1, D3DXVECTOR2(0.1f, 0.0f));
+			m_timePol[i]->SetCord(2, D3DXVECTOR2(0.0f, 1.0f));
+			m_timePol[i]->SetCord(3, D3DXVECTOR2(0.1f, 1.0f));
+		}
+		else
+		{
+			m_timePol[i]->SetTex(CImport::COLON);
+		}
+	}
+
+	m_timePol[0]->SetCord(0, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1f,			0.0f));
+	m_timePol[0]->SetCord(1, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1f + 0.1f,	0.0f));
+	m_timePol[0]->SetCord(2, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1f,			1.0f));
+	m_timePol[0]->SetCord(3, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1f + 0.1f,	1.0f));
+
+	m_timePol[1]->SetCord(0, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1f,			0.0f));
+	m_timePol[1]->SetCord(1, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1f + 0.1f,	0.0f));
+	m_timePol[1]->SetCord(2, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1f,			1.0f));
+	m_timePol[1]->SetCord(3, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1f + 0.1f,	1.0f));
+
+	m_timePol[3]->SetCord(0, D3DXVECTOR2( ((m_time/600) % 6) * 0.1f,			0.0f));
+	m_timePol[3]->SetCord(1, D3DXVECTOR2( ((m_time/600) % 6) * 0.1f + 0.1f,		0.0f));
+	m_timePol[3]->SetCord(2, D3DXVECTOR2( ((m_time/600) % 6) * 0.1f,			1.0f));
+	m_timePol[3]->SetCord(3, D3DXVECTOR2( ((m_time/600) % 6) * 0.1f + 0.1f,		1.0f));
+
+	m_timePol[4]->SetCord(0, D3DXVECTOR2( ((m_time/60) % 10) * 0.1f,			0.0f));
+	m_timePol[4]->SetCord(1, D3DXVECTOR2( ((m_time/60) % 10) * 0.1f + 0.1f,		0.0f));
+	m_timePol[4]->SetCord(2, D3DXVECTOR2( ((m_time/60) % 10) * 0.1f,			1.0f));
+	m_timePol[4]->SetCord(3, D3DXVECTOR2( ((m_time/60) % 10) * 0.1f + 0.1f,		1.0f));
+}
+
+//=============================================================================
+// クリア時残体力表示用ポリゴンセット処理
+//=============================================================================
+void CGameClear::SetAssyPol(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 pos, D3DXVECTOR2 size)
+{
+	m_assyPol = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
+	m_assyPol->SetSize(size);
+	m_assyPol->SetPos(pos);
+	m_assyPol->SetTex(CImport::NUMBER);
+	m_assyPol->SetCord(0, D3DXVECTOR2( (m_assyLife % 10) * 0.1f,			0.0f));
+	m_assyPol->SetCord(1, D3DXVECTOR2( (m_assyLife % 10) * 0.1f + 0.1f,		0.0f));
+	m_assyPol->SetCord(2, D3DXVECTOR2( (m_assyLife % 10) * 0.1f,			1.0f));
+	m_assyPol->SetCord(3, D3DXVECTOR2( (m_assyLife % 10) * 0.1f + 0.1f,		1.0f));
 }
