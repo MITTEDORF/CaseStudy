@@ -20,7 +20,8 @@
 // 画像データ識別
 typedef enum{
 	TYPE_DIRT = 0,
-	TYPE_ASPHALT
+	TYPE_ASPHALT,
+	TYPE_MAX,
 }ROAD_TYPE;
 
 // 地面情報
@@ -60,10 +61,15 @@ public:
 	void	SetRoadPrev(CRoad* prev){m_prev = prev;}
 	// 前道路ポインタゲット処理
 	CRoad*	GetRoadPrev(void){return m_prev;}
+	// 道路タイプセット処理
+	void		SetRoadType(ROAD_TYPE type){m_type = type;}
+	// 道路タイプゲット処理
+	ROAD_TYPE	GetRoadType(void){return m_type;}
 
 protected:
 	CRoad* m_next;						// 次障害物へのポインタ
 	CRoad* m_prev;						// 前障害物へのポインタ
+	ROAD_TYPE m_type;					// 自身の道路タイプ
 };
 
 

@@ -29,6 +29,8 @@ public:
 	void	Scroll(float f);
 	D3DXVECTOR2	CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
 	static	CRoadManager* Create(LPDIRECT3DDEVICE9 device);
+	// 道路タイプゲット
+	ROAD_TYPE	GetHitRoadType(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
 private:
 	CRoad* m_list_top;		// 障害物リスト先頭
 	CRoad* m_list_cur;		// 障害物リスト末尾

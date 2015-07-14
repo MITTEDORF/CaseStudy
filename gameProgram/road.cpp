@@ -19,6 +19,7 @@ CRoad::CRoad(int priority, OBJTYPE objType) : CScene2D(priority, objType)
 {
 	m_next = NULL;
 	m_prev = NULL;
+	m_type = TYPE_MAX;
 }
 
 //=============================================================================
@@ -32,6 +33,7 @@ CRoad* CRoad::Create(LPDIRECT3DDEVICE9 device, ROAD_DATA data, POINT_TYPE pointT
 	pointer->SetSize(ROAD_SIZE, ROAD_SIZE);
 	pointer->SetHitSize(D3DXVECTOR2(ROAD_SIZE, ROAD_SIZE));
 	pointer->SetPos(data.Index.x * 64, SCREEN_HEIGHT - ((data.Index.y * 64) + 64));
+	pointer->SetRoadType(data.type);
 	return pointer;
 }
 
@@ -136,34 +138,6 @@ D3DXVECTOR2	CRoad::ReturnPush(D3DXVECTOR2 pos, D3DXVECTOR2 size, POINT_TYPE poin
 	//-------------------------------
 	// めり込みチェック
 	//-------------------------------
-	// 上からめり込んできてる時
-	//if(self[0].y > target[0].y && self[0].y < target[3].y && self[3].y > target[3].y && self[3].y > target[3].y)
-	//	rtn.y = self[0].y - target[3].y;
-	//// 上下ともにめり込んでる時
-	//if(self[0].y > target[0].y && self[0].y < target[3].y && self[3].y > target[3].y && self[3].y < target[3].y)
-	//	// 浅くめり込んでる方に押し返す
-	//	if((self[0].y - target[0].y) < (target[3].y - self[3].y))
-	//		rtn.y = target[3].y - self[0].y;
-	//	else
-	//		rtn.y = target[0].y - self[3].y;
-	//// 下からめり込んできてる時
-	//if(self[0].y < target[0].y && self[0].y < target[3].y && self[3].y > target[3].y && self[3].y < target[3].y)
-	//	rtn.y = self[3].y - target[0].y;
-
-	//// 左からめり込んできてる時
-	//if(self[0].x > target[0].x && self[0].x < target[1].x && self[1].x > target[1].x && self[1].x > target[1].x)
-	//	rtn.x = self[0].x - target[1].x;
-	//// 左右ともにめり込んでる時
-	//if(self[0].x > target[0].x && self[0].x < target[1].x && self[1].x > target[1].x && self[1].x < target[1].x)
-	//	// 浅くめり込んでる方に押し返す
-	//	if((self[0].x - target[0].x) < (target[1].x - self[1].x))
-	//		rtn.x = target[1].x - self[0].x;
-	//	else
-	//		rtn.x = target[0].x - self[1].x;
-	//// 右からめり込んできてる時
-	//if(self[0].x < target[0].x && self[0].x < target[1].x && self[1].x > target[1].x && self[1].x < target[1].x)
-	//	rtn.x = self[1].x - target[0].x;
-
 	// 当たった？
 	if (tarpos.x + (size.x / 2.0f) > selfpos.x - (m_hitSize.x / 2.0f) &&
 		tarpos.x - (size.x / 2.0f) < selfpos.x + (m_hitSize.x / 2.0f))

@@ -194,7 +194,7 @@ void CEquipmentChoice::InitObject(LPDIRECT3DDEVICE9 device)
 	m_slotback->SetPos(SCREEN_WIDTH * 0.3f, SCREEN_HEIGHT * 0.4f);
 
 	// 効果テキスト
-	m_message = CScene2D::Create(device, CImport::MAKE_UI_HYPHEN_5, CScene2D::POINT_CENTER);
+	m_message = CScene2D::Create(device, CImport::MAKE_UI_HYPHEN_LONG, CScene2D::POINT_CENTER);
 	m_message->SetSize(1200.0f,91.0f);
 	m_message->SetPos(SCREEN_WIDTH * 0.5f,SCREEN_HEIGHT * 0.9);
 	// 効果ウィンドウ
@@ -285,7 +285,7 @@ void CEquipmentChoice::VehicleChoice()
 	case VHEICLE_TRUCK:
 		m_veh_mes->SetTex(CImport::MAKE_UI_VEH_TRUCK);
 		if(curUp != true)
-			m_message->SetTex(CImport::MAKE_UI_VEH_MES_TRUCK);
+			m_message->SetTex(CImport::MAKE_UI_HYPHEN_LONG);
 		break;
 
 	default:
@@ -329,12 +329,12 @@ void CEquipmentChoice::CostumeChoice()
 		case COSTUME_NONE:
 			m_cos_mes->SetTex(CImport::MAKE_UI_COS_NONE);
 			if(curUp == true)
-				m_message->SetTex(CImport::MAKE_UI_COS_MES_NONE);
+				m_message->SetTex(CImport::MAKE_UI_HYPHEN_LONG);
 			break;
 		case COSTUME_KNIGHT:
 			m_cos_mes->SetTex(CImport::MAKE_UI_COS_KNIGHT);
 			if(curUp == true)
-				m_message->SetTex(CImport::MAKE_UI_COS_MES_NINJA);
+				m_message->SetTex(CImport::MAKE_UI_COS_MES_FIGHTER);
 			break;
 		case COSTUME_SANTA:
 			m_cos_mes->SetTex(CImport::MAKE_UI_COS_SANTA);

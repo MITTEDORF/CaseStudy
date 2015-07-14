@@ -183,4 +183,20 @@ D3DXVECTOR2	CRoadManager::CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::
 	return rtn;
 }
 
+ROAD_TYPE CRoadManager::GetHitRoadType(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType)
+{
+	CRoad* cur = m_list_top;
+	CRoad* next;
+
+	while(cur)
+	{
+		// ‚Ô‚Â‚©‚Á‚Ä‚¢‚½ê‡A‚ß‚èž‚ñ‚Å‚é”’l•ª‚ð•Ô‚·
+		if(cur->CheckCollisionAABB(pos, size, pointType) == true)
+		{
+			return cur->GetRoadType();
+		}
+	}
+	return ROAD_TYPE::TYPE_MAX;
+}
+
 // End of File

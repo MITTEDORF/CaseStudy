@@ -50,7 +50,6 @@ CStumbler* CStumbler::Create(LPDIRECT3DDEVICE9 device, STUM_DATA data, POINT_TYP
 		D3DXVECTOR2(128, 128),		// TYPE_SANDSTONE
 		D3DXVECTOR2(128, 128),		// TYPE_BEE
 		D3DXVECTOR2(128, 128),		// TYPE_HUNEYCOMB
-		D3DXVECTOR2(128, 128)		// TYPE_NEEDLE
 	};
 
 	// 当たり判定座標オフセット値リスト
@@ -73,7 +72,6 @@ CStumbler* CStumbler::Create(LPDIRECT3DDEVICE9 device, STUM_DATA data, POINT_TYP
 		D3DXVECTOR2(0, 0),			// TYPE_SANDSTONE
 		D3DXVECTOR2(0, 0),			// TYPE_BEE
 		D3DXVECTOR2(0, 0),			// TYPE_HUNEYCOMB
-		D3DXVECTOR2(0, 0)			// TYPE_NEEDLE
 	};
 
 	CStumbler* pointer = new CStumbler;
@@ -232,7 +230,6 @@ void CStumbler::Update(void)
 			}
 			break;
 
-		case TYPE_NEEDLE:
 		case TYPE_NUTS:
 		case TYPE_NUTS_REVERSE:
 		case TYPE_ICICLE:			// 落ち物トラップ類
