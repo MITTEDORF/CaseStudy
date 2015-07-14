@@ -49,7 +49,7 @@ public:
 	D3DXCOLOR	GetColor(void){return m_color;}
 	void SetTex(CImport::TEXTURES texture){m_texture = CImport::GetTexture(texture);};
 	static const float POLYGON_SIZE;
-
+	static const int ANIMATION_MAX = 4;
 private:
 	const char* m_file_path;
 	LPDIRECT3DDEVICE9 m_device;
@@ -65,7 +65,7 @@ private:
 	float		m_angle;		// 対角線の角度
 	D3DXVECTOR2	m_coord[4];		// テクスチャコード
 	bool m_localTex;
-
+	int m_anim_now;
 protected:
 };
 #endif

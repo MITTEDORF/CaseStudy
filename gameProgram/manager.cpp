@@ -287,13 +287,20 @@ void CManager::Load( void )
 //=============================================================================
 void CManager::InitLoad( void )
 {
+	DWORD execLastTime;	// 処理時刻
+	DWORD curTime;		// 現在時刻
+	// フレームカウント
+	timeBeginPeriod(1);				// 分解能を設定
+	execLastTime = timeGetTime();
+	curTime	 = 0;					// 現在時刻とカウントの初期化
+
 	while(m_loading_flag)
 	{
-		static int time;
-		time++;
-		if( time > 60 )
+		curTime = timeGetTime();	// システム時刻を取得
+		if((curTime - execLastTime) >= (1000 / 6))	// 1秒ごとに実行
 		{
-			time = 0;
+			execLastTime = curTime;	// 処理した時刻を保存
+
 			if( m_now_load != NULL )
 			{
 				m_now_load->Update();
@@ -301,4 +308,7 @@ void CManager::InitLoad( void )
 			}
 		}
 	}
+	// フレームカウント
+	timeEndPeriod(1);	// 分解能を戻す
+
 }

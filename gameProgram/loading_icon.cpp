@@ -32,11 +32,11 @@ CLIcon::CLIcon()
 	D3DXVECTOR2 half = D3DXVECTOR2(m_size.x / 2.0f, m_size.y / 2.0f);
 	m_length = DISTANCE_2D(half.x, half.y);
 	m_angle	 = atan2f(half.x, half.y);
-
-	m_coord[0] = D3DXVECTOR2(0.0f, 0.0f);
-	m_coord[1] = D3DXVECTOR2(1.0f, 0.0f);
-	m_coord[2] = D3DXVECTOR2(0.0f, 1.0f);
-	m_coord[3] = D3DXVECTOR2(1.0f, 1.0f);
+	m_anim_now = 0;
+	m_coord[0] = D3DXVECTOR2(0.0f*0.25f, 0.0f);
+	m_coord[1] = D3DXVECTOR2(1.0f*0.25f, 0.0f);
+	m_coord[2] = D3DXVECTOR2(0.0f*0.25f, 1.0f);
+	m_coord[3] = D3DXVECTOR2(1.0f*0.25f, 1.0f);
 
 }
 CLIcon* CLIcon::Create( LPDIRECT3DDEVICE9 device , CImport::TEXTURES texture , POINT_TYPE pointType , D3DXVECTOR2 pos )
@@ -123,7 +123,15 @@ void CLIcon::Uninit(void)
 }
 void CLIcon::Update(void)
 {
-	m_rot+=0.01f;
+	if( m_anim_now < ANIMATION_MAX )
+	{
+		m_anim_now+=1;
+	}
+	else
+	{
+		m_anim_now = 0;
+	}
+
 }
 void CLIcon::Draw(void)
 {
@@ -195,8 +203,8 @@ void CLIcon::SetVertexPolygon( void )
 	m_vtx[3].diffuse = m_color;
 
 	// テクスチャ座標
-	m_vtx[0].tex = D3DXVECTOR2(m_coord[0].x, m_coord[0].y);
-	m_vtx[1].tex = D3DXVECTOR2(m_coord[1].x, m_coord[1].y);
-	m_vtx[2].tex = D3DXVECTOR2(m_coord[2].x, m_coord[2].y);
-	m_vtx[3].tex = D3DXVECTOR2(m_coord[3].x, m_coord[3].y);
+	m_vtx[0].tex = D3DXVECTOR2(m_coord[0].x+((m_anim_now+1)*0.25f), m_coord[0].y);
+	m_vtx[1].tex = D3DXVECTOR2(m_coord[1].x+((m_anim_now+1)*0.25f), m_coord[1].y);
+	m_vtx[2].tex = D3DXVECTOR2(m_coord[2].x+((m_anim_now+1)*0.25f), m_coord[2].y);
+	m_vtx[3].tex = D3DXVECTOR2(m_coord[3].x+((m_anim_now+1)*0.25f), m_coord[3].y);
 }
