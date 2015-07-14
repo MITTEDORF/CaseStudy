@@ -131,6 +131,9 @@
     <Filter Include="Thread">
       <UniqueIdentifier>{259cc470-2bfd-40f7-8e45-d8d08cf4eb3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="phase\stage_select">
+      <UniqueIdentifier>{56b11773-c95b-4b51-b908-deb5d8ef87e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -255,6 +258,9 @@
     </ClCompile>
     <ClCompile Include="Thread.cpp">
       <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="stage_select.cpp">
+      <Filter>phase\stage_select</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -392,6 +398,12 @@
     </ClInclude>
     <ClInclude Include="Thread.h">
       <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="stage_select.h">
+      <Filter>phase\stage_select</Filter>
+    </ClInclude>
+    <ClInclude Include="stage_select_conf.h">
+      <Filter>phase\stage_select</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

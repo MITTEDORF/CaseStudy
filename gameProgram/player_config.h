@@ -46,6 +46,10 @@ const int   PLAYER_ANIM_ATACK           = 2;
 const int   PLAYER_ANIM_DAMAGE          = 3;
 const int   PLAYER_ANIM_LIGHT           = 4;
 
+//プレイヤのHPの最大値(3の倍数が好ましい)
+const int PLAYER_HP_MAX                 = 4;
+
+
 
 //乗り物ごとの高さオフセット
 const float PLAYER_HEGHIT_OFFSET_MARUTA = 25.0f;

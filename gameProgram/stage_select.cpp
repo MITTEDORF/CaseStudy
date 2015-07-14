@@ -1,22 +1,34 @@
 //*****************************************************************************
 //
-// CTitleクラス [title.cpp]
-// Author :MAI TANABE
+// ステージ選択画面制御クラス [stage_selrect.cpp]
+// Author :YUKI SAKAMOTO
 //
 //*****************************************************************************
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // インクルードファイル
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#include "title.h"
+#include "stage_select.h"
 #include "manager.h"
 #include "fade.h"
-#include "sound.h"
 
-#include "equipment_choice.h"
-#include "stage_select.h"
+#include "game.h"
 
 #include "inputKeyboard.h"
+
+#include "character_player.h"
+
+#include "equipment_choice.h"
+
+#include "math_animation.h"
+
+#include "equipment_choice_config.h"
+#include "character_config.h"
+
+#include "stage_select_conf.h"
+
+#include "debugproc.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -28,8 +40,10 @@
 //=============================================================================
 // 初期化
 //=============================================================================
-HRESULT CTitle::Init(LPDIRECT3DDEVICE9 device)
+HRESULT CStageSelect::Init(LPDIRECT3DDEVICE9 device)
 {
+	//変数のNULL埋め
+	NullSetVariable();
 	//----------------------------
 	// デバイス取得
 	//----------------------------
@@ -46,15 +60,6 @@ HRESULT CTitle::Init(LPDIRECT3DDEVICE9 device)
 	m_fade = CFade::Create(device);
 	m_fade->Start(CFade::FADESTATE_IN, 1, 1.0f, 1.0f, 1.0f, 1.0f);
 
-	m_version = CScene2D::Create(device, CImport::VERSION, CScene2D::POINT_LEFTTOP);
-	m_version->SetSize(206.0f, 65);
-	m_version->SetPos(SCREEN_WIDTH - 206.0f, SCREEN_HEIGHT - 65.0f);
-
-	//----------------------------
-	// サウンドの再生
-	//----------------------------
-	m_sound->Play(CSound::SOUND_LABEL_TITLEBGM);
-
 	//----------------------------
 	// 初期化成功
 	//----------------------------
@@ -64,27 +69,25 @@ HRESULT CTitle::Init(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 // 終了
 //=============================================================================
-void CTitle::Uninit(void)
+void CStageSelect::Uninit(void)
 {
 	//----------------------------
 	// オブジェクト
 	//----------------------------
 	// シーン
 	CScene::ReleaseAll();
-
-	//----------------------------
-	// サウンドの停止
-	//----------------------------
-	m_sound->Stop(CSound::SOUND_LABEL_TITLEBGM);
 }
 
 //=============================================================================
 // 更新
 //=============================================================================
-void CTitle::Update(void)
+void CStageSelect::Update(void)
 {
 	if(m_fade->GetState() == CFade::FADESTATE_NONE)
 	{
+
+		SelectObjectUpdate();
+
 		//----------------------------
 		// 入力
 		//----------------------------
@@ -99,33 +102,69 @@ void CTitle::Update(void)
 	//----------------------------
 	if(m_fade->GetState() == CFade::FADESTATE_OUTEND)
 	{
-		CManager::SetNextPhase((CPhase*)new CStageSelect);
+		CManager::SetNextPhase((CPhase*)new CEquipmentChoice);
 	}
 }
 
 //=============================================================================
 // 描画
 //=============================================================================
-void CTitle::Draw(void)
+void CStageSelect::Draw(void)
 {
+
 }
 
 //=============================================================================
 // オブジェクト初期化
 //=============================================================================
-void CTitle::InitObject(LPDIRECT3DDEVICE9 device)
+void CStageSelect::InitObject(LPDIRECT3DDEVICE9 device)
 {
-	//----------------------------
-	// タイトル背景
-	//----------------------------
-	CScene2D* titleBG = CScene2D::Create(device, CImport::TITLEBG, CScene2D::POINT_CENTER);
-	titleBG->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-	titleBG->SetPos(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
+	//背景の生成
+	select_bg = CScene2D::Create(device, CImport::STAGE_SELECT_BG, CScene2D::POINT_LEFTTOP, 1);
+	select_bg ->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	select_bg ->SetPos(0.0f, 0.0f);
 
-	//----------------------------
-	// タイトルロゴ
-	//----------------------------
-	CScene2D* titleLogo = CScene2D::Create(device, CImport::TITLELOGO, CScene2D::POINT_CENTER);
-	titleLogo->SetSize(876.0f, 563.0f);
-	titleLogo->SetPos(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
+	
+	select_object[STAGE_DESERT]    =CScene2D::Create(device, CImport::STAGE_SELECT_DESERT, CScene2D::POINT_LEFTTOP, 1);
+	select_object[STAGE_FOREST]    =CScene2D::Create(device, CImport::STAGE_SELECT_FOREST, CScene2D::POINT_LEFTTOP, 1);
+	select_object[STAGE_GLACIER]   =CScene2D::Create(device, CImport::STAGE_SELECT_GLACIER, CScene2D::POINT_LEFTTOP, 1);
+	select_object[STAGE_SAVANNAH]  =CScene2D::Create(device, CImport::STAGE_SELECT_SAVANNAH, CScene2D::POINT_LEFTTOP, 1);
+	select_object[STAGE_WATERSIDE] =CScene2D::Create(device, CImport::STAGE_SELECT_WATERSIDE, CScene2D::POINT_LEFTTOP, 1);
+
+	for(int i=0;i<STAGE_MAX;i++)
+	{
+		select_object[i] ->SetSize(POL_SIZE[i]);
+		select_object[i] ->SetPos(POL_POS[i]);
+	}
+
+}
+
+//=============================================================================
+// オブジェクトの選択更新
+//=============================================================================
+void CStageSelect::SelectObjectUpdate()
+{
+	if(m_keyboard->GetTrigger(DIK_RIGHT))
+	{
+		select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
+		nowSelectObject++;
+		if(nowSelectObject>=STAGE_MAX){nowSelectObject=0;}
+		select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]*1.2f);
+	}
+
+	if(m_keyboard->GetTrigger(DIK_LEFT))
+	{
+		select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
+		nowSelectObject--;
+		if(nowSelectObject<=-1){nowSelectObject=STAGE_MAX-1;}
+		select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]*1.2f);
+	}
+}
+
+//=============================================================================
+// オブジェクトの更新
+//=============================================================================
+void CStageSelect::ObjectUpdate()
+{
+
 }
