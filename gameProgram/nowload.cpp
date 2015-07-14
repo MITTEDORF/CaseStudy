@@ -83,6 +83,6 @@ void CNLoad::InitObject( LPDIRECT3DDEVICE9 device )
 	//----------------------------
 	// キャラクター
 	//----------------------------
-	m_load_icon = CLIcon::Create( device , "./data/TEXTURE/player/player_goodmood.png" , CLIcon::POINT_CENTER , D3DXVECTOR2( SCREEN_WIDTH*0.5f , SCREEN_HEIGHT*0.5f ) );
 
+	m_load_icon = CLIcon::Create( device , "./data/TEXTURE/player/player_goodmood.png" , CLIcon::POINT_CENTER , D3DXVECTOR2( SCREEN_WIDTH-( CLIcon::POLYGON_SIZE * 0.5f ) , SCREEN_HEIGHT-( CLIcon::POLYGON_SIZE * 0.5f ) ) );
 }

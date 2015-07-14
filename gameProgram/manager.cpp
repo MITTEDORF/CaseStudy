@@ -289,10 +289,16 @@ void CManager::InitLoad( void )
 {
 	while(m_loading_flag)
 	{
-		if( m_now_load != NULL )
+		static int time;
+		time++;
+		if( time > 60 )
 		{
-			m_now_load->Update();
-			m_now_load->Draw();
+			time = 0;
+			if( m_now_load != NULL )
+			{
+				m_now_load->Update();
+				m_now_load->Draw();
+			}
 		}
 	}
 }

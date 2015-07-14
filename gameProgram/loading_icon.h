@@ -48,11 +48,11 @@ public:
 	void		SetColor(float r, float g, float b, float a){m_color = D3DXCOLOR(r, g, b, a); SetVertexPolygon();}
 	D3DXCOLOR	GetColor(void){return m_color;}
 	void SetTex(CImport::TEXTURES texture){m_texture = CImport::GetTexture(texture);};
-	
+	static const float POLYGON_SIZE;
+
 private:
 	const char* m_file_path;
 	LPDIRECT3DDEVICE9 m_device;
-	static const float POLYGON_SIZE;
 	D3DXVECTOR2 m_pos;
 	float m_rot;
 	D3DXVECTOR2 m_size;

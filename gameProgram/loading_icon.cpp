@@ -16,7 +16,7 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 静的変数
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-const float CLIcon::POLYGON_SIZE = 512.0f;
+const float CLIcon::POLYGON_SIZE = 256.0f;
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -127,14 +127,13 @@ void CLIcon::Update(void)
 }
 void CLIcon::Draw(void)
 {
-
-
 	SetVertexPolygon();
 	//頂点フォーマットの設定
 	m_device->SetFVF(FVF_VERTEX_2D);
 	//テクスチャの設定
 	m_device->SetTexture(0, m_texture);
 	m_device->DrawPrimitiveUP( D3DPT_TRIANGLESTRIP , 2 , &m_vtx[0] , sizeof(VERTEX_2D) );
+
 }
 void CLIcon::SetVertexPolygon( void )
 {
