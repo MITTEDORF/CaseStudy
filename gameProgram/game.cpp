@@ -134,25 +134,25 @@ void CGame::Update(void)
 		// タイマー更新
 		m_time++;
 
-		m_timePol[0]->SetCord(0, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1, 0));
-		m_timePol[0]->SetCord(1, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1 + 0.1, 0));
-		m_timePol[0]->SetCord(2, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1, 1));
-		m_timePol[0]->SetCord(3, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1 + 0.1, 1));
+		m_timePol[0]->SetCord(0, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1f,			0.0f));
+		m_timePol[0]->SetCord(1, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1f + 0.1f,	0.0f));
+		m_timePol[0]->SetCord(2, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1f,			1.0f));
+		m_timePol[0]->SetCord(3, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1f + 0.1f,	1.0f));
 
-		m_timePol[1]->SetCord(0, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1, 0));
-		m_timePol[1]->SetCord(1, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1 + 0.1, 0));
-		m_timePol[1]->SetCord(2, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1, 1));
-		m_timePol[1]->SetCord(3, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1 + 0.1, 1));
+		m_timePol[1]->SetCord(0, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1f,			0.0f));
+		m_timePol[1]->SetCord(1, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1f + 0.1f,	0.0f));
+		m_timePol[1]->SetCord(2, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1f,			1.0f));
+		m_timePol[1]->SetCord(3, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1f + 0.1f,	1.0f));
 
-		m_timePol[3]->SetCord(0, D3DXVECTOR2( ((m_time/600) % 6) * 0.1, 0));
-		m_timePol[3]->SetCord(1, D3DXVECTOR2( ((m_time/600) % 6) * 0.1 + 0.1, 0));
-		m_timePol[3]->SetCord(2, D3DXVECTOR2( ((m_time/600) % 6) * 0.1, 1));
-		m_timePol[3]->SetCord(3, D3DXVECTOR2( ((m_time/600) % 6) * 0.1 + 0.1, 1));
+		m_timePol[3]->SetCord(0, D3DXVECTOR2( ((m_time/600) % 6) * 0.1f,			0.0f));
+		m_timePol[3]->SetCord(1, D3DXVECTOR2( ((m_time/600) % 6) * 0.1f + 0.1f,		0.0f));
+		m_timePol[3]->SetCord(2, D3DXVECTOR2( ((m_time/600) % 6) * 0.1f,			1.0f));
+		m_timePol[3]->SetCord(3, D3DXVECTOR2( ((m_time/600) % 6) * 0.1f + 0.1f,		1.0f));
 
-		m_timePol[4]->SetCord(0, D3DXVECTOR2( ((m_time/60) % 10) * 0.1, 0));
-		m_timePol[4]->SetCord(1, D3DXVECTOR2( ((m_time/60) % 10) * 0.1 + 0.1, 0));
-		m_timePol[4]->SetCord(2, D3DXVECTOR2( ((m_time/60) % 10) * 0.1, 1));
-		m_timePol[4]->SetCord(3, D3DXVECTOR2( ((m_time/60) % 10) * 0.1 + 0.1, 1));
+		m_timePol[4]->SetCord(0, D3DXVECTOR2( ((m_time/60) % 10) * 0.1f,			0.0f));
+		m_timePol[4]->SetCord(1, D3DXVECTOR2( ((m_time/60) % 10) * 0.1f + 0.1f,		0.0f));
+		m_timePol[4]->SetCord(2, D3DXVECTOR2( ((m_time/60) % 10) * 0.1f,			1.0f));
+		m_timePol[4]->SetCord(3, D3DXVECTOR2( ((m_time/60) % 10) * 0.1f + 0.1f,		1.0f));
 
 		// 空の更新（スクロール）
 		m_sky->Update();
@@ -226,7 +226,7 @@ void CGame::Update(void)
 
 		else
 		{
-			CManager::SetNextPhase((CPhase*)new CGameClear(costume_id, vehicle_id));
+			CManager::SetNextPhase((CPhase*)new CGameClear(m_time, 3, costume_id, vehicle_id));
 		}
 	}
 }
@@ -294,10 +294,10 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 		if(i != 2)
 		{
 			m_timePol[i]->SetTex(CImport::NUMBER);
-			m_timePol[i]->SetCord(0, D3DXVECTOR2(0, 0));
-			m_timePol[i]->SetCord(1, D3DXVECTOR2(0.1, 0));
-			m_timePol[i]->SetCord(2, D3DXVECTOR2(0, 1));
-			m_timePol[i]->SetCord(3, D3DXVECTOR2(0.1, 1));
+			m_timePol[i]->SetCord(0, D3DXVECTOR2(0.0f, 0.0f));
+			m_timePol[i]->SetCord(1, D3DXVECTOR2(0.1f, 0.0f));
+			m_timePol[i]->SetCord(2, D3DXVECTOR2(0.0f, 1.0f));
+			m_timePol[i]->SetCord(3, D3DXVECTOR2(0.1f, 1.0f));
 		}
 		else
 		{

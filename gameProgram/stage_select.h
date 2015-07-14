@@ -43,6 +43,9 @@ public:
 	//現在選んでいるオブジェクト
 	int nowSelectObject;
 
+	// 傾き
+	float move;
+
 	//デバッグ用
 
 private:
@@ -55,6 +58,7 @@ private:
 	void NullSetVariable(void)
 	{
 		nowSelectObject=0;
+		move = -0.025f;
 		select_bg=NULL;
 
 		for(int i=0;i<STAGE_MAX;i++)

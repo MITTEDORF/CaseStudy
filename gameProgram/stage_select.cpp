@@ -88,6 +88,8 @@ void CStageSelect::Update(void)
 
 		SelectObjectUpdate();
 
+		ObjectUpdate();
+
 		//----------------------------
 		// “ü—Í
 		//----------------------------
@@ -125,11 +127,11 @@ void CStageSelect::InitObject(LPDIRECT3DDEVICE9 device)
 	select_bg ->SetPos(0.0f, 0.0f);
 
 	
-	select_object[STAGE_DESERT]    =CScene2D::Create(device, CImport::STAGE_SELECT_DESERT, CScene2D::POINT_LEFTTOP, 1);
-	select_object[STAGE_FOREST]    =CScene2D::Create(device, CImport::STAGE_SELECT_FOREST, CScene2D::POINT_LEFTTOP, 1);
-	select_object[STAGE_GLACIER]   =CScene2D::Create(device, CImport::STAGE_SELECT_GLACIER, CScene2D::POINT_LEFTTOP, 1);
-	select_object[STAGE_SAVANNAH]  =CScene2D::Create(device, CImport::STAGE_SELECT_SAVANNAH, CScene2D::POINT_LEFTTOP, 1);
-	select_object[STAGE_WATERSIDE] =CScene2D::Create(device, CImport::STAGE_SELECT_WATERSIDE, CScene2D::POINT_LEFTTOP, 1);
+	select_object[STAGE_DESERT]    =CScene2D::Create(device, CImport::STAGE_SELECT_DESERT, CScene2D::POINT_CENTER, 1);
+	select_object[STAGE_FOREST]    =CScene2D::Create(device, CImport::STAGE_SELECT_FOREST, CScene2D::POINT_CENTER, 1);
+	select_object[STAGE_GLACIER]   =CScene2D::Create(device, CImport::STAGE_SELECT_GLACIER, CScene2D::POINT_CENTER, 1);
+	select_object[STAGE_SAVANNAH]  =CScene2D::Create(device, CImport::STAGE_SELECT_SAVANNAH, CScene2D::POINT_CENTER, 1);
+	select_object[STAGE_WATERSIDE] =CScene2D::Create(device, CImport::STAGE_SELECT_WATERSIDE, CScene2D::POINT_CENTER, 1);
 
 	for(int i=0;i<STAGE_MAX;i++)
 	{
@@ -137,6 +139,8 @@ void CStageSelect::InitObject(LPDIRECT3DDEVICE9 device)
 		select_object[i] ->SetPos(POL_POS[i]);
 	}
 
+	select_object[nowSelectObject]->SetSize(POL_SIZE[STAGE_FOREST]*1.2f);
+	select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y - 20.0f);
 }
 
 //=============================================================================
@@ -144,20 +148,32 @@ void CStageSelect::InitObject(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 void CStageSelect::SelectObjectUpdate()
 {
-	if(m_keyboard->GetTrigger(DIK_RIGHT))
+	if(m_keyboard->GetTrigger(DIK_D))
 	{
 		select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
+		select_object[nowSelectObject] ->SetPos(POL_POS[nowSelectObject]);
+		select_object[nowSelectObject]->SetRot(0);
 		nowSelectObject++;
 		if(nowSelectObject>=STAGE_MAX){nowSelectObject=0;}
 		select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]*1.2f);
+		if(nowSelectObject == STAGE_GLACIER || nowSelectObject == STAGE_SAVANNAH)
+			select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y + 20.0f);
+		else
+			select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y - 20.0f);
 	}
 
-	if(m_keyboard->GetTrigger(DIK_LEFT))
+	if(m_keyboard->GetTrigger(DIK_A))
 	{
 		select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
+		select_object[nowSelectObject] ->SetPos(POL_POS[nowSelectObject]);
+		select_object[nowSelectObject]->SetRot(0);
 		nowSelectObject--;
 		if(nowSelectObject<=-1){nowSelectObject=STAGE_MAX-1;}
 		select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]*1.2f);
+		if(nowSelectObject == STAGE_GLACIER || nowSelectObject == STAGE_SAVANNAH)
+			select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y + 20.0f);
+		else
+			select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y - 20.0f);
 	}
 }
 
@@ -166,5 +182,9 @@ void CStageSelect::SelectObjectUpdate()
 //=============================================================================
 void CStageSelect::ObjectUpdate()
 {
-
+	select_object[nowSelectObject]->SetRot(select_object[nowSelectObject]->GetRot() + move);
+	if(abs(select_object[nowSelectObject]->GetRot()) > 0.65f)
+	{
+		move *= -1;
+	}
 }
