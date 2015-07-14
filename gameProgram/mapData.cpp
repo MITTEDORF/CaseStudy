@@ -96,22 +96,9 @@ HRESULT CMapData::Init(const char* file)
 	{
 		if((c == 'b') && ((c = fgetc(fp)) == ' '))
 		{
-			fscanf(fp, "%d %d", &cate, &type);
+			fscanf(fp, "%d", &type);
 
-			int typeTop = 0;
-			switch(cate)
-			{
-			case 0:
-				typeTop = TYPE_FOREST_01;
-				break;
-
-			case 1:
-				typeTop = TYPE_TWON_01;
-				break;
-
-			default:
-				break;
-			}
+			int typeTop = TYPE_FOREST_01;
 
 			m_bgData[cnt].type = (BG_TYPE)(typeTop + type);
 			m_bgData[cnt].index = cnt;
