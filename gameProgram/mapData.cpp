@@ -50,6 +50,7 @@ HRESULT CMapData::Init(const char* file)
 {
 	char c;
 	int cnt;
+	int typeTop;
 	int type;
 	D3DXVECTOR2 index;
 
@@ -97,7 +98,7 @@ HRESULT CMapData::Init(const char* file)
 		{
 			fscanf(fp, "%d", &type);
 
-			int typeTop = TYPE_FOREST_01;
+			typeTop = TYPE_FOREST_01;
 
 			m_bgData[cnt].type = (BG_TYPE)(typeTop + type);
 			m_bgData[cnt].index = cnt;
@@ -109,7 +110,8 @@ HRESULT CMapData::Init(const char* file)
 	//----------------------------
 	// 道データ取得
 	//----------------------------
-	cnt = 0;
+	typeTop = TYPE_DIRT;
+	cnt		= 0;
 	fseek(fp, 0, SEEK_SET);
 
 	while((c = fgetc(fp)) != EOF)
@@ -117,8 +119,6 @@ HRESULT CMapData::Init(const char* file)
 		if((c == 'r') && ((c = fgetc(fp)) == ' '))
 		{
 			fscanf(fp, "%d %f %f", &type, &index.x, &index.y);
-
-			int typeTop = TYPE_DIRT;
 
 			m_roadData[cnt].type = (ROAD_TYPE)(typeTop + type);
 			m_roadData[cnt].Index = index;
@@ -130,7 +130,8 @@ HRESULT CMapData::Init(const char* file)
 	//----------------------------
 	// 障害物データ取得
 	//----------------------------
-	cnt = 0;
+	typeTop = TYPE_SIGNBOARD;
+	cnt		= 0;
 	fseek(fp, 0, SEEK_SET);
 
 	while((c = fgetc(fp)) != EOF)
@@ -138,8 +139,6 @@ HRESULT CMapData::Init(const char* file)
 		if((c == 's') && ((c = fgetc(fp)) == ' '))
 		{
 			fscanf(fp, "%d %f %f", &type, &index.x, &index.y);
-
-			int typeTop = TYPE_SIGNBOARD;
 
 			m_stumData[cnt].type = (STUM_TYPE)(typeTop + type);
 			m_stumData[cnt].Index = index;
@@ -151,7 +150,8 @@ HRESULT CMapData::Init(const char* file)
 	//----------------------------
 	// ターゲットデータ取得
 	//----------------------------
-	cnt = 0;
+	typeTop = TYPE_TARGET_OFF;
+	cnt		= 0;
 	fseek(fp, 0, SEEK_SET);
 
 	while((c = fgetc(fp)) != EOF)
@@ -159,8 +159,6 @@ HRESULT CMapData::Init(const char* file)
 		if((c == 't') && ((c = fgetc(fp)) == ' '))
 		{
 			fscanf(fp, "%d %f %f", &type, &index.x, &index.y);
-
-			int typeTop = TYPE_TARGET_OFF;
 
 			m_targetData[cnt].type = (TARGET_TYPE)(typeTop + type);
 			m_targetData[cnt].Index = index;

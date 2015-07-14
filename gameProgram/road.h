@@ -20,7 +20,10 @@
 // ‰æ‘œƒf[ƒ^Ž¯•Ê
 typedef enum{
 	TYPE_DIRT = 0,
-	TYPE_ASPHALT,
+	TYPE_SAND,
+	TYPE_ICE,
+	TYPE_GRASSFIELD,
+	TYPE_WATER,
 	TYPE_MAX,
 }ROAD_TYPE;
 

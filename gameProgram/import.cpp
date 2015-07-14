@@ -188,7 +188,7 @@ const char* TEX_PATH[] =
 // ƒ}ƒbƒv
 const char* MAP_PATH[] =
 {
-	"./data/MAP/stage1-1.txt"
+	"./data/MAP/stageTest.txt"
 };
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

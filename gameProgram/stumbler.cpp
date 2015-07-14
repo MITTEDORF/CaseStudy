@@ -17,8 +17,8 @@ CStumbler::CStumbler(int priority, OBJTYPE objType) : CScene2D(priority, objType
 {
 	m_life = 1;
 	m_next = NULL;
-	m_prev = NULL;
 	m_move = D3DXVECTOR2(-1.0f, -1.0f);
+	m_prev = NULL;
 	m_defpos = D3DXVECTOR2(0.0f, 0.0f);
 	m_texAnim = 0;
 	m_fallFrag = false;
