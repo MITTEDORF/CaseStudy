@@ -180,6 +180,11 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/number/coron.png",
 	"./data/TEXTURE/number/coron_half.png",
 	"./data/TEXTURE/number/number.png",
+
+	// リザルト
+	"./data/TEXTURE/result/clock.png",
+	"./data/TEXTURE/result/score.png",
+	"./data/TEXTURE/result/result_bg.png",
 };
 
 // マップ

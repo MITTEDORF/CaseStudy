@@ -62,6 +62,8 @@ private:
 
 	CScene2D* m_version;
 
+	CScene2D* m_window[10];
+
 	// ƒXƒNƒ[ƒ‹‚·‚é”wŒi
 	CScene2D* m_bg;
 

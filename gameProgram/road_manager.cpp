@@ -195,8 +195,12 @@ ROAD_TYPE CRoadManager::GetHitRoadType(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene
 		{
 			return cur->GetRoadType();
 		}
+
+		next = cur->GetRoadNext();
+
+		cur = next;
 	}
-	return ROAD_TYPE::TYPE_MAX;
+	return TYPE_MAX;
 }
 
 // End of File

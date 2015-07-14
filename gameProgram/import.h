@@ -188,6 +188,10 @@ public:
 		COLON_HALF,
 		NUMBER,
 
+		// ƒŠƒUƒ‹ƒg
+		CLOCK,
+		SCORE,
+		RESULT_WINDOW_BG,
 
 		TEX_MAX
 	};
