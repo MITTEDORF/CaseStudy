@@ -29,7 +29,6 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/title/title_bg.png",
 
 	// ‹ó
-	"./data/TEXTURE/sky/sky_back.png",
 	"./data/TEXTURE/sky/sky_01.png",
 	"./data/TEXTURE/sky/sky_02.png",
 	"./data/TEXTURE/sky/sky_03.png",
@@ -61,12 +60,8 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/savannah/savannah_04.png",
 	"./data/TEXTURE/savannah/savannah_05.png",
 
-	// ’¬
-	"./data/TEXTURE/town/town_01.png",
-
 	// “¹
 	"./data/TEXTURE/forest/dirt.png",
-	"./data/TEXTURE/town/asphalt.png",
 	"./data/TEXTURE/desert/sand.png",
 	"./data/TEXTURE/glacier/ice.png",
 	"./data/TEXTURE/savannah/grassfield.png",

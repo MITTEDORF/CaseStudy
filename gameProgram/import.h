@@ -37,7 +37,6 @@ public:
 		TITLEBG,
 
 		// ‹ó
-		SKY_BG,
 		SKY1,
 		SKY2,
 		SKY3,
@@ -69,12 +68,8 @@ public:
 		SAVANNAH_04,
 		SAVANNAH_05,
 
-		// ’¬
-		TOWN_01,
-
 		// “¹
 		DIRT,
-		ASPHALT,
 		SAND,
 		ICE,
 		GRASSFIELD,
