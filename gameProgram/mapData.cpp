@@ -152,6 +152,8 @@ HRESULT CMapData::Init(const char* file)
 	//----------------------------
 	typeTop = TYPE_TARGET_OFF;
 	cnt		= 0;
+	type	= 0;
+	index	= D3DXVECTOR2(0.0f, 0.0f);
 	fseek(fp, 0, SEEK_SET);
 
 	while((c = fgetc(fp)) != EOF)
