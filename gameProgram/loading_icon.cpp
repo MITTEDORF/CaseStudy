@@ -33,6 +33,7 @@ CLIcon::CLIcon()
 	m_length = DISTANCE_2D(half.x, half.y);
 	m_angle	 = atan2f(half.x, half.y);
 	m_anim_now = 0;
+	m_anim_period = 0;
 	m_coord[0] = D3DXVECTOR2(0.0f*0.25f, 0.0f);
 	m_coord[1] = D3DXVECTOR2(1.0f*0.25f, 0.0f);
 	m_coord[2] = D3DXVECTOR2(0.0f*0.25f, 1.0f);
@@ -125,7 +126,12 @@ void CLIcon::Update(void)
 {
 	if( m_anim_now < ANIMATION_MAX )
 	{
-		m_anim_now+=1;
+		m_anim_period++;
+		if( m_anim_period >= ANIMATION_PERIOD )
+		{
+			m_anim_now+=1;
+			m_anim_period = 0;
+		}
 	}
 	else
 	{

@@ -50,6 +50,7 @@ public:
 	void SetTex(CImport::TEXTURES texture){m_texture = CImport::GetTexture(texture);};
 	static const float POLYGON_SIZE;
 	static const int ANIMATION_MAX = 4;
+	static const int ANIMATION_PERIOD = 10;
 private:
 	const char* m_file_path;
 	LPDIRECT3DDEVICE9 m_device;
@@ -66,6 +67,7 @@ private:
 	D3DXVECTOR2	m_coord[4];		// テクスチャコード
 	bool m_localTex;
 	int m_anim_now;
+	int m_anim_period;
 protected:
 };
 #endif
