@@ -291,7 +291,7 @@ void CEquipmentChoice::VehicleChoice()
 	default:
 		m_veh_mes->SetTex(CImport::MAKE_UI_HYPHEN_3);
 		if(curUp != true)
-			m_message->SetTex(CImport::MAKE_UI_HYPHEN_5);
+			m_message->SetTex(CImport::MAKE_UI_HYPHEN_LONG);
 		break;
 	}
 }
@@ -359,7 +359,7 @@ void CEquipmentChoice::CostumeChoice()
 		default:
 			m_cos_mes->SetTex(CImport::MAKE_UI_HYPHEN_3);
 			if(curUp == true)
-				m_message->SetTex(CImport::MAKE_UI_HYPHEN_5);
+				m_message->SetTex(CImport::MAKE_UI_HYPHEN_LONG);
 			break;
 		}
 }

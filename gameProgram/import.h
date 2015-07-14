@@ -191,6 +191,10 @@ public:
 		STAGE_SELECT_SAVANNAH,
 		STAGE_SELECT_WATERSIDE,
 
+		// ƒŠƒUƒ‹ƒg
+		CLOCK,
+		SCORE,
+		RESULT_WINDOW_BG,
 
 		TEX_MAX
 	};

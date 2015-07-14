@@ -180,6 +180,78 @@ void CGameClear::InitObject(LPDIRECT3DDEVICE9 device)
 		m_Button[SELECT_CUR_RETURN]->SetCord( 2 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*1 ) );
 		m_Button[SELECT_CUR_RETURN]->SetCord( 3 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*1 ) );
 
+		m_window[0] = CScene2D::Create(device, CImport::RESULT_WINDOW_BG, CScene2D::POINT_LEFTTOP);
+		m_window[0]->SetSize(870.0f,500.0f);
+		m_window[0]->SetPos(40, 40);
+
+		m_window[1] = CScene2D::Create(device, CImport::CLOCK, CScene2D::POINT_LEFTTOP);
+		m_window[1]->SetSize(100.0f,100.0f);
+		m_window[1]->SetPos(80, 95);
+
+		m_window[2] = CScene2D::Create(device, CImport::ASSY_TRUCK, CScene2D::POINT_LEFTTOP);
+		m_window[2]->SetSize(120.0f,120.0f);
+		m_window[2]->SetPos(80, 225);
+		m_window[2]->SetCord( 0 , D3DXVECTOR2( 0.0f , 0.0f ) );
+		m_window[2]->SetCord( 1 , D3DXVECTOR2( 0.25f , 0.0f ) );
+		m_window[2]->SetCord( 2 , D3DXVECTOR2( 0.0f , 0.33f ) );
+		m_window[2]->SetCord( 3 , D3DXVECTOR2( 0.25f , 0.33f ) );
+
+		m_window[3] = CScene2D::Create(device, CImport::SCORE, CScene2D::POINT_LEFTTOP);
+		m_window[3]->SetSize(300.0f,100.0f);
+		m_window[3]->SetPos(125, 385);
+
+		int score = 123456;
+		D3DXVECTOR2 pos = D3DXVECTOR2(510,80);
+		D3DXVECTOR2 size = D3DXVECTOR2(60,100);
+		D3DXVECTOR2 i = D3DXVECTOR2(60,0);
+
+		m_window[4] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
+		m_window[4]->SetSize(size);
+		m_window[4]->SetPos(pos);
+		m_window[4]->SetCord( 0 , D3DXVECTOR2( ( (score/100000) % 10 ) * 0.1, 0));
+		m_window[4]->SetCord( 1 , D3DXVECTOR2( ( (score/100000) % 10 ) * 0.1 + 0.1, 0));
+		m_window[4]->SetCord( 2 , D3DXVECTOR2( ( (score/100000) % 10 ) * 0.1, 1));
+		m_window[4]->SetCord( 3 , D3DXVECTOR2( ( (score/100000) % 10 ) * 0.1 + 0.1, 1));
+
+		m_window[5] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
+		m_window[5]->SetSize(size);
+		m_window[5]->SetPos(pos + i);
+		m_window[5]->SetCord( 0 , D3DXVECTOR2( ( (score/10000) % 10 ) * 0.1, 0));
+		m_window[5]->SetCord( 1 , D3DXVECTOR2( ( (score/10000) % 10 ) * 0.1 + 0.1, 0));
+		m_window[5]->SetCord( 2 , D3DXVECTOR2( ( (score/10000) % 10 ) * 0.1, 1));
+		m_window[5]->SetCord( 3 , D3DXVECTOR2( ( (score/10000) % 10 ) * 0.1 + 0.1, 1));
+
+		m_window[6] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
+		m_window[6]->SetSize(size);
+		m_window[6]->SetPos(pos + i*2);
+		m_window[6]->SetCord( 0 , D3DXVECTOR2( ( (score/1000) % 10 ) * 0.1, 0));
+		m_window[6]->SetCord( 1 , D3DXVECTOR2( ( (score/1000) % 10 ) * 0.1 + 0.1, 0));
+		m_window[6]->SetCord( 2 , D3DXVECTOR2( ( (score/1000) % 10 ) * 0.1, 1));
+		m_window[6]->SetCord( 3 , D3DXVECTOR2( ( (score/1000) % 10 ) * 0.1 + 0.1, 1));
+
+		m_window[7] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
+		m_window[7]->SetSize(size);
+		m_window[7]->SetPos(pos + i*3);
+		m_window[7]->SetCord( 0 , D3DXVECTOR2( ( (score/100) % 10 ) * 0.1, 0));
+		m_window[7]->SetCord( 1 , D3DXVECTOR2( ( (score/100) % 10 ) * 0.1 + 0.1, 0));
+		m_window[7]->SetCord( 2 , D3DXVECTOR2( ( (score/100) % 10 ) * 0.1, 1));
+		m_window[7]->SetCord( 3 , D3DXVECTOR2( ( (score/100) % 10 ) * 0.1 + 0.1, 1));
+
+		m_window[8] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
+		m_window[8]->SetSize(size);
+		m_window[8]->SetPos(pos + i*4);
+		m_window[8]->SetCord( 0 , D3DXVECTOR2( ( (score/10) % 10 ) * 0.1, 0));
+		m_window[8]->SetCord( 1 , D3DXVECTOR2( ( (score/10) % 10 ) * 0.1 + 0.1, 0));
+		m_window[8]->SetCord( 2 , D3DXVECTOR2( ( (score/10) % 10 ) * 0.1, 1));
+		m_window[8]->SetCord( 3 , D3DXVECTOR2( ( (score/10) % 10 ) * 0.1 + 0.1, 1));
+
+		m_window[9] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
+		m_window[9]->SetSize(size);
+		m_window[9]->SetPos(pos + i*5);
+		m_window[9]->SetCord( 0 , D3DXVECTOR2( ( (score/1) % 10 ) * 0.1, 0));
+		m_window[9]->SetCord( 1 , D3DXVECTOR2( ( (score/1) % 10 ) * 0.1 + 0.1, 0));
+		m_window[9]->SetCord( 2 , D3DXVECTOR2( ( (score/1) % 10 ) * 0.1, 1));
+		m_window[9]->SetCord( 3 , D3DXVECTOR2( ( (score/1) % 10 ) * 0.1 + 0.1, 1));
 }
 //=============================================================================
 // ƒ{ƒ^ƒ“UV•ÏXˆ—

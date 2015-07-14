@@ -183,6 +183,10 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/stageselect/icon_glacier.png",
 	"./data/TEXTURE/stageselect/icon_savannah.png",
 	"./data/TEXTURE/stageselect/icon_waterside.png",
+	// リザルト
+	"./data/TEXTURE/result/clock.png",
+	"./data/TEXTURE/result/score.png",
+	"./data/TEXTURE/result/result_bg.png",
 };
 
 // マップ
