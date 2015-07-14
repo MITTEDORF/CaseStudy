@@ -18,8 +18,6 @@
 //=============================================================================
 // マクロ
 //============================================================================
-//プレイヤのHPの最大値(3の倍数が好ましい)
-const int PLAYER_HP_MAX                 = 3;
 
 //=============================================================================
 // 前方宣言
@@ -256,6 +254,13 @@ private:
 	//アニメーションの最大コマ数
 	int maxAnim;
 
+	//無敵時間
+	float InbisibleTime;
+	//移動速度
+	float MoveSpd;
+	//ジャンプ力
+	float JumpSpd;
+
 	//重力値
 	float localGravity;
 
@@ -269,11 +274,12 @@ private:
 		isGame=true;
 		HP=PLAYER_HP_MAX;
 		AssyDamage=HP/3;
-		AssyHP=3;
+		AssyHP=PLAYER_HP_MAX;
 		isinvincible=false;
 		isDraw=true;
 		isDeth=false;
 		isFall=false;
+		InbisibleTime=INVISIBLE_TIME;
 		isinvincibleDrawCnt=0;
 		maxAnim=1;
 		isAnimEnd=false;
@@ -293,6 +299,8 @@ private:
 		canLighting=true;
 		isinvincibleCnt=0;
 		localGravity=GRAVITY_SPD;
+		MoveSpd=MOVE_SPD;
+		JumpSpd=JUMP_SPD;
 	}
 
 	//移動処理

@@ -175,14 +175,14 @@ void CPlayer::Move()
 		//右移動
 		if(m_keyboard->GetPress(DIK_A))
 		{
-			m_move_spd.x-=MOVE_SPD;
+			m_move_spd.x-=MoveSpd;
 			Assy->SetAnimMode(1,true);
 		}
 
 		//左移動
 		if(m_keyboard->GetPress(DIK_D))
 		{
-			m_move_spd.x+=MOVE_SPD;
+			m_move_spd.x+=MoveSpd;
 			Assy->SetAnimMode(1,true);
 		}
 
@@ -191,14 +191,14 @@ void CPlayer::Move()
 			//右移動
 			if(m_padX->GetButtonPress(XINPUT_GAMEPAD_DPAD_LEFT))
 			{
-				m_move_spd.x-=MOVE_SPD;
+				m_move_spd.x-=MoveSpd;
 				Assy->SetAnimMode(1,true);
 			}
 
 			//左移動
 			if(m_padX->GetButtonPress(XINPUT_GAMEPAD_DPAD_RIGHT))
 			{
-				m_move_spd.x+=MOVE_SPD;
+				m_move_spd.x+=MoveSpd;
 				Assy->SetAnimMode(1,true);
 			}
 		}
@@ -223,7 +223,6 @@ void CPlayer::Move()
 	//ジャンプ処理
 	moveJump();
 }
-
 //=============================================================================
 // HP更新処理
 //=============================================================================
@@ -260,7 +259,7 @@ void CPlayer::AddHP(int value)
 
 	if(value<0)
 	{
-		if(HP<AssyDamage*AssyHP)
+		if(HP==2.0f||HP==1.0f)
 		{
 			AssyHP--;
 			Assy->addRateOfDestruction(1);
@@ -276,7 +275,6 @@ void CPlayer::AddHP(int value)
 		}
 	}
 }
-
 //=============================================================================
 // ジャンプ処理
 //=============================================================================
@@ -290,7 +288,7 @@ void CPlayer::moveJump()
 			canJump=false;
 			isJump=true;
 			//スピードの設定
-			m_move_spd.y=JUMP_SPD;
+			m_move_spd.y=JumpSpd;
 		}
 	}
 
@@ -304,7 +302,7 @@ void CPlayer::moveJump()
 				canJump=false;
 				isJump=true;
 				//スピードの設定
-				m_move_spd.y=JUMP_SPD;
+				m_move_spd.y=JumpSpd;
 				CDebugproc::PrintDebugProc("ジャンプ\n");
 			}
 		}
@@ -577,7 +575,7 @@ void CPlayer::InvincibleUpdate()
 		}
 		
 
-		if(isinvincibleCnt>=INVISIBLE_TIME)
+		if(isinvincibleCnt>=InbisibleTime)
 		{
 			isinvincible=false;
 			isDraw=true;
