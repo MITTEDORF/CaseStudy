@@ -50,7 +50,6 @@ HRESULT CMapData::Init(const char* file)
 {
 	char c;
 	int cnt;
-	int cate;
 	int type;
 	D3DXVECTOR2 index;
 
