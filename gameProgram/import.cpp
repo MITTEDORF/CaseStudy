@@ -90,7 +90,6 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/stumbler/sandstone.png",
 	"./data/TEXTURE/stumbler/bee.png",
 	"./data/TEXTURE/stumbler/huneycomb.png",
-	"./data/TEXTURE/stumbler/needle.png",
 
 	// ターゲット
 	"./data/TEXTURE/goal/tv_off.png",
@@ -154,7 +153,6 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/select/costume/cos_swimwear.png",
 	"./data/TEXTURE/select/costume/cos_ninja.png",
 	"./data/TEXTURE/select/costume/cos_fighter.png",
-	"./data/TEXTURE/select/message/costume/cos_mes_none.png",
 	"./data/TEXTURE/select/message/costume/cos_mes_knight.png",
 	"./data/TEXTURE/select/message/costume/cos_mes_santa.png",
 	"./data/TEXTURE/select/message/costume/cos_mes_swim.png",
@@ -171,10 +169,10 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/select/message/vehicle/veh_mes_log.png",
 	"./data/TEXTURE/select/message/vehicle/veh_mes_bathtub.png",
 	"./data/TEXTURE/select/message/vehicle/veh_mes_sleigh.png",
-	"./data/TEXTURE/select/message/vehicle/veh_mes_truck.png",
 	"./data/TEXTURE/select/hyphen_3.png",
 	"./data/TEXTURE/select/hyphen_4.png",
 	"./data/TEXTURE/select/hyphen_5.png",
+	"./data/TEXTURE/select/hyphen_long.png",
 	"./data/TEXTURE/select/char_sel_back_01.png",
 	"./data/TEXTURE/select/char_sel_chip_01.png",
 

@@ -88,8 +88,8 @@ HRESULT CManager::Init(HINSTANCE instance, HWND wnd, bool window)
 	m_now_load = new CNLoad;
 	m_now_load->Init(device);
 
-	m_Thread = new CThread();
-	m_Thread->Create( InitLoad );
+	//m_Thread = new CThread();
+	//m_Thread->Create( InitLoad );
 
 	//----------------------------
 	// ƒtƒ@ƒCƒ‹“Ç‚İ‚İ
