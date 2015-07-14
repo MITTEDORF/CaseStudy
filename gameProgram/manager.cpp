@@ -297,7 +297,7 @@ void CManager::InitLoad( void )
 	while(m_loading_flag)
 	{
 		curTime = timeGetTime();	// システム時刻を取得
-		if((curTime - execLastTime) >= (1000 / 6))	// 1秒ごとに実行
+		if((curTime - execLastTime) >= (1000 / 60))
 		{
 			execLastTime = curTime;	// 処理した時刻を保存
 
