@@ -47,30 +47,34 @@ HRESULT CTargetManager::Init(LPDIRECT3DDEVICE9 device,CImport::MAPS maps)
 	// データ取得
 	//----------------------------------------
 	CMapData*	 mapData = CImport::GetMap(maps);
-	TARGET_DATA* data = mapData->GetTargetData();
 	int			 size = mapData->GetTargetSize();
 
-	// データの個数分生成処理
-	for(int loop = 0; loop < size; loop++)
+	if(size > 0)
 	{
-		// 障害物リスト先頭が空の時
-		if(m_list_top == NULL)
+		TARGET_DATA* data = mapData->GetTargetData();
+
+		// データの個数分生成処理
+		for(int loop = 0; loop < size; loop++)
 		{
-			// 障害物リスト先頭に障害物生成
-			m_list_top = CTarget::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
-			// 障害物リスト末尾を障害物リスト先頭に
-			m_list_cur = m_list_top;
-		}
-		else
-		{
-			// 障害物生成
-			CTarget* p = CTarget::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
-			// 障害物リスト末尾のnextに生成した障害物をセット
-			m_list_cur->SetTargetNext(p);
-			// 生成した障害物のprevに障害物リスト末尾をセット
-			p->SetTargetPrev(m_list_cur);
-			// 障害物リスト末尾を生成した障害物に
-			m_list_cur = p;
+			// 障害物リスト先頭が空の時
+			if(m_list_top == NULL)
+			{
+				// 障害物リスト先頭に障害物生成
+				m_list_top = CTarget::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
+				// 障害物リスト末尾を障害物リスト先頭に
+				m_list_cur = m_list_top;
+			}
+			else
+			{
+				// 障害物生成
+				CTarget* p = CTarget::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
+				// 障害物リスト末尾のnextに生成した障害物をセット
+				m_list_cur->SetTargetNext(p);
+				// 生成した障害物のprevに障害物リスト末尾をセット
+				p->SetTargetPrev(m_list_cur);
+				// 障害物リスト末尾を生成した障害物に
+				m_list_cur = p;
+			}
 		}
 	}
 	return S_OK;

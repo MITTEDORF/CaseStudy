@@ -41,25 +41,27 @@ HRESULT CBackgroundManager::Init(LPDIRECT3DDEVICE9 device,CImport::MAPS maps)
 	// データ取得
 	//----------------------------------------
 	CMapData*	mapData = CImport::GetMap(maps);
-	BG_DATA*	data = mapData->GetBgData();
 	int			size = mapData->GetBgSize();
 
-	//----------------------------------------
-	// データの個数分生成処理
-	//----------------------------------------
-	for(int cnt = 0; cnt < size; cnt++)
+	if(size > 0)
 	{
-		if(m_top == NULL)
+		BG_DATA*	data = mapData->GetBgData();
+
+		// データの個数分生成処理
+		for(int cnt = 0; cnt < size; cnt++)
 		{
-			m_top = CBackground::Create(device, data[cnt]);
-			m_cur = m_top;
-		}
-		else
-		{
-			CBackground* pointer = CBackground::Create(device, data[cnt]);
-			m_cur->SetBgNext(pointer);
-			pointer->SetBgPrev(m_cur);
-			m_cur = pointer;
+			if(m_top == NULL)
+			{
+				m_top = CBackground::Create(device, data[cnt]);
+				m_cur = m_top;
+			}
+			else
+			{
+				CBackground* pointer = CBackground::Create(device, data[cnt]);
+				m_cur->SetBgNext(pointer);
+				pointer->SetBgPrev(m_cur);
+				m_cur = pointer;
+			}
 		}
 	}
 	return S_OK;

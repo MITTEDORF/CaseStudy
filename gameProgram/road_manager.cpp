@@ -45,33 +45,36 @@ HRESULT CRoadManager::Init(LPDIRECT3DDEVICE9 device,CImport::MAPS maps)
 	// データ取得
 	//----------------------------------------
 	CMapData*	mapData = CImport::GetMap(maps);
-	ROAD_DATA*	data = mapData->GetRoadData();
 	int			size = mapData->GetRoadSize();
 
-	// データの個数分生成処理
-	for(int loop = 0; loop < size; loop++)
+	if(size > 0)
 	{
-		// 道路リスト先頭が空の時
-		if(m_list_top == NULL)
+		ROAD_DATA* data = mapData->GetRoadData();
+
+		// データの個数分生成処理
+		for(int loop = 0; loop < size; loop++)
 		{
-			// 道路リスト先頭に道路生成
-			m_list_top = CRoad::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
-			// 道路リスト末尾を道路リスト先頭に
-			m_list_cur = m_list_top;
-		}
-		else
-		{
-			// 道路生成
-			CRoad* p = CRoad::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
-			// 道路リスト末尾のnextに生成した道路をセット
-			m_list_cur->SetRoadNext(p);
-			// 生成した道路のprevに道路リスト末尾をセット
-			p->SetRoadPrev(m_list_cur);
-			// 道路リスト末尾を生成した道路に
-			m_list_cur = p;
+			// 道路リスト先頭が空の時
+			if(m_list_top == NULL)
+			{
+				// 道路リスト先頭に道路生成
+				m_list_top = CRoad::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
+				// 道路リスト末尾を道路リスト先頭に
+				m_list_cur = m_list_top;
+			}
+			else
+			{
+				// 道路生成
+				CRoad* p = CRoad::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
+				// 道路リスト末尾のnextに生成した道路をセット
+				m_list_cur->SetRoadNext(p);
+				// 生成した道路のprevに道路リスト末尾をセット
+				p->SetRoadPrev(m_list_cur);
+				// 道路リスト末尾を生成した道路に
+				m_list_cur = p;
+			}
 		}
 	}
-
 	return S_OK;
 }
 

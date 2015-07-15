@@ -79,93 +79,100 @@ HRESULT CMapData::Init(const char* file)
 	}
 
 	//----------------------------
-	// データメモリ確保
-	//----------------------------
-	m_bgData	 = new BG_DATA[m_bgSize];
-	m_roadData	 = new ROAD_DATA[m_roadSize];
-	m_stumData	 = new STUM_DATA[m_stumSize];
-	m_targetData = new TARGET_DATA[m_targetSize];
-
-	//----------------------------
 	// 背景データ取得
 	//----------------------------
-	cnt = 0;
-	fseek(fp, 0, SEEK_SET);
-
-	while((c = fgetc(fp)) != EOF)
+	if(m_bgSize > 0)
 	{
-		if((c == 'b') && ((c = fgetc(fp)) == ' '))
+		m_bgData = new BG_DATA[m_bgSize];
+		typeTop = TYPE_FOREST_01;
+		cnt		= 0;
+		fseek(fp, 0, SEEK_SET);
+
+		while((c = fgetc(fp)) != EOF)
 		{
-			fscanf(fp, "%d", &type);
+			if((c == 'b') && ((c = fgetc(fp)) == ' '))
+			{
+				fscanf(fp, "%d", &type);
 
-			typeTop = TYPE_FOREST_01;
+				m_bgData[cnt].type = (BG_TYPE)(typeTop + type);
+				m_bgData[cnt].index = cnt;
 
-			m_bgData[cnt].type = (BG_TYPE)(typeTop + type);
-			m_bgData[cnt].index = cnt;
-
-			cnt++;
+				cnt++;
+			}
 		}
 	}
 
 	//----------------------------
 	// 道データ取得
 	//----------------------------
-	typeTop = TYPE_DIRT;
-	cnt		= 0;
-	fseek(fp, 0, SEEK_SET);
-
-	while((c = fgetc(fp)) != EOF)
+	if(m_roadSize > 0)
 	{
-		if((c == 'r') && ((c = fgetc(fp)) == ' '))
+		m_roadData	 = new ROAD_DATA[m_roadSize];
+		typeTop = TYPE_DIRT;
+		cnt		= 0;
+		fseek(fp, 0, SEEK_SET);
+
+		while((c = fgetc(fp)) != EOF)
 		{
-			fscanf(fp, "%d %f %f", &type, &index.x, &index.y);
+			if((c == 'r') && ((c = fgetc(fp)) == ' '))
+			{
+				fscanf(fp, "%d %f %f", &type, &index.x, &index.y);
 
-			m_roadData[cnt].type = (ROAD_TYPE)(typeTop + type);
-			m_roadData[cnt].Index = index;
+				m_roadData[cnt].type = (ROAD_TYPE)(typeTop + type);
+				m_roadData[cnt].Index = index;
 
-			cnt++;
+				cnt++;
+			}
 		}
 	}
 
 	//----------------------------
 	// 障害物データ取得
 	//----------------------------
-	typeTop = TYPE_SIGNBOARD;
-	cnt		= 0;
-	fseek(fp, 0, SEEK_SET);
-
-	while((c = fgetc(fp)) != EOF)
+	if(m_stumSize > 0)
 	{
-		if((c == 's') && ((c = fgetc(fp)) == ' '))
+		m_stumData	 = new STUM_DATA[m_stumSize];
+		typeTop = TYPE_SIGNBOARD;
+		cnt		= 0;
+		fseek(fp, 0, SEEK_SET);
+
+		while((c = fgetc(fp)) != EOF)
 		{
-			fscanf(fp, "%d %f %f", &type, &index.x, &index.y);
+			if((c == 's') && ((c = fgetc(fp)) == ' '))
+			{
+				fscanf(fp, "%d %f %f", &type, &index.x, &index.y);
 
-			m_stumData[cnt].type = (STUM_TYPE)(typeTop + type);
-			m_stumData[cnt].Index = index;
+				m_stumData[cnt].type = (STUM_TYPE)(typeTop + type);
+				m_stumData[cnt].Index = index;
 
-			cnt++;
+				cnt++;
+			}
 		}
 	}
 
 	//----------------------------
 	// ターゲットデータ取得
 	//----------------------------
-	typeTop = TYPE_TARGET_OFF;
-	cnt		= 0;
-	type	= 0;
-	index	= D3DXVECTOR2(0.0f, 0.0f);
-	fseek(fp, 0, SEEK_SET);
-
-	while((c = fgetc(fp)) != EOF)
+	if(m_targetSize > 0)
 	{
-		if((c == 't') && ((c = fgetc(fp)) == ' '))
+		m_targetData = new TARGET_DATA[m_targetSize];
+		typeTop = TYPE_TARGET_OFF;
+		cnt		= 0;
+		type	= 0;
+		index	= D3DXVECTOR2(0.0f, 0.0f);
+		fseek(fp, 0, SEEK_SET);
+
+		while((c = fgetc(fp)) != EOF)
 		{
-			fscanf(fp, "%d %f %f", &type, &index.x, &index.y);
+			if((c == 't') && ((c = fgetc(fp)) == ' '))
+			{
+				fscanf(fp, "%d %f %f", &type, &index.x, &index.y);
 
-			m_targetData[cnt].type = (TARGET_TYPE)(typeTop + type);
-			m_targetData[cnt].Index = index;
+				m_targetData[cnt].type = (TARGET_TYPE)(typeTop + type);
+				m_targetData[cnt].Index = index;
 
-			cnt++;
+				cnt++;
+			}
 		}
 	}
 

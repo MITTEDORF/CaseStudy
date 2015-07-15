@@ -47,30 +47,34 @@ HRESULT CStumManager::Init(LPDIRECT3DDEVICE9 device,CImport::MAPS maps)
 	// データ取得
 	//----------------------------------------
 	CMapData*	mapData = CImport::GetMap(maps);
-	STUM_DATA*	data = mapData->GetStumData();
 	int			size = mapData->GetStumSize();
 
-	// データの個数分生成処理
-	for(int loop = 0; loop < size; loop++)
+	if(size > 0)
 	{
-		// 障害物リスト先頭が空の時
-		if(m_list_top == NULL)
+		STUM_DATA* data = mapData->GetStumData();
+
+		// データの個数分生成処理
+		for(int loop = 0; loop < size; loop++)
 		{
-			// 障害物リスト先頭に障害物生成
-			m_list_top = CStumbler::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
-			// 障害物リスト末尾を障害物リスト先頭に
-			m_list_cur = m_list_top;
-		}
-		else
-		{
-			// 障害物生成
-			CStumbler* p = CStumbler::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
-			// 障害物リスト末尾のnextに生成した障害物をセット
-			m_list_cur->SetStumNext(p);
-			// 生成した障害物のprevに障害物リスト末尾をセット
-			p->SetStumPrev(m_list_cur);
-			// 障害物リスト末尾を生成した障害物に
-			m_list_cur = p;
+			// 障害物リスト先頭が空の時
+			if(m_list_top == NULL)
+			{
+				// 障害物リスト先頭に障害物生成
+				m_list_top = CStumbler::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
+				// 障害物リスト末尾を障害物リスト先頭に
+				m_list_cur = m_list_top;
+			}
+			else
+			{
+				// 障害物生成
+				CStumbler* p = CStumbler::Create(device, data[loop], CScene2D::POINT_LEFTTOP);
+				// 障害物リスト末尾のnextに生成した障害物をセット
+				m_list_cur->SetStumNext(p);
+				// 生成した障害物のprevに障害物リスト末尾をセット
+				p->SetStumPrev(m_list_cur);
+				// 障害物リスト末尾を生成した障害物に
+				m_list_cur = p;
+			}
 		}
 	}
 	return S_OK;
