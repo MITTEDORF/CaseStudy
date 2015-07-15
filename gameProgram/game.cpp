@@ -220,10 +220,10 @@ void CGame::Debug(void)
 	//----------------------------
 	// ‰æ–Ê‘JˆÚ
 	//----------------------------
-	if(m_keyboard->GetTrigger(DIK_RETURN))
+	/*if(m_keyboard->GetTrigger(DIK_RETURN))
 	{
 		m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
-	}
+	}*/
 }
 
 //=============================================================================
