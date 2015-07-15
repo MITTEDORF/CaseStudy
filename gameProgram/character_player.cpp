@@ -734,12 +734,15 @@ void CPlayer::SetVehicleID(VehicleID value)
 	switch (Vehicle_id)
 	{
 	case VEHICLE_TRAM:
+		HP=HP+2;
 		break;
 
 	case VHEICLE_LOG:
+		InbisibleTime=InbisibleTime*1.3f;
 		break;
 
 	case VEHICLE_BATHTUB:
+
 		break;
 
 	case VEHICLE_SLEIGH:
@@ -747,6 +750,10 @@ void CPlayer::SetVehicleID(VehicleID value)
 		break;
 
 	case VHEICLE_TRUCK:
+		break;
+
+	case VHEICLE_DOLLY:
+		HP--;
 		break;
 
 	}
@@ -771,6 +778,7 @@ void CPlayer::SetCostumeID(CostumeID value)
 		break;
 
 	case COSTUME_KNIGHT:
+		InbisibleTime=InbisibleTime*1.6f;
 		break;
 
 	case COSTUME_SANTA:
@@ -778,12 +786,15 @@ void CPlayer::SetCostumeID(CostumeID value)
 		break;
 
 	case COSTUME_SWIMWEAR:
+
 		break;
 
 	case COSTUME_NINJA:
+		MoveSpd=MoveSpd*1.3f;
 		break;
 
 	case COSTUME_FAITER:
+		InbisibleTime=InbisibleTime*1.3f;
 		break;
 
 	}
