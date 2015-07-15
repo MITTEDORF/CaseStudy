@@ -36,10 +36,6 @@
 // ターゲットマネージャ
 #include "target_manager.h"
 
-#include "configholder.h"
-
-#include "stage_select_conf.h"
-
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -225,12 +221,12 @@ void CGame::Update(void)
 	{
 		if(m_player->isDeth_())
 		{
-			CManager::SetNextPhase((CPhase*)new CGameOver());
+			CManager::SetNextPhase((CPhase*)new CGameOver(costume_id, vehicle_id));
 		}
 
 		else
 		{
-			CManager::SetNextPhase((CPhase*)new CGameClear(m_time, 3));
+			CManager::SetNextPhase((CPhase*)new CGameClear(m_time, m_player->HP_(), costume_id, vehicle_id));
 		}
 	}
 }
@@ -264,60 +260,51 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	// 背景
 	//----------------------------
-	CImport::MAPS map;
-	switch (CConfigHolder::Get(CONFIG_STAGE))
-	{
-	case STAGE_DESERT:
-		map=CImport::STAGE_DESERT;
-		break;
-	case STAGE_WATERSIDE:
-		map=CImport::STAGE_WATERSIDE;
-		break;
-	case STAGE_GLACIER:
-		map=CImport::STAGE_GLACIER;
-		break;
-	case STAGE_SAVANNAH:
-		map=CImport::STAGE_SAVANNAH;
-		break;
-	case STAGE_FOREST:
-		map=CImport::STAGE_FOREST;
-		break;
-	}
-
-
 	// 空
 	m_sky = CSky::Create(device);
+
 	// 背景
-	m_bg = CBackgroundManager::Create(device,map);
+	m_bg = CBackgroundManager::Create(device);
+
 	// 道路
-	m_road = CRoadManager::Create(device,map);
+	m_road = CRoadManager::Create(device);
 	// 障害物
-	m_stumbler = CStumManager::Create(device,map);
-	m_target = CTargetManager::Create(device,map);
+	m_stumbler = CStumManager::Create(device);
+	m_target = CTargetManager::Create(device);
 
 	//----------------------------
 	// キャラクター
 	//----------------------------
-	
-	//設定情報管理クラスからコスチューム情報と乗り物情報取得
-	int local_costume_id=CConfigHolder::Get(CONFIG_COSTUME);
-	int local_vehicle_id=CConfigHolder::Get(CONFIG_ASSY);
-
 	//プレイヤーの生成
-	m_player=CPlayer::Create(device,(CostumeID)local_costume_id,(VehicleID)local_vehicle_id);
+	m_player=CPlayer::Create(device,costume_id,vehicle_id);
 	m_player->SetPos(120.0f,300.0f);
 	m_player->SetKeyboard(m_keyboard);
 	m_player->SetPadX(m_padX);
 
 	// タイマー
 	m_time = 0;
-	D3DXVECTOR2 pos = D3DXVECTOR2(SCREEN_WIDTH * 0.75, SCREEN_HEIGHT * 0.01f);
+	D3DXVECTOR2 pos = D3DXVECTOR2(SCREEN_WIDTH * 0.78, SCREEN_HEIGHT * 0.01f);
 	for(int i = 0; i < 5; i++)
 	{
 		m_timePol[i] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
 
-		m_timePol[i]->SetSize(60.0f, 70.0f);
-		m_timePol[i]->SetPos(pos.x + 60.0f * i, pos.y);
+		if(i != 2)
+		{
+			m_timePol[i]->SetSize(60.0f, 100.0f);
+		}
+		else
+		{
+			m_timePol[i]->SetSize(30.0f, 100.0f);
+		}
+		
+		if(i >2)
+		{
+			m_timePol[i]->SetPos(pos.x + 60.0f * i - 30.0f, pos.y);
+		}
+		else
+		{
+			m_timePol[i]->SetPos(pos.x + 60.0f * i, pos.y);
+		}
 
 		if(i != 2)
 		{
@@ -329,7 +316,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 		}
 		else
 		{
-			m_timePol[i]->SetTex(CImport::COLON);
+			m_timePol[i]->SetTex(CImport::COLON_HALF);
 		}
 	}
 }
