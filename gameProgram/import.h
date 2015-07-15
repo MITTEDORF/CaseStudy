@@ -30,7 +30,6 @@ public:
 
 		// システム
 		FADE,
-		VERSION,
 
 		// タイトル
 		TITLELOGO,

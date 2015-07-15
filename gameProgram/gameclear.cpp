@@ -52,12 +52,6 @@ HRESULT CGameClear::Init(LPDIRECT3DDEVICE9 device)
 	m_fade->Start(CFade::FADESTATE_IN, 1, 1.0f, 1.0f, 1.0f, 1.0f);
 
 	//----------------------------
-	// バージョン表示
-	//----------------------------
-	m_version = CScene2D::Create(device, CImport::VERSION, CScene2D::POINT_LEFTTOP);
-	m_version->SetSize(206.0f, 65);
-	m_version->SetPos(SCREEN_WIDTH - 206.0f, SCREEN_HEIGHT - 65.0f);
-	//----------------------------
 	// ボタンカーソル初期化
 	//----------------------------
 	m_select_cur = SELECT_CUR_CHAPTER;

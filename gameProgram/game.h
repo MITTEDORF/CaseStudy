@@ -52,9 +52,6 @@ private:
 	//全当たり判定
 	void ColAll();
 
-	// バージョン表示
-	CScene2D* m_version;
-
 	//プレイヤー制御
 	CPlayer *m_player;
 

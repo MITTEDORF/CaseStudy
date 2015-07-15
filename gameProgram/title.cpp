@@ -46,10 +46,6 @@ HRESULT CTitle::Init(LPDIRECT3DDEVICE9 device)
 	m_fade = CFade::Create(device);
 	m_fade->Start(CFade::FADESTATE_IN, 1, 1.0f, 1.0f, 1.0f, 1.0f);
 
-	m_version = CScene2D::Create(device, CImport::VERSION, CScene2D::POINT_LEFTTOP);
-	m_version->SetSize(206.0f, 65);
-	m_version->SetPos(SCREEN_WIDTH - 206.0f, SCREEN_HEIGHT - 65.0f);
-
 	//----------------------------
 	// ƒTƒEƒ“ƒh‚ÌÄ¶
 	//----------------------------

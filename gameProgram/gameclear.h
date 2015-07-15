@@ -63,8 +63,6 @@ private:
 
 	CScene2D* m_Button[SELECT_CUR_MAX];
 
-	CScene2D* m_version;
-
 	CScene2D* m_window[5];
 
 	// クリア時の時間表示用

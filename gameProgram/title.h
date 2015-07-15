@@ -32,8 +32,6 @@ public:
 
 private:
 	void InitObject(LPDIRECT3DDEVICE9 device);
-
-	CScene2D* m_version;
 };
 
 //=============================================================================

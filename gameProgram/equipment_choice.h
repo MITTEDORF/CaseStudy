@@ -36,7 +36,6 @@ public:
 private:
 	void InitObject(LPDIRECT3DDEVICE9 device);
 
-	CScene2D* m_version;
 	CScene2D* m_slotback;
 	CScene2D* m_cur;
 	CScene2D* m_cos[3];

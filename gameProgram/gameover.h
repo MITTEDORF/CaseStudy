@@ -52,7 +52,6 @@ private:
 
 	bool m_push_flag;
 
-	CScene2D* m_version;
 	CScene2D* m_Button[SELECT_CUR_MAX];
 
 	// ƒXƒNƒ[ƒ‹‚·‚é”wŒi

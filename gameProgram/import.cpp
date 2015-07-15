@@ -22,7 +22,6 @@ const char* TEX_PATH[] =
 
 	// システム
 	"./data/TEXTURE/fade.jpg",
-	"./data/TEXTURE/version/beta.png",
 
 	// タイトル
 	"./data/TEXTURE/title/titleLogo.png",
