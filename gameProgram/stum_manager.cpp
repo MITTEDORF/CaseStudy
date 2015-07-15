@@ -26,11 +26,11 @@ CStumManager::CStumManager()
 //=============================================================================
 // クリエイト関数
 //=============================================================================
-CStumManager* CStumManager::Create(LPDIRECT3DDEVICE9 device)
+CStumManager* CStumManager::Create(LPDIRECT3DDEVICE9 device,CImport::MAPS maps)
 {
 	CStumManager* manager = new CStumManager;
 
-	if(manager->Init(device) == E_FAIL)
+	if(manager->Init(device,maps) == E_FAIL)
 	{
 		// 初期化コケたよ
 		return NULL;
@@ -41,12 +41,12 @@ CStumManager* CStumManager::Create(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CStumManager::Init(LPDIRECT3DDEVICE9 device)
+HRESULT CStumManager::Init(LPDIRECT3DDEVICE9 device,CImport::MAPS maps)
 {
 	//----------------------------------------
 	// データ取得
 	//----------------------------------------
-	CMapData*	mapData = CImport::GetMap(CImport::STAGE_1_1);
+	CMapData*	mapData = CImport::GetMap(maps);
 	STUM_DATA*	data = mapData->GetStumData();
 	int			size = mapData->GetStumSize();
 

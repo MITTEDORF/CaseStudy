@@ -192,7 +192,12 @@ const char* TEX_PATH[] =
 // ƒ}ƒbƒv
 const char* MAP_PATH[] =
 {
-	"./data/MAP/stage1-1.txt"
+	"./data/MAP/stage_desert.txt",
+	"./data/MAP/stage_forest.txt",
+	"./data/MAP/stage_glacier.txt",
+	"./data/MAP/stage_savannah.txt",
+	"./data/MAP/stage_waterside.txt"
+
 };
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

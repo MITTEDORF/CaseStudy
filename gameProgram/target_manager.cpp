@@ -26,11 +26,11 @@ CTargetManager::CTargetManager()
 //=============================================================================
 // クリエイト関数
 //=============================================================================
-CTargetManager* CTargetManager::Create(LPDIRECT3DDEVICE9 device)
+CTargetManager* CTargetManager::Create(LPDIRECT3DDEVICE9 device,CImport::MAPS maps)
 {
 	CTargetManager* manager = new CTargetManager;
 
-	if(manager->Init(device) == E_FAIL)
+	if(manager->Init(device,maps) == E_FAIL)
 	{
 		// 初期化コケたよ
 		return NULL;
@@ -41,12 +41,12 @@ CTargetManager* CTargetManager::Create(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CTargetManager::Init(LPDIRECT3DDEVICE9 device)
+HRESULT CTargetManager::Init(LPDIRECT3DDEVICE9 device,CImport::MAPS maps)
 {
 	//----------------------------------------
 	// データ取得
 	//----------------------------------------
-	CMapData*	 mapData = CImport::GetMap(CImport::STAGE_1_1);
+	CMapData*	 mapData = CImport::GetMap(maps);
 	TARGET_DATA* data = mapData->GetTargetData();
 	int			 size = mapData->GetTargetSize();
 

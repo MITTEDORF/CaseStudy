@@ -201,8 +201,12 @@ public:
 
 	enum MAPS
 	{
-		// êXÅiâºÅj
-		STAGE_1_1 = 0,
+		STAGE_DESERT,
+		STAGE_WATERSIDE,
+		STAGE_GLACIER,
+		STAGE_SAVANNAH,
+		STAGE_FOREST,
+
 		STAGE_MAX
 	};
 

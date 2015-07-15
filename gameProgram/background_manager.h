@@ -13,6 +13,7 @@
 // インクルード
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "main.h"
+#include "scene2D.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // クラス定義
@@ -25,8 +26,8 @@ public:
 	CBackgroundManager();
 	~CBackgroundManager(){};
 
-	static	CBackgroundManager* Create(LPDIRECT3DDEVICE9 device);
-	HRESULT	Init(LPDIRECT3DDEVICE9 device);
+	static	CBackgroundManager* Create(LPDIRECT3DDEVICE9 device,CImport::MAPS maps);
+	HRESULT	Init(LPDIRECT3DDEVICE9 device,CImport::MAPS maps);
 
 	void Scroll(float scroll);
 

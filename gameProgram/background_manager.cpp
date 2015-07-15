@@ -25,22 +25,22 @@ CBackgroundManager::CBackgroundManager()
 //=============================================================================
 // ¶¬
 //=============================================================================
-CBackgroundManager* CBackgroundManager::Create(LPDIRECT3DDEVICE9 device)
+CBackgroundManager* CBackgroundManager::Create(LPDIRECT3DDEVICE9 device,CImport::MAPS maps)
 {
 	CBackgroundManager* pointer = new CBackgroundManager;
-	pointer->Init(device);
+	pointer->Init(device,maps);
 	return pointer;
 }
 
 //=============================================================================
 // ‰Šú‰»
 //=============================================================================
-HRESULT CBackgroundManager::Init(LPDIRECT3DDEVICE9 device)
+HRESULT CBackgroundManager::Init(LPDIRECT3DDEVICE9 device,CImport::MAPS maps)
 {
 	//----------------------------------------
 	// ƒf[ƒ^Žæ“¾
 	//----------------------------------------
-	CMapData*	mapData = CImport::GetMap(CImport::STAGE_1_1);
+	CMapData*	mapData = CImport::GetMap(maps);
 	BG_DATA*	data = mapData->GetBgData();
 	int			size = mapData->GetBgSize();
 

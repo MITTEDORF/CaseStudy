@@ -24,11 +24,11 @@ CRoadManager::CRoadManager()
 //=============================================================================
 // クリエイト関数
 //=============================================================================
-CRoadManager* CRoadManager::Create(LPDIRECT3DDEVICE9 device)
+CRoadManager* CRoadManager::Create(LPDIRECT3DDEVICE9 device,CImport::MAPS maps)
 {
 	CRoadManager* manager = new CRoadManager;
 
-	if(manager->Init(device) == E_FAIL)
+	if(manager->Init(device,maps) == E_FAIL)
 	{
 		// 初期化コケたよ
 		return NULL;
@@ -39,12 +39,12 @@ CRoadManager* CRoadManager::Create(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT CRoadManager::Init(LPDIRECT3DDEVICE9 device)
+HRESULT CRoadManager::Init(LPDIRECT3DDEVICE9 device,CImport::MAPS maps)
 {
 	//----------------------------------------
 	// データ取得
 	//----------------------------------------
-	CMapData*	mapData = CImport::GetMap(CImport::STAGE_1_1);
+	CMapData*	mapData = CImport::GetMap(maps);
 	ROAD_DATA*	data = mapData->GetRoadData();
 	int			size = mapData->GetRoadSize();
 

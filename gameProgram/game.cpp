@@ -38,6 +38,8 @@
 
 #include "configholder.h"
 
+#include "stage_select_conf.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // É}ÉNÉç
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -262,17 +264,36 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	// îwåi
 	//----------------------------
+	CImport::MAPS map;
+	switch (CConfigHolder::Get(CONFIG_STAGE))
+	{
+	case STAGE_DESERT:
+		map=CImport::STAGE_DESERT;
+		break;
+	case STAGE_WATERSIDE:
+		map=CImport::STAGE_WATERSIDE;
+		break;
+	case STAGE_GLACIER:
+		map=CImport::STAGE_GLACIER;
+		break;
+	case STAGE_SAVANNAH:
+		map=CImport::STAGE_SAVANNAH;
+		break;
+	case STAGE_FOREST:
+		map=CImport::STAGE_FOREST;
+		break;
+	}
+
+
 	// ãÛ
 	m_sky = CSky::Create(device);
-
 	// îwåi
-	m_bg = CBackgroundManager::Create(device);
-
+	m_bg = CBackgroundManager::Create(device,map);
 	// ìπòH
-	m_road = CRoadManager::Create(device);
+	m_road = CRoadManager::Create(device,map);
 	// è·äQï®
-	m_stumbler = CStumManager::Create(device);
-	m_target = CTargetManager::Create(device);
+	m_stumbler = CStumManager::Create(device,map);
+	m_target = CTargetManager::Create(device,map);
 
 	//----------------------------
 	// ÉLÉÉÉâÉNÉ^Å[

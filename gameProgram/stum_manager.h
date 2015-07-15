@@ -24,10 +24,10 @@ class CStumManager
 public:
 	CStumManager();
 	~CStumManager(){};
-	HRESULT	Init(LPDIRECT3DDEVICE9 device);
+	HRESULT	Init(LPDIRECT3DDEVICE9 device,CImport::MAPS maps);
 	void	Scroll(float f);
 	bool	CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
-	static	CStumManager* Create(LPDIRECT3DDEVICE9 device);
+	static	CStumManager* Create(LPDIRECT3DDEVICE9 device,CImport::MAPS maps);
 	// ÉäÉXÉgñïè¡
 	void	UnLinkStum(void);
 private:

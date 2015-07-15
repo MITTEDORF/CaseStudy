@@ -24,12 +24,12 @@ class CTargetManager
 public:
 	CTargetManager();
 	~CTargetManager(){};
-	HRESULT	Init(LPDIRECT3DDEVICE9 device);
+	HRESULT	Init(LPDIRECT3DDEVICE9 device,CImport::MAPS maps);
 	void	Update(void);
 	void	Scroll(float f);
 	CTarget*	CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
 	bool	CheckHitGoal(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
-	static	CTargetManager* Create(LPDIRECT3DDEVICE9 device);
+	static	CTargetManager* Create(LPDIRECT3DDEVICE9 device,CImport::MAPS maps);
 	// ÉäÉXÉgñïè¡
 	void	UnLinkTarget(CTarget* cur);
 private:

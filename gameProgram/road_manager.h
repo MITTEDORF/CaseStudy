@@ -24,11 +24,11 @@ class CRoadManager
 public:
 	CRoadManager();
 	~CRoadManager(){};
-	HRESULT	Init(LPDIRECT3DDEVICE9 device);
+	HRESULT	Init(LPDIRECT3DDEVICE9 device,CImport::MAPS maps);
 	void	Update(void);
 	void	Scroll(float f);
 	D3DXVECTOR2	CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
-	static	CRoadManager* Create(LPDIRECT3DDEVICE9 device);
+	static	CRoadManager* Create(LPDIRECT3DDEVICE9 device,CImport::MAPS maps);
 	// 道路タイプゲット
 	ROAD_TYPE	GetHitRoadType(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
 private:
