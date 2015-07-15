@@ -76,9 +76,9 @@ HRESULT CGame::Init(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	// バージョン表示
 	//----------------------------
-	m_version = CScene2D::Create(device, CImport::VERSION, CScene2D::POINT_LEFTTOP);
+	/*m_version = CScene2D::Create(device, CImport::VERSION, CScene2D::POINT_LEFTTOP);
 	m_version->SetSize(206.0f, 65);
-	m_version->SetPos(SCREEN_WIDTH - 206.0f, SCREEN_HEIGHT - 65.0f);
+	m_version->SetPos(SCREEN_WIDTH - 206.0f, SCREEN_HEIGHT - 65.0f);*/
 
 	//----------------------------
 	// サウンドの再生
@@ -250,10 +250,10 @@ void CGame::Debug(void)
 	//----------------------------
 	// 画面遷移
 	//----------------------------
-	if(m_keyboard->GetTrigger(DIK_RETURN))
+	/*if(m_keyboard->GetTrigger(DIK_RETURN))
 	{
 		m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
-	}
+	}*/
 }
 
 //=============================================================================

@@ -48,9 +48,9 @@ HRESULT CResult::Init(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	// バージョン表示
 	//----------------------------
-	m_version = CScene2D::Create(device, CImport::VERSION, CScene2D::POINT_LEFTTOP);
+	/*m_version = CScene2D::Create(device, CImport::VERSION, CScene2D::POINT_LEFTTOP);
 	m_version->SetSize(206.0f, 65);
-	m_version->SetPos(SCREEN_WIDTH - 206.0f, SCREEN_HEIGHT - 65.0f);
+	m_version->SetPos(SCREEN_WIDTH - 206.0f, SCREEN_HEIGHT - 65.0f);*/
 
 	//----------------------------
 	// 初期化成功
