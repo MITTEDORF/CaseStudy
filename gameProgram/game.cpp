@@ -36,6 +36,10 @@
 // ターゲットマネージャ
 #include "target_manager.h"
 
+#include "configholder.h"
+
+#include "stage_select_conf.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -221,12 +225,12 @@ void CGame::Update(void)
 	{
 		if(m_player->isDeth_())
 		{
-			CManager::SetNextPhase((CPhase*)new CGameOver(costume_id, vehicle_id));
+			CManager::SetNextPhase((CPhase*)new CGameOver());
 		}
 
 		else
 		{
-			CManager::SetNextPhase((CPhase*)new CGameClear(m_time, m_player->HP_(), costume_id, vehicle_id));
+			CManager::SetNextPhase((CPhase*)new CGameClear(m_time, m_player->HP_()));
 		}
 	}
 }
@@ -260,23 +264,47 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	// 背景
 	//----------------------------
+	    CImport::MAPS map;
+    switch (CConfigHolder::Get(CONFIG_STAGE))
+    {
+    case STAGE_DESERT:
+        map=CImport::STAGE_DESERT;
+        break;
+    case STAGE_WATERSIDE:
+        map=CImport::STAGE_WATERSIDE;
+        break;
+    case STAGE_GLACIER:
+        map=CImport::STAGE_GLACIER;
+        break;
+    case STAGE_SAVANNAH:
+        map=CImport::STAGE_SAVANNAH;
+        break;
+    case STAGE_FOREST:
+        map=CImport::STAGE_FOREST;
+        break;
+    }
+
+
 	// 空
 	m_sky = CSky::Create(device);
-
 	// 背景
-	m_bg = CBackgroundManager::Create(device);
-
+	m_bg = CBackgroundManager::Create(device,map);
 	// 道路
-	m_road = CRoadManager::Create(device);
+	m_road = CRoadManager::Create(device,map);
 	// 障害物
-	m_stumbler = CStumManager::Create(device);
-	m_target = CTargetManager::Create(device);
+	m_stumbler = CStumManager::Create(device,map);
+	m_target = CTargetManager::Create(device,map);
+
 
 	//----------------------------
 	// キャラクター
 	//----------------------------
+	//設定情報管理クラスからコスチューム情報と乗り物情報取得
+	int local_costume_id=CConfigHolder::Get(CONFIG_COSTUME);
+	int local_vehicle_id=CConfigHolder::Get(CONFIG_ASSY);
+
 	//プレイヤーの生成
-	m_player=CPlayer::Create(device,costume_id,vehicle_id);
+	m_player=CPlayer::Create(device,(CostumeID)local_costume_id,(VehicleID)local_vehicle_id);
 	m_player->SetPos(120.0f,300.0f);
 	m_player->SetKeyboard(m_keyboard);
 	m_player->SetPadX(m_padX);
