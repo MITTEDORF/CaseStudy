@@ -24,11 +24,7 @@ class CScene2D;
 class CGameOver : CPhase
 {
 public:
-	CGameOver(CostumeID cos_id = COSTUME_NONE,VehicleID veh_id = VEHICLE_TRAM)
-	{
-		costume_id=cos_id;
-		vehicle_id=veh_id;
-	};
+	CGameOver(){};
 	~CGameOver(){};
 
 	HRESULT	Init(LPDIRECT3DDEVICE9 device);
@@ -61,9 +57,6 @@ private:
 
 	// ÉXÉNÉçÅ[ÉãÇ∑ÇÈîwåi
 	CScene2D* m_bg;
-
-	CostumeID costume_id;
-	VehicleID vehicle_id;
 };
 
 //=============================================================================

@@ -98,21 +98,6 @@
     <Filter Include="phase\equipment_choice">
       <UniqueIdentifier>{2c5ad15d-52c5-4ccc-a6ff-83487d2616f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="object\equipment_choice_ui">
-      <UniqueIdentifier>{277d8351-73b9-4d03-969a-5944d0a1a22b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="object\equipment_choice_ui\assy_option">
-      <UniqueIdentifier>{394ca599-56c9-4e37-ad66-ae6121c41ea7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="object\equipment_choice_ui\cos_option">
-      <UniqueIdentifier>{acc5a1f4-83c1-4828-b330-fed64c9dcb2a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="object\equipment_choice_ui\slot">
-      <UniqueIdentifier>{794a0f21-64bd-40da-b67a-40908a865a9c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="object\equipment_choice_ui\all_option">
-      <UniqueIdentifier>{e46a19fe-53f2-4116-9446-f96c1df126a7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="map">
       <UniqueIdentifier>{ac3d011f-9b37-4e52-ae71-56b19f32a6e5}</UniqueIdentifier>
     </Filter>
@@ -133,6 +118,9 @@
     </Filter>
     <Filter Include="phase\stage_select">
       <UniqueIdentifier>{56b11773-c95b-4b51-b908-deb5d8ef87e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="object\configholder">
+      <UniqueIdentifier>{a2e02477-ae8c-4ef4-8249-57e7869ed26c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -261,6 +249,9 @@
     </ClCompile>
     <ClCompile Include="stage_select.cpp">
       <Filter>phase\stage_select</Filter>
+    </ClCompile>
+    <ClCompile Include="configholder.cpp">
+      <Filter>object\configholder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -404,6 +395,9 @@
     </ClInclude>
     <ClInclude Include="stage_select_conf.h">
       <Filter>phase\stage_select</Filter>
+    </ClInclude>
+    <ClInclude Include="configholder.h">
+      <Filter>object\configholder</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

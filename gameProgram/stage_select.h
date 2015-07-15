@@ -61,6 +61,8 @@ private:
 		move = -0.025f;
 		select_bg=NULL;
 
+		m_time=0;
+
 		for(int i=0;i<STAGE_MAX;i++)
 		{
 			select_object[i]=NULL;
@@ -68,6 +70,8 @@ private:
 
 		m_cur=NULL;
 	}
+
+	float m_time;
 
 };
 

@@ -29,6 +29,8 @@
 
 #include "debugproc.h"
 
+#include "configholder.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -104,6 +106,7 @@ void CStageSelect::Update(void)
 	//----------------------------
 	if(m_fade->GetState() == CFade::FADESTATE_OUTEND)
 	{
+		CConfigHolder::Set(CONFIG_STAGE,nowSelectObject);
 		CManager::SetNextPhase((CPhase*)new CEquipmentChoice);
 	}
 }
@@ -150,6 +153,7 @@ void CStageSelect::SelectObjectUpdate()
 {
 	if(m_keyboard->GetTrigger(DIK_D))
 	{
+		m_time=0;
 		select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
 		select_object[nowSelectObject] ->SetPos(POL_POS[nowSelectObject]);
 		select_object[nowSelectObject]->SetRot(0);
@@ -157,13 +161,14 @@ void CStageSelect::SelectObjectUpdate()
 		if(nowSelectObject>=STAGE_MAX){nowSelectObject=0;}
 		select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]*1.2f);
 		if(nowSelectObject == STAGE_GLACIER || nowSelectObject == STAGE_SAVANNAH)
-			select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y + 20.0f);
+			select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y + 10.0f);
 		else
-			select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y - 20.0f);
+			select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y - 10.0f);
 	}
 
 	if(m_keyboard->GetTrigger(DIK_A))
 	{
+		m_time=0;
 		select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
 		select_object[nowSelectObject] ->SetPos(POL_POS[nowSelectObject]);
 		select_object[nowSelectObject]->SetRot(0);
@@ -171,9 +176,9 @@ void CStageSelect::SelectObjectUpdate()
 		if(nowSelectObject<=-1){nowSelectObject=STAGE_MAX-1;}
 		select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]*1.2f);
 		if(nowSelectObject == STAGE_GLACIER || nowSelectObject == STAGE_SAVANNAH)
-			select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y + 20.0f);
+			select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y + 13.0f);
 		else
-			select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y - 20.0f);
+			select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y - 13.0f);
 	}
 }
 
@@ -182,9 +187,10 @@ void CStageSelect::SelectObjectUpdate()
 //=============================================================================
 void CStageSelect::ObjectUpdate()
 {
-	select_object[nowSelectObject]->SetRot(select_object[nowSelectObject]->GetRot() + move);
-	if(abs(select_object[nowSelectObject]->GetRot()) > 0.65f)
-	{
-		move *= -1;
-	}
+	//揺れ時間を増やす
+	m_time += SHAKING_SPD;
+	//sinを使ってrot値検出
+	float value = sinf(m_time) * SHAKING_WIDTH;
+	//揺らす
+	select_object[nowSelectObject]->SetRot(value);
 }

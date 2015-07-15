@@ -25,6 +25,7 @@ class CNLoad;
 class CInputKeyboard;
 class CInputPadX;
 class CThread;
+class CConfigHolder;
 class CManager
 {
 public:
@@ -60,6 +61,8 @@ private:
 	CInputPadX*		m_padX;
 	static bool m_loading_flag;
 	static CThread* m_Thread;
+
+	CConfigHolder*	m_configholder;
 };
 
 //=============================================================================

@@ -36,6 +36,8 @@
 // ターゲットマネージャ
 #include "target_manager.h"
 
+#include "configholder.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -221,12 +223,12 @@ void CGame::Update(void)
 	{
 		if(m_player->isDeth_())
 		{
-			CManager::SetNextPhase((CPhase*)new CGameOver(costume_id, vehicle_id));
+			CManager::SetNextPhase((CPhase*)new CGameOver());
 		}
 
 		else
 		{
-			CManager::SetNextPhase((CPhase*)new CGameClear(m_time, 3, costume_id, vehicle_id));
+			CManager::SetNextPhase((CPhase*)new CGameClear(m_time, 3));
 		}
 	}
 }
@@ -275,8 +277,13 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	// キャラクター
 	//----------------------------
+	
+	//設定情報管理クラスからコスチューム情報と乗り物情報取得
+	int local_costume_id=CConfigHolder::Get(CONFIG_COSTUME);
+	int local_vehicle_id=CConfigHolder::Get(CONFIG_ASSY);
+
 	//プレイヤーの生成
-	m_player=CPlayer::Create(device,costume_id,vehicle_id);
+	m_player=CPlayer::Create(device,(CostumeID)local_costume_id,(VehicleID)local_vehicle_id);
 	m_player->SetPos(120.0f,300.0f);
 	m_player->SetKeyboard(m_keyboard);
 	m_player->SetPadX(m_padX);

@@ -25,6 +25,11 @@ const D3DXVECTOR2 POL_POS[5]={
 								D3DXVECTOR2(406.0f,469.0f),
 								D3DXVECTOR2(312.0f,217.0f)};
 
+//選択時のオブジェクトの揺れ幅
+const float SHAKING_WIDTH   = D3DX_PI/16.0f;
+//選択時のオブジェクトの揺れる速さ
+const float SHAKING_SPD   = 0.16f;
+
 //ステージ
 typedef enum
 {

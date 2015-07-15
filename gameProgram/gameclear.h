@@ -24,11 +24,8 @@ class CScene2D;
 class CGameClear : CPhase
 {
 public:
-	CGameClear(int time, int life, CostumeID cos_id = COSTUME_NONE,VehicleID veh_id = VEHICLE_TRAM)
+	CGameClear(int time, int life)
 	{
-		costume_id=cos_id;
-		vehicle_id=veh_id;
-
 		//--------------------------------------------------
 		// ゲームから渡されてきたステータスを保存
 		//--------------------------------------------------
@@ -102,9 +99,6 @@ private:
 
 	// スクロールする背景
 	CScene2D* m_bg;
-
-	CostumeID costume_id;
-	VehicleID vehicle_id;
 };
 
 //=============================================================================

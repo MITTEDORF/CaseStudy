@@ -35,11 +35,7 @@ class CGoal;
 class CGame : CPhase
 {
 public:
-	CGame(CostumeID cos_id = COSTUME_NONE,VehicleID veh_id = VEHICLE_TRAM)
-	{
-		costume_id=cos_id;
-		vehicle_id=veh_id;
-	};
+	CGame(){};
 	~CGame(){};
 
 	HRESULT	Init(LPDIRECT3DDEVICE9 device);
@@ -52,10 +48,6 @@ private:
 	void Debug(void);
 
 	void ColPlayer();
-
-	CostumeID costume_id;
-	VehicleID vehicle_id;
-
 
 	//‘S“–‚½‚è”»’è
 	void ColAll();

@@ -23,6 +23,8 @@
 #include "equipment_choice_config.h"
 #include "character_config.h"
 
+#include "configholder.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -113,7 +115,9 @@ void CEquipmentChoice::Update(void)
 	//----------------------------
 	if(m_fade->GetState() == CFade::FADESTATE_OUTEND)
 	{
-		CManager::SetNextPhase((CPhase*)new CGame((CostumeID)costume_id,(VehicleID)vehicle_id));
+		CConfigHolder::Set(CONFIG_COSTUME,costume_id);
+		CConfigHolder::Set(CONFIG_ASSY,vehicle_id);
+		CManager::SetNextPhase((CPhase*)new CGame());
 	}
 
 	// 背景スクロール処理
@@ -205,20 +209,20 @@ void CEquipmentChoice::InitObject(LPDIRECT3DDEVICE9 device)
 	// 乗り物名テキスト
 	m_veh_mes = CScene2D::Create(device, CImport::MAKE_UI_HYPHEN_3, CScene2D::POINT_CENTER);
 	m_veh_mes->SetSize(466.0f,91.0f);
-	m_veh_mes->SetPos(SCREEN_WIDTH * 0.81f,SCREEN_HEIGHT * 0.55 + 91.0f);
+	m_veh_mes->SetPos(SCREEN_WIDTH * 0.81f,SCREEN_HEIGHT * 0.55f + 91.0f);
 	// 乗り物名ウィンドウ
 	m_veh_mes_win = CScene2D::Create(device, CImport::MAKE_UI_ASSY_OPTION, CScene2D::POINT_CENTER,2);
 	m_veh_mes_win->SetSize(466.0f,91.0f);
-	m_veh_mes_win->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55 + 91.0f);
+	m_veh_mes_win->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55f + 91.0f);
 
 	// 服装テキスト
 	m_cos_mes = CScene2D::Create(device, CImport::MAKE_UI_HYPHEN_3, CScene2D::POINT_CENTER);
 	m_cos_mes->SetSize(466.0f,91.0f);
-	m_cos_mes->SetPos(SCREEN_WIDTH * 0.81f,SCREEN_HEIGHT * 0.55);
+	m_cos_mes->SetPos(SCREEN_WIDTH * 0.81f,SCREEN_HEIGHT * 0.55f);
 	// 服装ウィンドウ
 	m_cos_mes_win = CScene2D::Create(device, CImport::MAKE_UI_COS_OPTION, CScene2D::POINT_CENTER,2);
 	m_cos_mes_win->SetSize(466.0f,91.0f);
-	m_cos_mes_win->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55);
+	m_cos_mes_win->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55f);
 }
 
 //=============================================================================

@@ -28,6 +28,8 @@
 
 #include "Thread.h"
 #include "nowload.h"
+
+#include "configholder.h"
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 静的変数
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -80,6 +82,9 @@ HRESULT CManager::Init(HINSTANCE instance, HWND wnd, bool window)
 	// デバッグ表示
 	m_debugproc = CDebugproc::Create(device);
 	m_renderer->SetDebugproc(m_debugproc);
+
+	//設定情報管理
+	m_configholder = new CConfigHolder();
 
 	//----------------------------
 	// ロード中描画
@@ -160,6 +165,9 @@ void CManager::Uninit(void)
 
 	// レンダラー
 	SAFE_END(m_renderer);
+
+	//設定情報管理
+	SAFE_DELETE(m_configholder);
 
 	// 解放忘れをしない為
 	CScene::ReleaseAll();
