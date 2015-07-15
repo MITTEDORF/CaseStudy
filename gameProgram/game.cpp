@@ -190,29 +190,6 @@ void CGame::Update(void)
 			// 道路のスクロール
 			m_road->Scroll(scroll);
 		}
-/*		else if(playerPos.x < 0)
-		{
-			float scroll = 0 - playerPos.x;
-
-			// プレイヤーは画面左端に
-			m_player->SetPosX(0);
-
-			// 空のスクロール
-			m_sky->Scroll(scroll * 0.01f);
-
-			// 背景のスクロール
-			m_bg->Scroll(scroll);
-
-			//パーティクルのスクロール
-			m_player->ParticleScrol(scroll);
-
-			// 障害物のスクロール
-			m_stumbler->Scroll(scroll);
-			m_target->Scroll(scroll);
-
-			// 道路のスクロール
-			m_road->Scroll(scroll);
-		}*/
 	}
 
 	//全当たり判定
@@ -295,6 +272,10 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_stumbler = CStumManager::Create(device,map);
 	m_target = CTargetManager::Create(device,map);
 
+	// フィルター
+	CScene2D* filter = CScene2D::Create(device, CImport::NONE, CScene2D::POINT_LEFTTOP, 2);
+	filter->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	filter->SetColor(1.0f, 1.0f, 1.0f, 0.25f);
 
 	//----------------------------
 	// キャラクター

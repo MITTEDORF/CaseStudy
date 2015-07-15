@@ -45,11 +45,6 @@ CSky* CSky::Create(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 HRESULT CSky::Init(LPDIRECT3DDEVICE9 device)
 {
-	// ‹ó”wŒiF
-	//m_bgcolor = CScene2D::Create(device, CImport::SKY_BG, CScene2D::POINT_LEFTTOP, 0);
-	//m_bgcolor->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-	//m_bgcolor->SetPos(0.0f, 0.0f);
-
 	// ‹ó
 	for(int cnt = 0; cnt < SKY_MAX; ++cnt)
 	{
