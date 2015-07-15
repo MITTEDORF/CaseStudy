@@ -268,7 +268,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	// フィルター
 	CScene2D* filter = CScene2D::Create(device, CImport::NONE, CScene2D::POINT_LEFTTOP, 2);
 	filter->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-	filter->SetColor(1.0f, 1.0f, 1.0f, 0.25f);
+	filter->SetColor(1.0f, 1.0f, 1.0f, 0.1f);
 
 	//----------------------------
 	// キャラクター
