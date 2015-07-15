@@ -272,7 +272,7 @@ void CGameClear::InitObject(LPDIRECT3DDEVICE9 device)
 	// クリア時の時間表示用初期化
 	SetTimePol(device, D3DXVECTOR2(190.0f, 95.0f), D3DXVECTOR2(60.0f, 100.0f));
 	// クリア時の残体力表示用初期化
-	SetAssyPol(device, D3DXVECTOR2(290.0f, 225.0f), D3DXVECTOR2(90.0f, 100.0f));
+	SetAssyPol(device, D3DXVECTOR2(290.0f, 225.0f), D3DXVECTOR2(60.0f, 100.0f));
 }
 //=============================================================================
 // ボタンUV変更処理
@@ -447,6 +447,16 @@ void CGameClear::SetTimePol(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 pos, D3DXVECTO
 		m_timePol[i]->SetSize(size);
 		m_timePol[i]->SetPos(pos + offset * (FLOAT)i);
 
+		if(i == 2)
+		{
+			m_timePol[i]->SetSize(size.x / 2, size.y);
+			m_timePol[i]->SetPos(pos + offset * (FLOAT)i);
+		}
+		else if(i > 2)
+		{
+			m_timePol[i]->SetPos(pos.x + offset.x * (FLOAT)i - 30.0f, pos.y + offset.y * (FLOAT)i);
+		}
+
 		if(i != 2)
 		{
 			m_timePol[i]->SetTex(CImport::NUMBER);
@@ -457,7 +467,7 @@ void CGameClear::SetTimePol(LPDIRECT3DDEVICE9 device, D3DXVECTOR2 pos, D3DXVECTO
 		}
 		else
 		{
-			m_timePol[i]->SetTex(CImport::COLON);
+			m_timePol[i]->SetTex(CImport::COLON_HALF);
 		}
 	}
 

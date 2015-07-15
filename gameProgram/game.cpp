@@ -226,7 +226,7 @@ void CGame::Update(void)
 
 		else
 		{
-			CManager::SetNextPhase((CPhase*)new CGameClear(m_time, 3, costume_id, vehicle_id));
+			CManager::SetNextPhase((CPhase*)new CGameClear(m_time, m_player->HP_(), costume_id, vehicle_id));
 		}
 	}
 }
@@ -283,13 +283,28 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 
 	// タイマー
 	m_time = 0;
-	D3DXVECTOR2 pos = D3DXVECTOR2(SCREEN_WIDTH * 0.75, SCREEN_HEIGHT * 0.01f);
+	D3DXVECTOR2 pos = D3DXVECTOR2(SCREEN_WIDTH * 0.78, SCREEN_HEIGHT * 0.01f);
 	for(int i = 0; i < 5; i++)
 	{
 		m_timePol[i] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
 
-		m_timePol[i]->SetSize(60.0f, 70.0f);
-		m_timePol[i]->SetPos(pos.x + 60.0f * i, pos.y);
+		if(i != 2)
+		{
+			m_timePol[i]->SetSize(60.0f, 100.0f);
+		}
+		else
+		{
+			m_timePol[i]->SetSize(30.0f, 100.0f);
+		}
+		
+		if(i >2)
+		{
+			m_timePol[i]->SetPos(pos.x + 60.0f * i - 30.0f, pos.y);
+		}
+		else
+		{
+			m_timePol[i]->SetPos(pos.x + 60.0f * i, pos.y);
+		}
 
 		if(i != 2)
 		{
@@ -301,7 +316,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 		}
 		else
 		{
-			m_timePol[i]->SetTex(CImport::COLON);
+			m_timePol[i]->SetTex(CImport::COLON_HALF);
 		}
 	}
 }
