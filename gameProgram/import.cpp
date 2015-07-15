@@ -193,10 +193,10 @@ const char* TEX_PATH[] =
 const char* MAP_PATH[] =
 {
 	"./data/MAP/stage_desert.txt",
-	"./data/MAP/stage_forest.txt",
+	"./data/MAP/stage_waterside.txt",
 	"./data/MAP/stage_glacier.txt",
 	"./data/MAP/stage_savannah.txt",
-	"./data/MAP/stage_waterside.txt"
+	"./data/MAP/stage_forest.txt"
 
 };
 
