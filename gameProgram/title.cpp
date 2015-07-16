@@ -144,6 +144,7 @@ void CTitle::Update(void)
 			CManager::SetNextPhase((CPhase*)new CStageSelect);
 			break;
 		case 1:
+			PostQuitMessage(0);
 			break;
 		default:
 			break;
