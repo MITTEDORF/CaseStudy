@@ -39,6 +39,7 @@
 #include "configholder.h"
 
 #include "stage_select_conf.h"
+#include "listObject.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
@@ -47,6 +48,11 @@
 #define ROAD_POS	(SCREEN_HEIGHT - ROAD_SIZE)
 
 #define SCREEN_HALF	(640)	// 1280 / 2
+
+#define COUNTDOWN_DEFX (250.0f)
+#define COUNTDOWN_DEFY (375.0f)
+#define COUNTDOWN_DEFX2 (821.0f)
+#define COUNTDOWN_DEFY2 (201.0f)
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 静的変数
@@ -79,7 +85,7 @@ HRESULT CGame::Init(LPDIRECT3DDEVICE9 device)
 	m_sound->Play(CSound::SOUND_LABEL_GAMEBGM);
 
 	// ステータス初期化
-	m_sequence = 4;
+	m_sequence = 0;
 
 	//----------------------------
 	// 初期化成功
@@ -134,12 +140,60 @@ void CGame::Update(void)
 		switch(m_sequence)
 		{
 		case 0:
+			CListObject::LinkDraw(m_countdown[0], 4);
+			m_time++;
+			m_countdown[0]->SetSize(COUNTDOWN_DEFX * (3.0f - (2.0f / 60.0f * m_time)), COUNTDOWN_DEFY * (3.0f - (2.0f / 60.0f * m_time)));
+			m_countdown[0]->SetColor(1.0f, 1.0f, 1.0f, 1.0f - (0.6f / 60.0f * m_time));
+			if(m_time >= 61)
+			{
+				m_time = 0;
+				m_sequence = 1;
+				m_countdown[0]->SetSize(COUNTDOWN_DEFX * 3, COUNTDOWN_DEFY * 3);
+				m_countdown[0]->SetCord(0, D3DXVECTOR2((1.0f / 3.0f) * 1, 0.0f));
+				m_countdown[0]->SetCord(1, D3DXVECTOR2((1.0f / 3.0f) * 2, 0.0f));
+				m_countdown[0]->SetCord(2, D3DXVECTOR2((1.0f / 3.0f) * 1, 1.0f));
+				m_countdown[0]->SetCord(3, D3DXVECTOR2((1.0f / 3.0f) * 2, 1.0f));
+				m_countdown[0]->SetColor(1.0f, 1.0f, 1.0f, 1.0f);
+			}
 			break;
 		case 1:
+			m_time++;
+			m_countdown[0]->SetSize(COUNTDOWN_DEFX * (3.0f - (2.0f / 60.0f * m_time)), COUNTDOWN_DEFY * (3.0f - (2.0f / 60.0f * m_time)));
+			m_countdown[0]->SetColor(1.0f, 1.0f, 1.0f, 1.0f - (0.6f / 60.0f * m_time));
+			if(m_time >= 61)
+			{
+				m_time = 0;
+				m_sequence = 2;
+				m_countdown[0]->SetSize(COUNTDOWN_DEFX * 3, COUNTDOWN_DEFY * 3);
+				m_countdown[0]->SetCord(0, D3DXVECTOR2((1.0f / 3.0f) * 0, 0.0f));
+				m_countdown[0]->SetCord(1, D3DXVECTOR2((1.0f / 3.0f) * 1, 0.0f));
+				m_countdown[0]->SetCord(2, D3DXVECTOR2((1.0f / 3.0f) * 0, 1.0f));
+				m_countdown[0]->SetCord(3, D3DXVECTOR2((1.0f / 3.0f) * 1, 1.0f));
+				m_countdown[0]->SetColor(1.0f, 1.0f, 1.0f, 1.0f);
+			}
 			break;
 		case 2:
+			m_time++;
+			m_countdown[0]->SetSize(COUNTDOWN_DEFX * (3.0f - (2.0f / 60.0f * m_time)), COUNTDOWN_DEFY * (3.0f - (2.0f / 60.0f * m_time)));
+			m_countdown[0]->SetColor(1.0f, 1.0f, 1.0f, 1.0f - (0.6f / 60.0f * m_time));
+			if(m_time >= 61)
+			{
+				m_time = 0;
+				m_sequence = 3;
+				CListObject::UnlinkDraw(m_countdown[0]);
+				CListObject::LinkDraw(m_countdown[1], 4);
+			}
 			break;
 		case 3:
+			m_time++;
+			m_countdown[1]->SetSize(COUNTDOWN_DEFX2 * (0.5f + (1.0f / 60.0f * m_time)), COUNTDOWN_DEFY2 * (0.5f + (1.0f / 60.0f * m_time)));
+			m_countdown[1]->SetColor(1.0f, 1.0f, 1.0f, 0.6f + (0.4f / 60.0f * m_time));
+			if(m_time >= 61)
+			{
+				m_time = 0;
+				m_sequence = 4;
+				CListObject::UnlinkDraw(m_countdown[1]);
+			}
 			break;
 		case 4:
 			{
@@ -345,8 +399,21 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	}
 
 	// カウントダウン用
-	/*m_countdown[0] = CScene2D::Create(device, CImport::COUNTDOWN_NUM, CScene2D::POINT_CENTER);
-	m_countdown[0]->SetSize(250.0f, 375.0f);*/
+	m_countdown[0] = CScene2D::Create(device, CImport::COUNTDOWN_NUM, CScene2D::POINT_CENTER);
+	m_countdown[0]->SetSize(COUNTDOWN_DEFX * 3, COUNTDOWN_DEFY * 3);
+	m_countdown[0]->SetPos(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+	m_countdown[0]->SetCord(0, D3DXVECTOR2((1.0f / 3.0f) * 2, 0.0f));
+	m_countdown[0]->SetCord(1, D3DXVECTOR2((1.0f / 3.0f) * 3, 0.0f));
+	m_countdown[0]->SetCord(2, D3DXVECTOR2((1.0f / 3.0f) * 2, 1.0f));
+	m_countdown[0]->SetCord(3, D3DXVECTOR2((1.0f / 3.0f) * 3, 1.0f));
+	CListObject::UnlinkDraw(m_countdown[0]);
+
+	m_countdown[1] = CScene2D::Create(device, CImport::START, CScene2D::POINT_CENTER);
+	m_countdown[1]->SetSize(COUNTDOWN_DEFX2 * 0.5f, COUNTDOWN_DEFY2 * 0.5f);
+	m_countdown[1]->SetPos(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+	m_countdown[1]->SetColor(1.0f, 1.0f, 1.0f, 0.6f);
+	CListObject::UnlinkDraw(m_countdown[1]);
+	
 }
 
 //=============================================================================
