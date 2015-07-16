@@ -118,13 +118,10 @@ HRESULT CManager::Init(HINSTANCE instance, HWND wnd, bool window)
 	// フェーズ
 	//----------------------------
 	m_phaseNext = (CPhase*)new CTitle;
-	Change();
 	m_phase->SetKeyboard(m_keyboard);
 	m_phase->SetPadX(m_padX);
 	m_phase->SetSound(m_sound);
-	m_phase->Init(device);
-
-	m_phaseNext = m_phase;
+	Change();
 
 	//----------------------------
 	// 入力設定
