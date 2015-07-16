@@ -36,6 +36,7 @@ typedef enum{
 	TYPE_SANDSTONE,
 	TYPE_BEE,
 	TYPE_HUNEYCOMB,
+	TYPE_STUMP
 }STUM_TYPE;
 
 // è·äQï®èÓïÒ

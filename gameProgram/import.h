@@ -92,6 +92,7 @@ public:
 		SANDSTONE,
 		BEE,
 		HUNEYCOMB,
+		STUMP,
 
 		// ターゲット
 		TARGET_OFF,
