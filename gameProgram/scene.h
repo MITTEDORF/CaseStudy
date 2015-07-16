@@ -85,6 +85,11 @@ public:
 	void	SetDrawNext(CScene* obj){m_drawNext = obj;}
 	CScene* GetDrawNext(void){return m_drawNext;}
 
+	void SetDrawListFlg(bool flg){m_drawList = flg;}
+	bool GetDrawListFlg(void){return m_drawList;}
+	void SetUpdateListFlg(bool flg){m_updateList = flg;}
+	bool GetUpdateListFlg(void){return m_updateList;}
+
 protected:
 	LPDIRECT3DDEVICE9 m_device;
 
@@ -114,6 +119,9 @@ private:
 	CScene* m_updateNext;	// 次の更新オブジェクトへのポインタ
 	CScene* m_drawPrev;		// 前の描画オブジェクトへのポインタ
 	CScene* m_drawNext;		// 次の描画オブジェクトへのポインタ
+
+	bool m_updateList;
+	bool m_drawList;
 };
 
 //=============================================================================

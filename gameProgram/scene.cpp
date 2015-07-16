@@ -62,6 +62,8 @@ CScene::CScene(int priority, OBJTYPE objType)
 	//----------------------------
 	// オブジェクトリスト追加
 	//----------------------------
+	m_updateList = false;
+	m_drawList	 = false;
 	CListObject::LinkObj(this, m_priority);
 }
 

@@ -86,6 +86,8 @@ protected:
 	D3DXVECTOR2 m_hitPos;		// 当たり判定用座標
 	D3DXVECTOR2	m_hitOffset;	// 当たり判定座標オフセット
 	VERTEX_2D	m_hitBox[4];	// 当たり判定ボックス
+
+	bool m_draw;
 };
 
 //=============================================================================

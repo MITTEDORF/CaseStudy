@@ -95,23 +95,28 @@ void CListObject::UnlinkObj(CScene* obj)
 //=============================================================================
 void CListObject::LinkUpdate(CScene* obj)
 {
-	// 先頭チェック
-	if(m_updateTop == NULL)
+	if(!obj->GetUpdateListFlg())
 	{
-		m_updateTop = obj;
-		obj->SetUpdatePrev(NULL);
-	}
-	else
-	{
-		// 前オブジェクトから連結
-		m_updateCur->SetUpdateNext(obj);
-		obj->SetUpdatePrev(m_updateCur);
-	}
+		// 先頭チェック
+		if(m_updateTop == NULL)
+		{
+			m_updateTop = obj;
+			obj->SetUpdatePrev(NULL);
+		}
+		else
+		{
+			// 前オブジェクトから連結
+			m_updateCur->SetUpdateNext(obj);
+			obj->SetUpdatePrev(m_updateCur);
+		}
 
-	// 次オブジェクト初期化
-	obj->SetUpdateNext(NULL);
-	// 終端アドレス設定
-	m_updateCur = obj;
+		// 次オブジェクト初期化
+		obj->SetUpdateNext(NULL);
+		// 終端アドレス設定
+		m_updateCur = obj;
+
+		obj->SetUpdateListFlg(true);
+	}
 }
 
 //=============================================================================
@@ -119,35 +124,40 @@ void CListObject::LinkUpdate(CScene* obj)
 //=============================================================================
 void CListObject::UnlinkUpdate(CScene* obj)
 {
-	CScene* prev = obj->GetUpdatePrev();
-	CScene* next = obj->GetUpdateNext();
-
-	if(prev != NULL)
+	if(obj->GetUpdateListFlg())
 	{
-		prev->SetUpdateNext(next);
-	}
-	else // Topだった場合
-	{
-		m_updateTop = next;
+		CScene* prev = obj->GetUpdatePrev();
+		CScene* next = obj->GetUpdateNext();
 
-		if(m_updateTop != NULL)
+		if(prev != NULL)
 		{
-			m_updateTop->SetUpdatePrev(NULL);
+			prev->SetUpdateNext(next);
 		}
-	}
-
-	if(next != NULL)
-	{
-		next->SetUpdatePrev(prev);
-	}
-	else // Curだった場合
-	{
-		m_updateCur = prev;
-
-		if(m_updateCur != NULL)
+		else // Topだった場合
 		{
-			m_updateCur->SetUpdateNext(NULL);
+			m_updateTop = next;
+
+			if(m_updateTop != NULL)
+			{
+				m_updateTop->SetUpdatePrev(NULL);
+			}
 		}
+
+		if(next != NULL)
+		{
+			next->SetUpdatePrev(prev);
+		}
+		else // Curだった場合
+		{
+			m_updateCur = prev;
+
+			if(m_updateCur != NULL)
+			{
+				m_updateCur->SetUpdateNext(NULL);
+			}
+		}
+
+		obj->SetUpdateListFlg(false);
 	}
 }
 
@@ -156,23 +166,28 @@ void CListObject::UnlinkUpdate(CScene* obj)
 //=============================================================================
 void CListObject::LinkDraw(CScene* obj, int priority)
 {
-	// 先頭チェック
-	if(m_drawTop[priority] == NULL)
+	if(!obj->GetDrawListFlg())
 	{
-		m_drawTop[priority] = obj;
-		obj->SetDrawPrev(NULL);
-	}
-	else
-	{
-		// 前オブジェクトから連結
-		m_drawCur[priority]->SetDrawNext(obj);
-		obj->SetDrawPrev(m_drawCur[priority]);
-	}
+		// 先頭チェック
+		if(m_drawTop[priority] == NULL)
+		{
+			m_drawTop[priority] = obj;
+			obj->SetDrawPrev(NULL);
+		}
+		else
+		{
+			// 前オブジェクトから連結
+			m_drawCur[priority]->SetDrawNext(obj);
+			obj->SetDrawPrev(m_drawCur[priority]);
+		}
 
-	// 次オブジェクト初期化
-	obj->SetDrawNext(NULL);
-	// 終端アドレス設定
-	m_drawCur[priority] = obj;
+		// 次オブジェクト初期化
+		obj->SetDrawNext(NULL);
+		// 終端アドレス設定
+		m_drawCur[priority] = obj;
+
+		obj->SetDrawListFlg(true);
+	}
 }
 
 //=============================================================================
@@ -180,35 +195,40 @@ void CListObject::LinkDraw(CScene* obj, int priority)
 //=============================================================================
 void CListObject::UnlinkDraw(CScene* obj)
 {
-	CScene* prev = obj->GetDrawPrev();
-	CScene* next = obj->GetDrawNext();
-	int priority = obj->GetPriority();
-
-	if(prev != NULL)
+	if(obj->GetDrawListFlg())
 	{
-		prev->SetDrawNext(next);
-	}
-	else // Topだった場合
-	{
-		m_drawTop[priority] = next;
+		CScene* prev = obj->GetDrawPrev();
+		CScene* next = obj->GetDrawNext();
+		int priority = obj->GetPriority();
 
-		if(m_drawTop[priority] != NULL)
+		if(prev != NULL)
 		{
-			m_drawTop[priority]->SetDrawPrev(NULL);
+			prev->SetDrawNext(next);
 		}
-	}
-
-	if(next != NULL)
-	{
-		next->SetDrawPrev(prev);
-	}
-	else // Curだった場合
-	{
-		m_drawCur[priority] = prev;
-
-		if(m_drawCur[priority] != NULL)
+		else // Topだった場合
 		{
-			m_drawCur[priority]->SetDrawNext(NULL);
+			m_drawTop[priority] = next;
+
+			if(m_drawTop[priority] != NULL)
+			{
+				m_drawTop[priority]->SetDrawPrev(NULL);
+			}
 		}
+
+		if(next != NULL)
+		{
+			next->SetDrawPrev(prev);
+		}
+		else // Curだった場合
+		{
+			m_drawCur[priority] = prev;
+
+			if(m_drawCur[priority] != NULL)
+			{
+				m_drawCur[priority]->SetDrawNext(NULL);
+			}
+		}
+
+		obj->SetDrawListFlg(false);
 	}
 }
