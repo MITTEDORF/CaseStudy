@@ -72,6 +72,8 @@ private:
 	int m_time;
 	// Œo‰ßŽžŠÔ•\Ž¦ƒ|ƒŠƒSƒ“
 	CScene2D* m_timePol[5];
+	CScene2D* m_countdown[2];
+	int m_sequence;
 };
 
 //=============================================================================

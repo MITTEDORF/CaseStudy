@@ -129,7 +129,10 @@ void CStageSelect::InitObject(LPDIRECT3DDEVICE9 device)
 	select_bg ->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	select_bg ->SetPos(0.0f, 0.0f);
 
-	
+	mesPol = CScene2D::Create(device, CImport::STAGE_SELECT_MESSAGE, CScene2D::POINT_CENTER, 1);
+	mesPol->SetSize(951.0f, 81.0f);
+	mesPol->SetPos(SCREEN_WIDTH/2, 50.0f);
+
 	select_object[STAGE_DESERT]    =CScene2D::Create(device, CImport::STAGE_SELECT_DESERT, CScene2D::POINT_CENTER, 1);
 	select_object[STAGE_FOREST]    =CScene2D::Create(device, CImport::STAGE_SELECT_FOREST, CScene2D::POINT_CENTER, 1);
 	select_object[STAGE_GLACIER]   =CScene2D::Create(device, CImport::STAGE_SELECT_GLACIER, CScene2D::POINT_CENTER, 1);

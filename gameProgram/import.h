@@ -34,6 +34,9 @@ public:
 		// タイトル
 		TITLELOGO,
 		TITLEBG,
+		BUTTON_ENTER,
+		BUTTON_CLOSE,
+		BUTTON_CLOSE_LARGE,
 
 		// 空
 		SKY1,
@@ -182,6 +185,8 @@ public:
 		COLON,
 		COLON_HALF,
 		NUMBER,
+		COUNTDOWN_NUM,
+		START,
 
 		//ステージセレクト用
 		STAGE_SELECT_BG,
@@ -190,6 +195,7 @@ public:
 		STAGE_SELECT_GLACIER,
 		STAGE_SELECT_SAVANNAH,
 		STAGE_SELECT_WATERSIDE,
+		STAGE_SELECT_MESSAGE,
 
 		// リザルト
 		CLOCK,

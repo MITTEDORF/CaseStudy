@@ -26,6 +26,9 @@ const char* TEX_PATH[] =
 	// タイトル
 	"./data/TEXTURE/title/titleLogo.png",
 	"./data/TEXTURE/title/title_bg.png",
+	"./data/TEXTURE/title/enter.png",
+	"./data/TEXTURE/title/close.png",
+	"./data/TEXTURE/title/close_large.png",
 
 	// 空
 	"./data/TEXTURE/sky/sky_01.png",
@@ -175,6 +178,8 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/number/coron.png",
 	"./data/TEXTURE/number/coron_half.png",
 	"./data/TEXTURE/number/number.png",
+	"./data/TEXTURE/countdown/countdown_num.png",
+	"./data/TEXTURE/countdown/start.png",
 
 	//ステージセレクト用
 	"./data/TEXTURE/stageselect/map.png",
@@ -183,6 +188,8 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/stageselect/icon_glacier.png",
 	"./data/TEXTURE/stageselect/icon_savannah.png",
 	"./data/TEXTURE/stageselect/icon_waterside.png",
+	"./data/TEXTURE/stageselect/selectstage.png",
+
 	// リザルト
 	"./data/TEXTURE/result/clock.png",
 	"./data/TEXTURE/result/score.png",

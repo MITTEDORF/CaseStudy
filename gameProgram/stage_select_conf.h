@@ -19,11 +19,11 @@ const D3DXVECTOR2 POL_SIZE[5]={
 								D3DXVECTOR2(350.0f,312.0f)};
 //オブジェクトの各座標
 const D3DXVECTOR2 POL_POS[5]={
-								D3DXVECTOR2(672.0f,105.0f),
-								D3DXVECTOR2(992.0f,262.0f),
-								D3DXVECTOR2(855.0f,469.0f),
-								D3DXVECTOR2(406.0f,469.0f),
-								D3DXVECTOR2(312.0f,217.0f)};
+								D3DXVECTOR2(672.0f,145.0f),
+								D3DXVECTOR2(992.0f,302.0f),
+								D3DXVECTOR2(855.0f,509.0f),
+								D3DXVECTOR2(406.0f,509.0f),
+								D3DXVECTOR2(312.0f,257.0f)};
 
 //選択時のオブジェクトの揺れ幅
 const float SHAKING_WIDTH   = D3DX_PI/16.0f;
