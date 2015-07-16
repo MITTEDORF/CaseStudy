@@ -187,6 +187,7 @@ public:
 		NUMBER,
 		COUNTDOWN_NUM,
 		START,
+		SEL_COS,
 
 		//ステージセレクト用
 		STAGE_SELECT_BG,

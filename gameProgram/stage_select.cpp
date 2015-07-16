@@ -13,6 +13,7 @@
 #include "fade.h"
 
 #include "game.h"
+#include "title.h"
 
 #include "inputKeyboard.h"
 
@@ -34,6 +35,8 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#define BACK_X (163.0f)
+#define BACK_Y (225.0f/3)
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 静的変数
@@ -90,7 +93,8 @@ void CStageSelect::Update(void)
 
 		SelectObjectUpdate();
 
-		ObjectUpdate();
+		if(!backFrag)
+			ObjectUpdate();
 
 		//----------------------------
 		// 入力
@@ -106,8 +110,15 @@ void CStageSelect::Update(void)
 	//----------------------------
 	if(m_fade->GetState() == CFade::FADESTATE_OUTEND)
 	{
-		CConfigHolder::Set(CONFIG_STAGE,nowSelectObject);
-		CManager::SetNextPhase((CPhase*)new CEquipmentChoice);
+		if(!backFrag)
+		{
+			CConfigHolder::Set(CONFIG_STAGE,nowSelectObject);
+			CManager::SetNextPhase((CPhase*)new CEquipmentChoice);
+		}
+		else
+		{
+			CManager::SetNextPhase((CPhase*)new CTitle);
+		}
 	}
 }
 
@@ -133,6 +144,14 @@ void CStageSelect::InitObject(LPDIRECT3DDEVICE9 device)
 	mesPol->SetSize(951.0f, 81.0f);
 	mesPol->SetPos(SCREEN_WIDTH/2, 50.0f);
 
+	backTitle = CScene2D::Create(device, CImport::BUTTON_CLOSE, CScene2D::POINT_CENTER);
+	backTitle->SetSize(BACK_X, BACK_Y);
+	backTitle->SetPos(SCREEN_WIDTH * 0.1f, SCREEN_HEIGHT * 0.9f);
+	backTitle->SetCord(0, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 0));
+	backTitle->SetCord(1, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 0));
+	backTitle->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 1));
+	backTitle->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 1));
+
 	select_object[STAGE_DESERT]    =CScene2D::Create(device, CImport::STAGE_SELECT_DESERT, CScene2D::POINT_CENTER, 1);
 	select_object[STAGE_FOREST]    =CScene2D::Create(device, CImport::STAGE_SELECT_FOREST, CScene2D::POINT_CENTER, 1);
 	select_object[STAGE_GLACIER]   =CScene2D::Create(device, CImport::STAGE_SELECT_GLACIER, CScene2D::POINT_CENTER, 1);
@@ -154,34 +173,76 @@ void CStageSelect::InitObject(LPDIRECT3DDEVICE9 device)
 //=============================================================================
 void CStageSelect::SelectObjectUpdate()
 {
-	if(m_keyboard->GetTrigger(DIK_D))
+	if(m_keyboard->GetTrigger(DIK_S))
 	{
-		m_time=0;
-		select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
-		select_object[nowSelectObject] ->SetPos(POL_POS[nowSelectObject]);
-		select_object[nowSelectObject]->SetRot(0);
-		nowSelectObject++;
-		if(nowSelectObject>=STAGE_MAX){nowSelectObject=0;}
-		select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]*1.2f);
-		if(nowSelectObject == STAGE_GLACIER || nowSelectObject == STAGE_SAVANNAH)
-			select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y + 10.0f);
-		else
-			select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y - 10.0f);
+		if(!backFrag)
+		{
+			m_time=0;
+			backFrag = true;
+			select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
+			select_object[nowSelectObject]->SetPos(POL_POS[nowSelectObject]);
+			backTitle->SetCord(0, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 2));
+			backTitle->SetCord(1, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 2));
+			backTitle->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 3));
+			backTitle->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 3));
+			backTitle->SetSize(BACK_X * 1.25f, BACK_Y * 1.25f);
+		}
+	}
+	else if(m_keyboard->GetTrigger(DIK_W))
+	{
+		if(backFrag)
+		{
+			m_time=0;
+			backFrag = false;
+			backTitle->SetCord(0, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 0));
+			backTitle->SetCord(1, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 0));
+			backTitle->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 1));
+			backTitle->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 1));
+			backTitle->SetRot(0);
+			backTitle->SetSize(BACK_X, BACK_Y);
+		}
 	}
 
-	if(m_keyboard->GetTrigger(DIK_A))
+	if(backFrag)
 	{
-		m_time=0;
-		select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
-		select_object[nowSelectObject] ->SetPos(POL_POS[nowSelectObject]);
-		select_object[nowSelectObject]->SetRot(0);
-		nowSelectObject--;
-		if(nowSelectObject<=-1){nowSelectObject=STAGE_MAX-1;}
-		select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]*1.2f);
-		if(nowSelectObject == STAGE_GLACIER || nowSelectObject == STAGE_SAVANNAH)
-			select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y + 13.0f);
-		else
-			select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y - 13.0f);
+		//揺れ時間を増やす
+		m_time += SHAKING_SPD/2;
+		//sinを使ってrot値検出
+		float value = sinf(m_time) * SHAKING_WIDTH/2;
+		//揺らす
+		backTitle->SetRot(value);
+	}
+	else
+	{
+		if(m_keyboard->GetTrigger(DIK_D))
+		{
+			m_time=0;
+			select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
+			select_object[nowSelectObject]->SetPos(POL_POS[nowSelectObject]);
+			select_object[nowSelectObject]->SetRot(0);
+			nowSelectObject++;
+			if(nowSelectObject>=STAGE_MAX){nowSelectObject=0;}
+			select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]*1.2f);
+			if(nowSelectObject == STAGE_GLACIER || nowSelectObject == STAGE_SAVANNAH)
+				select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y + 10.0f);
+			else
+				select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y - 10.0f);
+		}
+
+		if(m_keyboard->GetTrigger(DIK_A))
+		{
+			m_time=0;
+			select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
+			select_object[nowSelectObject]->SetPos(POL_POS[nowSelectObject]);
+			select_object[nowSelectObject]->SetRot(0);
+			nowSelectObject--;
+			if(nowSelectObject<=-1){nowSelectObject=STAGE_MAX-1;}
+			select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]*1.2f);
+			if(nowSelectObject == STAGE_GLACIER || nowSelectObject == STAGE_SAVANNAH)
+				select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y + 13.0f);
+			else
+				select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y - 13.0f);
+		}
 	}
 }
 

@@ -37,9 +37,11 @@ public:
 	CScene2D* select_bg;
 	CScene2D* select_object[STAGE_MAX];
 	CScene2D* mesPol;
+	CScene2D* backTitle;
 
 	//現在選んでいるオブジェクト
 	int nowSelectObject;
+	bool backFrag;
 
 	// 傾き
 	float move;
@@ -58,6 +60,7 @@ private:
 		nowSelectObject=0;
 		move = -0.025f;
 		select_bg=NULL;
+		backFrag=false;
 
 		m_time=0;
 

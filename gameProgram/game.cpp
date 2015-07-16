@@ -85,7 +85,7 @@ HRESULT CGame::Init(LPDIRECT3DDEVICE9 device)
 	m_sound->Play(CSound::SOUND_LABEL_GAMEBGM);
 
 	// ステータス初期化
-	m_sequence = 0;
+	m_sequence = 4;
 
 	//----------------------------
 	// 初期化成功
@@ -193,6 +193,7 @@ void CGame::Update(void)
 				m_time = 0;
 				m_sequence = 4;
 				CListObject::UnlinkDraw(m_countdown[1]);
+				m_player->Set_isGame(true);
 			}
 			break;
 		case 4:
@@ -355,9 +356,12 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 
 	//プレイヤーの生成
 	m_player=CPlayer::Create(device,(CostumeID)local_costume_id,(VehicleID)local_vehicle_id);
-	m_player->SetPos(120.0f,300.0f);
+	m_player->SetPos(120.0f, SCREEN_HEIGHT - 128.0f);
+	m_player->SetHitSize(D3DXVECTOR2(108.0f, 90.0f));
+	m_player->SetHitOffset(D3DXVECTOR2(0.0f, 19.0f));
 	m_player->SetKeyboard(m_keyboard);
 	m_player->SetPadX(m_padX);
+	//m_player->Set_isGame(false);
 
 	// タイマー
 	m_time = 0;
@@ -413,7 +417,6 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_countdown[1]->SetPos(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
 	m_countdown[1]->SetColor(1.0f, 1.0f, 1.0f, 0.6f);
 	CListObject::UnlinkDraw(m_countdown[1]);
-	
 }
 
 //=============================================================================

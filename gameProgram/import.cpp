@@ -180,6 +180,7 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/number/number.png",
 	"./data/TEXTURE/countdown/countdown_num.png",
 	"./data/TEXTURE/countdown/start.png",
+	"./data/TEXTURE/select/message.png",
 
 	//ステージセレクト用
 	"./data/TEXTURE/stageselect/map.png",
@@ -199,7 +200,7 @@ const char* TEX_PATH[] =
 // マップ
 const char* MAP_PATH[] =
 {
-	"./data/MAP/stage_desert.txt",
+	"./data/MAP/stage_test.txt",
 	"./data/MAP/stage_waterside.txt",
 	"./data/MAP/stage_glacier.txt",
 	"./data/MAP/stage_savannah.txt",

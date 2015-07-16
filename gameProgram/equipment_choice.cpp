@@ -141,6 +141,10 @@ void CEquipmentChoice::InitObject(LPDIRECT3DDEVICE9 device)
 	bg->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	bg->SetPos(0.0f, 0.0f);
 
+	CScene2D* mes = CScene2D::Create(device, CImport::SEL_COS, CScene2D::POINT_CENTER, 3);
+	mes->SetSize(940.0f, 46.0f);
+	mes->SetPos(SCREEN_WIDTH/2, 40.0f);
+
 	// スクロールする背景
 	m_bg = CScene2D::Create(device, CImport::MAKE_UI_CHAR_SEL_CHIP_01, CScene2D::POINT_CENTER, 2);
 	m_bg->SetSize(SCREEN_WIDTH * 1.3, SCREEN_WIDTH * 1.3);
@@ -188,7 +192,7 @@ void CEquipmentChoice::InitObject(LPDIRECT3DDEVICE9 device)
 
 	m_slotback=CScene2D::Create(device, CImport::MAKE_UI_SELECT_FRAME, CScene2D::POINT_CENTER);
 	m_slotback->SetSize(721.f,496.f);
-	m_slotback->SetPos(SCREEN_WIDTH * 0.3f, SCREEN_HEIGHT * 0.4f);
+	m_slotback->SetPos(SCREEN_WIDTH * 0.3f, SCREEN_HEIGHT * 0.4f + 40.0f);
 
 	// 効果テキスト
 	m_message = CScene2D::Create(device, CImport::MAKE_UI_HYPHEN_LONG, CScene2D::POINT_CENTER);
@@ -202,20 +206,20 @@ void CEquipmentChoice::InitObject(LPDIRECT3DDEVICE9 device)
 	// 乗り物名テキスト
 	m_veh_mes = CScene2D::Create(device, CImport::MAKE_UI_HYPHEN_3, CScene2D::POINT_CENTER);
 	m_veh_mes->SetSize(466.0f,91.0f);
-	m_veh_mes->SetPos(SCREEN_WIDTH * 0.81f,SCREEN_HEIGHT * 0.55f + 91.0f);
+	m_veh_mes->SetPos(SCREEN_WIDTH * 0.81f,SCREEN_HEIGHT * 0.55f + 91.0f + 40.0f);
 	// 乗り物名ウィンドウ
 	m_veh_mes_win = CScene2D::Create(device, CImport::MAKE_UI_ASSY_OPTION, CScene2D::POINT_CENTER,2);
 	m_veh_mes_win->SetSize(466.0f,91.0f);
-	m_veh_mes_win->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55f + 91.0f);
+	m_veh_mes_win->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55f + 91.0f + 40.0f);
 
 	// 服装テキスト
 	m_cos_mes = CScene2D::Create(device, CImport::MAKE_UI_HYPHEN_3, CScene2D::POINT_CENTER);
 	m_cos_mes->SetSize(466.0f,91.0f);
-	m_cos_mes->SetPos(SCREEN_WIDTH * 0.81f,SCREEN_HEIGHT * 0.55f);
+	m_cos_mes->SetPos(SCREEN_WIDTH * 0.81f,SCREEN_HEIGHT * 0.55f + 40.0f);
 	// 服装ウィンドウ
 	m_cos_mes_win = CScene2D::Create(device, CImport::MAKE_UI_COS_OPTION, CScene2D::POINT_CENTER,2);
 	m_cos_mes_win->SetSize(466.0f,91.0f);
-	m_cos_mes_win->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55f);
+	m_cos_mes_win->SetPos(SCREEN_WIDTH * 0.8f,SCREEN_HEIGHT * 0.55f + 40.0f);
 }
 
 //=============================================================================
