@@ -36,9 +36,7 @@ public:
 	//背景に使う2Dポリゴン
 	CScene2D* select_bg;
 	CScene2D* select_object[STAGE_MAX];
-
-	//カーソル用
-	CScene2D* m_cur;
+	CScene2D* mesPol;
 
 	//現在選んでいるオブジェクト
 	int nowSelectObject;
@@ -67,8 +65,6 @@ private:
 		{
 			select_object[i]=NULL;
 		}
-
-		m_cur=NULL;
 	}
 
 	float m_time;

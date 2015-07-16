@@ -78,6 +78,9 @@ HRESULT CGame::Init(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	m_sound->Play(CSound::SOUND_LABEL_GAMEBGM);
 
+	// ステータス初期化
+	m_sequence = 4;
+
 	//----------------------------
 	// 初期化成功
 	//----------------------------
@@ -128,60 +131,77 @@ void CGame::Update(void)
 		//----------------------------
 		// 更新内容
 		//----------------------------
-		// タイマー更新
-		m_time++;
-
-		m_timePol[0]->SetCord(0, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1f,			0.0f));
-		m_timePol[0]->SetCord(1, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1f + 0.1f,	0.0f));
-		m_timePol[0]->SetCord(2, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1f,			1.0f));
-		m_timePol[0]->SetCord(3, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1f + 0.1f,	1.0f));
-
-		m_timePol[1]->SetCord(0, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1f,			0.0f));
-		m_timePol[1]->SetCord(1, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1f + 0.1f,	0.0f));
-		m_timePol[1]->SetCord(2, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1f,			1.0f));
-		m_timePol[1]->SetCord(3, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1f + 0.1f,	1.0f));
-
-		m_timePol[3]->SetCord(0, D3DXVECTOR2( ((m_time/600) % 6) * 0.1f,			0.0f));
-		m_timePol[3]->SetCord(1, D3DXVECTOR2( ((m_time/600) % 6) * 0.1f + 0.1f,		0.0f));
-		m_timePol[3]->SetCord(2, D3DXVECTOR2( ((m_time/600) % 6) * 0.1f,			1.0f));
-		m_timePol[3]->SetCord(3, D3DXVECTOR2( ((m_time/600) % 6) * 0.1f + 0.1f,		1.0f));
-
-		m_timePol[4]->SetCord(0, D3DXVECTOR2( ((m_time/60) % 10) * 0.1f,			0.0f));
-		m_timePol[4]->SetCord(1, D3DXVECTOR2( ((m_time/60) % 10) * 0.1f + 0.1f,		0.0f));
-		m_timePol[4]->SetCord(2, D3DXVECTOR2( ((m_time/60) % 10) * 0.1f,			1.0f));
-		m_timePol[4]->SetCord(3, D3DXVECTOR2( ((m_time/60) % 10) * 0.1f + 0.1f,		1.0f));
-
-		// 空の更新（スクロール）
-		m_sky->Update();
-
-		// プレイヤーの座標取得
-		D3DXVECTOR2 playerPos = m_player->GetPos();
-
-		m_stumbler->UnLinkStum();
-
-		// スクロール処理(プレイヤーが画面半分を越えた時)
-		if(playerPos.x >= SCREEN_HALF)
+		switch(m_sequence)
 		{
-			float scroll = playerPos.x - SCREEN_HALF;
+		case 0:
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			{
+				// タイマー更新
+				m_time++;
 
-			// プレイヤーは画面真ん中に
-			m_player->SetPosX(SCREEN_HALF);
+				m_timePol[0]->SetCord(0, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1f,			0.0f));
+				m_timePol[0]->SetCord(1, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1f + 0.1f,	0.0f));
+				m_timePol[0]->SetCord(2, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1f,			1.0f));
+				m_timePol[0]->SetCord(3, D3DXVECTOR2( ((m_time/36000) % 6) * 0.1f + 0.1f,	1.0f));
 
-			// 空のスクロール
-			m_sky->Scroll(scroll * 0.01f);
+				m_timePol[1]->SetCord(0, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1f,			0.0f));
+				m_timePol[1]->SetCord(1, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1f + 0.1f,	0.0f));
+				m_timePol[1]->SetCord(2, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1f,			1.0f));
+				m_timePol[1]->SetCord(3, D3DXVECTOR2( ((m_time/3600) % 10) * 0.1f + 0.1f,	1.0f));
 
-			// 背景のスクロール
-			m_bg->Scroll(scroll);
+				m_timePol[3]->SetCord(0, D3DXVECTOR2( ((m_time/600) % 6) * 0.1f,			0.0f));
+				m_timePol[3]->SetCord(1, D3DXVECTOR2( ((m_time/600) % 6) * 0.1f + 0.1f,		0.0f));
+				m_timePol[3]->SetCord(2, D3DXVECTOR2( ((m_time/600) % 6) * 0.1f,			1.0f));
+				m_timePol[3]->SetCord(3, D3DXVECTOR2( ((m_time/600) % 6) * 0.1f + 0.1f,		1.0f));
 
-			//パーティクルのスクロール
-			m_player->ParticleScrol(scroll);
+				m_timePol[4]->SetCord(0, D3DXVECTOR2( ((m_time/60) % 10) * 0.1f,			0.0f));
+				m_timePol[4]->SetCord(1, D3DXVECTOR2( ((m_time/60) % 10) * 0.1f + 0.1f,		0.0f));
+				m_timePol[4]->SetCord(2, D3DXVECTOR2( ((m_time/60) % 10) * 0.1f,			1.0f));
+				m_timePol[4]->SetCord(3, D3DXVECTOR2( ((m_time/60) % 10) * 0.1f + 0.1f,		1.0f));
 
-			// 障害物のスクロール
-			m_stumbler->Scroll(scroll);
-			m_target->Scroll(scroll);
+				// 空の更新（スクロール）
+				m_sky->Update();
 
-			// 道路のスクロール
-			m_road->Scroll(scroll);
+				// プレイヤーの座標取得
+				D3DXVECTOR2 playerPos = m_player->GetPos();
+
+				m_stumbler->UnLinkStum();
+
+				// スクロール処理(プレイヤーが画面半分を越えた時)
+				if(playerPos.x >= SCREEN_HALF)
+				{
+					float scroll = playerPos.x - SCREEN_HALF;
+
+					// プレイヤーは画面真ん中に
+					m_player->SetPosX(SCREEN_HALF);
+
+					// 空のスクロール
+					m_sky->Scroll(scroll * 0.01f);
+
+					// 背景のスクロール
+					m_bg->Scroll(scroll);
+
+					//パーティクルのスクロール
+					m_player->ParticleScrol(scroll);
+
+					// 障害物のスクロール
+					m_stumbler->Scroll(scroll);
+					m_target->Scroll(scroll);
+
+					// 道路のスクロール
+					m_road->Scroll(scroll);
+				}
+			}
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -321,6 +341,10 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 			m_timePol[i]->SetTex(CImport::COLON_HALF);
 		}
 	}
+
+	// カウントダウン用
+	m_countdown[0] = CScene2D::Create(device, CImport::COUNTDOWN_NUM, CScene2D::POINT_CENTER);
+	m_countdown[0]->SetSize(250.0f, 375.0f);
 }
 
 //=============================================================================

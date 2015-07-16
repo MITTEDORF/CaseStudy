@@ -32,6 +32,11 @@ public:
 
 private:
 	void InitObject(LPDIRECT3DDEVICE9 device);
+	float m_time;
+	float move;
+	CScene2D* titleLogo;
+	CScene2D* titleButton[2];
+	int cur;
 };
 
 //=============================================================================

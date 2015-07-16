@@ -51,6 +51,11 @@ HRESULT CTitle::Init(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	m_sound->Play(CSound::SOUND_LABEL_TITLEBGM);
 
+	// ステータス初期化
+	m_time = 0;
+	move = 0;
+	cur = 0;
+
 	//----------------------------
 	// 初期化成功
 	//----------------------------
@@ -88,6 +93,44 @@ void CTitle::Update(void)
 		{
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 		}
+
+		if(m_keyboard->GetTrigger(DIK_S))
+		{
+			cur = 1;
+			titleButton[0]->SetCord(0, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 0));
+			titleButton[0]->SetCord(1, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 0));
+			titleButton[0]->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 1));
+			titleButton[0]->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 1));
+			titleButton[0]->SetSize((titleButton[0]->GetSize() / 12) * 10);
+
+			titleButton[1]->SetCord(0, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 2));
+			titleButton[1]->SetCord(1, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 2));
+			titleButton[1]->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 3));
+			titleButton[1]->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 3));
+			titleButton[1]->SetSize(titleButton[1]->GetSize() * 1.2f);
+		}
+		else if(m_keyboard->GetTrigger(DIK_W))
+		{
+			cur = 0;
+			titleButton[0]->SetCord(0, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 2));
+			titleButton[0]->SetCord(1, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 2));
+			titleButton[0]->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 3));
+			titleButton[0]->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 3));
+			titleButton[0]->SetSize(titleButton[0]->GetSize() * 1.2f);
+
+			titleButton[1]->SetCord(0, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 0));
+			titleButton[1]->SetCord(1, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 0));
+			titleButton[1]->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 1));
+			titleButton[1]->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 1));
+			titleButton[1]->SetSize((titleButton[1]->GetSize() / 12) * 10);
+		}
+
+		//揺れ時間を増やす
+		m_time += SHAKING_SPD/2;
+		//sinを使ってrot値検出
+		float value = sinf(m_time) * SHAKING_WIDTH/2;
+		//揺らす
+		titleLogo->SetRot(value);
 	}
 
 	//----------------------------
@@ -95,7 +138,16 @@ void CTitle::Update(void)
 	//----------------------------
 	if(m_fade->GetState() == CFade::FADESTATE_OUTEND)
 	{
-		CManager::SetNextPhase((CPhase*)new CStageSelect);
+		switch(cur)
+		{
+		case 0:
+			CManager::SetNextPhase((CPhase*)new CStageSelect);
+			break;
+		case 1:
+			break;
+		default:
+			break;
+		}
 	}
 }
 
@@ -121,7 +173,25 @@ void CTitle::InitObject(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	// タイトルロゴ
 	//----------------------------
-	CScene2D* titleLogo = CScene2D::Create(device, CImport::TITLELOGO, CScene2D::POINT_CENTER);
-	titleLogo->SetSize(876.0f, 563.0f);
-	titleLogo->SetPos(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f);
+	titleLogo = CScene2D::Create(device, CImport::TITLELOGO, CScene2D::POINT_CENTER);
+	titleLogo->SetSize(876.0f * 0.6f, 563.0f * 0.6f);
+	titleLogo->SetPos(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.3f);
+
+	// ボタン
+	titleButton[0] = CScene2D::Create(device, CImport::BUTTON_ENTER, CScene2D::POINT_CENTER);
+	titleButton[0]->SetSize(445.0f, 225.0f/3);
+	titleButton[0]->SetPos(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.65f);
+	titleButton[0]->SetCord(0, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 2));
+	titleButton[0]->SetCord(1, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 2));
+	titleButton[0]->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 3));
+	titleButton[0]->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 3));
+	titleButton[0]->SetSize(titleButton[0]->GetSize() * 1.2f);
+
+	titleButton[1] = CScene2D::Create(device, CImport::BUTTON_CLOSE, CScene2D::POINT_CENTER);
+	titleButton[1]->SetSize(163.0f, 225.0f/3);
+	titleButton[1]->SetPos(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.8f);
+	titleButton[1]->SetCord(0, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 0));
+	titleButton[1]->SetCord(1, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 0));
+	titleButton[1]->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 1));
+	titleButton[1]->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 1));
 }
