@@ -166,6 +166,33 @@ bool CTargetManager::CheckHitGoal(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::P
 }
 
 //=============================================================================
+// ゴール取得処理
+//=============================================================================
+CTarget* CTargetManager::Goal_()
+{
+	CTarget* cur = m_list_top;
+	CTarget* next;
+
+	while(cur)
+	{
+		if(cur->GetGoalFrag() == true)
+		return (cur);
+
+		next = cur->GetTargetNext();
+
+		cur = next;
+	}
+	return NULL;
+}
+//=============================================================================
+// ゴールのテクスチャセット
+//=============================================================================
+void CTargetManager::GoalTexSet(CImport::TEXTURES tex)
+{
+	Goal_()->SetTex(tex);
+}
+
+//=============================================================================
 // リスト抹消
 //=============================================================================
 void CTargetManager::UnLinkTarget(CTarget* cur)

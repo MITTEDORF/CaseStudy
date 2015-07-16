@@ -98,18 +98,20 @@ void CPlayer::Update(void)
 	if(isGame)
 	{
 		//フェード中ではないとき
-		if(CPhase::GetFade()->GetState() == CFade::FADESTATE_NONE)
+		if(((CPhase::GetFade()->GetState() == CFade::FADESTATE_NONE)&&!isGoal))
 		{
 			m_posOld = m_pos;
 		
 			//移動処理
 			Move();
+		}
 
-			//攻撃処理
-			Attack();
+		//慣性
+		m_move_spd.x*=MOVE_FRICTIONAL_FORCE;
 
-			//光アクション処理
-			LightAction();
+		if(isBurst&&!particle->IsUsing())
+		{
+			isFadeStart=true;
 		}
 
 		//重力加算
@@ -203,9 +205,6 @@ void CPlayer::Move()
 			}
 		}
 	}
-
-	//慣性
-	m_move_spd.x*=MOVE_FRICTIONAL_FORCE;
 
 	if(m_keyboard->GetSetDelete(DIK_A)||m_keyboard->GetSetDelete(DIK_D))
 	{
@@ -587,7 +586,11 @@ void CPlayer::InvincibleUpdate()
 //=============================================================================
 void CPlayer::PaticleStart(CScene* target)
 {
-	particle->StartBurst(target);
+	if(!isBurst)
+	{
+		particle->StartBurst(target);
+		isBurst=true;
+	}
 }
 //=============================================================================
 // スクロール処理

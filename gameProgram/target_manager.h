@@ -29,6 +29,8 @@ public:
 	void	Scroll(float f);
 	CTarget*	CheckHit(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
 	bool	CheckHitGoal(D3DXVECTOR2 pos, D3DXVECTOR2 size, CScene2D::POINT_TYPE pointType);
+	CTarget* Goal_();
+	void GoalTexSet(CImport::TEXTURES tex);
 	static	CTargetManager* Create(LPDIRECT3DDEVICE9 device,CImport::MAPS maps);
 	// ÉäÉXÉgñïè¡
 	void	UnLinkTarget(CTarget* cur);

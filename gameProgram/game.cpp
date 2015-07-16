@@ -265,6 +265,8 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_stumbler = CStumManager::Create(device,map);
 	m_target = CTargetManager::Create(device,map);
 
+	m_target->GoalTexSet(CImport::TARGET_OFF);
+
 	// フィルター
 	CScene2D* filter = CScene2D::Create(device, CImport::NONE, CScene2D::POINT_LEFTTOP, 2);
 	filter->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -331,8 +333,7 @@ void CGame::ColAll()
 	// ゴールと接触判定
 	if( m_target->CheckHitGoal( m_player->GetPos() , m_player->GetSize()*0.5f , CScene2D::POINT_CENTER ) )
 	{
-		m_player->PlayerReflash();
-		m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+		m_player->PlayerGoal();
 	}
 
 	//プレイヤと障害物の当たり判定
@@ -344,7 +345,7 @@ void CGame::ColAll()
 	//ライトニング判定
 	if(m_player->isLitninng())
 	{
-		m_player->PaticleStart((CScene*)m_target->CheckHit(m_player->GetPos() , m_player->GetSize()*3.0f , CScene2D::POINT_CENTER ));
+		m_player->PaticleStart((CScene*)m_target->Goal_());
 	}
 
 	if(!m_player->isDeth_())
@@ -359,6 +360,12 @@ void CGame::ColAll()
 		{
 			m_player->PlayerReflash(false);
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+		}
+
+		if(m_player->isFadeStart_())
+		{
+			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+			m_target->GoalTexSet(CImport::TARGET_ON);
 		}
 	}
 }

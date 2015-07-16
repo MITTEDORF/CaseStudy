@@ -145,6 +145,16 @@ public:
 			m_move_spd.y=JUMP_SPD/1.5f;
 		}
 	}
+
+	void PlayerGoal()
+	{
+		isLighting=false;
+		isGoal=true;
+		SetAnimMode(PLAYER_ANIM_LIGHT,false);
+		m_move_spd.y=0.0f;
+		m_move_spd.x=MOVE_FRICTIONAL_FORCE*50.0f;
+	}
+
 	
 	//アッシーのポインタを渡す
 	//戻り値:アッシーのポインター
@@ -179,6 +189,11 @@ public:
 	{
 		isJump=false;
 		canJump=true;
+	}
+
+	bool isFadeStart_()
+	{
+		return (isFadeStart);
 	}
 	
 	//テクスチャIDの参照
@@ -219,6 +234,12 @@ private:
 	bool isRupeAnim;
 	//アニメーションの1順終了フラグ
 	bool isAnimEnd;
+	//ゴール中かどうかのフラグ
+	bool isGoal;
+	//バーストしたかフラグ
+	bool isBurst;
+
+	bool isFadeStart;
 
 	//パーティクル管理クラス
 	CParticleManager *particle;
@@ -267,6 +288,9 @@ private:
 	//変数のNULL埋め処理
 	void NullSetVariable(void)
 	{
+		isFadeStart=false;
+		isBurst=false;
+		isGoal=false;
 		particle=NULL;
 		isGround=false;
 		Offset.x=0;

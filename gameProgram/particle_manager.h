@@ -51,6 +51,11 @@ public:
 	//全パーティクルの停止
 	void StopALL();
 
+	bool IsUsing()
+	{
+		return (object[0]->isLive());
+	}
+
 	//プレイヤーの座標のセット
 	void Setpos(D3DXVECTOR2 pos);
 
