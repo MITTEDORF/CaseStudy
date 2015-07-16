@@ -51,7 +51,7 @@ typedef struct{
 class CStumbler : public CScene2D
 {
 public:
-	CStumbler(int priority = PRIORITY_MAX - 1, OBJTYPE objType = OBJTYPE_2D);
+	CStumbler(int priority = PRIORITY_MAX - 2, OBJTYPE objType = OBJTYPE_2D);
 	~CStumbler(){};
 
 	static	CStumbler* Create(LPDIRECT3DDEVICE9 device, STUM_DATA data, POINT_TYPE pointType);

@@ -37,7 +37,7 @@ typedef struct{
 class CTarget : public CScene2D
 {
 public:
-	CTarget(int priority = PRIORITY_MAX - 1, OBJTYPE objType = OBJTYPE_2D);
+	CTarget(int priority = PRIORITY_MAX - 2, OBJTYPE objType = OBJTYPE_2D);
 	~CTarget(){};
 
 	static	CTarget* Create(LPDIRECT3DDEVICE9 device, TARGET_DATA data, POINT_TYPE pointType);

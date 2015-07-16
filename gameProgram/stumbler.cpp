@@ -10,6 +10,8 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "stumbler.h"
 
+#include "listObject.h"
+
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -262,6 +264,19 @@ void CStumbler::Update(void)
 		default:
 			break;
 		}
+
+		// 画面外カリング
+		if(m_draw && (m_pos.x < -128 || m_pos.x > SCREEN_WIDTH))
+		{
+			CListObject::UnlinkDraw(this);
+			m_draw = false;
+		}
+		else if(!m_draw)
+		{
+			CListObject::LinkDraw(this, GetPriority());
+			m_draw = true;
+		}
+
 		// 継承元の更新処理呼び出し
 		CScene2D::Update();
 	}

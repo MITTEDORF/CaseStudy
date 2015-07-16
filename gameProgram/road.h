@@ -39,7 +39,7 @@ typedef struct{
 class CRoad : public CScene2D
 {
 public:
-	CRoad(int priority = PRIORITY_MAX - 1, OBJTYPE objType = OBJTYPE_2D);
+	CRoad(int priority = PRIORITY_MAX - 2, OBJTYPE objType = OBJTYPE_2D);
 	~CRoad(){};
 
 	static	CRoad* Create(LPDIRECT3DDEVICE9 device, ROAD_DATA data, POINT_TYPE pointType);
