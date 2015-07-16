@@ -358,7 +358,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_player=CPlayer::Create(device,(CostumeID)local_costume_id,(VehicleID)local_vehicle_id);
 	m_player->SetPos(120.0f, SCREEN_HEIGHT - 128.0f);
 	m_player->SetHitSize(D3DXVECTOR2(108.0f, 90.0f));
-	m_player->SetHitOffset(D3DXVECTOR2(0.0f, 19.0f));
+	m_player->SetHitOffset(D3DXVECTOR2(0.0f, 0.0f));
 	m_player->SetKeyboard(m_keyboard);
 	m_player->SetPadX(m_padX);
 	//m_player->Set_isGame(false);
@@ -470,7 +470,7 @@ void CGame::ColPlayer()
 	D3DXVECTOR2 tmp[2],newpos;
 
 	//全道路との当たり判定を行う(tmp[0]=押し戻し量,tmp[1]=自機座標)
-	tmp[0] = m_road->CheckHit( m_player->GetHitPos() , m_player->GetHitSize() , CScene2D::POINT_CENTER );
+	tmp[0] = m_road->CheckHit( m_player->GetHitPos() + D3DXVECTOR2(0.0f, 19.0f) , m_player->GetHitSize() , CScene2D::POINT_CENTER );
 	tmp[1] = m_player->GetPos();
 
 	//Y押し戻し適用しない

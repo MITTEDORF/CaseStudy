@@ -201,6 +201,7 @@ public:
 	CImport::TEXTURES ConsultationVehicleTexID(int offset=0);
 
 private:
+	void DrawHitBox(void);
 
 	//テクスチャID
 	CostumeID Costume_id;
