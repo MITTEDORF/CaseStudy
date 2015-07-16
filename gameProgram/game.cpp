@@ -307,7 +307,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 
 	// タイマー
 	m_time = 0;
-	D3DXVECTOR2 pos = D3DXVECTOR2(SCREEN_WIDTH * 0.78, SCREEN_HEIGHT * 0.01f);
+	D3DXVECTOR2 pos = D3DXVECTOR2(SCREEN_WIDTH * 0.78f, SCREEN_HEIGHT * 0.01f);
 	for(int i = 0; i < 5; i++)
 	{
 		m_timePol[i] = CScene2D::Create(device, CImport::NUMBER, CScene2D::POINT_LEFTTOP);
@@ -345,8 +345,8 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	}
 
 	// カウントダウン用
-	m_countdown[0] = CScene2D::Create(device, CImport::COUNTDOWN_NUM, CScene2D::POINT_CENTER);
-	m_countdown[0]->SetSize(250.0f, 375.0f);
+	/*m_countdown[0] = CScene2D::Create(device, CImport::COUNTDOWN_NUM, CScene2D::POINT_CENTER);
+	m_countdown[0]->SetSize(250.0f, 375.0f);*/
 }
 
 //=============================================================================
