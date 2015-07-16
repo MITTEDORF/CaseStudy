@@ -11,6 +11,8 @@
 #include "scene2D.h"
 #include "debugproc.h"
 
+#include "listObject.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ定義
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -38,6 +40,8 @@ CScene2D::CScene2D(int priority, OBJTYPE objType) : CScene(priority, objType)
 	m_coord[1] = D3DXVECTOR2(1.0f, 0.0f);
 	m_coord[2] = D3DXVECTOR2(0.0f, 1.0f);
 	m_coord[3] = D3DXVECTOR2(1.0f, 1.0f);
+
+	m_draw = true;
 }
 
 //=============================================================================
@@ -160,7 +164,17 @@ void CScene2D::Uninit(void)
 //=============================================================================
 void CScene2D::Update(void)
 {
-
+	// 画面外カリング
+	if(m_draw && (m_pos.x < -SCREEN_WIDTH || m_pos.x > (SCREEN_WIDTH + 128)))
+	{
+		CListObject::UnlinkDraw(this);
+		m_draw = false;
+	}
+	else if(!m_draw)
+	{
+		CListObject::LinkDraw(this, GetPriority());
+		m_draw = true;
+	}
 }
 
 //=============================================================================
