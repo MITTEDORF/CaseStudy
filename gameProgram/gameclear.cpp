@@ -18,6 +18,7 @@
 #include "inputKeyboard.h"
 #include <math.h>
 #include "inputPadX.h"
+#include "sound.h"
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -50,6 +51,11 @@ HRESULT CGameClear::Init(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	m_fade = CFade::Create(device);
 	m_fade->Start(CFade::FADESTATE_IN, 1, 1.0f, 1.0f, 1.0f, 1.0f);
+
+	//----------------------------
+	// サウンドの再生
+	//----------------------------
+	m_sound->Play(CSound::SOUND_LABEL_RESULT_CLEAR);
 
 	//----------------------------
 	// ボタンカーソル初期化
