@@ -266,7 +266,7 @@ void CStumbler::Update(void)
 		}
 
 		// ‰æ–ÊŠOƒJƒŠƒ“ƒO
-		if(m_draw && (m_pos.x < -128 || m_pos.x > SCREEN_WIDTH))
+		if(m_draw && (m_pos.x < -256.0f || m_pos.x > SCREEN_WIDTH))
 		{
 			CListObject::UnlinkDraw(this);
 			m_draw = false;

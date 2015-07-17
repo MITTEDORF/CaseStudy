@@ -17,7 +17,7 @@
 
 #include "inputKeyboard.h"
 #include <math.h>
-
+#include "inputPadX.h"
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // ƒ}ƒNƒ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -102,6 +102,15 @@ void CGameClear::Update(void)
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 		}
 
+		if(m_padX != NULL)
+		{
+			if(m_padX->GetButtonPress(XINPUT_GAMEPAD_A))
+			{
+				m_push_flag = true;
+				m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+			}
+		}
+
 		// ƒXƒRƒAˆ—
 		switch(m_switch)
 		{
@@ -167,6 +176,15 @@ void CGameClear::Update(void)
 		}
 	}
 
+	if(m_padX != NULL)
+	{
+		if(m_padX->GetButtonPress(XINPUT_GAMEPAD_A))
+		{
+			m_push_flag = true;
+			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+		}
+	}
+
 	// ”wŒiƒXƒNƒ[ƒ‹ˆ—
 	D3DXVECTOR2 tmp;
 	float scroll = 0.002f;
@@ -191,12 +209,12 @@ void CGameClear::Draw(void)
 void CGameClear::InitObject(LPDIRECT3DDEVICE9 device)
 {
 	// ”wŒi
-	CScene2D* bg = CScene2D::Create(device, CImport::MAKE_UI_CHAR_SEL_BACK_01, CScene2D::POINT_LEFTTOP, 1);
+	CScene2D* bg = CScene2D::Create(device, CImport::MAKE_UI_CHAR_SEL_BACK_02, CScene2D::POINT_LEFTTOP, 1);
 	bg->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	bg->SetPos(0.0f, 0.0f);
 
 	// ƒXƒNƒ[ƒ‹‚·‚é”wŒi
-	m_bg = CScene2D::Create(device, CImport::MAKE_UI_CHAR_SEL_CHIP_01, CScene2D::POINT_CENTER, 2);
+	m_bg = CScene2D::Create(device, CImport::MAKE_UI_CHAR_SEL_CHIP_02, CScene2D::POINT_CENTER, 2);
 	m_bg->SetSize(SCREEN_WIDTH * 1.3, SCREEN_WIDTH * 1.3);
 	m_bg->SetPos(SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
 	m_bg->SetRot(-0.5f);
@@ -296,6 +314,36 @@ void CGameClear::ButtonSelect( void )
 			m_select_cur = 0;
 		}
 	}
+
+	if(m_padX != NULL)
+	{
+		//‰EˆÚ“®
+		if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_LEFT))
+		{
+			if( m_select_cur-1 >= 0 )
+			{
+				m_select_cur--;
+			}
+			else
+			{
+				m_select_cur = SELECT_CUR_MAX-1;
+			}
+		}
+
+		//¶ˆÚ“®
+		if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_RIGHT))
+		{
+			if( m_select_cur+1 <= SELECT_CUR_MAX-1 )
+			{
+				m_select_cur++;
+			}
+			else
+			{
+				m_select_cur = 0;
+			}
+		}
+	}
+
 	if( m_select_old == m_select_cur )
 	{
 		return;

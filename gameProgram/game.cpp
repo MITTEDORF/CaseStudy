@@ -87,7 +87,7 @@ HRESULT CGame::Init(LPDIRECT3DDEVICE9 device)
 	m_sound->Play(CSound::SOUND_LABEL_GAMEBGM);
 
 	// ステータス初期化
-	m_sequence = 4;
+	m_sequence = 0;
 
 	//----------------------------
 	// 初期化成功

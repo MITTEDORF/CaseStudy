@@ -173,6 +173,10 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/select/hyphen_long.png",
 	"./data/TEXTURE/select/char_sel_back_01.png",
 	"./data/TEXTURE/select/char_sel_chip_01.png",
+	"./data/TEXTURE/select/char_sel_back_02.png",
+	"./data/TEXTURE/select/char_sel_chip_02.png",
+	"./data/TEXTURE/select/char_sel_back_03.png",
+	"./data/TEXTURE/select/char_sel_chip_03.png",
 
 	// ï∂éöëfçﬁ
 	"./data/TEXTURE/number/coron.png",

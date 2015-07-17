@@ -17,6 +17,7 @@
 #include "stage_select.h"
 
 #include "inputKeyboard.h"
+#include "inputPadX.h"
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // ƒ}ƒNƒ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -94,6 +95,15 @@ void CTitle::Update(void)
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 		}
 
+		if(m_padX != NULL)
+		{
+			if(m_padX->GetButtonPress(XINPUT_GAMEPAD_A))
+			{
+				m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+			}
+		}
+
+
 		if(m_keyboard->GetTrigger(DIK_S))
 		{
 			if(cur == 0)
@@ -128,6 +138,47 @@ void CTitle::Update(void)
 				titleButton[1]->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 1));
 				titleButton[1]->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 1));
 				titleButton[1]->SetSize((titleButton[1]->GetSize() / 12) * 10);
+			}
+		}
+
+		if(m_padX != NULL)
+		{
+			if(m_padX->GetButtonPress(XINPUT_GAMEPAD_DPAD_DOWN))
+			{
+				if(cur == 0)
+				{
+					cur = 1;
+					titleButton[0]->SetCord(0, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 0));
+					titleButton[0]->SetCord(1, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 0));
+					titleButton[0]->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 1));
+					titleButton[0]->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 1));
+					titleButton[0]->SetSize((titleButton[0]->GetSize() / 12) * 10);
+
+					titleButton[1]->SetCord(0, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 2));
+					titleButton[1]->SetCord(1, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 2));
+					titleButton[1]->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 3));
+					titleButton[1]->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 3));
+					titleButton[1]->SetSize(titleButton[1]->GetSize() * 1.2f);
+				}
+			}
+
+			if(m_padX->GetButtonPress(XINPUT_GAMEPAD_DPAD_UP))
+			{
+				if(cur == 1)
+				{
+					cur = 0;
+					titleButton[0]->SetCord(0, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 2));
+					titleButton[0]->SetCord(1, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 2));
+					titleButton[0]->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 3));
+					titleButton[0]->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 3));
+					titleButton[0]->SetSize(titleButton[0]->GetSize() * 1.2f);
+
+					titleButton[1]->SetCord(0, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 0));
+					titleButton[1]->SetCord(1, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 0));
+					titleButton[1]->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 1));
+					titleButton[1]->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 1));
+					titleButton[1]->SetSize((titleButton[1]->GetSize() / 12) * 10);
+				}
 			}
 		}
 
