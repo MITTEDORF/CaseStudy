@@ -22,8 +22,9 @@
 
 #include "equipment_choice_config.h"
 #include "character_config.h"
-
 #include "configholder.h"
+
+#include "sound.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // ƒ}ƒNƒ
@@ -99,6 +100,7 @@ void CEquipmentChoice::Update(void)
 		//----------------------------
 		if(m_keyboard->GetTrigger(DIK_RETURN))
 		{
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 		}
 	}
@@ -237,6 +239,9 @@ void CEquipmentChoice::VehicleChoice()
 				vehicle_id=0;
 			}
 			m_player->SetVehicleID((VehicleID)vehicle_id);
+
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
+
 		}
 
 		else if(m_keyboard->GetTrigger(DIK_D))
@@ -247,6 +252,9 @@ void CEquipmentChoice::VehicleChoice()
 				vehicle_id=VEHICLE_MAX-1;
 			}
 			m_player->SetVehicleID((VehicleID)vehicle_id);
+
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
+
 		}
 	}
 
@@ -311,6 +319,9 @@ void CEquipmentChoice::CostumeChoice()
 				costume_id=COSTUME_NONE;
 			}
 			m_player->SetCostumeID((CostumeID)costume_id);
+
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
+
 		}
 
 		else if(m_keyboard->GetTrigger(DIK_D))
@@ -321,6 +332,9 @@ void CEquipmentChoice::CostumeChoice()
 				costume_id=COSTUME_MAX-1;
 			}
 			m_player->SetCostumeID((CostumeID)costume_id);
+
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
+
 		}
 	}
 
@@ -392,12 +406,18 @@ void CEquipmentChoice::CurUpdate()
 	{
 		m_cur->SetPosY(CUR_UP);
 		curUp = true;
+
+		m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
+
 	}
 
 	else if(m_keyboard->GetTrigger(DIK_S))
 	{
 		m_cur->SetPosY(CUR_BUTTOM);
 		curUp = false;
+
+		m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
+
 	}
 }
 
