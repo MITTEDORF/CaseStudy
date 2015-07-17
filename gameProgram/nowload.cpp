@@ -84,5 +84,5 @@ void CNLoad::InitObject( LPDIRECT3DDEVICE9 device )
 	// キャラクター
 	//----------------------------
 
-	m_load_icon = CLIcon::Create( device , "habahiro_data/TEXTURE/player/default/player_wait.png" , CLIcon::POINT_CENTER , D3DXVECTOR2( ( CLIcon::POLYGON_SIZE * 0.5f ) , SCREEN_HEIGHT-( CLIcon::POLYGON_SIZE * 0.5f ) ) );
+	m_load_icon = CLIcon::Create( device , "./habahiro_data/TEXTURE/player/default/player_wait.png" , CLIcon::POINT_CENTER , D3DXVECTOR2( ( CLIcon::POLYGON_SIZE * 0.5f ) , SCREEN_HEIGHT-( CLIcon::POLYGON_SIZE * 0.5f ) ) );
 }

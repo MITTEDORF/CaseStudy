@@ -362,6 +362,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 
 	//ƒvƒŒƒCƒ„[‚Ì¶¬
 	m_player=CPlayer::Create(device,(CostumeID)local_costume_id,(VehicleID)local_vehicle_id);
+	m_player->SetSound(m_sound);
 	m_player->SetPos(120.0f, SCREEN_HEIGHT - 128.0f);
 	m_player->SetHitSize(D3DXVECTOR2(108.0f, 90.0f));
 	m_player->SetHitOffset(D3DXVECTOR2(0.0f, 0.0f));

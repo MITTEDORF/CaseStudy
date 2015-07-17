@@ -25,6 +25,8 @@
 
 #include "road_manager.h"
 
+#include "sound.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -258,6 +260,7 @@ void CPlayer::AddHP(int value)
 
 	if(value<0)
 	{
+		sound->Play(CSound::SOUND_LABEL_DAMAGE);
 		if(HP==2.0f||HP==1.0f)
 		{
 			AssyHP--;
@@ -284,6 +287,7 @@ void CPlayer::moveJump()
 	{
 		if(!isJump)
 		{
+			sound->Play(CSound::SOUND_LABEL_JUMPSE);
 			canJump=false;
 			isJump=true;
 			//スピードの設定
@@ -297,6 +301,7 @@ void CPlayer::moveJump()
 		{
 			if(!isJump)
 			{
+				sound->Play(CSound::SOUND_LABEL_JUMPSE);
 				//isGravity=true;
 				canJump=false;
 				isJump=true;
