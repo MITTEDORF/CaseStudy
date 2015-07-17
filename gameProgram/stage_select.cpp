@@ -33,6 +33,7 @@
 
 #include "configholder.h"
 
+#include "sound.h"
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // ƒ}ƒNƒ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -102,6 +103,7 @@ void CStageSelect::Update(void)
 		//----------------------------
 		if(m_keyboard->GetTrigger(DIK_RETURN))
 		{
+			m_sound->Play(CSound::SOUND_LABEL_SYSTEM_SELECT_ENTERSE);
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 		}
 
@@ -195,6 +197,9 @@ void CStageSelect::SelectObjectUpdate()
 			backTitle->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 3));
 			backTitle->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 3));
 			backTitle->SetSize(BACK_X * 1.25f, BACK_Y * 1.25f);
+
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
+
 		}
 	}
 	else if(m_keyboard->GetTrigger(DIK_W))
@@ -209,6 +214,9 @@ void CStageSelect::SelectObjectUpdate()
 			backTitle->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 1));
 			backTitle->SetRot(0);
 			backTitle->SetSize(BACK_X, BACK_Y);
+
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
+
 		}
 	}
 
@@ -259,6 +267,9 @@ void CStageSelect::SelectObjectUpdate()
 	{
 		if(m_keyboard->GetTrigger(DIK_D))
 		{
+
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
+
 			m_time=0;
 			select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
 			select_object[nowSelectObject]->SetPos(POL_POS[nowSelectObject]);
@@ -274,6 +285,9 @@ void CStageSelect::SelectObjectUpdate()
 
 		if(m_keyboard->GetTrigger(DIK_A))
 		{
+
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
+
 			m_time=0;
 			select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
 			select_object[nowSelectObject]->SetPos(POL_POS[nowSelectObject]);

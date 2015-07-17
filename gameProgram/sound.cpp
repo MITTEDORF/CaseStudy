@@ -29,9 +29,13 @@ typedef struct
 // 各音素材のパラメータ
 const PARAM SOUND_PARAM[CSound::SOUND_LABEL_MAX] =
 {
-	{"data/SOUND/titleTest.wav",	true},	// タイトルBGM
-	{"data/SOUND/gameTest.wav",		true},	// ゲームBGM
-	{"data/SOUND/resultTest.wav",	true},	// リザルトBGM
+	{"data/SOUND/titleTest.wav",			true},	// タイトルBGM
+	{"data/SOUND/gameTest.wav",				true},	// ゲームBGM
+	{"data/SOUND/resultTest.wav",			true},	// リザルトBGM
+	{"data/SOUND/system_select.wav",		false},	// システムセレクトSE
+	{"data/SOUND/system_select_enter.wav",	false},	// システムセレクト決定SE
+	{"data/SOUND/jump.wav",					false},	// ジャンプSE
+	{"data/SOUND/damage.wav",				false},	// ダメージSE
 };
 
 //=============================================================================
