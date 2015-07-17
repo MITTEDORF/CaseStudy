@@ -15,6 +15,7 @@
 #include "game.h"
 
 #include "inputKeyboard.h"
+#include "inputPadX.h"
 
 #include "character_player.h"
 
@@ -100,6 +101,14 @@ void CEquipmentChoice::Update(void)
 		if(m_keyboard->GetTrigger(DIK_RETURN))
 		{
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+		}
+
+		if(m_padX != NULL)
+		{
+			if(m_padX->GetButtonPress(XINPUT_GAMEPAD_A))
+			{
+				m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+			}
 		}
 	}
 
@@ -248,6 +257,29 @@ void CEquipmentChoice::VehicleChoice()
 			}
 			m_player->SetVehicleID((VehicleID)vehicle_id);
 		}
+
+		if(m_padX != NULL)
+		{
+			if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_RIGHT))
+			{
+				vehicle_id++;
+				if(vehicle_id>=VEHICLE_MAX-1)
+				{
+					vehicle_id=VEHICLE_MAX-1;
+				}
+				m_player->SetVehicleID((VehicleID)vehicle_id);
+			}
+
+			if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_LEFT))
+			{
+				vehicle_id--;
+				if(vehicle_id<=0)
+				{
+					vehicle_id=0;
+				}
+				m_player->SetVehicleID((VehicleID)vehicle_id);
+			}
+		}
 	}
 
 	// 乗り物によってメッセージの切り替え
@@ -321,6 +353,29 @@ void CEquipmentChoice::CostumeChoice()
 				costume_id=COSTUME_MAX-1;
 			}
 			m_player->SetCostumeID((CostumeID)costume_id);
+		}
+
+		if(m_padX != NULL)
+		{
+			if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_RIGHT))
+			{
+				costume_id++;
+				if(costume_id>=COSTUME_MAX-1)
+				{
+					costume_id=COSTUME_MAX-1;
+				}
+				m_player->SetCostumeID((CostumeID)costume_id);
+			}
+
+			if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_LEFT))
+			{
+				costume_id--;
+				if(costume_id<=COSTUME_NONE)
+				{
+					costume_id=COSTUME_NONE;
+				}
+				m_player->SetCostumeID((CostumeID)costume_id);
+			}
 		}
 	}
 
@@ -398,6 +453,21 @@ void CEquipmentChoice::CurUpdate()
 	{
 		m_cur->SetPosY(CUR_BUTTOM);
 		curUp = false;
+	}
+
+	if(m_padX != NULL)
+	{
+		if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_DOWN))
+		{
+			m_cur->SetPosY(CUR_BUTTOM);
+			curUp = false;
+		}
+
+		if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_UP))
+		{
+			m_cur->SetPosY(CUR_UP);
+			curUp = true;
+		}
 	}
 }
 

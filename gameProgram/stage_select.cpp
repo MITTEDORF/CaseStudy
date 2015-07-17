@@ -16,6 +16,7 @@
 #include "title.h"
 
 #include "inputKeyboard.h"
+#include "inputPadX.h"
 
 #include "character_player.h"
 
@@ -102,6 +103,14 @@ void CStageSelect::Update(void)
 		if(m_keyboard->GetTrigger(DIK_RETURN))
 		{
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+		}
+
+		if(m_padX != NULL)
+		{
+			if(m_padX->GetButtonPress(XINPUT_GAMEPAD_A))
+			{
+				m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+			}
 		}
 	}
 
@@ -203,6 +212,40 @@ void CStageSelect::SelectObjectUpdate()
 		}
 	}
 
+	if(m_padX != NULL)
+	{
+		if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_DOWN))
+		{
+			if(!backFrag)
+			{
+				m_time=0;
+				backFrag = true;
+				select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
+				select_object[nowSelectObject]->SetPos(POL_POS[nowSelectObject]);
+				backTitle->SetCord(0, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 2));
+				backTitle->SetCord(1, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 2));
+				backTitle->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 3));
+				backTitle->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 3));
+				backTitle->SetSize(BACK_X * 1.25f, BACK_Y * 1.25f);
+			}
+		}
+
+		if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_UP))
+		{
+			if(backFrag)
+			{
+				m_time=0;
+				backFrag = false;
+				backTitle->SetCord(0, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 0));
+				backTitle->SetCord(1, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 0));
+				backTitle->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 1));
+				backTitle->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 1));
+				backTitle->SetRot(0);
+				backTitle->SetSize(BACK_X, BACK_Y);
+			}
+		}
+	}
+
 	if(backFrag)
 	{
 		//—h‚êŽžŠÔ‚ð‘‚â‚·
@@ -242,6 +285,39 @@ void CStageSelect::SelectObjectUpdate()
 				select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y + 13.0f);
 			else
 				select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y - 13.0f);
+		}
+
+		if(m_padX != NULL)
+		{
+			if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_RIGHT))
+			{
+				m_time=0;
+				select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
+				select_object[nowSelectObject]->SetPos(POL_POS[nowSelectObject]);
+				select_object[nowSelectObject]->SetRot(0);
+				nowSelectObject++;
+				if(nowSelectObject>=STAGE_MAX){nowSelectObject=0;}
+				select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]*1.2f);
+				if(nowSelectObject == STAGE_GLACIER || nowSelectObject == STAGE_SAVANNAH)
+					select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y + 10.0f);
+				else
+					select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y - 10.0f);
+			}
+
+			if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_LEFT))
+			{
+				m_time=0;
+				select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
+				select_object[nowSelectObject]->SetPos(POL_POS[nowSelectObject]);
+				select_object[nowSelectObject]->SetRot(0);
+				nowSelectObject--;
+				if(nowSelectObject<=-1){nowSelectObject=STAGE_MAX-1;}
+				select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]*1.2f);
+				if(nowSelectObject == STAGE_GLACIER || nowSelectObject == STAGE_SAVANNAH)
+					select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y + 13.0f);
+				else
+					select_object[nowSelectObject] ->SetPosY(select_object[nowSelectObject]->GetPos().y - 13.0f);
+				}
 		}
 	}
 }
