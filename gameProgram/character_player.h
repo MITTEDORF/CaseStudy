@@ -26,6 +26,7 @@
 class CInputKeyboard;
 class CInputPadX;
 class CParticleManager;
+class CSound;
 //=============================================================================
 // クラス定義
 //=============================================================================
@@ -195,6 +196,11 @@ public:
 	{
 		return (isFadeStart);
 	}
+
+	void SetSound(CSound* psound)
+	{
+		sound=psound;
+	}
 	
 	//テクスチャIDの参照
 	CImport::TEXTURES ConsultationPlayerTexID(PlayerState state,int offset=0);
@@ -202,6 +208,8 @@ public:
 
 private:
 	void DrawHitBox(void);
+
+	CSound * sound;
 
 	//テクスチャID
 	CostumeID Costume_id;

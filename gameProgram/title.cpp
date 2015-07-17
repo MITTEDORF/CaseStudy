@@ -93,6 +93,7 @@ void CTitle::Update(void)
 		if(m_keyboard->GetTrigger(DIK_RETURN))
 		{
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+			m_sound->Play(CSound::SOUND_LABEL_SYSTEM_SELECT_ENTERSE);
 		}
 
 		if(m_padX != NULL)
@@ -100,6 +101,7 @@ void CTitle::Update(void)
 			if(m_padX->GetButtonPress(XINPUT_GAMEPAD_A))
 			{
 				m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
+				m_sound->Play(CSound::SOUND_LABEL_SYSTEM_SELECT_ENTERSE);
 			}
 		}
 
@@ -120,6 +122,7 @@ void CTitle::Update(void)
 				titleButton[1]->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 3));
 				titleButton[1]->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 3));
 				titleButton[1]->SetSize(titleButton[1]->GetSize() * 1.2f);
+				m_sound->Play(CSound::SOUND_LABEL_SYSTEM_SELECTSE);
 			}
 		}
 		else if(m_keyboard->GetTrigger(DIK_W))
@@ -138,6 +141,7 @@ void CTitle::Update(void)
 				titleButton[1]->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 1));
 				titleButton[1]->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 1));
 				titleButton[1]->SetSize((titleButton[1]->GetSize() / 12) * 10);
+				m_sound->Play(CSound::SOUND_LABEL_SYSTEM_SELECTSE);
 			}
 		}
 
@@ -159,6 +163,7 @@ void CTitle::Update(void)
 					titleButton[1]->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 3));
 					titleButton[1]->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 3));
 					titleButton[1]->SetSize(titleButton[1]->GetSize() * 1.2f);
+					m_sound->Play(CSound::SOUND_LABEL_SYSTEM_SELECTSE);
 				}
 			}
 
@@ -178,6 +183,7 @@ void CTitle::Update(void)
 					titleButton[1]->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 1));
 					titleButton[1]->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 1));
 					titleButton[1]->SetSize((titleButton[1]->GetSize() / 12) * 10);
+					m_sound->Play(CSound::SOUND_LABEL_SYSTEM_SELECTSE);
 				}
 			}
 		}

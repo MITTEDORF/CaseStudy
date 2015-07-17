@@ -29,15 +29,15 @@ typedef struct
 // 各音素材のパラメータ
 const PARAM SOUND_PARAM[CSound::SOUND_LABEL_MAX] =
 {
-	{"habahiro_data/SOUND/titleTest.wav",				true},		// タイトルBGM
-	{"habahiro_data/SOUND/stage_charcter_select.wav",	true},		// セレクトBGM
-	{"habahiro_data/SOUND/game.wav",					true},		// ゲームBGM
-	{"habahiro_data/SOUND/result_clear.wav",			false},		// リザルトクリアBGM
-	{"habahiro_data/SOUND/result_gameover.wav",			false},		// リザルトゲームオーバーBGM
-	{"habahiro_data/SOUND/system_select.wav",			false},		// システムセレクトSE
-	{"habahiro_data/SOUND/system_select_enter.wav",		false},		// システムセレクト決定SE
-	{"habahiro_data/SOUND/jump.wav",					false},		// ジャンプSE
-	{"habahiro_data/SOUND/damage.wav",					false},		// ダメージSE
+	{"./habahiro_data/SOUND/titleTest.wav",				true},		// タイトルBGM
+	{"./habahiro_data/SOUND/stage_charcter_select.wav",	true},		// セレクトBGM
+	{"./habahiro_data/SOUND/game.wav",					true},		// ゲームBGM
+	{"./habahiro_data/SOUND/result_clear.wav",			false},		// リザルトクリアBGM
+	{"./habahiro_data/SOUND/result_gameover.wav",			false},		// リザルトゲームオーバーBGM
+	{"./habahiro_data/SOUND/system_select.wav",			false},		// システムセレクトSE
+	{"./habahiro_data/SOUND/system_select_enter.wav",		false},		// システムセレクト決定SE
+	{"./habahiro_data/SOUND/jump.wav",					false},		// ジャンプSE
+	{"./habahiro_data/SOUND/damage.wav",					false},		// ダメージSE
 };
 
 //=============================================================================
