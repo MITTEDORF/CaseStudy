@@ -368,7 +368,7 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_player->SetHitOffset(D3DXVECTOR2(0.0f, 0.0f));
 	m_player->SetKeyboard(m_keyboard);
 	m_player->SetPadX(m_padX);
-	//m_player->Set_isGame(false);
+	m_player->Set_isGame(false);
 	// タイマー
 	m_time = 0;
 	D3DXVECTOR2 pos = D3DXVECTOR2(SCREEN_WIDTH * 0.78f, SCREEN_HEIGHT * 0.01f);

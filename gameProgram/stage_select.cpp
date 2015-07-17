@@ -220,6 +220,7 @@ void CStageSelect::SelectObjectUpdate()
 			{
 				m_time=0;
 				backFrag = true;
+				select_object[nowSelectObject]->SetRot(0);
 				select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
 				select_object[nowSelectObject]->SetPos(POL_POS[nowSelectObject]);
 				backTitle->SetCord(0, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 2));
@@ -241,6 +242,7 @@ void CStageSelect::SelectObjectUpdate()
 				backTitle->SetCord(2, D3DXVECTOR2(0.0f, (1.0f / 3.0f) * 1));
 				backTitle->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 1));
 				backTitle->SetRot(0);
+				select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]*1.2f);
 				backTitle->SetSize(BACK_X, BACK_Y);
 			}
 		}
