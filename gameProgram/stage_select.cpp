@@ -34,6 +34,7 @@
 #include "configholder.h"
 
 #include "sound.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -66,6 +67,11 @@ HRESULT CStageSelect::Init(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	m_fade = CFade::Create(device);
 	m_fade->Start(CFade::FADESTATE_IN, 1, 1.0f, 1.0f, 1.0f, 1.0f);
+
+	//----------------------------
+	// サウンドの再生
+	//----------------------------
+	m_sound->Play(CSound::SOUND_LABEL_SELECT);
 
 	//----------------------------
 	// 初期化成功
@@ -111,6 +117,7 @@ void CStageSelect::Update(void)
 		{
 			if(m_padX->GetButtonPress(XINPUT_GAMEPAD_A))
 			{
+				m_sound->Play(CSound::SOUND_LABEL_SYSTEM_SELECT_ENTERSE);
 				m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 			}
 		}
@@ -237,6 +244,7 @@ void CStageSelect::SelectObjectUpdate()
 				backTitle->SetCord(3, D3DXVECTOR2(1.0f, (1.0f / 3.0f) * 3));
 				backTitle->SetSize(BACK_X * 1.25f, BACK_Y * 1.25f);
 			}
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
 		}
 
 		if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_UP))
@@ -253,6 +261,7 @@ void CStageSelect::SelectObjectUpdate()
 				select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]*1.2f);
 				backTitle->SetSize(BACK_X, BACK_Y);
 			}
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
 		}
 	}
 
@@ -307,6 +316,8 @@ void CStageSelect::SelectObjectUpdate()
 		{
 			if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_RIGHT))
 			{
+				m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
+
 				m_time=0;
 				select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
 				select_object[nowSelectObject]->SetPos(POL_POS[nowSelectObject]);
@@ -322,6 +333,8 @@ void CStageSelect::SelectObjectUpdate()
 
 			if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_LEFT))
 			{
+				m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
+
 				m_time=0;
 				select_object[nowSelectObject]->SetSize(POL_SIZE[nowSelectObject]);
 				select_object[nowSelectObject]->SetPos(POL_POS[nowSelectObject]);

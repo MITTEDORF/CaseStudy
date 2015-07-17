@@ -28,8 +28,10 @@ public:
 	typedef enum
 	{
 		SOUND_LABEL_TITLEBGM = 0,			// タイトルBGM
+		SOUND_LABEL_SELECT,					// セレクトBGM
 		SOUND_LABEL_GAMEBGM,				// ゲームBGM
-		SOUND_LABEL_RESULTBGM,				// リザルトBGM
+		SOUND_LABEL_RESULT_CLEAR,			// リザルトクリアBGM
+		SOUND_LABEL_RESULT_GAMEOVER,		// リザルトゲームオーバーBGM
 		SOUND_LABEL_SYSTEM_SELECTSE,		// システムセレクトSE
 		SOUND_LABEL_SYSTEM_SELECT_ENTERSE,	// システムセレクト決定SE
 		SOUND_LABEL_JUMPSE,					// ジャンプSE

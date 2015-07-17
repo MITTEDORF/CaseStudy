@@ -24,6 +24,7 @@
 #include "equipment_choice_config.h"
 #include "character_config.h"
 #include "configholder.h"
+#include "sound.h"
 
 #include "sound.h"
 
@@ -78,6 +79,11 @@ void CEquipmentChoice::Uninit(void)
 	//----------------------------
 	// シーン
 	CScene::ReleaseAll();
+
+	//----------------------------
+	// サウンドの停止
+	//----------------------------
+	m_sound->Stop(CSound::SOUND_LABEL_SELECT);
 }
 
 //=============================================================================
@@ -101,7 +107,7 @@ void CEquipmentChoice::Update(void)
 		//----------------------------
 		if(m_keyboard->GetTrigger(DIK_RETURN))
 		{
-			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECT_ENTERSE );
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 		}
 
@@ -109,6 +115,7 @@ void CEquipmentChoice::Update(void)
 		{
 			if(m_padX->GetButtonPress(XINPUT_GAMEPAD_A))
 			{
+				m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECT_ENTERSE );
 				m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 			}
 		}
@@ -276,6 +283,7 @@ void CEquipmentChoice::VehicleChoice()
 					vehicle_id=VEHICLE_MAX-1;
 				}
 				m_player->SetVehicleID((VehicleID)vehicle_id);
+				m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
 			}
 
 			if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_LEFT))
@@ -286,6 +294,7 @@ void CEquipmentChoice::VehicleChoice()
 					vehicle_id=0;
 				}
 				m_player->SetVehicleID((VehicleID)vehicle_id);
+				m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
 			}
 		}
 	}
@@ -379,6 +388,7 @@ void CEquipmentChoice::CostumeChoice()
 					costume_id=COSTUME_MAX-1;
 				}
 				m_player->SetCostumeID((CostumeID)costume_id);
+				m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
 			}
 
 			if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_LEFT))
@@ -389,6 +399,7 @@ void CEquipmentChoice::CostumeChoice()
 					costume_id=COSTUME_NONE;
 				}
 				m_player->SetCostumeID((CostumeID)costume_id);
+				m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
 			}
 		}
 	}
@@ -481,12 +492,14 @@ void CEquipmentChoice::CurUpdate()
 		{
 			m_cur->SetPosY(CUR_BUTTOM);
 			curUp = false;
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
 		}
 
 		if(m_padX->GetButtonTrigger(XINPUT_GAMEPAD_DPAD_UP))
 		{
 			m_cur->SetPosY(CUR_UP);
 			curUp = true;
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
 		}
 	}
 }

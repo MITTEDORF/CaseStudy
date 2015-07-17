@@ -16,6 +16,7 @@
 #include "game.h"
 #include "inputKeyboard.h"
 #include "inputPadX.h"
+#include "sound.h"
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -46,6 +47,11 @@ HRESULT CGameOver::Init(LPDIRECT3DDEVICE9 device)
 	//----------------------------
 	m_fade = CFade::Create(device);
 	m_fade->Start(CFade::FADESTATE_IN, 1, 1.0f, 1.0f, 1.0f, 1.0f);
+
+	//----------------------------
+	// サウンドの再生
+	//----------------------------
+	m_sound->Play(CSound::SOUND_LABEL_RESULT_GAMEOVER);
 
 	//----------------------------
 	// ボタンカーソル初期化
@@ -86,6 +92,7 @@ void CGameOver::Update(void)
 		if(m_keyboard->GetTrigger(DIK_RETURN))
 		{
 			m_push_flag = true;
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECT_ENTERSE );
 			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 		}
 
@@ -94,6 +101,7 @@ void CGameOver::Update(void)
 			if(m_padX->GetButtonPress(XINPUT_GAMEPAD_A))
 			{
 				m_push_flag = true;
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECT_ENTERSE );
 				m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 			}
 		}
@@ -157,7 +165,7 @@ void CGameOver::InitObject(LPDIRECT3DDEVICE9 device)
 		resultLogo2->SetSize(SCREEN_WIDTH*0.25f-30.0f, SCREEN_WIDTH*0.25f-30.0f);
 		resultLogo2->SetPos(45.0f+SCREEN_WIDTH*0.625f-30.0f, SCREEN_HEIGHT * 0.25f);
 
-		m_Button[SELECT_CUR_CHAPTER] = CScene2D::Create(device, "data/TEXTURE/button/chapterSelect.png" , CScene2D::POINT_LEFTTOP);
+		m_Button[SELECT_CUR_CHAPTER] = CScene2D::Create(device, "habahiro_data/TEXTURE/button/chapterSelect.png" , CScene2D::POINT_LEFTTOP);
 		m_Button[SELECT_CUR_CHAPTER]->SetSize( CHAPTER_BUTTON_WIDTH , BUTTON_HIGHT );
 		m_Button[SELECT_CUR_CHAPTER]->SetPos( 213.0f , 576.0f);
 		m_Button[SELECT_CUR_CHAPTER]->SetCord( 0 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*0 ) );
@@ -165,7 +173,7 @@ void CGameOver::InitObject(LPDIRECT3DDEVICE9 device)
 		m_Button[SELECT_CUR_CHAPTER]->SetCord( 2 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*1 ) );
 		m_Button[SELECT_CUR_CHAPTER]->SetCord( 3 , D3DXVECTOR2( 1.0f , ( 1.0f / 3.0f )*1 ) );
 
-		m_Button[SELECT_CUR_RETURN] = CScene2D::Create(device, "data/TEXTURE/button/retry.png" , CScene2D::POINT_LEFTTOP);
+		m_Button[SELECT_CUR_RETURN] = CScene2D::Create(device, "habahiro_data/TEXTURE/button/retry.png" , CScene2D::POINT_LEFTTOP);
 		m_Button[SELECT_CUR_RETURN]->SetSize( RETURN_BUTTON_WIDTH , BUTTON_HIGHT );
 		m_Button[SELECT_CUR_RETURN]->SetPos( 753.0f , 576.0f);
 		m_Button[SELECT_CUR_RETURN]->SetCord( 0 , D3DXVECTOR2( 0.0f , ( 1.0f / 3.0f )*0 ) );
@@ -189,6 +197,7 @@ void CGameOver::ButtonSelect( void )
 		{
 			m_select_cur = SELECT_CUR_MAX-1;
 		}
+		m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
 	}
 	if(m_keyboard->GetTrigger(DIK_D))
 	{
@@ -200,6 +209,7 @@ void CGameOver::ButtonSelect( void )
 		{
 			m_select_cur = 0;
 		}
+		m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
 	}
 
 	if(m_padX != NULL)
@@ -215,6 +225,7 @@ void CGameOver::ButtonSelect( void )
 			{
 				m_select_cur = SELECT_CUR_MAX-1;
 			}
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
 		}
 
 		//左移動
@@ -228,6 +239,7 @@ void CGameOver::ButtonSelect( void )
 			{
 				m_select_cur = 0;
 			}
+			m_sound->Play( CSound::SOUND_LABEL_SYSTEM_SELECTSE );
 		}
 	}
 

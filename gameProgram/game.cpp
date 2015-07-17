@@ -13,7 +13,6 @@
 #include "fade.h"
 #include "sound.h"
 
-#include "result.h"
 #include "gameclear.h"
 #include "gameover.h"
 

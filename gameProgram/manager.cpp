@@ -17,8 +17,6 @@
 
 #include "phase.h"
 #include "title.h"
-#include "game.h"
-#include "result.h"
 
 #include "inputKeyboard.h"
 #include "inputPadX.h"

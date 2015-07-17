@@ -187,9 +187,6 @@
     <ClCompile Include="game.cpp">
       <Filter>phase\game</Filter>
     </ClCompile>
-    <ClCompile Include="result.cpp">
-      <Filter>phase\result</Filter>
-    </ClCompile>
     <ClCompile Include="phase.cpp">
       <Filter>phase</Filter>
     </ClCompile>
@@ -326,9 +323,6 @@
     </ClInclude>
     <ClInclude Include="game.h">
       <Filter>phase\game</Filter>
-    </ClInclude>
-    <ClInclude Include="result.h">
-      <Filter>phase\result</Filter>
     </ClInclude>
     <ClInclude Include="phase.h">
       <Filter>phase</Filter>
