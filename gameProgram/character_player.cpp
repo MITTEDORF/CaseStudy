@@ -56,7 +56,7 @@ HRESULT CPlayer::Init(LPDIRECT3DDEVICE9 device)
 	Assy=CVehicle::Create(device,ConsultationVehicleTexID());
 
 	//オフセットの初期化
-	Offset.x=-20.0f;
+	Offset.x=0.0f;
 	Offset.y=0.0f;
 
 	//パーティクルの生成/初期化
