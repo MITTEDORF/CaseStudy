@@ -122,6 +122,9 @@
     <Filter Include="object\configholder">
       <UniqueIdentifier>{a2e02477-ae8c-4ef4-8249-57e7869ed26c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="object\character\character_goal">
+      <UniqueIdentifier>{1d1acd3d-9a0e-4b48-9dc2-a74762a07e8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -252,6 +255,9 @@
     </ClCompile>
     <ClCompile Include="configholder.cpp">
       <Filter>object\configholder</Filter>
+    </ClCompile>
+    <ClCompile Include="character_goal.cpp">
+      <Filter>object\character\character_goal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -398,6 +404,9 @@
     </ClInclude>
     <ClInclude Include="configholder.h">
       <Filter>object\configholder</Filter>
+    </ClInclude>
+    <ClInclude Include="character_goal.h">
+      <Filter>object\character\character_goal</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
