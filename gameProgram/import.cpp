@@ -204,7 +204,7 @@ const char* TEX_PATH[] =
 // ƒ}ƒbƒv
 const char* MAP_PATH[] =
 {
-	"./data/MAP/stage_test.txt",
+	"./data/MAP/stage_desert.txt",
 	"./data/MAP/stage_waterside.txt",
 	"./data/MAP/stage_glacier.txt",
 	"./data/MAP/stage_savannah.txt",
