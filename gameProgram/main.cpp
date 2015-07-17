@@ -77,16 +77,16 @@ int APIENTRY WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdLine, 
 	int height = static_cast<int>(SCREEN_HEIGHT) + GetSystemMetrics(SM_CXDLGFRAME) * 2 + GetSystemMetrics(SM_CYCAPTION);
 
 	wnd = CreateWindowEx(0,
-						CLASS_NAME,				// クラスの名前
-						WINDOW_NAME,			// キャプション名
-						WS_OVERLAPPEDWINDOW,	// スタイル
-						CW_USEDEFAULT,			// X座標
-						CW_USEDEFAULT,			// Y座標
-						width,					// 横幅
-						height,					// 縦幅
+						CLASS_NAME,			// クラスの名前
+						WINDOW_NAME,		// キャプション名
+						WS_POPUPWINDOW,		// スタイル
+						CW_USEDEFAULT,		// X座標
+						CW_USEDEFAULT,		// Y座標
+						width,				// 横幅
+						height,				// 縦幅
 						NULL,
 						NULL,
-						instance,				// インスタンスハンドル
+						instance,			// インスタンスハンドル
 						NULL);
 
 	//----------------------------
