@@ -41,6 +41,8 @@
 #include "stage_select_conf.h"
 #include "listObject.h"
 
+#include "character_goal.h"
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // マクロ
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -342,10 +344,15 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 
 	m_target->GoalTexSet(CImport::TARGET_OFF);
 
+	m_char_goal=NULL;
+
 	// フィルター
 	CScene2D* filter = CScene2D::Create(device, CImport::NONE, CScene2D::POINT_LEFTTOP, 2);
 	filter->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	filter->SetColor(1.0f, 1.0f, 1.0f, 0.1f);
+
+	
+	m_char_goal=CCharacterGoal::Create(m_device);
 
 	//----------------------------
 	// キャラクター
@@ -362,7 +369,6 @@ void CGame::InitObject(LPDIRECT3DDEVICE9 device)
 	m_player->SetKeyboard(m_keyboard);
 	m_player->SetPadX(m_padX);
 	//m_player->Set_isGame(false);
-
 	// タイマー
 	m_time = 0;
 	D3DXVECTOR2 pos = D3DXVECTOR2(SCREEN_WIDTH * 0.78f, SCREEN_HEIGHT * 0.01f);
@@ -437,7 +443,7 @@ void CGame::ColAll()
 	}
 
 	//ライトニング判定
-	if(m_player->isLitninng())
+	if(m_player->isLitninng()&&!m_char_goal->isStart_())
 	{
 		m_player->PaticleStart((CScene*)m_target->Goal_());
 	}
@@ -458,8 +464,13 @@ void CGame::ColAll()
 
 		if(m_player->isFadeStart_())
 		{
-			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 			m_target->GoalTexSet(CImport::TARGET_ON);
+			m_char_goal->Start((CScene*)m_target->Goal_());
+		}
+
+		if(m_char_goal->isFade_())
+		{
+			m_fade->Start(CFade::FADESTATE_OUT, 1, 1.0f, 1.0f, 1.0f, 0.0f);
 		}
 	}
 }

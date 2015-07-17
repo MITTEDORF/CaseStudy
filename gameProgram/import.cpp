@@ -195,6 +195,10 @@ const char* TEX_PATH[] =
 	"./data/TEXTURE/result/clock.png",
 	"./data/TEXTURE/result/score.png",
 	"./data/TEXTURE/result/result_bg.png",
+
+	//ゴールの時に駆け寄ってくる存在
+	"./data/TEXTURE/goal/goalchar_right.png",
+	"./data/TEXTURE/goal/goalchar_left.png"
 };
 
 // マップ

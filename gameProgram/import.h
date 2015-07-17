@@ -203,6 +203,10 @@ public:
 		SCORE,
 		RESULT_WINDOW_BG,
 
+		//ƒS[ƒ‹‚ÌŽž‚É‹ì‚¯Šñ‚Á‚Ä‚­‚é‘¶Ý
+		GOAL_CHAR_RIGHT,
+		GOAL_CHAR_LEFT,
+
 		TEX_MAX
 	};
 

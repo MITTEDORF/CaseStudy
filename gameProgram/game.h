@@ -31,6 +31,7 @@ class CStumManager;
 class CRoadManager;
 class CTargetManager;
 class CGoal;
+class CCharacterGoal;
 
 class CGame : CPhase
 {
@@ -67,6 +68,8 @@ private:
 
 	// ターゲット
 	CTargetManager* m_target;
+
+	CCharacterGoal* m_char_goal;
 
 	// 経過時間
 	int m_time;

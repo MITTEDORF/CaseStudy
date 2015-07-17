@@ -80,6 +80,7 @@
   <ItemGroup>
     <ClCompile Include="background.cpp" />
     <ClCompile Include="background_manager.cpp" />
+    <ClCompile Include="character_goal.cpp" />
     <ClCompile Include="character_player.cpp" />
     <ClCompile Include="character_vehicle.cpp" />
     <ClCompile Include="configholder.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="background.h" />
     <ClInclude Include="background_manager.h" />
     <ClInclude Include="character_config.h" />
+    <ClInclude Include="character_goal.h" />
     <ClInclude Include="character_player.h" />
     <ClInclude Include="character_vehicle.h" />
     <ClInclude Include="configholder.h" />
